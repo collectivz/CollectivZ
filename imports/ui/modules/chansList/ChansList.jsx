@@ -3,45 +3,36 @@ import ReactDOM from 'react-dom';
 import { Meteor } from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
 
-import { Channels } from '../../api/channels.js';
-import Channel from '../channel/Channel.jsx';
-import './Channels.css';
+import { Channels } from '../../../api/channels.js';
 
-class ChannelsList extends Component {
-  renderChannels() {
-    return this.props.channels.map((channel) => (
-      <Channel key={channel._id} channel={channel} />
-    ));
-  }
+import '../topNav/TopNav.jsx';
+import ChanItem from '../chanItem/ChanItem.jsx';
+
+import './ChanList.css';
+
+class ChansList extends Component {
 
   render() {
     return (
-      <div>
-      <div className="view-container">
-        <div className="top-nav">
-          <div className="title">
-            <h2>Chats</h2>
-          </div>
-        </div>
-      </div>
       <div className="view-container">
         <div className="page-wrapper">
           <div className="scroll-content has-top-nav has-tabs-nav">
             <div className="disable-user-behavior">
               <div className="list">
-                {this.renderChannels()}
+                {this.props.channels.map(function(channel) {
+                   return <ChanItem key={channel._id} channel={channel} />;
+                })}
               </div>
             </div>
           </div>
         </div>
         </div>
-      </div>
     );
   }
 
 }
 
-ChannelsList.propTypes = {
+ChansList.propTypes = {
   channels: PropTypes.array.isRequired,
 }
 
@@ -52,4 +43,4 @@ export default createContainer(() => {
   return {
     channels: Channels.find({}).fetch(),
   };
-}, ChannelsList);
+}, ChansList);

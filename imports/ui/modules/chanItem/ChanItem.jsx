@@ -2,8 +2,11 @@ import React, { Component, PropTypes } from 'react';
 import { Meteor } from 'meteor/meteor';
 import { Link } from 'react-router';
 
-// Task component - represents a single todo item
-export default class Channel extends Component {
+// import { Chans } from '../../api/channels.js';
+// import Channel from '../channel/Channel.jsx';
+import './ChanItem.css';
+
+export default class ChanItem extends Component {
   constructUrl(id) {
     return "/chat/" + id;
   }
@@ -23,6 +26,6 @@ export default class Channel extends Component {
   }
 }
 
-Channel.propTypes = {
+ChanItem.propTypes = {
   channel: PropTypes.object.isRequired,
 };

@@ -124,23 +124,6 @@ body {
   top: 98px;
 }
 
-.disable-user-behavior {
-  /*-webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  -webkit-tap-highlight-color: transparent;
-  -webkit-tap-highlight-color: transparent;
-  -webkit-touch-callout: none;
-  -webkit-text-size-adjust: none;
-  -moz-text-size-adjust: none;
-  text-size-adjust: none;
-  -webkit-transform-origin: left top;
-  transform-origin: left top;
-  -webkit-user-drag: none;
-  -ms-touch-action: none;
-  -ms-content-zooming: none;*/
-}
 
 .top-nav {
   display: -webkit-box;
