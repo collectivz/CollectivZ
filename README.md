@@ -7,11 +7,27 @@ meteor add react-meteor-data
 ## architecture
 ### proposition
 
-Deux collections distinctes:
+```
+user = {
+  _id,
+  suscribedChannels: [String id],     // moins de channels par utilisateur que
+                                      // d'utilisateurs par channel => plus
+                                      // faible complexité pour la recherche
+                                      // et l'écriture ?
+  subscribedGuildes: [String id],     // idem.
+  connections: Object : {
+    membersCount: Number,   //optional
+    missionsCount: Number,  //optional  
+    pollsCount: Number,     //optional
+    guildesCount: Number,   //optional
+    challengeCount: Number, //optional
+    walletCount: Number,    //optional
+  }  
+}
 
 channels = {
   _id: String,
-  type: null || 'guilde' || 'mission',
+  type: Number depth || 'guilde' || 'user',
   sourceId: null || String,
   sourcePreview: null || Object: {
     author: String,
@@ -32,5 +48,8 @@ channels = {
 
 messages = {
   _id: String,
-  type: null || 'sondage'
+  type: null || 'sondage',
+  channelId: String,
+
 }
+```
