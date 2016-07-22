@@ -37,10 +37,10 @@ ChansList.propTypes = {
 }
 
 export default createContainer(() => {
-  Meteor.subscribe('channels');
+  // Meteor.subscribe('users');
 
-  console.log(Channels.find({}).fetch());
+  console.log(Meteor.users.find({}).fetch());
   return {
-    channels: Channels.find({}).fetch(),
+    channels: Meteor.users.find({}).fetch(),
   };
 }, ChansList);

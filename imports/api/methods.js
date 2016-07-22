@@ -95,4 +95,4 @@ Meteor.methods({
 //
 //     Chans.remove({ _id: chanId });
 //   }
-// });
+});
