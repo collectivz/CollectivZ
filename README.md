@@ -25,15 +25,11 @@ user = {
   }  
 }
 
-channels = {
+chans = {
   _id: String,
-  type: Number depth || 'guilde' || 'user',
+  type: Number depth || 'guilde' || 'user' || 'chan',
   sourceId: null || String,
-  sourcePreview: null || Object: {
-    author: String,
-    content: String,
-    avatarURI: String,
-  }
+  author: String,
   privilegedMembers: [String],
   adhesionRequest: [String],
   connections: Object : {
@@ -46,10 +42,13 @@ channels = {
   }
 }
 
-messages = {
+msgs = {
   _id: String,
+  text: String,
   type: null || 'sondage',
-  channelId: String,
+  chanId: String,
+  timestamp: Date(),
+  userId: String,
 
 }
 ```
