@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
 
-import './App.css';
+import './AppNav.css';
 
-export default class App extends Component {
+export default class AppNav extends Component {
 
   render() {
     return (
       <div className="view-container">
         <div className="tabs-nav">
-          <Link activeClassName="active" className="tab-item" to="/channels">
+          <Link activeClassName="active" className="tab-item" to="/chans">
             <i className="fa fa-commenting" aria-hidden="true"></i>
             <span className="tab-title">CHANNELS</span>
           </Link>
