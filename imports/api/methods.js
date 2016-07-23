@@ -61,7 +61,6 @@ Meteor.methods({
       membersCount: Number,   //optional
       missionsCount: Number,  //optional
       pollsCount: Number,     //optional
-      guildesCount: Number,   //optional
       challengeCount: Number, //optional
       walletCount: Number    //optional
     };
@@ -71,6 +70,42 @@ Meteor.methods({
 
     Chans.insert(chan);                                              // insert in the Db
   },
+
+  newGuild(guild) {
+    if (!this.userId) {                                   // log check
+      throw new Meteor.Error('not-logged-in',
+        'Must be logged in to create a chat.');
+    }
+
+    check(guild, {
+      name: String,
+      interest: [String],
+      gradeAvailable: [String],
+    });
+
+    if (Guilds.findOne({name: guild.name}))
+    {
+      throw new Meteor.Error('already exist',
+        'There is already a guild with this name.');
+    }
+
+    guild.depth = 0;
+    guild.author = this.userId;
+    guild.xp = 0;
+    guild.level = 0;
+    guild.connections = {
+      membersCount: Number,   //optional
+      missionsCount: Number,  //optional
+      pollsCount: Number,     //optional
+      challengeCount: Number, //optional
+      walletCount: Number    //optional
+    };
+    guild.privilegedMembers = [];
+    guild.privilegedMembers.push(this.userId);
+    guild.adhesionRequest = [];
+
+    Guilds.insert(guild);
+  }
 
 //   removeChan(chanId) {
 //     if (!this.userId) {

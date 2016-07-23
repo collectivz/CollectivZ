@@ -27,7 +27,7 @@ user = {
 
 chans = {
   _id: String,
-  type: Number depth || 'guilde' || 'user' || 'chan',
+  type: Number depth || 'user' || 'chan',
   sourceId: null || String,
   author: String,
   privilegedMembers: [String],
@@ -36,7 +36,6 @@ chans = {
     membersCount: Number,   //optional
     missionsCount: Number,  //optional  
     pollsCount: Number,     //optional
-    guildesCount: Number,   //optional
     challengeCount: Number, //optional
     walletCount: Number,    //optional
   }
@@ -50,5 +49,26 @@ msgs = {
   timestamp: Date(),
   userId: String,
 
+}
+
+guilds = {
+  _id: String,
+  name: String,
+  depth: Number,
+  author: String,
+  xp: Number,
+  level: Number,
+  interest: [String],
+  privilegedMembers: [String],
+  gradeAvailable: [String],
+  adhesionRequest: [String],
+  connections: Object : {
+    membersCount: Number,   //optional
+    missionsCount: Number,  //optional  
+    pollsCount: Number,     //optional
+    challengeCount: Number, //optional
+    walletCount: Number,    //optional
+    chanCount: Number,
+  }
 }
 ```
