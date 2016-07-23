@@ -1,7 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { check } from 'meteor/check';
 import { underscore } from 'meteor/underscore';
-import { Chans, Msgs } from './collections';
+import { Chans, Msgs, Guilds } from './collections';
 
 Meteor.methods({
   newMessage(message) {                                   // add a new message in a chan
