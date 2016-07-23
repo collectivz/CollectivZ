@@ -28,10 +28,12 @@ user = {
 
 chans = {
   _id: String,
+  title: String,
   type: Number depth || 'user' || 'chan',
   sourceId: null || String,
   author: String,
-  privilegedMembers: [String],
+  depth: Number                      //indique a quel niveau de profondeur se
+  privilegedMembers: [String],       //situe le chan
   adhesionRequest: [String],
   connections: Object : {
     membersCount: Number,   //optional
@@ -56,7 +58,7 @@ msgs = {
 guilds = {
   _id: String,
   name: String,
-  depth: Number,
+  depth: Number,   //indique son niveau de profondeur de chan imbriqué
   author: String,
   xp: Number,
   level: Number,

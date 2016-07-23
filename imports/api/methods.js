@@ -5,8 +5,8 @@ import { Chans, Msgs, Guilds } from './collections';
 
 Meteor.methods({
   newMessage(message) {                                   // add a new message in a chan
-    if (!this.userId) {
-      throw new Meteor.Error('not-logged-in',
+    if (!this.userId) {                                   // var message contain text, Id
+      throw new Meteor.Error('not-logged-in',             // from chan and a type
         'Must be logged in to send message.');
     }
 
@@ -40,8 +40,8 @@ Meteor.methods({
       throw new Meteor.Error('not-logged-in',
         'Must be logged in to create a chat.');
     }
-
-    check(fatherChanId, String);
+                                                          // var chan contain his depth,
+    check(fatherChanId, String);                          // and a title
 
     if (fatherChanId) {
       if (chan.depth > 1)
@@ -89,9 +89,9 @@ Meteor.methods({
         'Must be logged in to create a guild.');
     }
 
-    check(guild, {
-      name: String,
-      interest: [String],
+    check(guild, {                                        // the guild var contain a name
+      name: String,                                       // an array of interest
+      interest: [String],                                 // and an array of grade available 
       gradeAvailable: [String],
     });
 
