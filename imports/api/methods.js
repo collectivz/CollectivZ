@@ -44,7 +44,11 @@ Meteor.methods({
     check(fatherChanId, String);
 
     if (fatherChanId) {
-      const fatherChan = Chans.findOne(fatherChanId);
+      if (chan.depth > 1)
+        const fatherChan = Chans.findOne(fatherChanId);
+      else {
+        const fatherChan = Guilds.findOne(fatherChanId);
+      }
       if (!_.contains(fatherChan.privilegedMembers, this.userId)) { // check rights
         throw new Meteor.Error('not-allowed-to',
         'Must have the right to do so.');
@@ -62,19 +66,27 @@ Meteor.methods({
       missionsCount: Number,  //optional
       pollsCount: Number,     //optional
       challengeCount: Number, //optional
-      walletCount: Number    //optional
+      walletCount: Number,    //optional
+      chanCount: Number
     };
     chan.privilegedMembers = [];
     chan.privilegedMembers.push(this.userId);
     chan.adhesionRequest = [];
 
     Chans.insert(chan);                                              // insert in the Db
+    fatherChan.connections.chanCount += 1;
+    if (chan.depth > 1)
+      Chans.update(fatherChan);
+    else {
+      Guilds.update(fatherChan);
+    }
+
   },
 
   newGuild(guild) {
     if (!this.userId) {                                   // log check
       throw new Meteor.Error('not-logged-in',
-        'Must be logged in to create a chat.');
+        'Must be logged in to create a guild.');
     }
 
     check(guild, {
@@ -98,13 +110,72 @@ Meteor.methods({
       missionsCount: Number,  //optional
       pollsCount: Number,     //optional
       challengeCount: Number, //optional
-      walletCount: Number    //optional
+      walletCount: Number,    //optional
+      chatCount: Number
     };
     guild.privilegedMembers = [];
     guild.privilegedMembers.push(this.userId);
     guild.adhesionRequest = [];
 
     Guilds.insert(guild);
+  },
+
+  joinGuild(guildId) {
+    if (!this.userId) {                                   // log check
+      throw new Meteor.Error('not-logged-in',
+        'Must be logged in to join a guild.');
+    }
+
+    check(guildId, String);
+    const guild = Guilds.findOne(guildId)
+    if (!guild)
+    {
+      throw new Meteor.Error('does not exist',
+        'There is no guild corresponding');
+    }
+
+    const user = Meteor.users.findOne(this.userId);
+    if (user) {
+      user.subscribedGuildes.push(guildId);
+      user.connections.guildesCount += 1;
+      Meteor.users.update(user);
+    }
+    else {
+      throw new Meteor.Error('user-not-found',
+        'User not found.');
+    }
+
+    guild.connections.membersCount += 1;
+    Guilds.update(guild);
+  },
+
+  joinChan(chanId) {
+    if (!this.userId) {                                   // log check
+      throw new Meteor.Error('not-logged-in',
+        'Must be logged in to join a chan.');
+    }
+
+    check(chanId, String);
+    const chan = Chans.findOne(chanId)
+    if (!chan)
+    {
+      throw new Meteor.Error('does not exist',
+        'There is no chan corresponding');
+    }
+
+    const user = Meteor.users.findOne(this.userId);
+    if (user) {
+      user.subscribedChannels.push(chanId);
+      user.connections.chanCount += 1;
+      Meteor.users.update(user);
+    }
+    else {
+      throw new Meteor.Error('user-not-found',
+        'User not found.');
+    }
+
+    chan.connections.membersCount += 1;
+    Chans.update(chan);
   }
 
 //   removeChan(chanId) {

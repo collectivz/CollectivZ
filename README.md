@@ -22,6 +22,7 @@ user = {
     guildesCount: Number,   //optional
     challengeCount: Number, //optional
     walletCount: Number,    //optional
+    chanCount: Number,
   }  
 }
 
@@ -38,6 +39,7 @@ chans = {
     pollsCount: Number,     //optional
     challengeCount: Number, //optional
     walletCount: Number,    //optional
+    chanCount: Number
   }
 }
 
