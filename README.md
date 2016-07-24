@@ -29,7 +29,8 @@ user = {
 chans = {
   _id: String,
   title: String,
-  type: Number depth || 'user' || 'chan',
+  type: String,
+  objectId: null || String,
   sourceId: null || String,
   author: String,
   depth: Number                      //indique a quel niveau de profondeur se
@@ -62,17 +63,24 @@ guilds = {
   author: String,
   xp: Number,
   level: Number,
+  wallet: Number,
   interest: [String],
   privilegedMembers: [String],
   gradeAvailable: [String],
   adhesionRequest: [String],
+  chanConnected: String,
   connections: Object : {
     membersCount: Number,   //optional
-    missionsCount: Number,  //optional  
-    pollsCount: Number,     //optional
-    challengeCount: Number, //optional
-    walletCount: Number,    //optional
-    chanCount: Number,
+  }
+}
+
+polls = {
+  choice : [Object : {
+    proposition: String,
+    voteRecevedFrom: [String];
+    }],
+  finished: Boolean,
+
   }
 }
 ```

@@ -19,7 +19,7 @@ Meteor.methods({
     message.timestamp = new Date();                       // add a timestamp and a author to him
     message.userId = this.userId;
     console.log(message);
-    Msgs.insert(message);                                 // push into the Db
+    return Msgs.insert(message);                                 // push into the Db
     },
 
   editMessage(newText, messageId) {
@@ -63,9 +63,9 @@ Meteor.methods({
       'Every chan should have a father');
     }
 
-
     chan.author = this.userId;                                       // add author source, connections, rights
     chan.sourceId = fatherChanId;
+    chan.wallet = 0,
     chan.connections = {
       memberCount: 0,
       pollCount: 0,
@@ -77,7 +77,6 @@ Meteor.methods({
     chan.privilegedMembers.push(this.userId);
     chan.adhesionRequest = [];
 
-    Chans.insert(chan);                                              // insert in the Db
     fatherChan.connections.chanCount += 1;
     if (chan.depth > 1) {
       Chans.update(chanId, {
@@ -89,7 +88,7 @@ Meteor.methods({
         $inc: {'connections.chanCount' : 1}
       });
     }
-
+    return Chans.insert(chan);                                              // insert in the Db
   },
 
   newGuild(guild) {
@@ -111,21 +110,26 @@ Meteor.methods({
     }
 
     guild.depth = 0;
+    guild.wallet = 0;
     guild.author = this.userId;
     guild.xp = 0;
     guild.level = 0;
     guild.connections = {
       memberCount: 0,
-      pollCount: 0,
-      challengeCount: 0,
-      walletCount: 0,
-      chanCount: 0
     };
     guild.privilegedMembers = [];
     guild.privilegedMembers.push(this.userId);
     guild.adhesionRequest = [];
 
-    Guilds.insert(guild);
+    const chan = {
+      title: guild.name,
+      depth: 1,
+    }
+    const fatherChanId = Guilds.insert(guild);
+    const chanId = Meteor.call("newChan", chan, fatherChanId);
+    Guilds.update(fatherChanId, {
+      $set: (chanConnected: chanId)
+    });
   },
 
   joinGuild(guildId) {
@@ -194,29 +198,73 @@ Meteor.methods({
     Chans.update(chanId, {
       $inc: {'connections.memberCount' : 1}
     });
-  }
+  },
 
-//   removeChan(chanId) {
-//     if (!this.userId) {
-//       throw new Meteor.Error('not-logged-in',
-//         'Must be logged to remove a chat.');
-//     }
-//
-//     check(chanId, String);
-//
-//     const chan = Chans.findOne(chanId);
-//
-//     if (!chan) {
-//       throw new Meteor.Error('chan-not-exist',
-//         'Chan does not exist');
-//     }
-//     if (!_.contains(chan.privilegedMembers, this.userId)) {
-//       throw new Meteor.Error('not-allowed-to',
-//       'Must have the right to do so.');
-//     }
-//
-//     Messages.remove({ chanId: chanId });
-//
-//     Chans.remove({ _id: chanId });
-//   }
+  newPoll(message, choice) {
+
+    check(message, {                                      // verify message if he
+      text: String,                                       // does contain a text, a chan and a type
+      chanId: String,
+      type: Match.Maybe(String)
+    });
+
+
+    // this part check the logged, the info entered (chanId and type)
+    // and the rights
+    if (!this.userId) {
+      throw new Meteor.Error('not-logged-in',
+      'Must be logged in to create a poll.');
+    }
+    if (type !=== "poll") {
+      throw new Meteor.Error('not-good-type',
+        'Message is wrong typed.');
+    }
+
+    const fatherChan = Chans.findOne(fatherChanId);
+    if (fatherChan) {
+      if (!_.contains(fatherChan.privilegedMembers, this.userId)) { // check rights
+        throw new Meteor.Error('not-allowed-to',
+        'Must have the right to do so.');
+      }
+    } else {
+      throw new Meteor.Error('no-chan-defined',
+      'The message don\'t belong to any chan');
+    }
+
+    const newPoll = {};
+    newPoll.choice : [],
+    newPoll.finished: 0,
+
+    // there is two type of poll, one where the user enter is own prop
+    // and the other at "default" where there is for and against prop
+    // this build the array where the count of vote is comptabilized with the
+    // corresponding prop
+    if (choice !=== null) {
+      choice.forEach((proposition) => {
+        const prop = {
+          proposition: proposition,
+          voteRecevedFrom: [],
+        };
+        newPoll.choice.push(prop);
+      })
+    } else {
+      const prop1 = {
+        proposition: "for",
+        voteRecevedFrom: [],
+      }
+      const prop2 = {
+        proposition: "against",
+        voteRecevedFrom: [],
+      }
+      newPoll.choice.push(prop1);
+      newPoll.choice.push(prop2);
+    }
+
+    const messageFather = Meteor.call("newMessage", message);
+    newPoll.messageFather = messageFather;
+    Polls.insert(newPoll);
+    Chans.update(fatherChanId, {
+      $inc: ('connections.pollsCount': 1)
+    });
+  }
 });
