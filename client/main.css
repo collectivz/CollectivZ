@@ -56,6 +56,7 @@ body {
   -webkit-backface-visibility: hidden;
   -webkit-user-drag: none;
   -ms-content-zooming: none;
+  background: #EDF2F4;
 }
 
 /* Box Model */

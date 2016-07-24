@@ -11,10 +11,11 @@ render() {
     return (
       <div>
         {this.props.user ?
-          <div>
-          <AppNav user={this.props.user}/>
-          {this.props.children ? this.props.children : <ChanContainer/>}
-          </div> : <Login/> }
+            <div>
+              <AppNav user={this.props.user}/>
+              {this.props.children ? this.props.children : <ChanContainer/>}
+            </div>
+            : <Login/> }
       </div>
     )
   }
