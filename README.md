@@ -22,23 +22,26 @@ user = {
     guildesCount: Number,   //optional
     challengeCount: Number, //optional
     walletCount: Number,    //optional
+    chanCount: Number,
   }  
 }
 
 chans = {
   _id: String,
-  type: Number depth || 'guilde' || 'user' || 'chan',
+  title: String,
+  type: Number depth || 'user' || 'chan',
   sourceId: null || String,
   author: String,
-  privilegedMembers: [String],
+  depth: Number                      //indique a quel niveau de profondeur se
+  privilegedMembers: [String],       //situe le chan
   adhesionRequest: [String],
   connections: Object : {
     membersCount: Number,   //optional
     missionsCount: Number,  //optional  
     pollsCount: Number,     //optional
-    guildesCount: Number,   //optional
     challengeCount: Number, //optional
     walletCount: Number,    //optional
+    chanCount: Number
   }
 }
 
@@ -50,5 +53,26 @@ msgs = {
   timestamp: Date(),
   userId: String,
 
+}
+
+guilds = {
+  _id: String,
+  name: String,
+  depth: Number,   //indique son niveau de profondeur de chan imbriqué
+  author: String,
+  xp: Number,
+  level: Number,
+  interest: [String],
+  privilegedMembers: [String],
+  gradeAvailable: [String],
+  adhesionRequest: [String],
+  connections: Object : {
+    membersCount: Number,   //optional
+    missionsCount: Number,  //optional  
+    pollsCount: Number,     //optional
+    challengeCount: Number, //optional
+    walletCount: Number,    //optional
+    chanCount: Number,
+  }
 }
 ```
