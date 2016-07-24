@@ -11,8 +11,13 @@ export default class MsgInput extends Component {
   handleSubmit(event) {
     event.preventDefault();
     const msg = ReactDOM.findDOMNode(this.refs.textInput).value.trim();
-
     console.log(msg);
+    let message = {
+      text: msg,
+      chanId: this.props.chanId,
+    }
+    Meteor.call('newMessage', message);
+
     ReactDOM.findDOMNode(this.refs.textInput).value = '';
   }
 

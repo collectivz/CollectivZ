@@ -13,12 +13,12 @@ Meteor.methods({
     check(message, {                                      // verify message if he
       text: String,                                       // does contain a text, a chan and a type
       chanId: String,
-      type: null || 'sondage'
+      type: Match.Maybe(String)
     });
 
     message.timestamp = new Date();                       // add a timestamp and a author to him
     message.userId = this.userId;
-
+    console.log(message);
     Msgs.insert(message);                                 // push into the Db
     },
 

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 
 import './TopNav.css';
 
@@ -16,4 +16,8 @@ export default class TopNav extends Component {
     );
   }
 
+}
+
+TopNav.propTypes = {
+  text: PropTypes.string.isRequired,
 }

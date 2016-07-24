@@ -11,15 +11,17 @@ import ChatPage from '../pages/ChatPage.jsx';
 export default createContainer(({ params }) => {
   // Meteor.subscribe('users');
   const id = params.chatId;
-  let chanArr = Chans.find({_id: id}).fetch();
-  let chan = '...';
-  if (chanArr.length) {
-    chan = chanArr[0].test;
+  let chan = Chans.findOne(id);
+  if (!chan) {
+    chan = {
+      test: 'no chan',
+      _id: 'no chan',
+    };
   }
-  console.log(chanArr[0]);
 
   return {
     msgs: Msgs.find({chanId: id}).fetch(),
-    chan: chan,
+    chanName: chan.test,
+    chanId: chan._id
   };
 }, ChatPage);

@@ -16,7 +16,7 @@ export default class ChatPage extends Component {
   render() {
     return (
       <div>
-        <TopNav text={this.props.chan}/>
+        <TopNav text={this.props.chanName}/>
         <div className="pane">
           <div className="scroll-content has-chanbar has-tabs has-footer chat ">
             <div className="scroll">
@@ -25,7 +25,7 @@ export default class ChatPage extends Component {
                    return <MsgItem key={msg._id} msg={msg} />;
                 })}
               </div>
-              <MsgInput/>
+              <MsgInput chanId={this.props.chanId}/>
             </div>
           </div>
         </div>
@@ -36,5 +36,6 @@ export default class ChatPage extends Component {
 
 ChatPage.propTypes = {
   msgs: PropTypes.array.isRequired,
-  chan: PropTypes.string.isRequired,
+  chanName: PropTypes.string.isRequired,
+  chanId: PropTypes.string.isRequired,
 }

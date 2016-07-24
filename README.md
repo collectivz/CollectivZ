@@ -1,7 +1,7 @@
 ```
 meteor npm install --save react react-dom react-router
 meteor npm install --save react-addons-pure-render-mixin
-meteor add react-meteor-data
+meteor add react-meteor-data accounts-password
 ```
 
 ## architecture
