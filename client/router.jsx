@@ -23,8 +23,8 @@ Meteor.startup(() => {
         <Route path="contacts" component={Contacts}/>
         <Route path="guildes" component={Guildes}/>
         <Route path="profil" component={Profile}/>
+        <Route path='*' component={NotFound} />
       </Route>
-      <Route path='*' component={NotFound} />
     </Router>
   ), document.getElementById('render-target'));
 });

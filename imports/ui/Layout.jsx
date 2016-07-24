@@ -12,7 +12,7 @@ render() {
       <div>
         {this.props.user ?
           <div>
-          <AppNav/>
+          <AppNav user={this.props.user}/>
           {this.props.children ? this.props.children : <ChanContainer/>}
           </div> : <Login/> }
       </div>
@@ -21,6 +21,7 @@ render() {
 }
 
 export default createContainer(() => {
+
   return {
     user: Meteor.user(),
   };

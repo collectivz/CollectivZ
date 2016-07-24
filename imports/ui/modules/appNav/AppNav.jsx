@@ -5,6 +5,10 @@ import './AppNav.css';
 
 export default class AppNav extends Component {
 
+  isAdmin() {
+
+  }
+
   render() {
     return (
       <div className="view-container">
@@ -13,14 +17,15 @@ export default class AppNav extends Component {
             <i className="fa fa-commenting" aria-hidden="true"></i>
             <span className="tab-title">CHANNELS</span>
           </Link>
-          <Link activeClassName="active" className="tab-item" to="/contacts">
-            <i className="fa fa-commenting" aria-hidden="true"></i>
-            <span className="tab-title">CONTACTS</span>
-          </Link>
           <Link activeClassName="active" className="tab-item" to="/guildes">
             <i className="fa fa-commenting" aria-hidden="true"></i>
             <span className="tab-title">GUILDES</span>
           </Link>
+          {this.props.user.profile.admin ?
+          <Link activeClassName="active" className="tab-item" to="/contacts">
+            <i className="fa fa-commenting" aria-hidden="true"></i>
+            <span className="tab-title">Admin</span>
+          </Link> : '' }
           <Link activeClassName="active" className="tab-item" to="/profil">
             <i className="fa fa-commenting" aria-hidden="true"></i>
             <span className="tab-title">PROFIL</span>
