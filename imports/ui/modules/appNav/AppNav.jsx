@@ -26,7 +26,6 @@ export default class AppNav extends Component {
             <span className="tab-title">PROFIL</span>
           </Link>
         </div>
-        {this.props.children}
       </div>
     );
   }

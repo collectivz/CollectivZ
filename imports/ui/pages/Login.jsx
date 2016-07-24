@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { Link } from 'react-router';
 import { Meteor } from 'meteor/meteor';
+import { browserHistory } from 'react-router'
+// browserHistory.push('/some/path')
 
 export default React.createClass({
   //
@@ -44,10 +46,10 @@ export default React.createClass({
     if (!pwd || !username) {
       return;
     }
-    Meteor.loginWithPassword(username, pwd, function(){
-    });
+    Meteor.loginWithPassword(username, pwd);
 
     this.setState({username: '', text: ''});
+    this.history.pushState(null, '/chans');
 
   },
 

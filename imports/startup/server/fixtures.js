@@ -10,7 +10,6 @@ Meteor.startup(function() {
 
 
 
-  Meteor.startup(function() {
     if (Meteor.users.find().count() === 0) {
       Accounts.createUser({
         email : 'mastermind@mastermind.com',
@@ -88,10 +87,9 @@ Meteor.startup(function() {
         }
       });
     }
-  });
 
   if (Chans.find().count() === 0) {
-    const user = Meteor.users.findOne({'username': 'tommy'});
+    const user = Meteor.users.findOne({'username': 'charles'});
     const chanId = Chans.insert({
       test: 'Get it to work !'
     });
@@ -101,7 +99,7 @@ Meteor.startup(function() {
     const msgId = Msgs.insert({
       chanId: chanId,
       text: 'testing new msg',
-      author: user
+      userId: user._id
     });
 
   }

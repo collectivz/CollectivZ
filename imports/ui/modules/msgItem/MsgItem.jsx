@@ -9,10 +9,21 @@ console.log(Meteor.userId());
 
 export default class MsgItem extends Component {
 
+  isMine () {
+
+    if (Meteor.userId() === this.props.msg.userId) {
+      console.log(Meteor.userId() === this.props.msg._id);
+      console.log('meteor:  ' + Meteor.userId());
+      console.log(this.props.msg.userId);      return 'message message-mine';
+    } else {
+      return 'message message-other';
+    }
+  }
+
   render() {
     return (
       <div className="message-wrapper">
-        <div className={Meteor.userId() ? 'message message-mine' : 'message message-other'}>
+        <div className={this.isMine()}>
           <div className="message-header">
             <span className="message-user">Zorro</span>
             <span className="message-timestamp">hier</span>
