@@ -4,25 +4,46 @@ import { createContainer } from 'meteor/react-meteor-data';
 import AppNav from './modules/appNav/AppNav.jsx';
 import Login from './pages/Login.jsx';
 import ChanContainer from './containers/ChanContainer.jsx';
+import TimerMixin from 'react-timer-mixin';
+import Loader from './modules/loader/Loader.jsx'
 
-export default class Layout extends Component {
+var Layout = React.createClass({
+  mixins: [TimerMixin],
+  getInitialState () {
+    return {loading: false};
+  },
 
-render() {
-    return (
-      <div>
-        {this.props.user ?
-            <div>
-              <AppNav user={this.props.user}/>
-              {this.props.children ? this.props.children : <ChanContainer/>}
-            </div>
-            : <Login/> }
-      </div>
-    )
-  }
-}
+  temper(username, pwd) {
+    let that = this;
+    Meteor.loginWithPassword(username, pwd, function(err) {
+      if (err) {
+        console.log(err);
+      } else {
+        that.setState({loading: true});
+        that.setState({username: '', text: ''});
+        that.setTimeout(function() {
+          that.setState({loading: false});
+        }, 3000);
+      }
+    });
+  },
+  render() {
+      return (
+        <div>
+          {this.state.loading ?
+            <Loader/>
+            :( this.props.user ?
+              <div>
+                <AppNav user={this.props.user}/>
+                {this.props.children ? this.props.children : <ChanContainer/>}
+              </div>
+            : <Login temper={this.temper}/> )}
+        </div>
+      )
+    }
+});
 
 export default createContainer(() => {
-
   return {
     user: Meteor.user(),
   };
