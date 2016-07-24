@@ -44,8 +44,9 @@ Meteor.methods({
     check(fatherChanId, String);                          // and a title
 
     if (fatherChanId) {
-      if (chan.depth > 1)
+      if (chan.depth > 1) {
         const fatherChan = Chans.findOne(fatherChanId);
+      }
       else {
         const fatherChan = Guilds.findOne(fatherChanId);
       }
@@ -91,7 +92,7 @@ Meteor.methods({
 
     check(guild, {                                        // the guild var contain a name
       name: String,                                       // an array of interest
-      interest: [String],                                 // and an array of grade available 
+      interest: [String],                                 // and an array of grade available
       gradeAvailable: [String],
     });
 

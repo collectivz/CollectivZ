@@ -91,6 +91,7 @@ Meteor.startup(function() {
   });
 
   if (Chans.find().count() === 0) {
+    const user = Meteor.users.findOne({'username': 'tommy'});
     const chanId = Chans.insert({
       test: 'Get it to work !'
     });
@@ -99,7 +100,8 @@ Meteor.startup(function() {
     });
     const msgId = Msgs.insert({
       chanId: chanId,
-      text: 'testing'
+      text: 'testing new msg',
+      author: user
     });
 
   }
