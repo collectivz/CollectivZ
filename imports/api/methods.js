@@ -42,6 +42,10 @@ Meteor.methods({
     }
                                                           // var chan contain his depth,
     check(fatherChanId, String);                          // and a title
+    check(chan, {
+      title: String,
+      depth: Number,
+    });
 
     if (fatherChanId) {
       if (chan.depth > 1) {
@@ -63,12 +67,11 @@ Meteor.methods({
     chan.author = this.userId;                                       // add author source, connections, rights
     chan.sourceId = fatherChanId;
     chan.connections = {
-      membersCount: Number,   //optional
-      missionsCount: Number,  //optional
-      pollsCount: Number,     //optional
-      challengeCount: Number, //optional
-      walletCount: Number,    //optional
-      chanCount: Number
+      memberCount: 0,
+      pollCount: 0,
+      challengeCount: 0,
+      walletCount: 0,
+      chanCount: 0
     };
     chan.privilegedMembers = [];
     chan.privilegedMembers.push(this.userId);
@@ -76,10 +79,15 @@ Meteor.methods({
 
     Chans.insert(chan);                                              // insert in the Db
     fatherChan.connections.chanCount += 1;
-    if (chan.depth > 1)
-      Chans.update(fatherChan);
+    if (chan.depth > 1) {
+      Chans.update(chanId, {
+        $inc: {'connections.chanCount' : 1}
+      });
+    }
     else {
-      Guilds.update(fatherChan);
+      Guilds.update(chanId, {
+        $inc: {'connections.chanCount' : 1}
+      });
     }
 
   },
@@ -107,12 +115,11 @@ Meteor.methods({
     guild.xp = 0;
     guild.level = 0;
     guild.connections = {
-      membersCount: Number,   //optional
-      missionsCount: Number,  //optional
-      pollsCount: Number,     //optional
-      challengeCount: Number, //optional
-      walletCount: Number,    //optional
-      chatCount: Number
+      memberCount: 0,
+      pollCount: 0,
+      challengeCount: 0,
+      walletCount: 0,
+      chanCount: 0
     };
     guild.privilegedMembers = [];
     guild.privilegedMembers.push(this.userId);
@@ -129,25 +136,30 @@ Meteor.methods({
 
     check(guildId, String);
     const guild = Guilds.findOne(guildId)
+    const user = Meteor.users.findOne(this.userId);
     if (!guild)
     {
       throw new Meteor.Error('does not exist',
         'There is no guild corresponding');
+    } else if (_.contains(user.subscribedGuildes, guildId)) {
+      throw new Meteor.Error('already joined',
+        'Youve already joined this guild');
     }
 
-    const user = Meteor.users.findOne(this.userId);
     if (user) {
-      user.subscribedGuildes.push(guildId);
-      user.connections.guildesCount += 1;
-      Meteor.users.update(user);
+      Meteor.users.update(this.userId,
+        { $push: { subscribedGuildes : guildId } },
+        { $inc: {'connections.guildesCount' : 1} }
+      );
     }
     else {
       throw new Meteor.Error('user-not-found',
         'User not found.');
     }
 
-    guild.connections.membersCount += 1;
-    Guilds.update(guild);
+    Guilds.update(guildId, {
+      $inc: {'connections.memberCount' : 1}
+    });
   },
 
   joinChan(chanId) {
@@ -162,21 +174,26 @@ Meteor.methods({
     {
       throw new Meteor.Error('does not exist',
         'There is no chan corresponding');
+    } else if (_.contains(user.subscribedChannels, chanId)) {
+        throw new Meteor.Error('already joined',
+          'Youve already joined this chan');
     }
 
     const user = Meteor.users.findOne(this.userId);
     if (user) {
-      user.subscribedChannels.push(chanId);
-      user.connections.chanCount += 1;
-      Meteor.users.update(user);
+      Meteor.users.update(this.userId,
+        { $push: { subscribedChannels : guildId } },
+        { $inc: {'connections.chansCount' : 1} }
+      );
     }
     else {
       throw new Meteor.Error('user-not-found',
         'User not found.');
     }
 
-    chan.connections.membersCount += 1;
-    Chans.update(chan);
+    Chans.update(chanId, {
+      $inc: {'connections.memberCount' : 1}
+    });
   }
 
 //   removeChan(chanId) {
