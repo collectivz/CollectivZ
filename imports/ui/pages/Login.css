@@ -1,0 +1,67 @@
+.login-wrapp {
+  background: #EDF2F4;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+#box {
+  width: 300px;
+  height: auto;
+  background: #333333;
+  border-radius: 5px;
+}
+
+#box .inner {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-weight: bold;
+}
+
+#box .inner  input {
+  background: none;
+  outline: none;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: thin solid #EDF2F4;
+  width: 100%;
+  font-size: 1em;
+  color: #EDF2F4;
+  padding: 1em;
+  text-align: center;
+}
+
+#box .inner  input:first-of-type {
+  padding-top: 0;
+}
+#box .inner  input:last-of-type {
+  border-bottom: none;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+#box .inner  input:focus {
+  border-left: 5px solid #ffee66;
+}
+#box .inner  input[type="submit"] {
+  color: #333;
+  margin: 3em auto 0 auto;
+  cursor: pointer;
+  background: #ffee66;
+  border: none;
+}
+
+#box .inner .avatar {
+  background-size: cover;
+  border: 2px solid #F8F8F8;
+  margin: 0 auto;
+  height: 5em;
+  width: 5em;
+  border-radius: 100%;
+  transform: translateY(-2.5em);
+}

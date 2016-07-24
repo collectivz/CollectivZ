@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { Link } from 'react-router';
 import { Meteor } from 'meteor/meteor';
-import { browserHistory } from 'react-router'
+import { browserHistory } from 'react-router';
 // browserHistory.push('/some/path')
+
+import './Login.css';
 
 export default React.createClass({
   //
@@ -49,27 +51,34 @@ export default React.createClass({
     Meteor.loginWithPassword(username, pwd);
 
     this.setState({username: '', text: ''});
-    this.history.pushState(null, '/chans');
+    // this.history.pushState(null, '/chans');
 
   },
 
   render () {
     return (
-      <form className="loginForm" onSubmit={this.handleSubmit}>
-        <input
-          type="text"
-          placeholder="Your name"
-          value={this.state.username}
-          onChange={this.handleUsernameChange}
-        />
-        <input
-          type="password"
-          placeholder="Say something..."
-          value={this.state.pwd}
-          onChange={this.handlePwdChange}
-        />
-        <input type="submit" value="Post" />
-      </form>
+      <div className="login-wrapp">
+        <form id="box" className="loginForm" onSubmit={this.handleSubmit}>
+          <div className="inner">
+            <img className="avatar" src="/img/zorro.jpg" />
+
+              <input
+                type="text"
+                placeholder="Username"
+                value={this.state.username}
+                onChange={this.handleUsernameChange}
+              />
+              <input
+                type="password"
+                placeholder="Password"
+                value={this.state.pwd}
+                onChange={this.handlePwdChange}
+              />
+            <input type="submit" value="Login" />
+          </div>
+
+        </form>
+      </div>
     );
   }
 
