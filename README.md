@@ -80,6 +80,7 @@ polls = {
     voteRecevedFrom: [String];
     }],
   finished: Boolean,
+  messageFather: String,
 
   }
 }
