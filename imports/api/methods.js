@@ -1,7 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { check } from 'meteor/check';
 import { underscore } from 'meteor/underscore';
-import { Chans, Msgs, Guilds } from './collections';
+import { Chans, Msgs, Guilds, Polls } from './collections';
 
 Meteor.methods({
   newMessage(message) {                                   // add a new message in a chan
@@ -215,7 +215,7 @@ Meteor.methods({
       throw new Meteor.Error('not-logged-in',
       'Must be logged in to create a poll.');
     }
-    if (type !=== "poll") {
+    else if (type !== "poll") {
       throw new Meteor.Error('not-good-type',
         'Message is wrong typed.');
     }
@@ -232,14 +232,14 @@ Meteor.methods({
     }
 
     const newPoll = {};
-    newPoll.choice : [],
-    newPoll.finished: 0,
+    newPoll.choice = [];
+    newPoll.finished = 0;
 
     // there is two type of poll, one where the user enter is own prop
     // and the other at "default" where there is for and against prop
     // this build the array where the count of vote is comptabilized with the
     // corresponding prop
-    if (choice !=== null) {
+    if (choice) {
       choice.forEach((proposition) => {
         const prop = {
           proposition: proposition,
