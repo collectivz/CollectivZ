@@ -1,9 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import { Meteor } from 'meteor/meteor';
-import { createContainer } from 'meteor/react-meteor-data';
-
-import { Channels } from '../../../api/channels.js';
 
 import '../topNav/TopNav.jsx';
 import ChanItem from '../chanItem/ChanItem.jsx';
@@ -26,7 +23,7 @@ class ChansList extends Component {
             </div>
           </div>
         </div>
-        </div>
+      </div>
     );
   }
 
@@ -35,12 +32,3 @@ class ChansList extends Component {
 ChansList.propTypes = {
   channels: PropTypes.array.isRequired,
 }
-
-export default createContainer(() => {
-  // Meteor.subscribe('users');
-
-  console.log(Meteor.users.find({}).fetch());
-  return {
-    channels: Meteor.users.find({}).fetch(),
-  };
-}, ChansList);

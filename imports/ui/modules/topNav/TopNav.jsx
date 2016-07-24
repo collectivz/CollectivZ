@@ -9,7 +9,7 @@ export default class TopNav extends Component {
       <div className="view-container">
         <div className="top-nav">
           <div className="title">
-            <h2>Chats</h2>
+            <h2>{this.props.text}</h2>
           </div>
         </div>
       </div>

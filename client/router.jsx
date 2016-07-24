@@ -4,8 +4,8 @@ import { render } from 'react-dom';
 
 import AppNav from '../imports/ui/modules/appNav/AppNav.jsx';
 
-import Chat from '../imports/ui/pages/Chat.jsx';
-import Chans from '../imports/ui/pages/Chans.jsx';
+import ChatPage from '../imports/ui/containers/ChatContainer.jsx';
+import ChanPage from '../imports/ui/containers/ChanContainer.jsx';
 import Contacts from '../imports/ui/pages/Contacts.jsx';
 import Guildes from '../imports/ui/pages/Guildes.jsx';
 import Profile from '../imports/ui/pages/Profile.jsx';
@@ -18,8 +18,8 @@ Meteor.startup(() => {
   render((
     <Router history={hashHistory}>
       <Route path="/" component={AppNav}>
-        <Route path="/chans" component={Chans}/>
-        <Route path="/chat/:chatId" component={Chat}/>
+        <Route path="/chans" component={ChanPage}/>
+        <Route path="/chat/:chatId" component={ChatPage}/>
         <Route path="/contacts" component={Contacts}/>
         <Route path="/guildes" component={Guildes}/>
         <Route path="/profil" component={Profile}/>
