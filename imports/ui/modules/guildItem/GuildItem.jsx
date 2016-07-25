@@ -14,9 +14,9 @@ export default class GuildItem extends Component {
   render() {
     return (
       <div className="item-avatar item-icon-right item item-complex item-right-editable">
-        <Link className="item-content" to={this.constructUrl(this.props.channel._id)}>
+        <Link className="item-content" to={this.constructUrl(this.props.guildes._id)}>
           <img src="/img/zorro.jpg" alt="" />
-          <h2>{this.props.guild.test}</h2>
+          <h2>{this.props.guilde.test}</h2>
           <p>Plus que 8 heures pour remplir ta <em>mission !</em></p>
           <span className="last-message-timestamp">Hier</span>
           <i className="fa fa-chevron-right fa-accessory"></i>
@@ -27,5 +27,5 @@ export default class GuildItem extends Component {
 }
 
 GuildItem.propTypes = {
-  channel: PropTypes.object.isRequired,
+  guildes: PropTypes.object.isRequired,
 };
