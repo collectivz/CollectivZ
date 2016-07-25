@@ -23,7 +23,7 @@ var Layout = React.createClass({
         that.setState({username: '', text: ''});
         that.setTimeout(function() {
           that.setState({loading: false});
-        }, 3000);
+        }, 2000);
       }
     });
   },
@@ -45,6 +45,6 @@ var Layout = React.createClass({
 
 export default createContainer(() => {
   return {
-    user: Meteor.user(),
+    user: Meteor.user() || {profile: {}},
   };
 }, Layout);

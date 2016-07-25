@@ -11,23 +11,27 @@ import { Chans, Msgs } from '../../api/collections.js';
 import MsgItem from '../modules/msgItem/MsgItem.jsx';
 import MsgInput from '../modules/msgInput/MsgInput.jsx';
 
-export default class ChatPage extends Component {
+class ChatPage extends React.Component {
   componentDidMount() {
-    const box = document.getElementById('scrollBox');
-    box.scrollTop += box.scrollHeight;
+    this.refs.scroll.scrollTop += this.refs.scroll.scrollHeight;
+    this.setState({
+      count: this.props.msgs.length,
+    })
   }
-
   componentDidUpdate() {
-    const box = document.getElementById('scrollBox');
-    box.scrollTop += box.scrollHeight;
+    if (this.props.msgs.length !== this.state.count) {
+      this.refs.scroll.scrollTop += this.refs.scroll.scrollHeight;
+      this.setState({
+        count: this.props.msgs.length,
+      })
+    }
   }
-
   render() {
     return (
       <div>
         <TopNav text={this.props.chanName}/>
         <div className="pane">
-          <div className="scroll-content has-chanbar has-tabs has-footer chat " id="scrollBox">
+          <div ref='scroll' className="scroll-content has-chanbar has-tabs has-footer chat ">
             <div className="scroll">
               <div className="message-list">
                 {this.props.msgs.map(function(msg) {
@@ -48,3 +52,5 @@ ChatPage.propTypes = {
   chanName: PropTypes.string.isRequired,
   chanId: PropTypes.string.isRequired,
 }
+
+export default ChatPage;
