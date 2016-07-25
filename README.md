@@ -71,17 +71,28 @@ guilds = {
   chanConnected: String,
   connections: Object : {
     membersCount: Number,   //optional
+    }
   }
-}
 
 polls = {
-  choice : [Object : {
-    proposition: String,
-    voteRecevedFrom: [String];
-    }],
   finished: Boolean,
-  messageFather: String,
-
+  messageFatherId: String,
+  chanId: String,
   }
+
+props = {
+  name: String,
+  voteRecevedFrom: [String],
+  pollId: String,
+  }
+
+args = {
+  text: String,
+  author: String,
+  voteRecevedFrom: [String],
+  timestamp: Date(),
+  propsId: String,
+}
+
 }
 ```

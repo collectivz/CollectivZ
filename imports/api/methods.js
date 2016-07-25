@@ -231,40 +231,88 @@ Meteor.methods({
       'The message don\'t belong to any chan');
     }
 
-    const newPoll = {};
-    newPoll.choice = [];
-    newPoll.finished = 0;
+    const messageFatherId = Meteor.call("newMessage", message);
+    const newPoll = {
+      messageFatherId: messageFatherId,
+      finished: 0,
+      chanId: message.chanId,
+    };
+    polldId = Polls.insert(newPoll);
 
     // there is two type of poll, one where the user enter is own prop
     // and the other at "default" where there is for and against prop
     // this build the array where the count of vote is comptabilized with the
     // corresponding prop
+
     if (choice) {
       choice.forEach((proposition) => {
-        const prop = {
-          proposition: proposition,
-          voteRecevedFrom: [],
-        };
-        newPoll.choice.push(prop);
+        Meteor.call("createProp", proposition, pollId);
       })
     } else {
-      const prop1 = {
-        proposition: "for",
-        voteRecevedFrom: [],
-      }
-      const prop2 = {
-        proposition: "against",
-        voteRecevedFrom: [],
-      }
-      newPoll.choice.push(prop1);
-      newPoll.choice.push(prop2);
+      Meteor.call("createProp", "for", pollId);
+      Meteor.call("createProp", "against", pollId);
     }
 
-    const messageFather = Meteor.call("newMessage", message);
-    newPoll.messageFather = messageFather;
-    Polls.insert(newPoll);
     Chans.update(fatherChanId, {
       $inc: ('connections.pollsCount': 1)
     });
+  },
+
+  voteForAPoll(pollId, propsId, chanId) {
+
+    check(pollId, String);
+    check(propsId, String);
+    check(chanId, String);
+
+    // this part check the logged, the info entered (chanId and type)
+    // and the rights
+    if (!this.userId) {
+      throw new Meteor.Error('not-logged-in',
+      'Must be logged in to create a poll.');
+    }
+
+    const poll = Polls.findOne(pollId);
+    if(!poll) {
+      throw new Meteor.Error('no-poll',
+      'The poll does not exist');
+    } else if (poll.finished == 1) {
+      throw new Meteor.Error('poll already finished',
+      'The poll is finished');
+    }
+
+    const fatherChan = Chans.findOne(chanId);
+    if (fatherChan) {
+      if (!_.contains(fatherChan.privilegedMembers, this.userId)) { // check rights
+        throw new Meteor.Error('not-allowed-to',
+        'Must have the right to do so.');
+      }
+    } else {
+      throw new Meteor.Error('no-chan-defined',
+      'The poll don\'t belong to any chan');
+    }
+
+    const props = Props.find({pollId: pollId}).fetch();
+    props.forEach((proposition) => {
+      if (_.contains(props.voteRecevedFrom, this.userId)) {
+        throw new Meteor.Error('already voted',
+        'You\'ve alreday voted for this poll');
+      }
+    })
+
+    Props.update(propsId, {
+      $push: {voteRecevedFrom: this.userId},
+    });
+  },
+
+  createProp(proposition, pollId) {
+    check(proposition, String);
+
+    const prop = {
+      name: proposition,
+      voteRecevedFrom: [],
+      pollId: pollId
+    }
+
+    return Props.insert(prop);
   }
 });
