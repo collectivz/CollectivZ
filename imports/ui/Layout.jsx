@@ -45,6 +45,6 @@ var Layout = React.createClass({
 
 export default createContainer(() => {
   return {
-    user: Meteor.user() || {profile: {}},
+    user: Meteor.user(),
   };
 }, Layout);
