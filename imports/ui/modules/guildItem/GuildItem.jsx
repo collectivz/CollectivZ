@@ -14,7 +14,7 @@ export default class GuildItem extends Component {
   render() {
     return (
       <div className="item-avatar item-icon-right item item-complex item-right-editable">
-        <Link className="item-content" to={this.constructUrl(this.props.guildes._id)}>
+        <Link className="item-content" to={this.constructUrl(this.props.guilde._id)}>
           <img src="/img/zorro.jpg" alt="" />
           <h2>{this.props.guilde.test}</h2>
           <p>Plus que 8 heures pour remplir ta <em>mission !</em></p>
@@ -27,5 +27,5 @@ export default class GuildItem extends Component {
 }
 
 GuildItem.propTypes = {
-  guildes: PropTypes.object.isRequired,
+  guilde: PropTypes.object.isRequired,
 };

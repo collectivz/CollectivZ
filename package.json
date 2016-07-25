@@ -5,11 +5,13 @@
     "start": "meteor run"
   },
   "dependencies": {
-    "meteor-node-stubs": "~0.2.0",
+    "aws-sdk": "^2.4.9",
+    "meteor-node-stubs": "^0.2.3",
     "react": "^15.2.1",
     "react-addons-pure-render-mixin": "^15.2.1",
     "react-dom": "^15.2.1",
     "react-router": "^2.6.0",
-    "react-timer-mixin": "^0.13.3"
+    "react-timer-mixin": "^0.13.3",
+    "xhr": "^2.2.2"
   }
 }
