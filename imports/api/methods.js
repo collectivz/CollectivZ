@@ -1,7 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { check } from 'meteor/check';
 import { underscore } from 'meteor/underscore';
-import { Chans, Msgs, Guilds, Polls } from './collections';
+import { Chans, Msgs, Guilds, Polls, Props } from './collections';
 
 Meteor.methods({
   newMessage(message) {                                   // add a new message in a chan
@@ -305,7 +305,6 @@ Meteor.methods({
   },
 
   createProp(proposition, pollId) {
-    check(proposition, String);
 
     const prop = {
       name: proposition,
