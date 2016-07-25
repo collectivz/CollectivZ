@@ -13,6 +13,8 @@ Meteor.methods({
 
     check(fileName, String);
     check(fileType, String);
+    aws.config.region = 'eu-central-1';
+    aws.config.signatureVersion = 'v4';
     const s3 = new aws.S3();
     const S3_BUCKET = 'app-99';
 
@@ -31,7 +33,7 @@ Meteor.methods({
       }
       returnData = {
         signedRequest: data,
-        url: `https://${S3_BUCKET}.s3.amazonaws.com/${fileName}`
+        url: `https://${S3_BUCKET}.s3.eu-central-1.amazonaws.com/${fileName}`
       };
       return returnData;
     });

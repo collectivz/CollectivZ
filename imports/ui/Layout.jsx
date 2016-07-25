@@ -28,6 +28,7 @@ var Layout = React.createClass({
     });
   },
   render() {
+    const childrenWithProps = React.cloneElement(this.props.children, this.props);
       return (
         <div>
           {this.state.loading ?
@@ -35,7 +36,7 @@ var Layout = React.createClass({
             :( this.props.user ?
               <div>
                 <AppNav user={this.props.user}/>
-                {this.props.children ? this.props.children : <ChanContainer/>}
+                {childrenWithProps ? childrenWithProps : <ChanContainer/>}
               </div>
             : <Login temper={this.temper}/> )}
         </div>
