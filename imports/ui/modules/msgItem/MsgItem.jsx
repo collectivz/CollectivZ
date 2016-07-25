@@ -12,9 +12,7 @@ export default class MsgItem extends Component {
   isMine () {
 
     if (Meteor.userId() === this.props.msg.userId) {
-      console.log(Meteor.userId() === this.props.msg._id);
-      console.log('meteor:  ' + Meteor.userId());
-      console.log(this.props.msg.userId);      return 'message message-mine';
+      return 'message message-mine';
     } else {
       return 'message message-other';
     }

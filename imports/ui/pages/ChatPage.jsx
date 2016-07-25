@@ -12,22 +12,31 @@ import MsgItem from '../modules/msgItem/MsgItem.jsx';
 import MsgInput from '../modules/msgInput/MsgInput.jsx';
 
 export default class ChatPage extends Component {
+  componentDidMount() {
+    const box = document.getElementById('scrollBox');
+    box.scrollTop += box.scrollHeight;
+  }
+
+  componentDidUpdate() {
+    const box = document.getElementById('scrollBox');
+    box.scrollTop += box.scrollHeight;
+  }
 
   render() {
     return (
       <div>
         <TopNav text={this.props.chanName}/>
         <div className="pane">
-          <div className="scroll-content has-chanbar has-tabs has-footer chat ">
+          <div className="scroll-content has-chanbar has-tabs has-footer chat " id="scrollBox">
             <div className="scroll">
               <div className="message-list">
                 {this.props.msgs.map(function(msg) {
                    return <MsgItem key={msg._id} msg={msg} />;
                 })}
               </div>
-              <MsgInput chanId={this.props.chanId}/>
             </div>
           </div>
+          <MsgInput chanId={this.props.chanId}/>
         </div>
       </div>
     );
