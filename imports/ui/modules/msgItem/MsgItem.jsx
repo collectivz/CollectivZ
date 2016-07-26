@@ -18,6 +18,21 @@ export default class MsgItem extends Component {
     }
   }
 
+  userAvatar(userId) {
+    let user;
+    if (userId === Meteor.userId) {
+      user = Meteor.user();
+    } else {
+      user = Meteor.users.findOne(userId);
+    }
+    if (user && user.profile && user.profile.avatar)
+      return user.profile.avatar;
+    else {
+      return '/img/zorro.jpg'
+    }
+
+  }
+
   render() {
     return (
       <div className="message-wrapper">
@@ -30,7 +45,7 @@ export default class MsgItem extends Component {
             {this.props.msg.text}
           </div>
           <span className="picture">
-            <img src="/img/zorro.jpg" alt="" />
+            <img src={this.userAvatar(this.props.msg.userId)} alt="" />
           </span>
         </div>
       </div>
