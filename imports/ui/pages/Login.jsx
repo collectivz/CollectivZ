@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import { Link } from 'react-router';
 import { Meteor } from 'meteor/meteor';
 import { browserHistory } from 'react-router';
-import TimerMixin from 'react-timer-mixin';
 
 // browserHistory.push('/some/path')
 import Loader from '../modules/loader/Loader.jsx'
@@ -12,7 +11,6 @@ import Loader from '../modules/loader/Loader.jsx'
 import './Login.css';
 
 export default React.createClass({
-  mixins: [TimerMixin],
   getInitialState () {
     return {username: '', pwd: ''};
   },
@@ -30,7 +28,6 @@ export default React.createClass({
     if (pwd && username) {
       this.props.temper(username, pwd);
     }
-    // this.history.pushState(null, '/chans');
   },
 
   render () {
