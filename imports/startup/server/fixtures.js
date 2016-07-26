@@ -103,6 +103,8 @@ Meteor.startup(function() {
       userId: user._id
     });
 
+    Meteor.users.update(user._id, {$addToSet: { suscribedChannels: chanId}})
+
   }
 
 })
