@@ -86,20 +86,15 @@ Meteor.methods({
     const userId = [];
     userId.push(this.userId);
 
-    const fatherChan = {};
+    let fatherChan = {};
     if (fatherChanId) {
       if (chan.depth > 1) {
-        console.log("chan");
-        let fatherChan = Chans.findOne(fatherChanId);
+        fatherChan = Chans.findOne(fatherChanId);
       }
       else {
-        console.log("guilde");
-        let fatherChan = Guilds.findOne(fatherChanId);
-        console.log(fatherChan);
-        console.log(this.userId);
+        fatherChan = Guilds.findOne(fatherChanId);
       }
       if (!_.contains(fatherChan.privilegedMembers, this.userId)) { // check rights
-        console.log("ici");
         throw new Meteor.Error('not-allowed-to',
         'Must have the right to do so.');
       }
@@ -133,7 +128,7 @@ Meteor.methods({
         $inc: {'connections.chanCount' : 1}
       });
     }
-    return Chans.insert({chan});                                              // insert in the Db
+    return Chans.insert(chan);                                              // insert in the Db
   },
 
   newGuild(guild) {
@@ -162,19 +157,19 @@ Meteor.methods({
     guild.connections = {
       memberCount: 0,
     };
-    guild.privilegedMembers = [];
+    guild.privilegedMembers = [""];
     guild.privilegedMembers.push(this.userId);
     guild.adhesionRequest = [];
+    guild.chanConnected = "";
 
     const chan = {
       title: guild.name,
       depth: 1,
     }
-    const fatherChanId = Guilds.insert({guild});
-    console.log(fatherChanId);
+    const fatherChanId = Guilds.insert(guild);
     const chanId = Meteor.call("newChan", chan, fatherChanId);
     Guilds.update(fatherChanId, {
-      $set: (chanConnected: chanId)
+      $set: {chanConnected: chanId}
     });
   },
 
