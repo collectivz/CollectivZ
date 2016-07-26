@@ -135,8 +135,6 @@ Meteor.methods({
 
     check(guild, {                                        // the guild var contain a name
       name: String,                                       // an array of interest
-      interest: [String],                                 // and an array of grade available
-      gradeAvailable: [String],
     });
 
     if (Guilds.findOne({name: guild.name}))
@@ -150,6 +148,8 @@ Meteor.methods({
     guild.author = this.userId;
     guild.xp = 0;
     guild.level = 0;
+    guild.interest = [],                                 // and an array of grade available
+    guild.gradeAvailable = [],
     guild.connections = {
       memberCount: 0,
     };

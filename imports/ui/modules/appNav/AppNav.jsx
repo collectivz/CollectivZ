@@ -22,7 +22,7 @@ export default class AppNav extends Component {
             <span className="tab-title">Guildes</span>
           </Link>
           {this.props.user.profile.admin ?
-          <Link activeClassName="active" className="tab-item" to="/contacts">
+          <Link activeClassName="active" className="tab-item" to="/admin">
             <i className="fa fa-wrench" aria-hidden="true"></i>
             <span className="tab-title">Admin</span>
           </Link> : '' }
