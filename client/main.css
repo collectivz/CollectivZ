@@ -125,6 +125,10 @@ body {
   top: 98px;
 }
 
+.has-user-header {
+  top: 200px;
+}
+
 
 .top-nav {
   display: -webkit-box;

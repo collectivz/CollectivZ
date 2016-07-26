@@ -12,7 +12,7 @@ export default class ChanPage extends Component {
   render() {
     return (
       <div>
-        <TopNav text="CHAT"/>
+        <TopNav text="Chans"/>
         <div className="view-container">
           <div className="page-wrapper">
             <div className="scroll-content has-top-nav has-tabs-nav">
