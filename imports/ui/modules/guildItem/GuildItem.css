@@ -1,282 +1,99 @@
-
-/*chat*/
-
-/*
-  ----- BAR ---------
-*/
-
-.bar {
-  bottom: 60px;
+.fa-accessory {
+  right: 10px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
   display: -moz-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-transform: translate3d(0, 0, 0);
-  transform: translate3d(0, 0, 0);
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  position: absolute;
-  right: 0;
-  left: 0;
-  z-index: 9;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  padding: 5px;
-  width: 100%;
-  height: 44px;
-  border-width: 0;
-  border-style: solid;
-  border-top: 1px solid transparent;
-  border-bottom: 1px solid #ddd;
-  background-color: white;
-  /* border-width: 1px will actually create 2 device pixels on retina */
-  /* this nifty trick sets an actual 1px border on hi-res displays */
-  background-size: 0;
-}
-
-@media (min--moz-device-pixel-ratio: 1.5), (-webkit-min-device-pixel-ratio: 1.5), (min-device-pixel-ratio: 1.5), (min-resolution: 144dpi), (min-resolution: 1.5dppx) {
-  .bar {
-    border: none;
-    background-image: linear-gradient(0deg, #ddd, #ddd 50%, transparent 50%);
-    background-position: bottom;
-    background-size: 100% 1px;
-    background-repeat: no-repeat;
-  }
-}
-
-.bar.bar-stable {
-  border-color: #b2b2b2;
-  background-color: #333333;
-  background-image: linear-gradient(0deg, #b2b2b2, #b2b2b2 50%, transparent 50%);
-  color: #fff;
-}
-.bar.bar-stable .title {
-  color: #fff;
-}
-
-.bar .title {
-  display: block;
-  position: absolute;
-  top: 0;
-  right: 0;
-  left: 0;
-  z-index: 0;
-  overflow: hidden;
-  margin: 0 10px;
-  min-width: 30px;
-  height: 43px;
-  text-align: center;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  font-size: 17px;
-  font-weight: 500;
-  line-height: 44px;
-}
-
-.bar-header {
-  top: 0;
-  border-top-width: 0;
-  border-bottom-width: 1px;
-}
-
-.bar.item-input-inset button {
-  background-color: transparent;
-  border: none;
-}
-
-.bar.item-input-inset button .fa {
-  color: #fff;
-  font-size: 18px;
-}
-
-.bar.item-input-inset .item-input-wrapper input {
-  padding-left: 8px;
-  width: 94%;
-  height: 28px;
-  /*background: transparent;*/
-}
-
-.item-input-wrapper {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -moz-box;
-  display: -moz-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-flex: 1;
-  -webkit-flex: 1 0;
-  -moz-box-flex: 1;
-  -moz-flex: 1 0;
-  -ms-flex: 1 0;
-  flex: 1 0;
+  color: #9A9898;
   -webkit-box-align: center;
   -ms-flex-align: center;
   -webkit-align-items: center;
   -moz-align-items: center;
   align-items: center;
-  -webkit-border-radius: 4px;
-  border-radius: 4px;
-  padding-right: 8px;
-  padding-left: 8px;
-  background: #fff;
+  position: absolute;
+  top: 1px;
+  height: 100%;
+  font-size: 16px;
 }
 
-input[type="text"] {
-  border: 0;
-  display: block;
-  padding-top: 2px;
-  padding-left: 0;
-  height: 34px;
-  vertical-align: middle;
-  font-size: 14px;
-  line-height: 16px;
-  margin: 0;
-  font-size: 100%;
-  font-family: inherit;
-  outline-offset: 0;
-  outline-style: none;
-  outline-width: 0;
-  -webkit-font-smoothing: inherit;
-  background-image: none;
-}
-
-
-.message-list {
-  margin-top: 12px;
-  padding: 0 5%;
-}
-
-.message-wrapper {
-  margin-bottom: 9px;
-}
-
-.message-wrapper::after {
-  content: "";
-  display: table;
-  clear: both;
-}
-
-.message {
-  display: inline-block;
+/*
+  item
+  */
+.guild {
+  border-color: #ddd;
+  background-color: #fff;
+  color: #444;
   position: relative;
-  max-width: 300px;
-  border-radius: 7px;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, .15);
+  z-index: 2;
+  display: block;
+  margin: -1px;
+  border-width: 1px;
+  border-style: solid;
+  font-size: 16px;
 }
 
-.message .message-header {
-  position: absolute;
-  top: 3px;
-  width: 100%;
+.guild h2 {
+  margin: 0 0 2px 0;
+  font-size: 16px;
+  font-weight: normal;
 }
 
-.message .message-header .message-user {
-  position: absolute;
-  left: 10px;
-  color: #111;
+.guild p {
+  color: #666;
   font-size: 14px;
-  font-weight: bold;
+  margin-bottom: 2px;
 }
 
-.message .message-header .message-timestamp {
-  position: absolute;
-  right: 10px;
-  color: gray;
-  font-size: 12px;
+.guild .item-content,
+.guild .item-content h2,
+.guild .item-content p {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
-
-.message.message-mine {
-    float: right;
-    background-color: #DCF8C6;
-    margin-right: 35px;
+.guild .item-content {
+  position: relative;
+  z-index: 2;
+  padding: 16px 49px 16px 16px;
+  border: none;
+  background-color: #fff;
 }
 
-.message.message-other {
-  float: left;
-  margin-left: 35px;
-  background-color: #FFF;
+a.item-content {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+  text-transform: capitalize;
 }
 
-.message.message-other .picture img {
-  left: -45px;
+.guild,
+.guild .item-content {
+  padding-left: 80px;
+  min-height: 60px;
 }
 
-.message.message-mine .picture img {
-  right: -45px;
-}
-
-.message.message-other::before, .message.message-mine::before {
-  content: "";
-  position: absolute;
-  top: 3px;
-  width: 12px;
-  height: 19px;
-  background-position: 50% 50%;
-  background-repeat: no-repeat;
-  background-size: contain;
-}
-
-.message.message-other::before {
-  left: -10px;
-  background-image: url(/img/message-other.png);
-}
-
-
-.message.message-mine::before {
-  right: -11px;
-  background-image: url(/img/message-mine.png);
-}
-
-.message .text {
-  padding: 25px 10px 0 10px;
-  word-wrap: break-word;
-}
-
-.message::after {
-  content: " \00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0";
-  display: inline;
-}
-
-.message .picture img {
-  padding: 4px 4px 0;
-  position: absolute;
-  top: 0px;
+.guild .item-content > .wrap-img > img:first-child {
   max-width: 40px;
   max-height: 40px;
   width: 100%;
   height: 100%;
   border-radius: 50%;
-
+  margin-top: 15px;
+}
+.guild .item-content > .wrap-img {
+  text-align: center;
+  position: absolute;
+  background: #333;
+  top: 0px;
+  left: 0px;
+  width: 60px;
+  height: 100%;
 }
 
-.chat {
-  background-color: #DFE5E4;
-}
-
-.chanbar {
-  top: 45px;
-}
-
-.sub-item {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -moz-box;
-  display: -moz-flex;
-  display: -ms-flexbox;
-  display: flex;
-  width: 100%;
-}
-
-.sub-item a span {
-  margin-left: 60px;
-}
-
-.has-chanbar {
-  margin-top: 44px;
+.guild  {
+  padding-top: 0;
+  padding-left: 0;
 }

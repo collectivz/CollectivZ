@@ -89,22 +89,22 @@ Meteor.startup(function() {
       });
     }
 
-  if (Chans.find().count() === 0) {
-    const user = Meteor.users.findOne({'username': 'charles'});
-    const chanId = Chans.insert({
-      test: 'Get it to work !'
-    });
-    const GuildId = Guilds.insert({
-      test: 'Collectivz'
-    });
-    const msgId = Msgs.insert({
-      chanId: chanId,
-      text: 'testing new msg',
-      userId: user._id
-    });
-
-    Meteor.users.update(user._id, {$addToSet: { suscribedChannels: chanId}})
-
-  }
+  // if (Chans.find().count() === 0) {
+  //   const user = Meteor.users.findOne({'username': 'charles'});
+  //   const chanId = Chans.insert({
+  //     test: 'Get it to work !'
+  //   });
+  //   const GuildId = Guilds.insert({
+  //     test: 'Collectivz'
+  //   });
+  //   const msgId = Msgs.insert({
+  //     chanId: chanId,
+  //     text: 'testing new msg',
+  //     userId: user._id
+  //   });
+  //
+  //   Meteor.users.update(user._id, {$addToSet: { suscribedChannels: chanId}})
+  //
+  // }
 
 })

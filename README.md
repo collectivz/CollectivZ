@@ -16,10 +16,10 @@ user = {
                                       // et l'écriture ?
   subscribedGuildes: [String id],     // idem.
   connections: Object : {
-    membersCount: Number,   //optional
-    missionsCount: Number,  //optional  
-    pollsCount: Number,     //optional
-    guildesCount: Number,   //optional
+    memberCount: Number,   //optional
+    missionCount: Number,  //optional  
+    pollCount: Number,     //optional
+    guildCount: Number,   //optional
     challengeCount: Number, //optional
     walletCount: Number,    //optional
     chanCount: Number,
@@ -37,9 +37,9 @@ chans = {
   privilegedMembers: [String],       //situe le chan
   adhesionRequest: [String],
   connections: Object : {
-    membersCount: Number,   //optional
-    missionsCount: Number,  //optional  
-    pollsCount: Number,     //optional
+    memberCount: Number,   //optional
+    missionCount: Number,  //optional  
+    pollCount: Number,     //optional
     challengeCount: Number, //optional
     walletCount: Number,    //optional
     chanCount: Number
@@ -70,7 +70,7 @@ guilds = {
   adhesionRequest: [String],
   chanConnected: String,
   connections: Object : {
-    membersCount: Number,   //optional
+    memberCount: Number,   //optional
     }
   }
 

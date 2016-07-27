@@ -14,14 +14,14 @@ export default createContainer(({ params }) => {
   let chan = Chans.findOne(id);
   if (!chan) {
     chan = {
-      test: 'no chan',
-      _id: 'no chan',
+      title: 'no found',
+      _id: 'not found',
     };
   }
 
   return {
     msgs: Msgs.find({chanId: id}).fetch(),
-    chanName: chan.test,
+    chanName: chan.title,
     chanId: chan._id
   };
 }, ChanPage);

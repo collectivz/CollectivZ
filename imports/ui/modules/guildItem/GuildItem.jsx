@@ -11,15 +11,17 @@ export default class GuildItem extends Component {
     return "/guild/" + id;
   }
 
+
+
   render() {
     return (
-      <div className="item-avatar item-icon-right item item-complex item-right-editable">
+      <div className="guild">
         <Link className="item-content" to={this.constructUrl(this.props.guilde._id)}>
-          <img src="/img/zorro.jpg" alt="" />
+          <div className="wrap-img">
+            <img src="/img/zorro.jpg" alt="" />
+          </div>
           <h2>{this.props.guilde.name}</h2>
-          <p>Plus que 8 heures pour remplir ta <em>mission !</em></p>
-          <span className="last-message-timestamp">Hier</span>
-          <i className="fa fa-chevron-right fa-accessory"></i>
+          <p>{this.props.guilde.connections.memberCount} member</p>
         </Link>
       </div>
     );
