@@ -9,7 +9,6 @@ class GuildPage extends React.Component {
     Meteor.call('joinGuild', this.props.guild._id);
   }
   render() {
-    console.log(this.props.guild);
     return (
       <div className="view-container">
         <div className="header-wrapper-guild">

@@ -12,7 +12,6 @@ export default React.createClass({
     }
   },
   uploadFile(file, signedRequest, url){
-    console.log(url);
     const xhr = new XMLHttpRequest();
     xhr.open('PUT', signedRequest);
     xhr.onreadystatechange = () => {

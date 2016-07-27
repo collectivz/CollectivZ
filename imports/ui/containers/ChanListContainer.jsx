@@ -7,8 +7,14 @@ import { Chans } from '../../api/collections.js';
 import ChanList from '../pages/ChanList.jsx';
 
 export default createContainer(() => {
-  // Meteor.subscribe('users');
+  Meteor.subscribe('chanList');
+  let user = Meteor.user();
+  if (user) {
+    return {
+      channels: Chans.find({_id: {$in: user.subscribedChannels}}).fetch(),
+    }
+  }
   return {
-    channels: Chans.find({}).fetch(),
+    channels: []
   };
 }, ChanList);

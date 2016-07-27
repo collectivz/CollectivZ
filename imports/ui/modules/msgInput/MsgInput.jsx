@@ -19,11 +19,8 @@ export default class MsgInput extends Component {
       if(err) {
         console.log(err);
       }
-      if (res) {
-        console.log(res);
-      }
+      ReactDOM.findDOMNode(this.refs.textInput).value = '';
     });
-    ReactDOM.findDOMNode(this.refs.textInput).value = '';
   }
 
   render() {

@@ -5,7 +5,6 @@ import { Meteor } from 'meteor/meteor';
 // import { Chans } from '../../api/channels.js';
 // import Channel from '../channel/Channel.jsx';
 import './MsgItem.css';
-console.log(Meteor.userId());
 
 export default class MsgItem extends Component {
 
@@ -38,8 +37,7 @@ export default class MsgItem extends Component {
       <div className="message-wrapper">
         <div className={this.isMine()}>
           <div className="message-header">
-            <span className="message-user">Zorro</span>
-            <span className="message-timestamp">hier</span>
+            <span className="message-user">{Meteor.users.findOne(this.props.msg.userId).username}</span>
           </div>
           <div className="text">
             {this.props.msg.text}

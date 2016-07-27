@@ -54,7 +54,6 @@ Meteor.methods({
 
     message.timestamp = new Date();                       // add a timestamp and a author to him
     message.userId = this.userId;
-    console.log(message);
     return Msgs.insert(message);                                 // push into the Db
     },
 
@@ -193,7 +192,7 @@ Meteor.methods({
 
     if (user) {
       Meteor.users.update(this.userId,
-        { $push: { subscribedGuildes : guildId } },
+        { $push: { subscribedGuildes : guildId, subscribedChannels : guild.chanConnected } },
         { $inc: {'connections.guildesCount' : 1} }
       );
     }

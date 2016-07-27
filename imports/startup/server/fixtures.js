@@ -5,6 +5,9 @@ Meteor.startup(function() {
   Accounts.onCreateUser(function(options, user) {
     user.profile = options.profile || {};
     user.profile.lastLogin = new Date();
+    user.subscribedGuildes = [];
+    user.subscribedChannels = [];
+    user.connections = {};
     return user;
   });
 

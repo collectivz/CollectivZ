@@ -7,7 +7,7 @@ import { Guilds } from '../../api/collections.js';
 import GuildList from '../pages/GuildList.jsx';
 
 export default createContainer(() => {
-  // Meteor.subscribe('users');
+  Meteor.subscribe('guildList');
   return {
     guildes: Guilds.find({}).fetch(),
   };

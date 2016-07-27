@@ -9,6 +9,7 @@ import GuildPage from '../pages/GuildPage.jsx';
 
 
 export default createContainer(({ params }) => {
+  Meteor.subscribe('guildPage', params.guildId);
   const id = params.guildId;
   let guild = Guilds.findOne(id);
   if (!guild) {
@@ -17,7 +18,6 @@ export default createContainer(({ params }) => {
       _id: 'no guild',
     };
   }
-
   return {
     guild: guild
   };

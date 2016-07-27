@@ -20,7 +20,6 @@
 //
 //     if (Messages.find().count() === 0) {
 //       let chan = Channels.findOne({ _id: id });
-//       console.log(chan);
 //       // Messages.insert({
 //       //
 //       // }),
