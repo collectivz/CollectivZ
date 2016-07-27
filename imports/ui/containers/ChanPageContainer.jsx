@@ -5,7 +5,7 @@ import { createContainer } from 'meteor/react-meteor-data';
 import { Chans, Msgs } from '../../api/collections.js';
 import MsgItem from '../modules/msgItem/MsgItem.jsx';
 
-import ChatPage from '../pages/ChatPage.jsx';
+import ChanPage from '../pages/ChanPage.jsx';
 
 
 export default createContainer(({ params }) => {
@@ -24,4 +24,4 @@ export default createContainer(({ params }) => {
     chanName: chan.test,
     chanId: chan._id
   };
-}, ChatPage);
+}, ChanPage);

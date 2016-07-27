@@ -2,29 +2,45 @@ import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import { Meteor } from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
-import TopNav from '../modules/topNav/TopNav.jsx';
-import { Chans } from '../../api/collections.js';
-import ChanItem from '../modules/chanItem/ChanItem.jsx';
+
+// import Channel from '../channel/Channel.jsx';
 import './ChanPage.css';
+import TopNav from '../modules/topNav/TopNav.jsx';
 
-export default class ChanPage extends Component {
+import { Chans, Msgs } from '../../api/collections.js';
+import MsgItem from '../modules/msgItem/MsgItem.jsx';
+import MsgInput from '../modules/msgInput/MsgInput.jsx';
 
+class ChanPage extends React.Component {
+  componentDidMount() {
+    this.refs.scroll.scrollTop += this.refs.scroll.scrollHeight;
+    this.setState({
+      count: this.props.msgs.length,
+    })
+  }
+  componentDidUpdate() {
+    if (this.props.msgs.length !== this.state.count) {
+      this.refs.scroll.scrollTop += this.refs.scroll.scrollHeight;
+      this.setState({
+        count: this.props.msgs.length,
+      })
+    }
+  }
   render() {
     return (
       <div>
-        <TopNav text="Chans"/>
-        <div className="view-container">
-          <div className="page-wrapper">
-            <div className="scroll-content has-top-nav has-tabs-nav">
-              <div className="disable-user-behavior">
-                <div className="list">
-                  {this.props.channels.map(function(channel) {
-                     return <ChanItem key={channel._id} channel={channel} />;
-                  })}
-                </div>
+        <TopNav text={this.props.chanName}/>
+        <div className="pane">
+          <div ref='scroll' className="scroll-content has-chanbar has-tabs has-footer chat ">
+            <div className="scroll">
+              <div className="message-list">
+                {this.props.msgs.map(function(msg) {
+                   return <MsgItem key={msg._id} msg={msg} />;
+                })}
               </div>
             </div>
           </div>
+          <MsgInput chanId={this.props.chanId}/>
         </div>
       </div>
     );
@@ -32,5 +48,9 @@ export default class ChanPage extends Component {
 }
 
 ChanPage.propTypes = {
-  channels: PropTypes.array.isRequired,
+  msgs: PropTypes.array.isRequired,
+  chanName: PropTypes.string.isRequired,
+  chanId: PropTypes.string.isRequired,
 }
+
+export default ChanPage;

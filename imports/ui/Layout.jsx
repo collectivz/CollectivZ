@@ -3,7 +3,7 @@ import { Meteor } from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
 import AppNav from './modules/appNav/AppNav.jsx';
 import Login from './pages/Login.jsx';
-import ChanContainer from './containers/ChanContainer.jsx';
+import ChanListContainer from './containers/ChanListContainer.jsx';
 import TimerMixin from 'react-timer-mixin';
 import Loader from './modules/loader/Loader.jsx'
 
@@ -36,7 +36,7 @@ var Layout = React.createClass({
             :( this.props.user ?
               <div>
                 <AppNav user={this.props.user}/>
-                {childrenWithProps ? childrenWithProps : <ChanContainer/>}
+                {childrenWithProps ? childrenWithProps : <ChanListContainer/>}
               </div>
             : <Login temper={this.temper}/> )}
         </div>
