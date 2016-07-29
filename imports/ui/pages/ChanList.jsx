@@ -12,6 +12,7 @@ import './ChanList.css';
 export default class ChanList extends Component {
 
   render() {
+
     return (
       <div>
         <TopNav text="Chans"/>

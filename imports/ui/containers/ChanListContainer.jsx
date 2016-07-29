@@ -16,6 +16,7 @@ export default createContainer(() => {
     }
   }
   return {
-    channels: []
+    channels: [],
+    msgs: Msgs.find({chanId: id}).fetch(),
   };
 }, ChanList);
