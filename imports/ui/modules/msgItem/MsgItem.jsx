@@ -37,7 +37,7 @@ export default class MsgItem extends Component {
       <div className="message-wrapper">
         <div className={this.isMine()}>
           <div className="message-header">
-            <span className="message-user">{Meteor.users.findOne(this.props.msg.userId).username}</span>
+            <span className="message-user">{Meteor.users.findOne(this.props.msg.author).username}</span>
           </div>
           <div className="text">
             {this.props.msg.text}

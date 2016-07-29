@@ -16,7 +16,7 @@ export default class ChanItem extends Component {
       <div className="item-avatar item-icon-right item item-complex item-right-editable">
         <Link className="item-content" to={this.constructUrl(this.props.channel._id)}>
           <img src="/img/zorro.jpg" alt="" />
-          <h2>{this.props.channel.title}</h2>
+          <h2>{this.props.channel.name}</h2>
           <p>Need to provide last message</p>
           <i className="fa fa-chevron-right fa-accessory"></i>
         </Link>

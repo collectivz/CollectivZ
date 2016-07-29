@@ -14,11 +14,10 @@ export default React.createClass({
   },
   handleSubmit (e) {
     e.preventDefault();
-    const guild = {
-      name: this.state.name,
-    }
-    Meteor.call('newGuild', guild, (err, res) => {
-      if(err) {
+    const guildName = this.state.name;
+
+    Meteor.call('guilds.insert', guildName, (err, res) => {
+      if (err) {
         console.log(err);
       }
       if (res) {

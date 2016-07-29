@@ -2,7 +2,8 @@ import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import { Meteor } from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
-import { Chans } from '../../api/collections.js';
+
+import { Channels } from '../../api/channels/collection.js';
 
 import ChanList from '../pages/ChanList.jsx';
 
@@ -11,7 +12,7 @@ export default createContainer(() => {
   let user = Meteor.user();
   if (user) {
     return {
-      channels: Chans.find({_id: {$in: user.subscribedChannels}}).fetch(),
+      channels: Channels.find({_id: {$in: user.subscribedChannels}}).fetch(),
     }
   }
   return {

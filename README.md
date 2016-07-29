@@ -14,45 +14,36 @@ user = {
                                       // d'utilisateurs par channel => plus
                                       // faible complexité pour la recherche
                                       // et l'écriture ?
-  subscribedGuildes: [String id],     // idem.
+  subscribedGuilds: [String id],     // idem.
   connections: Object : {
-    memberCount: Number,   //optional
-    missionCount: Number,  //optional  
-    pollCount: Number,     //optional
-    guildCount: Number,   //optional
-    challengeCount: Number, //optional
-    walletCount: Number,    //optional
+    guildsCount: Number,   //optional
     chanCount: Number,
   }  
 }
 
-chans = {
+channels = {
   _id: String,
-  title: String,
+  name: String,
   type: String,
-  objectId: null || String,
-  sourceId: null || String,
+  parentId: null || String,
   author: String,
+  leaders: [String],
+  members: [String],
   depth: Number                      //indique a quel niveau de profondeur se
   privilegedMembers: [String],       //situe le chan
   adhesionRequest: [String],
   connections: Object : {
-    memberCount: Number,   //optional
-    missionCount: Number,  //optional  
-    pollCount: Number,     //optional
-    challengeCount: Number, //optional
-    walletCount: Number,    //optional
     chanCount: Number
   }
 }
 
-msgs = {
+messages = {
   _id: String,
   text: String,
   type: null || 'sondage',
   chanId: String,
-  timestamp: Date(),
-  userId: String,
+  createdAt: Date(),
+  author: String,
 
 }
 
@@ -61,14 +52,7 @@ guilds = {
   name: String,
   depth: Number,   //indique son niveau de profondeur de chan imbriqué
   author: String,
-  xp: Number,
-  level: Number,
-  wallet: Number,
-  interest: [String],
-  privilegedMembers: [String],
-  gradeAvailable: [String],
-  adhesionRequest: [String],
-  chanConnected: String,
+  mainChannel: String,
   connections: Object : {
     memberCount: Number,   //optional
     }

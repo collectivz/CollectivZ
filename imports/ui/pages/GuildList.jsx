@@ -2,9 +2,11 @@ import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import { Meteor } from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
+
 import TopNav from '../modules/topNav/TopNav.jsx';
-import { Guilds } from '../../api/collections.js';
+import Guilds from '../../api/guilds/collection.js';
 import GuildItem from '../modules/guildItem/GuildItem.jsx';
+
 import './GuildList.css';
 
 export default class GuildList extends Component {

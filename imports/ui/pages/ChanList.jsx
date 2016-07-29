@@ -2,9 +2,11 @@ import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import { Meteor } from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
+
 import TopNav from '../modules/topNav/TopNav.jsx';
-import { Chans } from '../../api/collections.js';
+import Channels from '../../api/channels/collection.js';
 import ChanItem from '../modules/chanItem/ChanItem.jsx';
+
 import './ChanList.css';
 
 export default class ChanList extends Component {

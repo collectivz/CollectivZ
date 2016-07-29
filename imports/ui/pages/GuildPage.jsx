@@ -6,7 +6,7 @@ import './GuildPage.css';
 
 class GuildPage extends React.Component {
   handleClick() {
-    Meteor.call('joinGuild', this.props.guild._id);
+    Meteor.call('guilds.join', this.props.guild._id);
   }
   render() {
     return (

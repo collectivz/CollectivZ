@@ -4,12 +4,13 @@ import { Meteor } from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
 
 // import Channel from '../channel/Channel.jsx';
-import './ChanPage.css';
 import TopNav from '../modules/topNav/TopNav.jsx';
-
-import { Chans, Msgs } from '../../api/collections.js';
+import Channels from '../../api/channels/collection.js';
+import Messages from '../../api/messages/collection.js';
 import MsgItem from '../modules/msgItem/MsgItem.jsx';
 import MsgInput from '../modules/msgInput/MsgInput.jsx';
+
+import './ChanPage.css';
 
 class ChanPage extends React.Component {
   componentDidMount() {

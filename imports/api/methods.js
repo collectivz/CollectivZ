@@ -112,8 +112,8 @@ Meteor.methods({
       walletCount: 0,
       chanCount: 0
     };
-    chan.privilegedMembers = [];
-    chan.privilegedMembers.push(this.userId);
+    chan.privilegedMembers = [this.userId];
+    chan.privilegedMembers.push();
     chan.adhesionRequest = [];
 
     fatherChan.connections.chanCount += 1;
