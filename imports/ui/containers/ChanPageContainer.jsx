@@ -15,7 +15,7 @@ export default createContainer(({ params }) => {
   let chan = Channels.findOne(id);
   if (!chan) {
     chan = {
-      title: 'no found',
+      name: 'no found',
       _id: 'not found',
     };
   }

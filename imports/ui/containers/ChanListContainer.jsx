@@ -10,10 +10,9 @@ import ChanList from '../pages/ChanList.jsx';
 
 export default createContainer(() => {
   Meteor.subscribe('chanList');
-  let user = Meteor.user();
-  if (user) {
+  if (Meteor.user()) {
     return {
-      channels: Channels.find({_id: {$in: user.subscribedChannels}}).fetch(),
+      channels: Channels.find({_id: {$in: Meteor.user().subscribedChannels}}).fetch(),
     }
   }
 }, ChanList);
