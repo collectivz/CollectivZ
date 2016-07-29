@@ -29,12 +29,12 @@ Meteor.methods({
     const channelId = Channels.insert(channel);
 
     Guilds.update(guildId, {
-      $inc: { 'connections.chanCount': 1, 'connections.membersCount': 1 },
+      $inc: { 'connections.chanCount': 1, 'connections.memberCount': 1 },
       $set: { mainChannel: channelId },
     });
     Meteor.users.update(this.userId,
       { $push: { subscribedGuilds: guildId, subscribedChannels: channelId } },
-      { $inc: { 'connections.guildsCount': 1 } }
+      { $inc: { 'connections.guildCount': 1 } }
     );
   },
 
@@ -63,7 +63,7 @@ Meteor.methods({
     );
     Guilds.update(guildId,
       { $push: { members: user._id } },
-      { $inc: { 'connections.membersCount': 1 } }
+      { $inc: { 'connections.memberCount': 1 } }
     );
   }
 });

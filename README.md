@@ -16,7 +16,7 @@ user = {
                                       // et l'écriture ?
   subscribedGuilds: [String id],     // idem.
   connections: Object : {
-    guildsCount: Number,   //optional
+    guildCount: Number,   //optional
     chanCount: Number,
   }  
 }
@@ -52,7 +52,7 @@ guilds = {
   author: String,
   mainChannel: String,
   connections: Object : {
-    membersCount: Number,   //optional
+    memberCount: Number,   //optional
     }
   }
 
