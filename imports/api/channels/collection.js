@@ -3,9 +3,11 @@ import { Mongo } from 'meteor/mongo';
 
 class ChannelCollection extends Mongo.Collection {
   insert(channel, callback) {
-    channel.author = this.userId;
-    channel.leaders = [this.userId];
-    channel.members = [this.userId];
+    const userId = Meteor.userId();
+
+    channel.author = userId;
+    channel.leaders = [userId];
+    channel.members = [userId];
 
     return super.insert(channel);
   }
