@@ -27,13 +27,15 @@ Meteor.methods({
       throw new Meteor.Error('not-allowed-to',
         "Vous n'avez pas les droits nécessaires pour faire ça.");
     }
+    channel.parentId = parent._id;
+
+    const channelId = Channels.insert(channel)
 
     Channels.update(parentId, {
       $inc: {'connections.chanCount' : 1}
     });
-
-    channel.parentId = parent._id;
-
-    return Channels.insert(channel);
+    Meteor.users.update(this.userId, {
+      $push: { subscribedChannels: channelId },
+    });
   }
 });

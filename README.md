@@ -29,9 +29,7 @@ channels = {
   author: String,
   leaders: [String],
   members: [String],
-  depth: Number                      //indique a quel niveau de profondeur se
-  privilegedMembers: [String],       //situe le chan
-  adhesionRequest: [String],
+  depth: Number
   connections: Object : {
     chanCount: Number
   }
@@ -54,7 +52,7 @@ guilds = {
   author: String,
   mainChannel: String,
   connections: Object : {
-    memberCount: Number,   //optional
+    membersCount: Number,   //optional
     }
   }
 
