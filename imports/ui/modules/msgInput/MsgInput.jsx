@@ -19,9 +19,9 @@ export default React.createClass({
     const msg = ReactDOM.findDOMNode(this.refs.textInput).value.trim();
     let message = {
       text: msg,
-      chanId: this.props.chanId,
+      channelId: this.props.chanId,
     }
-    Meteor.call('newMessage', message, (err, res) => {
+    Meteor.call('messages.insert', message, (err, res) => {
       if(err) {
         console.log(err);
       }
