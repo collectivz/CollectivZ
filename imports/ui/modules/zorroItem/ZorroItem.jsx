@@ -4,32 +4,34 @@ import { Meteor } from 'meteor/meteor';
 
 // import { Chans } from '../../api/channels.js';
 // import Channel from '../channel/Channel.jsx';
-import './MsgItem.css';
+import './ZorroItem.css';
 
-export default class MsgItem extends Component {
+export default class ZorroItem extends Component {
 
   isMine () {
-
-    if (Meteor.userId() === this.props.msg.author) {
+    if (this.props.msg.author === 'self') {
       return 'message message-mine';
     } else {
       return 'message message-other';
     }
   }
 
-  userAvatar(userId) {
-    let user;
-    if (userId === Meteor.userId) {
-      user = Meteor.user();
-    } else {
-      user = Meteor.users.findOne(userId);
-    }
-    if (user && user.profile && user.profile.avatar)
+  userAvatar() {
+    if (this.props.msg.author === 'self') {
+      const user = Meteor.user();
       return user.profile.avatar;
-    else {
+    } else {
       return '/img/zorro.jpg'
     }
+  }
 
+  getName() {
+    if (this.props.msg.author === 'self') {
+      const user = Meteor.user();
+      return user.username;
+    } else {
+      return 'Zorro';
+    }
   }
 
   render() {
@@ -37,7 +39,7 @@ export default class MsgItem extends Component {
       <div className="message-wrapper">
         <div className={this.isMine()}>
           <div className="message-header">
-            <span className="message-user">{Meteor.users.findOne(this.props.msg.author).username}</span>
+            <span className="message-user">{this.getName()}</span>
           </div>
           <div className="text">
             {this.props.msg.text}
@@ -51,6 +53,6 @@ export default class MsgItem extends Component {
   }
 }
 
-MsgItem.propTypes = {
+ZorroItem.propTypes = {
   msg: PropTypes.object.isRequired,
 }

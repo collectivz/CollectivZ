@@ -9,6 +9,11 @@ import ActionList from '../actionList/ActionList.jsx';
 
 export default React.createClass({
 
+  componentDidUpdate() {
+    if (!this.state.showActions && this.props.inputMode != 'message') {
+      this.props.changeInputMode('message');
+    }
+  },
   getInitialState() {
     return {
       showActions: false
@@ -16,23 +21,29 @@ export default React.createClass({
   },
   handleSubmit(event) {
     event.preventDefault();
-    const msg = ReactDOM.findDOMNode(this.refs.textInput).value.trim();
-    let message = {
-      text: msg,
-      channelId: this.props.chanId,
-    }
-    Meteor.call('messages.insert', message, (err, res) => {
-      if(err) {
-        console.log(err);
-      }
+    const text = ReactDOM.findDOMNode(this.refs.textInput).value.trim();
+
+    if (this.props.inputMode === 'message') {
+      let message = {
+        text,
+        channelId: this.props.chanId,
+      };
+
+      Meteor.call('messages.insert', message, (err, res) => {
+        if(err) {
+          console.log(err);
+        }
+        ReactDOM.findDOMNode(this.refs.textInput).value = '';
+      });
+    } else {
+      this.props.answerToZorro(text);
       ReactDOM.findDOMNode(this.refs.textInput).value = '';
-    });
+    }
   },
   handleClick() {
     this.setState({
       showActions: !this.state.showActions
-    })
-    console.log('plus sign clicked');
+    });
   },
   getCss() {
     if (this.state.showActions)
@@ -57,7 +68,9 @@ export default React.createClass({
             <i className="fa fa-paper-plane" aria-hidden="true"></i>
           </button>
         </div>
-        {this.state.showActions ? <ActionList/> : ''}
+        {this.state.showActions
+          ? <ActionList changeInputMode={this.props.changeInputMode}/>
+          : ''}
       </div>
     );
   }

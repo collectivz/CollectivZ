@@ -8,37 +8,21 @@ import './ActionList.css';
 
 export default class ActionList extends Component {
 
-  // handleSubmit(event) {
-  //   event.preventDefault();
-  //   const msg = ReactDOM.findDOMNode(this.refs.textInput).value.trim();
-  //   let message = {
-  //     text: msg,
-  //     chanId: this.props.chanId,
-  //   }
-  //   Meteor.call('newMessage', message, (err, res) => {
-  //     if(err) {
-  //       console.log(err);
-  //     }
-  //     ReactDOM.findDOMNode(this.refs.textInput).value = '';
-  //   });
-  // }
-  //
+  handleClick(newMode, event) {
+    event.preventDefault();
+
+    this.props.changeInputMode(newMode);
+  }
 
   render() {
-    console.log('here');
     return (
-
       <div className="view-container has-tabs">
         <div className="action-list">
-          <a href="#">1</a>
-          <a href="#">2</a>
-          <a href="#">3</a>
+          <a onClick={this.handleClick.bind(this, 'newChannel')}>Créer un channel</a>
+          <a onClick={this.handleClick.bind(this, 'newPoll')}>2</a>
+          <a onClick={this.handleClick.bind(this, 'newMission')}>3</a>
         </div>
       </div>
     );
   }
 }
-
-// ActionList.propTypes = {
-//   channel: PropTypes.object.isRequired,
-// };
