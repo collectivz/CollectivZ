@@ -60,19 +60,6 @@ class ChanPage extends React.Component {
       });
     }
 
-    //this handles the end of the current action
-    if (this.state.ongoingAction) {
-      const currentAction = this.state.currentAction;
-
-      if (currentAction.toFill.length === 0) {
-        this.setState({
-          currentAction: {},
-          ongoingAction: false,
-          dialogWithZorro: [],
-          expectedAnswer: ''
-        });
-      }
-    }
   }
   changeInputMode(newMode) {
     this.setState({
