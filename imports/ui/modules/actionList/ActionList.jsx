@@ -18,12 +18,18 @@ export default class ActionList extends Component {
     return (
       <div className="view-container has-tabs">
         <div className="action-list">
-          <a onClick={this.handleClick.bind(this, 'newChannel')}>
+          <a onClick={this.handleClick.bind(this, 'newPoll')}>
             <i className="fa fa-pie-chart" aria-hidden="true"></i>
             <span>Pollz</span>
           </a>
-          <a onClick={this.handleClick.bind(this, 'newPoll')}>2</a>
-          <a onClick={this.handleClick.bind(this, 'newMission')}>3</a>
+          <a onClick={this.handleClick.bind(this, 'newChannel')}>
+            <i className="fa fa-cogs" aria-hidden="true"></i>
+            <span>Actionz</span>
+          </a>
+          <a onClick={this.handleClick.bind(this, 'newMission')}>
+            <i className="fa fa-user-plus" aria-hidden="true"></i>
+            <span>Buddiez</span>
+          </a>
         </div>
       </div>
     );
