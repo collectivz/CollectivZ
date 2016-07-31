@@ -151,3 +151,11 @@ input[type="text"] {
   padding: 0 5%;
 
 }
+
+.small-padding {
+  padding-bottom: 120px;
+}
+
+.large-padding {
+  padding-bottom: 200px;
+}

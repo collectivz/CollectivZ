@@ -20,12 +20,14 @@ class ChanPage extends React.Component {
     super(props);
 
     this.state = {
+      padding:'small-padding',
       inputMode: 'message',
       dialogWithZorro: [],
       currentAction: {},
       ongoingAction: false,
       expectedAnswer: '',
     };
+    this.toggleMarginBottom = this.toggleMarginBottom.bind(this);
     this.changeInputMode = this.changeInputMode.bind(this);
     this.answerToZorro = this.answerToZorro.bind(this);
   }
@@ -61,6 +63,22 @@ class ChanPage extends React.Component {
     }
 
   }
+
+  toggleMarginBottom() {
+    if (this.state.padding !== 'large-padding') {
+      this.setState({
+        padding: 'large-padding',
+      }, () => {
+        this.refs.scroll.scrollTop += this.refs.scroll.scrollHeight;
+      });
+    } else {
+      this.setState({
+        padding: 'small-padding',
+      })
+
+    }
+  }
+
   changeInputMode(newMode) {
     this.setState({
       inputMode: newMode
@@ -124,7 +142,7 @@ class ChanPage extends React.Component {
       <div>
         <TopNav text={this.props.chanName}/>
         <div className="pane">
-          <div ref='scroll' className="scroll-content has-chanbar has-tabs has-footer chat ">
+          <div ref='scroll' className={this.state.padding + " scroll-content has-chanbar has-tabs has-footer chat"}>
             <div className="scroll">
               <div className="message-list">
                 {this.props.msgs.map(function(msg) {
@@ -143,6 +161,7 @@ class ChanPage extends React.Component {
             changeInputMode={this.changeInputMode}
             inputMode={this.state.inputMode}
             answerToZorro={this.answerToZorro}
+            toggleMarginBottom={this.toggleMarginBottom}
           />
         </div>
       </div>
