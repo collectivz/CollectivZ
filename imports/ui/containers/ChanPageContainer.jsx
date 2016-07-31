@@ -12,18 +12,8 @@ import ChanPage from '../pages/ChanPage.jsx';
 export default createContainer(({ params }) => {
   Meteor.subscribe('chanPage', params.chatId);
   const id = params.chatId;
-  let chan = Channels.findOne(id);
-  if (!chan) {
-    chan = {
-      name: 'no found',
-      _id: 'not found',
-    };
-  }
-
   return {
     msgs: Messages.find({channelId: id}).fetch(),
-    chan: Channels.findOne(id),
-    chanName: chan.name,
-    chanId: chan._id
+    channel: Channels.findOne(id) || {},
   };
 }, ChanPage);
