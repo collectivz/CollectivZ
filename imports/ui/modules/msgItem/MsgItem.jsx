@@ -28,7 +28,7 @@ export default class MsgItem extends Component {
     if (user && user.profile && user.profile.avatar)
       return user.profile.avatar;
     else {
-      return '/img/zorro.jpg'
+      return '/img/no-user.png'
     }
 
   }

@@ -13,7 +13,7 @@ export default createContainer(({ params }) => {
   Meteor.subscribe('chanPage', params.chatId);
   const id = params.chatId;
   return {
-    msgs: Messages.find({channelId: id}).fetch(),
+    msgs: Messages.find({channelId: id}, {$sort: {createadAt: 1}}).fetch(),
     channel: Channels.findOne(id) || {},
   };
 }, ChanPage);

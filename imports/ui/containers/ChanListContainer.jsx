@@ -12,7 +12,7 @@ export default createContainer(() => {
   Meteor.subscribe('chanList');
   if (Meteor.user()) {
     return {
-      channels: Channels.find({_id: {$in: Meteor.user().subscribedChannels}}).fetch(),
+      channels: Channels.find({_id: {$in: Meteor.user().subscribedChannels}}, {$sort: {createadAt: 1}}).fetch(),
     }
   }
 }, ChanList);
