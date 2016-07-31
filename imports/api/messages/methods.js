@@ -3,6 +3,7 @@ import { check } from 'meteor/check';
 
 import { Messages } from './collection.js';
 
+
 Meteor.methods({
   'messages.insert'(message) {
     if (!this.userId) {
@@ -14,6 +15,7 @@ Meteor.methods({
       text: String,
       channelId: String,
     });
+
     if (message.text.length > 0) {
       Messages.insert(message);
     }

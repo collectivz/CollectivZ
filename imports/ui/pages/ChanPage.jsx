@@ -20,6 +20,7 @@ class ChanPage extends React.Component {
     super(props);
 
     this.state = {
+      searchString: '',
       hasMenu: 'has-menu',
       padding:'small-padding',
       inputMode: 'message',
@@ -32,6 +33,7 @@ class ChanPage extends React.Component {
     this.toggleMarginBottom = this.toggleMarginBottom.bind(this);
     this.changeInputMode = this.changeInputMode.bind(this);
     this.answerToZorro = this.answerToZorro.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   componentDidMount() {
@@ -141,8 +143,26 @@ class ChanPage extends React.Component {
     }
   }
 
+  handleClick(param, e) {
+    if (param === 'chanCount') {
+      this.setState({
+        searchString: 'channel'
+      });
+    } else if (param === 'all') {
+      this.setState({
+        searchString: ''
+      });
+    }
+  }
+
   render() {
-    let store = []
+    let store = [];
+    let messages = [];
+    if (this.state.searchString !== '') {
+      messages = Messages.find({type: this.state.searchString}).fetch();
+    } else {
+      messages = Messages.find().fetch();
+    }
     if (this.props.channel.connections) {
       let arr = _.keys(this.props.channel.connections)
       for (var i = 0; i < arr.length; i++) {
@@ -158,12 +178,13 @@ class ChanPage extends React.Component {
         { store.length ?
           <div className="view-container">
             <div className="second">
+              <p onClick={this.handleClick.bind(this, 'all')}>All</p>
               {
                 store.map(function(menu) {
                  return (
-                     <p key={menu} >{menu.name + ' ' + menu.nb}</p>
+                     <p onClick={this.handleClick.bind(this, menu.name)} key={menu} >{menu.name + ' ' + menu.nb}</p>
                   );
-                })
+                }, this)
               }
             </div>
           </div>
@@ -176,7 +197,7 @@ class ChanPage extends React.Component {
             <div className="scroll">
 
               <div className="message-list">
-                {this.props.msgs.map(function(msg) {
+                {messages.map(function(msg) {
                    return <MsgItem key={msg._id} msg={msg} />;
                 })}
               </div>

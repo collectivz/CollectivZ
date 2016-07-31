@@ -78,6 +78,16 @@ Meteor.startup(function() {
         lastName: 'Marsan'
       }
     });
+    Accounts.createUser({
+      email : 'zorro@zorro.com',
+      username: 'zorro',
+      password : 'zorro',
+      profile: {
+        firstName: 'zorro',
+        lastName: 'de la Vega'
+      }
+    });
+
   }
 
   // if (Chans.find().count() === 0) {
