@@ -159,9 +159,15 @@ class ChanPage extends React.Component {
     let store = [];
     let messages = [];
     if (this.state.searchString !== '') {
-      messages = Messages.find({type: this.state.searchString}, {$sort: {createadAt: 1}}).fetch();
+      messages = this.props.msgs.filter((message) => {
+        if (message.type && message.type === this.state.searchString) {
+          return true;
+        } else {
+          return false;
+        }
+      });
     } else {
-      messages = Messages.find({}, {$sort: {createadAt: 1}}).fetch();
+      messages = this.props.msgs;
     }
     if (this.props.channel.connections) {
       let arr = _.keys(this.props.channel.connections)
