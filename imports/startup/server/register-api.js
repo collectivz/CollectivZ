@@ -12,3 +12,5 @@ import '../../api/polls/server/publish.js';
 
 import '../../api/users/users.js';
 import '../../api/users/server/publish.js';
+
+import '../../api/methods.js';

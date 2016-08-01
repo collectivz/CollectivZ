@@ -1,7 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { check } from 'meteor/check';
 import { underscore } from 'meteor/underscore';
-import { Chans, Msgs, Guilds, Polls } from './collections';
 import aws  from 'aws-sdk';
 
 Meteor.methods({
