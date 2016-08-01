@@ -28,6 +28,7 @@ Meteor.methods({
         "Vous n'avez pas les droits nécessaires pour faire ça.");
     }
     channel.parentId = parent._id;
+    channel.rootId = parent.rootId;
 
     const channelId = Channels.insert(channel)
 

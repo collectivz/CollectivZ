@@ -26,6 +26,7 @@ channels = {
   name: String,
   type: String,
   parentId: null || String,
+  rootId: String,
   author: String,
   leaders: [String],
   members: [String],

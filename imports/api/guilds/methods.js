@@ -24,6 +24,7 @@ Meteor.methods({
       name: guildName,
       depth: 1,
       parentId: guildId,
+      rootId: guildId,
     };
 
     const channelId = Channels.insert(channel);
