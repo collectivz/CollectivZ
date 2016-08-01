@@ -44,6 +44,7 @@ export default React.createClass({
     this.setState({
       showActions: !this.state.showActions
     });
+    this.props.toggleMarginBottom();
   },
   getCss() {
     if (this.state.showActions)

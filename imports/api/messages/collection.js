@@ -4,8 +4,7 @@ import { Mongo } from 'meteor/mongo';
 class messageCollection extends Mongo.Collection {
   insert(message, callback) {
     message.createdAt = new Date();
-    message.author = Meteor.userId();
-
+    message.author = message.type ? 'zorro' : Meteor.userId();
     return super.insert(message);
   }
 }

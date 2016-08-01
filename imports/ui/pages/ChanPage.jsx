@@ -20,21 +20,29 @@ class ChanPage extends React.Component {
     super(props);
 
     this.state = {
+      searchString: '',
+      hasMenu: 'has-menu',
+      padding:'small-padding',
       inputMode: 'message',
       dialogWithZorro: [],
       currentAction: {},
       ongoingAction: false,
       expectedAnswer: '',
     };
+
+    this.toggleMarginBottom = this.toggleMarginBottom.bind(this);
     this.changeInputMode = this.changeInputMode.bind(this);
     this.answerToZorro = this.answerToZorro.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
+
   componentDidMount() {
     this.refs.scroll.scrollTop += this.refs.scroll.scrollHeight;
     this.setState({
       count: this.props.msgs.length,
     });
   }
+
   componentDidUpdate() {
     if ((this.props.msgs.length + this.state.dialogWithZorro.length) !== this.state.count) {
       this.refs.scroll.scrollTop += this.refs.scroll.scrollHeight;
@@ -61,6 +69,22 @@ class ChanPage extends React.Component {
     }
 
   }
+
+  toggleMarginBottom() {
+    if (this.state.padding !== 'large-padding') {
+      this.setState({
+        padding: 'large-padding',
+      }, () => {
+        this.refs.scroll.scrollTop += this.refs.scroll.scrollHeight;
+      });
+    } else {
+      this.setState({
+        padding: 'small-padding',
+      })
+
+    }
+  }
+
   changeInputMode(newMode) {
     this.setState({
       inputMode: newMode
@@ -104,7 +128,7 @@ class ChanPage extends React.Component {
             depth: 2
           };
 
-          Meteor.call('channels.insert', channel, this.props.chanId);
+          Meteor.call('channels.insert', channel, this.props.channel._id);
           break;
         default:
           break;
@@ -119,15 +143,61 @@ class ChanPage extends React.Component {
     }
   }
 
+  handleClick(param, e) {
+    if (param === 'chanCount') {
+      this.setState({
+        searchString: 'channel'
+      });
+    } else if (param === 'all') {
+      this.setState({
+        searchString: ''
+      });
+    }
+  }
+
   render() {
+    let store = [];
+    let messages = [];
+    if (this.state.searchString !== '') {
+      messages = Messages.find({type: this.state.searchString}, {$sort: {createadAt: 1}}).fetch();
+    } else {
+      messages = Messages.find({}, {$sort: {createadAt: 1}}).fetch();
+    }
+    if (this.props.channel.connections) {
+      let arr = _.keys(this.props.channel.connections)
+      for (var i = 0; i < arr.length; i++) {
+        store.push({
+          name: arr[i],
+          nb: this.props.channel.connections[arr[i]],
+        });
+      }
+    }
     return (
       <div>
-        <TopNav text={this.props.chanName}/>
+        <TopNav text={this.props.channel.name || '...'}/>
+        { store.length ?
+          <div className="view-container">
+            <div className="second">
+              <p onClick={this.handleClick.bind(this, 'all')}>All</p>
+              {
+                store.map(function(menu) {
+                 return (
+                     <p onClick={this.handleClick.bind(this, menu.name)} key={menu} >{menu.name + ' ' + menu.nb}</p>
+                  );
+                }, this)
+              }
+            </div>
+          </div>
+          : ''
+        }
         <div className="pane">
-          <div ref='scroll' className="scroll-content has-chanbar has-tabs has-footer chat ">
+          <div ref='scroll' className={this.state.padding
+                      + " scroll-content has-chanbar has-tabs has-footer chat "
+                      + (store.length ? this.state.hasMenu : '') }>
             <div className="scroll">
+
               <div className="message-list">
-                {this.props.msgs.map(function(msg) {
+                {messages.map(function(msg) {
                    return <MsgItem key={msg._id} msg={msg} />;
                 })}
               </div>
@@ -139,10 +209,11 @@ class ChanPage extends React.Component {
             </div>
           </div>
           <MsgInput
-            chanId={this.props.chanId}
+            chanId={this.props.channel._id || '...'}
             changeInputMode={this.changeInputMode}
             inputMode={this.state.inputMode}
             answerToZorro={this.answerToZorro}
+            toggleMarginBottom={this.toggleMarginBottom}
           />
         </div>
       </div>
@@ -152,8 +223,7 @@ class ChanPage extends React.Component {
 
 ChanPage.propTypes = {
   msgs: PropTypes.array.isRequired,
-  chanName: PropTypes.string.isRequired,
-  chanId: PropTypes.string.isRequired,
+  channel: PropTypes.object.isRequired,
 }
 
 export default ChanPage;
