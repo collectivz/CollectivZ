@@ -15,7 +15,7 @@ Meteor.methods({
     aws.config.region = 'eu-central-1';
     aws.config.signatureVersion = 'v4';
     const s3 = new aws.S3();
-    const S3_BUCKET = 'app-99';
+    const S3_BUCKET = 'collectivz-bucketz';
 
     let returnData;
     const s3Params = {
