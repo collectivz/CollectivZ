@@ -79,7 +79,7 @@ Meteor.startup(function() {
       }
     });
     Accounts.createUser({
-      email : 'zorro@zorro.com',
+      email : 'plop@zorro.com',
       username: 'mathias',
       password : 'collectivz',
       profile: {
@@ -88,7 +88,7 @@ Meteor.startup(function() {
       }
     });
     Accounts.createUser({
-      email : 'zorro@zorro.com',
+      email : 'ploup@zorro.com',
       username: 'nathan',
       password : 'collectivz',
       profile: {
@@ -97,7 +97,7 @@ Meteor.startup(function() {
       }
     });
     Accounts.createUser({
-      email : 'zorro@zorro.com',
+      email : 'chop@zorro.com',
       username: 'no-yon',
       password : 'collectivz',
       profile: {
