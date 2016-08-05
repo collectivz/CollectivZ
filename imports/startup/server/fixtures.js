@@ -80,6 +80,33 @@ Meteor.startup(function() {
     });
     Accounts.createUser({
       email : 'zorro@zorro.com',
+      username: 'mathias',
+      password : 'collectivz',
+      profile: {
+        firstName: 'zorro',
+        lastName: 'de la Vega'
+      }
+    });
+    Accounts.createUser({
+      email : 'zorro@zorro.com',
+      username: 'nathan',
+      password : 'collectivz',
+      profile: {
+        firstName: 'zorro',
+        lastName: 'de la Vega'
+      }
+    });
+    Accounts.createUser({
+      email : 'zorro@zorro.com',
+      username: 'no-yon',
+      password : 'collectivz',
+      profile: {
+        firstName: 'zorro',
+        lastName: 'de la Vega'
+      }
+    });
+    Accounts.createUser({
+      email : 'zorro@zorro.com',
       username: 'zorro',
       password : 'zorro',
       profile: {

@@ -5,10 +5,10 @@ import { Guilds } from '../collection.js';
 
 Meteor.publish('guildList',function(){
   if (this.userId) {
-    let user = Meteor.users.findOne(this.userId);
-    return Guilds.find({_id: {$in: user.subscribedGuilds}});
+    return Guilds.find({});
+  } else {
+    this.ready();
   }
-  return Guilds.find({});
 });
 
 Meteor.publish('guildPage',function(id){

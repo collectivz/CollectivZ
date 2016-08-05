@@ -112,7 +112,7 @@ class ChanPage extends React.Component {
       const zorroMsg = {
         text: question,
         author: 'Zorro'
-      }
+      };
       dialog.push(zorroMsg);
       this.setState({
         expectedAnswer: currentAction.toFill[0],
