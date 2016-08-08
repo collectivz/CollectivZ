@@ -10,9 +10,10 @@ import ChanPage from '../pages/ChanPage.jsx';
 
 
 export default createContainer(({ params }) => {
-  Meteor.subscribe('chanPage', params.chatId);
+  const sub = Meteor.subscribe('chanPage', params.chatId);
   const id = params.chatId;
   return {
+    loading: !sub.ready(),
     msgs: Messages.find({channelId: id}, {$sort: {createadAt: 1}}).fetch(),
     channel: Channels.findOne(id) || {},
   };

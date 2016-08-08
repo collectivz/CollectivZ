@@ -36,9 +36,9 @@ Meteor.methods({
 
     const channelId = Channels.insert(channel)
 
-    let msg = {
+    const msg = {
       text: 'le channel : ' + channel.name + ' a été crée',
-      lien: channelId,
+      url: channelId,
       type: 'channel',
       channelId: parent._id
     };
@@ -51,5 +51,31 @@ Meteor.methods({
     Meteor.users.update(this.userId, {
       $push: { subscribedChannels: channelId },
     });
+  },
+  'channels.join'(channelId) {
+    if (!this.userId) {
+      throw new Meteor.Error('not-logged-in',
+        "Vous devez être connecté pour rejoindre un canal de discussion.");
+    }
+
+    check(channelId, String);
+
+    const channel = Channels.findOne(channelId);
+
+    if (channel && !_.contains(channel.members, this.userId)) {
+      Channels.update(channelId, {
+        $push: { members: this.userId },
+      });
+      Meteor.users.update(this.userId, {
+        $push: { subscribedChannels: channelId },
+      });
+
+      const username = Meteor.users.findOne(this.userId).username;
+      const msg = {
+        text: `L'utilisateur ${username} vient de rejoindre le channel. Dites hola !`,
+        channelId: channel._id
+      };
+      Messages.insert(msg);
+    }
   }
 });

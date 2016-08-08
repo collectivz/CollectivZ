@@ -5,9 +5,11 @@ import { createContainer } from 'meteor/react-meteor-data';
 
 // import Channel from '../channel/Channel.jsx';
 import { zorro } from '../../api/zorro/zorro.js';
-import TopNav from '../modules/topNav/TopNav.jsx';
 import { Channels } from '../../api/channels/collection.js';
 import { Messages } from '../../api/messages/collection.js';
+
+import TopNav from '../modules/topNav/TopNav.jsx';
+import Loader from '../modules/loader/Loader.jsx';
 import MsgItem from '../modules/msgItem/MsgItem.jsx';
 import ZorroItem from '../modules/zorroItem/ZorroItem.jsx';
 import MsgInput from '../modules/msgInput/MsgInput.jsx';
@@ -158,6 +160,7 @@ class ChanPage extends React.Component {
   render() {
     let store = [];
     let messages = [];
+    console.log(this.props.loading)
     if (this.state.searchString !== '') {
       messages = this.props.msgs.filter((message) => {
         if (message.type && message.type === this.state.searchString) {
@@ -196,23 +199,26 @@ class ChanPage extends React.Component {
           </div>
           : ''
         }
-        <div className="pane">
+          <div className="pane">
           <div ref='scroll' className={this.state.padding
                       + " scroll-content has-chanbar has-tabs has-footer chat "
                       + (store.length ? this.state.hasMenu : '') }>
-            <div className="scroll">
 
-              <div className="message-list">
-                {messages.map(function(msg) {
-                   return <MsgItem key={msg._id} msg={msg} />;
-                })}
-              </div>
-              <div className="message-list">
-                {this.state.dialogWithZorro.map(function(msg, index) {
-                   return <ZorroItem key={index} msg={msg} />;
-                })}
-              </div>
-            </div>
+            { this.props.loading
+              ? <Loader />
+              : <div className="scroll">
+                  <div className="message-list">
+                    {messages.map(function(msg) {
+                       return <MsgItem key={msg._id} msg={msg} />;
+                    })}
+                  </div>
+                  <div className="message-list">
+                    {this.state.dialogWithZorro.map(function(msg, index) {
+                       return <ZorroItem key={index} msg={msg} />;
+                    })}
+                  </div>
+                </div>
+            }
           </div>
           <MsgInput
             chanId={this.props.channel._id || '...'}

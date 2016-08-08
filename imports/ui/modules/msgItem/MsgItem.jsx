@@ -9,6 +9,12 @@ import './MsgItem.css';
 
 export default class MsgItem extends Component {
 
+  constructor(props) {
+    super(props);
+
+    this.joinChannel = this.joinChannel.bind(this);
+  }
+
   isMine () {
 
     if (Meteor.userId() === this.props.msg.author) {
@@ -33,6 +39,10 @@ export default class MsgItem extends Component {
 
   }
 
+  joinChannel() {
+    Meteor.call('channels.join', this.props.msg.url);
+  }
+
   render() {
     return (
       <div className="message-wrapper">
@@ -46,9 +56,9 @@ export default class MsgItem extends Component {
           </div>
           <div className="text">
               <p>{this.props.msg.text}</p>
-            { this.props.msg.lien
+            { this.props.msg.url
               ?
-              <a href={'/#/chat/' + this.props.msg.lien}>chat</a>
+              <a href={'/#/chat/' + this.props.msg.url} onClick={this.joinChannel}>chat</a>
               : ''}
 
           </div>

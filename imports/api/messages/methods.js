@@ -17,6 +17,7 @@ Meteor.methods({
     });
 
     if (message.text.length > 0) {
+      message.author = this.userId;
       Messages.insert(message);
     }
   }
