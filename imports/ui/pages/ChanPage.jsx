@@ -160,7 +160,6 @@ class ChanPage extends React.Component {
   render() {
     let store = [];
     let messages = [];
-    console.log(this.props.loading)
     if (this.state.searchString !== '') {
       messages = this.props.msgs.filter((message) => {
         if (message.type && message.type === this.state.searchString) {

@@ -25,10 +25,10 @@ Meteor.methods({
       throw new Meteor.Error('parent-not-found',
         "Le petit Chan a perdu ses parents, il a donc été supprimé.")
     }
-    if (!_.contains(parent.leaders, this.userId)) {
-      throw new Meteor.Error('not-allowed-to',
-        "Vous n'avez pas les droits nécessaires pour faire ça.");
-    }
+    // if (!_.contains(parent.leaders, this.userId)) {
+    //   throw new Meteor.Error('not-allowed-to',
+    //     "Vous n'avez pas les droits nécessaires pour faire ça.");
+    // }
     channel.parentId = parent._id;
     channel.rootId = parent.rootId;
 
@@ -44,7 +44,6 @@ Meteor.methods({
     };
     Messages.insert(msg);
 
-    // console.log(Messages.find({channelId: parentId}));
     Channels.update(parentId, {
       $inc: {'connections.chanCount' : 1}
     });
