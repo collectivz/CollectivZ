@@ -8,6 +8,8 @@ import { createContainer } from 'meteor/react-meteor-data';
 import { zorro } from '../../api/zorro/zorro.js';
 import { Channels } from '../../api/channels/collection.js';
 import { Messages } from '../../api/messages/collection.js';
+import { Polls } from '../../api/polls/collection.js';
+import { Propositions } from '../../api/polls/collection.js';
 
 import TopNav from '../modules/topNav/TopNav.jsx';
 import Loader from '../modules/loader/Loader.jsx';
@@ -117,7 +119,17 @@ class ChanPage extends React.Component {
         }
         index = currentAction.toFill.indexOf(expectedAnswer);
         currentAction.toFill.splice(index, 1);
-        question = currentAction.questions[currentAction.toFill[0]]
+        question = currentAction.questions[currentAction.toFill[0]];
+        if (answer === '@done') {
+          question = question + '\n' + 'Question : ' + currentAction.finalAnswer.msg;
+          let proposition = '';
+          let choiceCount = 1;
+          currentAction.finalAnswer.props.forEach((choice) => {
+            proposition = proposition + '\n' + 'Proposition ' + choiceCount + ' : ' + choice;
+            choiceCount++;
+          })
+          question = question + proposition;
+        }
         zorroMsg = {
           text: question,
           author: 'Zorro'
@@ -141,8 +153,6 @@ class ChanPage extends React.Component {
           channelId: this.props.channel._id,
           type: "poll",
         };
-        console.log(pollMsg.text);
-        console.log(currentAction.finalAnswer.props);
         Meteor.call('polls.insert', pollMsg, currentAction.finalAnswer.props);
       } else if (expectedAnswer === "confirm") {
         this.setState({
@@ -154,7 +164,8 @@ class ChanPage extends React.Component {
         });
       }
     } else {
-      currentAction.finalAnswer[expectedAnswer] = answer;
+      if (expectedAnswer !== 'confirm')
+        currentAction.finalAnswer[expectedAnswer] = answer;
       index = currentAction.toFill.indexOf(expectedAnswer);
       currentAction.toFill.splice(index, 1);
 
@@ -165,7 +176,6 @@ class ChanPage extends React.Component {
         } else {
           question = currentAction.questions[currentAction.toFill[0]]
         }
-        console.log(expectedAnswer);
         zorroMsg = {
           text: question,
           author: 'Zorro'
@@ -176,7 +186,7 @@ class ChanPage extends React.Component {
           dialogWithZorro: dialog
         });
       } else if (expectedAnswer === 'confirm' && answer === "oui") {
-        const finalAnswer = currentAction.finalAnswer;
+        let finalAnswer = currentAction.finalAnswer;
 
         switch (this.state.inputMode) {
           case 'newChannel':
@@ -186,8 +196,9 @@ class ChanPage extends React.Component {
             };
             Meteor.call('channels.insert', channel, this.props.channel._id);
             break;
-          case 'newBeerz':
-            console.log("T'as créer une biere du con");
+          case 'newBeer':
+            finalAnswer.channelId = this.props.channel._id;
+            Meteor.call('beers.insert', finalAnswer);
           default:
             break;
         }
