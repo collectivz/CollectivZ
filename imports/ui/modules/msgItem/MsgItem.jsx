@@ -4,7 +4,8 @@ import { Meteor } from 'meteor/meteor';
 import { Link } from 'react-router';
 
 // import { Chans } from '../../api/channels.js';
-// import Channel from '../channel/Channel.jsx';
+import SubChannelItem from '../subChannelItem/SubChannelItem.jsx';
+import BeerItem from '../beerItem/BeerItem.jsx';
 import './MsgItem.css';
 
 export default class MsgItem extends Component {
@@ -12,7 +13,6 @@ export default class MsgItem extends Component {
   constructor(props) {
     super(props);
 
-    this.joinChannel = this.joinChannel.bind(this);
   }
 
   isMine () {
@@ -39,8 +39,15 @@ export default class MsgItem extends Component {
 
   }
 
-  joinChannel() {
-    Meteor.call('channels.join', this.props.msg.url);
+  renderType() {
+    switch(this.props.msg.type) {
+      case 'channel':
+        return (<SubChannelItem url={this.props.msg.url}/>);
+      case 'beer':
+        return (<BeerItem beerId={this.props.msg.beerId}/>);
+      default:
+        break;
+    }
   }
 
   render() {
@@ -56,9 +63,8 @@ export default class MsgItem extends Component {
           </div>
           <div className="text">
               <p>{this.props.msg.text}</p>
-            { this.props.msg.url
-              ?
-              <a href={'/#/chat/' + this.props.msg.url} onClick={this.joinChannel}>chat</a>
+            { this.props.msg.type
+              ? this.renderType()
               : ''}
 
           </div>

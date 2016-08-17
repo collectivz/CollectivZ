@@ -287,7 +287,7 @@ class ChanPage extends React.Component {
                   </div>
                   <div className="message-list">
                     {this.state.dialogWithZorro.map(function(msg, index) {
-                       return <ZorroItem key={index} msg={msg} />;
+                       return <ZorroItem key={msg._id} msg={msg} />;
                     })}
                   </div>
                 </div>

@@ -3,6 +3,7 @@ import { check } from 'meteor/check';
 
 import { Beers } from './collection.js';
 import { Messages } from '../messages/collection.js';
+import { Channels } from '../channels/collection.js';
 
 
 Meteor.methods({
@@ -23,12 +24,20 @@ Meteor.methods({
     const message = {
       text: `${user.username} a créé l'évenement :`,
       channelId: beer.channelId,
-      type: 'beer'
+      type: 'beer',
     };
     const messageId = Messages.insert(message);
-
     beer.messageId = messageId;
-    Beers.insert(beer);
+
+    const beerId = Beers.insert(beer);
+
+    Messages.update(messageId, {
+      $set: { beerId: beerId }
+    });
+
+    Channels.update(beer.channelId, {
+      $inc: {'connections.beerCount': 1}
+    });
   },
 
   'beers.join'(beerId) {
@@ -37,9 +46,7 @@ Meteor.methods({
         "Vous devez être connecté pour rejoindre un évènement.");
     }
 
-    check(beer, {
-      beerId: String,
-    });
+    check(beerId, String);
 
     const beer = Beers.findOne(beerId);
 
