@@ -7,7 +7,7 @@ class GuildCollection extends Mongo.Collection {
 
     guild.members = [userId];
     guild.leaders = [userId];
-    guild.createdAt = new Date();
+    guild.createdAt = Date.now();
 
     if (!super.findOne({name: guild.name})) {
       return super.insert(guild, callback);
