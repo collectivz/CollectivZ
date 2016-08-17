@@ -4,6 +4,7 @@ import { check } from 'meteor/check';
 import { Channels } from '../collection.js';
 import { Messages } from '../../messages/collection.js';
 import { Beers } from '../../beers/collection.js';
+import { Polls } from '../../polls/collection.js';
 
 Meteor.publish('chanPage',function(id){
   check(id, String);
@@ -11,6 +12,7 @@ Meteor.publish('chanPage',function(id){
     Channels.find({_id: id}),
     Messages.find({channelId: id}),
     Beers.find({channelId: id}),
+    Polls.find({channelId: id}),
     Meteor.users.find({subscribedChannels: {$in: [id]}})
   ];
 });

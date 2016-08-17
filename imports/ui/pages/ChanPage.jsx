@@ -9,6 +9,7 @@ import { zorro } from '../../api/zorro/zorro.js';
 import { Channels } from '../../api/channels/collection.js';
 import { Messages } from '../../api/messages/collection.js';
 import { Polls } from '../../api/polls/collection.js';
+import { Beers } from '../../api/beers/collection.js';
 import { Propositions } from '../../api/polls/collection.js';
 
 import TopNav from '../modules/topNav/TopNav.jsx';
@@ -186,7 +187,7 @@ class ChanPage extends React.Component {
           dialogWithZorro: dialog
         });
       } else if (expectedAnswer === 'confirm' && answer === "oui") {
-        let finalAnswer = currentAction.finalAnswer;
+        const finalAnswer = currentAction.finalAnswer;
 
         switch (this.state.inputMode) {
           case 'newChannel':
@@ -197,8 +198,13 @@ class ChanPage extends React.Component {
             Meteor.call('channels.insert', channel, this.props.channel._id);
             break;
           case 'newBeer':
-            finalAnswer.channelId = this.props.channel._id;
-            Meteor.call('beers.insert', finalAnswer);
+            const beer = {
+              occasion: finalAnswer.occasion,
+              date: finalAnswer.date,
+              place: finalAnswer.place,
+              channelId: this.props.channel._id
+            };
+            Meteor.call('beers.insert', beer);
           default:
             break;
         }
