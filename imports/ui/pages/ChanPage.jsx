@@ -179,7 +179,6 @@ class ChanPage extends React.Component {
           type: "poll",
         };
         Meteor.call('polls.insert', pollMsg, currentAction.finalAnswer.props);
-      } else if (expectedAnswer === "confirm") {
         this.setState({
           currentAction: {},
           ongoingAction: false,
@@ -248,6 +247,14 @@ class ChanPage extends React.Component {
       this.setState({
         searchString: 'channel'
       });
+    } else if (param === 'beerCount') {
+      this.setState({
+        searchString: 'beer'
+      });
+    } else if (param === 'pollCount') {
+      this.setState({
+        searchString: 'poll'
+      });
     } else if (param === 'all') {
       this.setState({
         searchString: ''
@@ -286,9 +293,9 @@ class ChanPage extends React.Component {
             <div className="second">
               <p onClick={this.handleClick.bind(this, 'all')}>All</p>
               {
-                store.map(function(menu) {
+                store.map(function(menu, index) {
                  return (
-                     <p onClick={this.handleClick.bind(this, menu.name)} key={menu} >{menu.name + ' ' + menu.nb}</p>
+                     <p onClick={this.handleClick.bind(this, menu.name)} key={index} >{menu.name + ' ' + menu.nb}</p>
                   );
                 }, this)
               }
@@ -311,7 +318,7 @@ class ChanPage extends React.Component {
                   </div>
                   <div className="message-list">
                     {this.state.dialogWithZorro.map(function(msg, index) {
-                       return <ZorroItem key={msg._id} msg={msg} />;
+                       return <ZorroItem key={index} msg={msg} />;
                     })}
                   </div>
                 </div>
