@@ -86,7 +86,7 @@ Meteor.methods({
     }
 
     const parentId = Channels.findOne(channelId);
-    if (!fatherChan) {
+    if (!parentId) {
       throw new Meteor.Error('no-chan-defined',
       'The message don\'t belong to any chan');
     }

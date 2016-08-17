@@ -1,3 +1,5 @@
+import '../../api/buddies/methods.js';
+
 import '../../api/channels/methods.js';
 import '../../api/channels/server/publish.js';
 

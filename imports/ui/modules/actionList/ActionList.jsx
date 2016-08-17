@@ -26,7 +26,7 @@ export default class ActionList extends Component {
             <i className="fa fa-cogs" aria-hidden="true"></i>
             <span>Actionz</span>
           </a>
-          <a onClick={this.handleClick.bind(this, 'newMission')}>
+          <a onClick={this.handleClick.bind(this, 'newBuddie')}>
             <i className="fa fa-user-plus" aria-hidden="true"></i>
             <span>Buddiez</span>
           </a>
