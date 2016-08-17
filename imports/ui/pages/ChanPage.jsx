@@ -1,4 +1,4 @@
-  import React, { Component, PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import { Meteor } from 'meteor/meteor';
 
@@ -60,15 +60,15 @@ class ChanPage extends React.Component {
     //this handle the start of a new action
     if (this.state.inputMode !== "message" && !this.state.ongoingAction) {
       const inputMode = this.state.inputMode;
-      const currentAction = JSON.parse(JSON.stringify(zorro[inputMode]))[inputMode];
-      console.log(JSON.parse(JSON.stringify(zorro[inputMode]))[inputMode]);
+      let currentAction = JSON.parse(JSON.stringify(zorro[inputMode]))[inputMode];
+      console.log("Bonjour" + JSON.parse(JSON.stringify(zorro[inputMode]))[inputMode]);
       const msg = {
         text: currentAction.questions[currentAction.toFill[0]],
         author: 'Zorro'
       };
-
+      currentAction.name = inputMode;
       this.setState({
-        currentAction,
+        currentAction: currentAction,
         ongoingAction: true,
         expectedAnswer: currentAction.toFill[0],
         dialogWithZorro: this.state.dialogWithZorro.concat([msg]),
@@ -106,14 +106,38 @@ class ChanPage extends React.Component {
     const currentAction = this.state.currentAction;
     const expectedAnswer = this.state.expectedAnswer;
     const dialog = this.state.dialogWithZorro;
-    let pollCount = this.state.pollCount;
 
     dialog.push(msg);
     let index;
     let question = "";
     let zorroMsg = {};
-
-    if (currentAction.name === "newPoll") {
+    if (currentAction.name === 'newBuddie') {
+      Meteor.call('buddies.inviteToChannel', answer, this.props.channel._id, (err, res) => {
+        if (err) {
+          zorroMsg = {
+            text: 'Utilisateur non trouvé !',
+            author: 'Zorro'
+          };
+        } else {
+          zorroMsg = {
+            text: 'Trouvé et ajouté!',
+            author: 'Zorro'
+          };
+        }
+      });
+      dialog.push(zorroMsg);
+      this.setState({
+        dialogWithZorro: dialog,
+      });
+      this.setState({
+        currentAction: {},
+        ongoingAction: false,
+        dialogWithZorro: [],
+        expectedAnswer: '',
+        inputMode: 'message'
+      });
+    }
+    else if (currentAction.name === "newPoll") {
       if (expectedAnswer === "msg" || answer === "@done") {
         if (answer !== "@done") {
           currentAction.finalAnswer[expectedAnswer] = answer;
