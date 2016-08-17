@@ -30,6 +30,10 @@ export default class ActionList extends Component {
             <i className="fa fa-user-plus" aria-hidden="true"></i>
             <span>Buddiez</span>
           </a>
+          <a onClick={this.handleClick.bind(this, 'newBeer')}>
+            <i className="fa fa-user-plus" aria-hidden="true"></i>
+            <span>Beerz</span>
+          </a>
         </div>
       </div>
     );

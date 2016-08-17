@@ -11,35 +11,38 @@ Meteor.methods({
   'polls.insert'(message, choice) {
     check(message, {                                      // verify message if he
       text: String,                                       // does contain a text, a chan and a type
-      chanId: String,
+      channelId: String,
       type: Match.Maybe(String)
     });
 
+    const parentId = message.channelId;
 
-    // this part check the logged, the info entered (chanId and type)
+
+    // this part check the logged, the info entered (channelId and type)
     // and the rights
     if (!this.userId) {
       throw new Meteor.Error('not-logged-in',
       'Must be logged in to create a poll.');
     }
-    else if (type !== "poll") {
+    else if (message.type !== "poll") {
       throw new Meteor.Error('not-good-type',
         'Message is wrong typed.');
     }
 
-    const fatherChan = Channels.findOne(fatherChanId);
-    if (!fatherChan) {
+
+    const parent = Channels.findOne(parentId);
+    if (!parent) {
       throw new Meteor.Error('no-chan-defined',
       'The message don\'t belong to any chan');
     }
 
-    const messageFatherId = Meteor.call("messages.insert", message);
+    const messageId = Messages.insert(message);
     const newPoll = {
-      messageFatherId: messageFatherId,
+      messageId: messageId,
       finished: 0,
-      chanId: message.chanId,
+      channelId: message.channelId,
     };
-    polldId = Polls.insert(newPoll);
+    pollId = Polls.insert(newPoll);
 
     // there is two type of poll, one where the user enter is own prop
     // and the other at "default" where there is for and against prop
@@ -48,25 +51,25 @@ Meteor.methods({
 
     if (choice) {
       choice.forEach((proposition) => {
-        Meteor.call("propostions.insert", proposition, pollId);
+        Meteor.call("propositions.insert", proposition, pollId);
       })
     } else {
-      Meteor.call("propostions.insert", "for", pollId);
-      Meteor.call("propostions.insert", "against", pollId);
+      Meteor.call("propositions.insert", "pour", pollId);
+      Meteor.call("propositions.insert", "contre", pollId);
     }
 
-    Chans.update(fatherChanId, {
-      $inc: ('connections.pollsCount': 1)
+    Channels.update(parentId, {
+      $inc: {'connections.pollCount': 1}
     });
   },
 
-  'polls.vote'(pollId, propsId, chanId) {
+  'polls.vote'(pollId, propsId, channelId) {
 
     check(pollId, String);
     check(propsId, String);
-    check(chanId, String);
+    check(channelId, String);
 
-    // this part check the logged, the info entered (chanId and type)
+    // this part check the logged, the info entered (channelId and type)
     // and the rights
     if (!this.userId) {
       throw new Meteor.Error('not-logged-in',
@@ -82,7 +85,7 @@ Meteor.methods({
       'The poll is finished');
     }
 
-    const fatherChan = Channels.findOne(chanId);
+    const parentId = Channels.findOne(channelId);
     if (!fatherChan) {
       throw new Meteor.Error('no-chan-defined',
       'The message don\'t belong to any chan');
@@ -109,6 +112,6 @@ Meteor.methods({
       pollId: pollId
     }
 
-    return Props.insert(prop);
+    return Propositions.insert(prop);
   }
 })

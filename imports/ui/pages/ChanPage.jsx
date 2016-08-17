@@ -1,6 +1,7 @@
-import React, { Component, PropTypes } from 'react';
+  import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import { Meteor } from 'meteor/meteor';
+
 import { createContainer } from 'meteor/react-meteor-data';
 
 // import Channel from '../channel/Channel.jsx';
@@ -57,6 +58,7 @@ class ChanPage extends React.Component {
     if (this.state.inputMode !== "message" && !this.state.ongoingAction) {
       const inputMode = this.state.inputMode;
       const currentAction = JSON.parse(JSON.stringify(zorro[inputMode]))[inputMode];
+      console.log(JSON.parse(JSON.stringify(zorro[inputMode]))[inputMode]);
       const msg = {
         text: currentAction.questions[currentAction.toFill[0]],
         author: 'Zorro'
@@ -101,47 +103,102 @@ class ChanPage extends React.Component {
     const currentAction = this.state.currentAction;
     const expectedAnswer = this.state.expectedAnswer;
     const dialog = this.state.dialogWithZorro;
+    let pollCount = this.state.pollCount;
 
     dialog.push(msg);
-    currentAction.finalAnwser[expectedAnswer] = answer;
+    let index;
+    let question = "";
+    let zorroMsg = {};
 
-    const index = currentAction.toFill.indexOf(expectedAnswer);
-    currentAction.toFill.splice(index, 1);
+    if (currentAction.name === "newPoll") {
+      if (expectedAnswer === "msg" || answer === "@done") {
+        if (answer !== "@done") {
+          currentAction.finalAnswer[expectedAnswer] = answer;
+        }
+        index = currentAction.toFill.indexOf(expectedAnswer);
+        currentAction.toFill.splice(index, 1);
+        question = currentAction.questions[currentAction.toFill[0]]
+        zorroMsg = {
+          text: question,
+          author: 'Zorro'
+        };
+        this.setState({
+          expectedAnswer: currentAction.toFill[0],
+          dialogWithZorro: dialog,
+        });
+          dialog.push(zorroMsg);
+        }
+      if (expectedAnswer === "props" && answer !== "@done") {
+        currentAction.finalAnswer[expectedAnswer].push(answer);
+        this.setState({
+          dialogWithZorro: dialog,
+        });
 
-    if (currentAction.toFill.length > 0) {
-      const question = currentAction.questions[currentAction.toFill[0]]
-        + currentAction.finalAnwser.chanName;
-      const zorroMsg = {
-        text: question,
-        author: 'Zorro'
-      };
-      dialog.push(zorroMsg);
-      this.setState({
-        expectedAnswer: currentAction.toFill[0],
-        dialogWithZorro: dialog
-      });
-    } else if (expectedAnswer === 'confirm' && answer === "oui") {
-      const finalAnwser = currentAction.finalAnwser;
-
-      switch (this.state.inputMode) {
-        case 'newChannel':
-          const channel = {
-            name: finalAnwser.chanName,
-            depth: 2
-          };
-
-          Meteor.call('channels.insert', channel, this.props.channel._id);
-          break;
-        default:
-          break;
       }
-      this.setState({
-        currentAction: {},
-        ongoingAction: false,
-        dialogWithZorro: [],
-        expectedAnswer: '',
-        inputMode: 'message'
-      });
+      if (expectedAnswer === "confirm" && answer === "oui") {
+        const pollMsg = {
+          text: currentAction.finalAnswer.msg,
+          channelId: this.props.channel._id,
+          type: "poll",
+        };
+        console.log(pollMsg.text);
+        console.log(currentAction.finalAnswer.props);
+        Meteor.call('polls.insert', pollMsg, currentAction.finalAnswer.props);
+      } else if (expectedAnswer === "confirm") {
+        this.setState({
+          currentAction: {},
+          ongoingAction: false,
+          dialogWithZorro: [],
+          expectedAnswer: '',
+          inputMode: 'message'
+        });
+      }
+    } else {
+      currentAction.finalAnswer[expectedAnswer] = answer;
+      index = currentAction.toFill.indexOf(expectedAnswer);
+      currentAction.toFill.splice(index, 1);
+
+      if (currentAction.toFill.length > 0) {
+        if (expectedAnswer === 'confirm') {
+          question = currentAction.questions[currentAction.toFill[0]]
+            + currentAction.finalAnswer.chanName;
+        } else {
+          question = currentAction.questions[currentAction.toFill[0]]
+        }
+        console.log(expectedAnswer);
+        zorroMsg = {
+          text: question,
+          author: 'Zorro'
+        };
+        dialog.push(zorroMsg);
+        this.setState({
+          expectedAnswer: currentAction.toFill[0],
+          dialogWithZorro: dialog
+        });
+      } else if (expectedAnswer === 'confirm' && answer === "oui") {
+        const finalAnswer = currentAction.finalAnswer;
+
+        switch (this.state.inputMode) {
+          case 'newChannel':
+            const channel = {
+              name: finalAnswer.chanName,
+              depth: 2
+            };
+            Meteor.call('channels.insert', channel, this.props.channel._id);
+            break;
+          case 'newBeerz':
+            console.log("T'as créer une biere du con");
+          default:
+            break;
+        }
+        this.setState({
+          currentAction: {},
+          ongoingAction: false,
+          dialogWithZorro: [],
+          expectedAnswer: '',
+          inputMode: 'message'
+        });
+      }
     }
   }
 

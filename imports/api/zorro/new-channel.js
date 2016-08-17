@@ -1,6 +1,6 @@
 export const newChannel = {
   toFill: ['chanName', 'confirm'],
-  finalAnwser: {
+  finalAnswer: {
     chanName: ''
   },
   questions: {
