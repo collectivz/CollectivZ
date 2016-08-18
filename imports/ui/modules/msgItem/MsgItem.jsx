@@ -45,6 +45,8 @@ export default class MsgItem extends Component {
         return (<SubChannelItem url={this.props.msg.url}/>);
       case 'beer':
         return (<BeerItem beerId={this.props.msg.beerId}/>);
+      case 'poll':
+        return (<PollItem pollId={this.props.msg.beerId}/>);
       default:
         break;
     }
