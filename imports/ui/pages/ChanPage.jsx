@@ -61,7 +61,6 @@ class ChanPage extends React.Component {
     if (this.state.inputMode !== "message" && !this.state.ongoingAction) {
       const inputMode = this.state.inputMode;
       let currentAction = JSON.parse(JSON.stringify(zorro[inputMode]))[inputMode];
-      console.log("Bonjour" + JSON.parse(JSON.stringify(zorro[inputMode]))[inputMode]);
       const msg = {
         text: currentAction.questions[currentAction.toFill[0]],
         author: 'Zorro'

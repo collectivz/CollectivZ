@@ -15,7 +15,6 @@ Meteor.methods({
         'Vous devez être connecté pour inviter un ami.');
     }
     const friend = Accounts.findUserByEmail(mail)
-    console.log(friend);
     if (!friend) {
       throw new Meteor.Error('user-not-found',
         'Le mail renseigné ne correspond à aucun utilisateur.');

@@ -38,9 +38,9 @@ Meteor.methods({
 
     const msg = {
       text: 'le channel : ' + channel.name + ' a été crée',
-      channelId,
+      url: channelId,
       type: 'channel',
-      parentId: parent._id
+      channelId: parentId
     };
     Messages.insert(msg);
 
