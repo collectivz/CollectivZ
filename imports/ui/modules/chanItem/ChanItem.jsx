@@ -35,8 +35,8 @@ class ChanItem extends React.Component {
           <img src="/img/zorro.jpg" alt="" />
           <h2>{this.props.channel.name}</h2>
           <div>
-            { store.length ? store.map(function(menu) {
-               return ( <p key={menu} >{menu.name + ' ' + menu.nb}</p> );
+            { store.length ? store.map(function(menu, index) {
+               return ( <p key={index} >{menu.name + ' ' + menu.nb}</p> );
             }) :  <p>Il est temps de passer à l'action !</p> }
 
           </div>
