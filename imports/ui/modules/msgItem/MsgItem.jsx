@@ -6,6 +6,7 @@ import { Link } from 'react-router';
 // import { Chans } from '../../api/channels.js';
 import SubChannelItem from '../subChannelItem/SubChannelItem.jsx';
 import BeerItem from '../beerItem/BeerItem.jsx';
+import PollItem from '../pollItem/PollItem.jsx';
 import './MsgItem.css';
 
 export default class MsgItem extends Component {
@@ -46,7 +47,7 @@ export default class MsgItem extends Component {
       case 'beer':
         return (<BeerItem beerId={this.props.msg.beerId}/>);
       case 'poll':
-        return (<PollItem pollId={this.props.msg.beerId}/>);
+        return (<PollItem pollId={this.props.msg.pollId}/>);
       default:
         break;
     }

@@ -9,10 +9,11 @@ import { Messages } from '../../api/messages/collection.js';
 import ChanList from '../pages/ChanList.jsx';
 
 export default createContainer(() => {
-  Meteor.subscribe('chanList');
+  const sub = Meteor.subscribe('chanList');
+
   if (Meteor.user()) {
     return {
-      channels: Channels.find({_id: {$in: Meteor.user().subscribedChannels}}, {$sort: {createadAt: 1}}).fetch(),
+      channels: Channels.find({_id: {$in: Meteor.user().subscribedChannels}}).fetch(),
     }
   }
 }, ChanList);

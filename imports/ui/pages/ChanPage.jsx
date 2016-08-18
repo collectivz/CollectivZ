@@ -262,6 +262,8 @@ class ChanPage extends React.Component {
   }
 
   render() {
+    const { beers, polls, channels, propositions } = this.props;
+
     let store = [];
     let messages = [];
     if (this.state.searchString !== '') {

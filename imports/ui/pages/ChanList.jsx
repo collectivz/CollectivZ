@@ -12,6 +12,10 @@ import './ChanList.css';
 export default class ChanList extends Component {
 
   render() {
+    const { channels } = this.props;
+    channels.sort((a, b) => {
+      return b.lastActivity - a.lastActivity;
+    });
 
     return (
       <div>
@@ -21,7 +25,7 @@ export default class ChanList extends Component {
             <div className="scroll-content has-top-nav has-tabs-nav">
               <div className="disable-user-behavior">
                 <div className="list">
-                  {this.props.channels.map(function(channel) {
+                  {channels.map(function(channel) {
                      return <ChanItem key={channel._id} channel={channel} />;
                   })}
                 </div>

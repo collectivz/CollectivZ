@@ -49,7 +49,11 @@ Meteor.methods({
     // this build the array where the count of vote is comptabilized with the
     // corresponding prop
 
-    if (choice) {
+    Messages.update(messageId, {
+      $set: { pollId: pollId }
+    });
+
+    if (choice.length) {
       choice.forEach((proposition) => {
         Meteor.call("propositions.insert", proposition, pollId);
       })

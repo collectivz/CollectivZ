@@ -15,7 +15,6 @@ export default class SubChannelItem extends React.Component {
   render() {
     return (
       <div>
-
         <a href={'/#/chat/' + this.props.url} onClick={this.joinChannel}><button>Rejoindre</button></a>
       </div>
     );
