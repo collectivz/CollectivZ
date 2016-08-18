@@ -7,10 +7,8 @@ import { Channels } from '../channels/collection.js';
 Meteor.methods({
 
   'buddies.inviteToChannel'(mail, channelId) {
-    console.log("ça passe les checks");
     check(mail, String);
     check(channelId, String);
-    console.log(mail);
 
     if (!this.userId) {
       throw new Meteor.Error('not-logged-in',
