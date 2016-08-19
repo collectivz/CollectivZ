@@ -12,7 +12,7 @@ Meteor.methods({
     check(message, {                                      // verify message if he
       text: String,                                       // does contain a text, a chan and a type
       channelId: String,
-      type: Match.Maybe(String)
+      type: Match.Maybe(String),
     });
 
     const parentId = message.channelId;
@@ -41,6 +41,7 @@ Meteor.methods({
       messageId: messageId,
       finished: 0,
       channelId: message.channelId,
+      totalVote: 0,
     };
     pollId = Polls.insert(newPoll);
 
@@ -98,6 +99,9 @@ Meteor.methods({
 
     Propositions.update(propsId, {
       $push: {voteRecevedFrom: this.userId},
+    });
+    Polls.update(pollId, {
+      $inc: {totalVote: 1},
     });
   },
 
