@@ -67,11 +67,10 @@ Meteor.methods({
     });
   },
 
-  'polls.vote'(pollId, propsId, channelId) {
+  'polls.vote'(pollId, propsId) {
 
     check(pollId, String);
     check(propsId, String);
-    check(channelId, String);
 
     // this part check the logged, the info entered (channelId and type)
     // and the rights
@@ -89,12 +88,6 @@ Meteor.methods({
       'The poll is finished');
     }
 
-    const parentId = Channels.findOne(channelId);
-    if (!parentId) {
-      throw new Meteor.Error('no-chan-defined',
-      'The message don\'t belong to any chan');
-    }
-
     const props = Propositions.find({pollId: pollId}).fetch();
     props.forEach((proposition) => {
       if (_.contains(proposition.voteRecevedFrom, this.userId)) {
@@ -103,7 +96,7 @@ Meteor.methods({
       }
     })
 
-    Propostions.update(propsId, {
+    Propositions.update(propsId, {
       $push: {voteRecevedFrom: this.userId},
     });
   },
