@@ -13,8 +13,14 @@ export default class BeerItem extends React.Component {
   }
 
   render() {
+    const beer = Beers.findOne(this.props.beerId);
     return (
-      <button onClick={this.joinBeer}>Participer</button>
+      <div>
+        <div>Occasion:  {beer.occasion}</div>
+        <div>Date:  {beer.date}</div>
+        <div>Place:  {beer.place}</div>
+        <button onClick={this.joinBeer}>Participer</button>
+      </div>
     );
   }
 }
