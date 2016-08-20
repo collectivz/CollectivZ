@@ -227,6 +227,7 @@ class ChanPage extends React.Component {
               channelId: this.props.channel._id
             };
             Meteor.call('beers.insert', beer);
+            break;
           default:
             break;
         }
