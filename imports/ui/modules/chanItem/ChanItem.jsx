@@ -18,10 +18,6 @@ class ChanItem extends React.Component {
     return "/chat/" + id;
   }
 
-  showTime(lastActivity) {
-    return new Date(lastActivity).toString();
-  }
-
   render() {
     let store = []
     if (this.props.channel.connections) {
@@ -38,7 +34,6 @@ class ChanItem extends React.Component {
         <Link className="item-content" to={this.constructUrl(this.props.channel._id)}>
           <img src="/img/zorro.jpg" alt="" />
           <h2>{this.props.channel.name}</h2>
-          <h3>{this.showTime(this.props.channel.lastActivity)}</h3>
           <div>
             { store.length ? store.map(function(menu, index) {
                return ( <p key={index} >{menu.name + ' ' + menu.nb}</p> );
