@@ -171,7 +171,7 @@ class ChanPage extends React.Component {
         });
 
       }
-      if (expectedAnswer === "confirm" && answer === "oui") {
+      if (expectedAnswer === "confirm" && (answer === "oui" || answer === "Oui")) {
         const pollMsg = {
           text: currentAction.finalAnswer.msg,
           channelId: this.props.channel._id,
@@ -208,7 +208,7 @@ class ChanPage extends React.Component {
           expectedAnswer: currentAction.toFill[0],
           dialogWithZorro: dialog
         });
-      } else if (expectedAnswer === 'confirm' && answer === "oui") {
+      } else if (expectedAnswer === 'confirm' && (answer === "oui" || answer === "Oui")) {
         const finalAnswer = currentAction.finalAnswer;
 
         switch (this.state.inputMode) {

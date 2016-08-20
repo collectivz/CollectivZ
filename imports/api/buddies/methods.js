@@ -6,15 +6,17 @@ import { Channels } from '../channels/collection.js';
 
 Meteor.methods({
 
-  'buddies.inviteToChannel'(mail, channelId) {
-    check(mail, String);
+  'buddies.inviteToChannel'(mailOrUsername, channelId) {
+    check(mailOrUsername, String);
     check(channelId, String);
 
     if (!this.userId) {
       throw new Meteor.Error('not-logged-in',
         'Vous devez être connecté pour inviter un ami.');
     }
-    const friend = Accounts.findUserByEmail(mail)
+    const friend = Accounts.findUserByUsername(mailOrUsername)
+      || Accounts.findUserByEmail(mailOrUsername);
+
     if (!friend) {
       throw new Meteor.Error('user-not-found',
         'Le mail renseigné ne correspond à aucun utilisateur.');
@@ -23,6 +25,9 @@ Meteor.methods({
       Meteor.users.update(friend,
         { $push: { subscribedChannels: channelId } },
       );
+      Channels.update(channelId, {
+        $push: { members: friend._id }
+      });
     } else {
       throw new Meteor.Error('channel-not-found',
         'Channel non trouvé.');
