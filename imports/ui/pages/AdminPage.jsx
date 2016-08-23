@@ -1,21 +1,25 @@
 import React, { Component, PropTypes } from 'react';
-import ReactDOM from 'react-dom';
 import { Meteor } from 'meteor/meteor';
-import { createContainer } from 'meteor/react-meteor-data';
 
 import './AdminPage.css';
-import TopNav from '../modules/topNav/TopNav.jsx';
+import AppNav from '../components/AppNav.jsx';
+import TopNav from '../components/TopNav.jsx';
 
-import GuildInput from '../modules/guildInput/GuildInput.jsx';
+import GuildInput from '../components/GuildInput.jsx';
 
-export default React.createClass({
+export default class AdminPage extends Component {
 
   render() {
+    const {
+      user
+    } = this.props;
+
     return (
       <div>
         <TopNav text="Config admin"/>
           <GuildInput/>
+        <AppNav user={user} />
       </div>
     );
   }
-});
+}

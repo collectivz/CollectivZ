@@ -42,10 +42,13 @@ Meteor.methods({
       type: 'channel',
       channelId: parentId
     };
-    Messages.insert(msg);
+    const messageId = Messages.insert(msg);
 
     Channels.update(parentId, {
       $inc: {'connections.chanCount' : 1}
+    });
+    Channels.update(channelId, {
+      $set: { messageId: messageId }
     });
     Meteor.users.update(this.userId, {
       $push: { subscribedChannels: channelId },

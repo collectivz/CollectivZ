@@ -1,6 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 
-Meteor.publish(null, function() {
+Meteor.publish('user', function() {
   if (this.userId) {
     let zorro = Meteor.users.findOne({username: 'zorro'});
     return Meteor.users.find({_id: { $in: [ this.userId,  zorro._id ] }}, {fields: {

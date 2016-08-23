@@ -1,4 +1,5 @@
 export const newBeer = {
+  name: 'newBeer',
   toFill: ['occasion', 'place', 'date', 'confirm'],
   finalAnswer: {
     occasion: '',
