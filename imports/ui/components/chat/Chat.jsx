@@ -96,8 +96,23 @@ export default class Chat extends React.Component {
     const {
       zorro,
       dialogWithZorro,
-      ongoingAction
+      ongoingAction,
+      filter
     } = this.state;
+
+    let filteredMessages = [];
+
+    if (filter !== 'all') {
+      filteredMessages = messages.filter(message => {
+        if (message.type && message.type === this.state.filter) {
+          return true;
+        } else {
+          return false;
+        }
+      });
+    } else {
+      filteredMessages = messages;
+    }
 
     return (
       <div className="view-container">
@@ -112,7 +127,7 @@ export default class Chat extends React.Component {
             <div className="scroll">
               <div className="message-list">
                 <MessageList
-                  messages={messages}
+                  messages={filteredMessages}
                   beers={beers}
                   polls={polls}
                   subChannels={subChannels}

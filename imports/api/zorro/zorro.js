@@ -57,7 +57,6 @@ export default class Zorro {
     const currentAction = this.currentAction;
     const dialog = this.state.dialogWithZorro;
 
-    console.log(currentAction);
     dialog.push(msg);
     let index;
     let question = "";
@@ -137,7 +136,6 @@ export default class Zorro {
     } else if (this.state.expectedAnswer === 'confirm' && answer === "oui") {
       const finalAnswer = currentAction.finalAnswer;
 
-      console.log(finalAnswer);
       switch (this.state.inputMode) {
         case 'newChannel':
           const channel = {

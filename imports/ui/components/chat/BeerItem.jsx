@@ -16,8 +16,7 @@ export default class BeerItem extends React.Component {
   }
 
   showMembers() {
-    const beer = Beers.findOne(this.props.beer._id);
-    const members = Meteor.users.find({_id: {$in: beer.members}}).fetch();
+    const { members } = this.props;
     const membersNodes = members.map(function(member) {
       return (
         <div key={member._id}>

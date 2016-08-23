@@ -2,8 +2,8 @@ import React from 'react';
 
 import MessageItem from './MessageItem.jsx';
 import SubChannelItem from './SubChannelItem.jsx';
-import BeerItem from './BeerItem.jsx';
-import PollItem from './PollItem.jsx';
+import BeerItemContainer from '../../containers/BeerItemContainer.jsx';
+import PollItemContainer from '../../containers/PollItemContainer.jsx';
 
 export default class MessageList extends React.Component {
   render() {
@@ -24,17 +24,17 @@ export default class MessageList extends React.Component {
                   return true;
                 return false;
               });
-              return (<BeerItem key={message._id} beer={beer} />);
+              return (<BeerItemContainer key={message._id} beer={beer} />);
             case 'poll':
               const poll = polls.find((poll) => {
                 if (poll.messageId === message._id)
                   return true;
                 return false;
               });
-              return (<PollItem key={message._id} poll={poll} />);
+              return (<PollItemContainer key={message._id} poll={poll} />);
             case 'channel':
               const channel = subChannels.find((channel) => {
-                if (channel.messageId === message._id) {}
+                if (channel.messageId === message._id)
                   return true;
                 return false;
               });
