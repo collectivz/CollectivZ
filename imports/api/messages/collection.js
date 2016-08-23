@@ -10,6 +10,7 @@ class messageCollection extends Mongo.Collection {
       : Meteor.users.findOne({username: 'zorro'})._id;
 
     const author = Meteor.users.findOne(message.author);
+    message.authorName = author.username;
     const lastMessage = {
       author: author.username,
       text: message.text

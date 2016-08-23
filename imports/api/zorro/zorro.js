@@ -78,7 +78,7 @@ export default class Zorro {
       dialog.push(zorroMsg);
       this.resetState();
     } else if (currentAction.name === "newPoll") {
-      if (this.state.expectedAnswer === "msg" || answer === "@done") {
+      if (this.state.expectedAnswer === "question" || answer === "@done") {
         if (answer !== "@done") {
           currentAction.finalAnswer[this.state.expectedAnswer] = answer;
         }

@@ -5,10 +5,11 @@ import { Channels } from '../../api/channels/collection.js';
 
 import ChannelList from '../pages/ChannelList.jsx'
 
-export default createContainer(() => {
-  const channelSub = Meteor.subscribe('chanList');
+export default createContainer(({ user }) => {
+  console.log(user);
+  const channelSub = Meteor.subscribe('chanList', user.subscribedChannels);
   const channels = Channels.find(
-    {_id: {$in: Meteor.user().subscribedChannels}},
+    {_id: {$in: user.subscribedChannels}},
     { sort: { lastActivity: -1 } }).fetch();
 
   return {

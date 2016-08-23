@@ -51,7 +51,7 @@ export default class MessageItem extends Component {
             <span className="message-user">
               { message.type
                 ? 'Zorro'
-                : Meteor.users.findOne(message.author).username }
+                : message.authorName }
             </span>
           </div>
           <div className="text">
