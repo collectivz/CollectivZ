@@ -107,5 +107,41 @@ Meteor.methods({
       };
       Messages.insert(msg);
     }
+  },
+
+  'channels.conversationCreate'(userInvited) {
+    if (!this.userId) {
+      throw new Meteor.Error('not-logged-in',
+        "Vous devez être connecté pour créer un groupe de discussion.");
+    }
+    const user = Meteor.user();
+    const channelsConversation = Channels.find({_id: {$in: user.conversationChannels}}).fetch();
+    const participant = Meteor.users.findOne({username: userInvited});
+    if (participant._id === user._id) {
+      if (!this.userId) {
+        throw new Meteor.Error('cannot-do-that',
+        "Vous ne pouvez pas créer de conversation privée avec vous même.");
+      }
+    }
+    if (channelsConversation) {
+      participant.conversationChannels.forEach((conversationId) => {
+        if (_.contains(channelsConversation, conversation)) {
+          throw new Meteor.Error('chan-alreay-exist',
+          "Cette conversation existe deja");
+        }
+      });
+    }
+    const newConversationChannel = {
+      name: "Discussion privée",
+      depth: 0,
+      parentId: "",
+      rootId: "",
+      messageId: "",
+    }
+
+    const newConversationChannelId = Channels.insert(newConversationChannel);
+    Meteor.users.update({_id: {$in: [user._id, participant._id]}}, {
+      $push: { conversationChannels: newConversationChannelId }
+    });
   }
 });

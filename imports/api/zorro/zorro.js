@@ -78,15 +78,10 @@ export default class Zorro {
       dialog.push(zorroMsg);
       this.resetState();
     } else if (currentAction.name === "newPoll") {
-      if (this.state.expectedAnswer === "question" || answer === "@done") {
-        if (answer !== "@done") {
-          currentAction.finalAnswer[this.state.expectedAnswer] = answer;
-        }
-        index = currentAction.toFill.indexOf(this.state.expectedAnswer);
-        currentAction.toFill.splice(index, 1);
-        question = currentAction.questions[currentAction.toFill[0]];
-        if (answer === '@done') {
-          question = question + '\n' + 'Question : ' + currentAction.finalAnswer.msg;
+        if (answer === "@done" && this.state.expectedAnswer === "props") {
+          console.log("present");
+          console.log(currentAction);
+          question = question + '\n' + 'Question : ' + currentAction.finalAnswer.question;
           let proposition = '';
           let choiceCount = 1;
           currentAction.finalAnswer.props.forEach((choice) => {
@@ -94,26 +89,44 @@ export default class Zorro {
             choiceCount++;
           })
           question = question + proposition;
+          index = currentAction.toFill.indexOf(this.state.expectedAnswer);
+          currentAction.toFill.splice(index, 1);
+          zorroMsg = {
+            text: question,
+            author: 'Zorro'
+          };
+          dialog.push(zorroMsg);
+          this.state.expectedAnswer = currentAction.toFill[0];
+          console.log("ici");
+          console.log(currentAction);
+        } else if (this.state.expectedAnswer !== "props" && this.state.expectedAnswer !== "confirm") {
+          currentAction.finalAnswer[this.state.expectedAnswer] = answer;
+          index = currentAction.toFill.indexOf(this.state.expectedAnswer);
+          currentAction.toFill.splice(index, 1);
+          question = currentAction.questions[currentAction.toFill[0]];
+          zorroMsg = {
+            text: question,
+            author: 'Zorro'
+          };
+          console.log("la");
+          console.log(currentAction);
+          dialog.push(zorroMsg);
+          this.state.expectedAnswer = currentAction.toFill[0];
+        } else if (this.state.expectedAnswer === "props" && answer !== "@done") {
+          currentAction.finalAnswer[this.state.expectedAnswer].push(answer);
+          console.log("here");
+          console.log(currentAction);
+        } else if (this.state.expectedAnswer === "confirm" && (answer === "oui" || answer === "Oui")) {
+          const pollMsg = {
+            text: currentAction.finalAnswer.question,
+            channelId: this.channelId,
+            type: "poll",
+          };
+          console.log("final current Action");
+          console.log(currentAction);
+          Meteor.call('polls.insert', pollMsg, currentAction.finalAnswer.props);
+          this.resetState();
         }
-        zorroMsg = {
-          text: question,
-          author: 'Zorro'
-        };
-        dialog.push(zorroMsg);
-        this.state.expectedAnswer = currentAction.toFill[0];
-        }
-      if (this.state.expectedAnswer === "props" && answer !== "@done") {
-        currentAction.finalAnswer[this.state.expectedAnswer].push(answer);
-      }
-      if (this.state.expectedAnswer === "confirm" && (answer === "oui" || answer === "Oui")) {
-        const pollMsg = {
-          text: currentAction.finalAnswer.msg,
-          channelId: this.channelId,
-          type: "poll",
-        };
-        Meteor.call('polls.insert', pollMsg, currentAction.finalAnswer.props);
-        this.resetState();
-      }
     } else if (this.state.expectedAnswer !== 'confirm') {
       currentAction.finalAnswer[this.state.expectedAnswer] = answer;
       index = currentAction.toFill.indexOf(this.state.expectedAnswer);
