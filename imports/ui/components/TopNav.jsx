@@ -1,0 +1,21 @@
+import React, { Component, PropTypes } from 'react';
+
+import './TopNav.css';
+
+export default class TopNav extends Component {
+
+  render() {
+    return (
+      <div className="top-nav">
+        <div className="title">
+          <h2>{this.props.text}</h2>
+        </div>
+      </div>
+    );
+  }
+
+}
+
+TopNav.propTypes = {
+  text: PropTypes.string.isRequired,
+}

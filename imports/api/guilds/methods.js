@@ -14,6 +14,11 @@ Meteor.methods({
     }
     check(guildName, String);
 
+    if (guildName.length === 0) {
+      throw new Meteor.Error('no-name',
+        'Une guilde doit porter un nom.');
+    }
+
     let guild = {
       name: guildName
     };
@@ -37,6 +42,8 @@ Meteor.methods({
       { $push: { subscribedGuilds: guildId, subscribedChannels: channelId } },
       { $inc: { 'connections.guildCount': 1 } }
     );
+
+    return channelId;
   },
 
   'guilds.join'(guildId) {
@@ -60,7 +67,7 @@ Meteor.methods({
 
     Meteor.users.update(this.userId,
       { $push: { subscribedGuilds: guildId, subscribedChannels: guild.mainChannel } },
-      { $inc: { 'connections.guildsCount': 1 } }
+      { $inc: { 'connections.guildCount': 1 } }
     );
     Guilds.update(guildId,
       { $push: { members: user._id } },

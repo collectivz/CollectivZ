@@ -1,4 +1,5 @@
 export const newBuddie = {
+  name: 'newBuddie',
   toFill: ['mail'],
   finalAnswer: {
     mail: '',

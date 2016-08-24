@@ -3,11 +3,12 @@ import { Mongo } from 'meteor/mongo';
 
 class BeerCollection extends Mongo.Collection {
   insert(beer, callback) {
-    const userId = Meteor.userId();
+    const user = Meteor.user();
 
     beer.createdAt = Date.now();
-    beer.author = userId;
-    beer.members = [userId];
+    beer.author = user._id;
+    beer.authorName = user.username;
+    beer.members = [user._d];
 
     return super.insert(beer);
   }

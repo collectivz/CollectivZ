@@ -38,6 +38,7 @@ Meteor.methods({
 
     const messageId = Messages.insert(message);
     const newPoll = {
+      question: message.text,
       messageId: messageId,
       finished: 0,
       channelId: message.channelId,
