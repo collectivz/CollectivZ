@@ -37,7 +37,10 @@ export default class ChannelItem extends React.Component {
           <img src="/img/zorro.jpg" alt="" />
           <h2>{channel.name}</h2>
           <div>
-            {channel.lastMessage ? `${channel.lastMessage.author} : ${channel.lastMessage.text}`
+            {channel.lastMessage ?
+              channel.lastMessage.author ?
+                `${channel.lastMessage.author} : ${channel.lastMessage.text}`
+                : `${channel.lastMessage.text}`
               : ''
             }
             { store.length ? store.map(function(menu, index) {

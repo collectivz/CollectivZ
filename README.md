@@ -43,6 +43,7 @@ messages = {
   chanId: String,
   createdAt: Date(),
   author: String,
+  authorName: String,
 
 }
 
@@ -58,6 +59,8 @@ guilds = {
   }
 
 polls = {
+  author: String,
+  authorName: String,
   finished: Boolean,
   messageFatherId: String,
   chanId: String,
