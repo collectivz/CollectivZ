@@ -16,6 +16,9 @@ export default class ChannelPageHeader extends Component {
         <div className="title">
           <h2>{`groupe ${channel.name} de la guilde ${guild.name}`}</h2>
         </div>
+        {channel.status ? <p>{channel.status} </p> : ''}
+        {channel.reward.experience ? <p> | XP : {channel.reward.experience} </p> : ''}
+        {channel.reward.points ? <p> | CoinZ : {channel.reward.points}</p> : ''}
       </div>
     );
   }

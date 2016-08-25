@@ -20,19 +20,23 @@ export default class ActionList extends Component {
         <div className="action-list">
           <a onClick={this.handleClick.bind(this, 'newPoll')}>
             <i className="fa fa-pie-chart" aria-hidden="true"></i>
-            <span>Pollz</span>
+            <span>PollZ</span>
           </a>
           <a onClick={this.handleClick.bind(this, 'newChannel')}>
             <i className="fa fa-cogs" aria-hidden="true"></i>
-            <span>Actionz</span>
+            <span>ActionZ</span>
           </a>
           <a onClick={this.handleClick.bind(this, 'newBuddie')}>
             <i className="fa fa-user-plus" aria-hidden="true"></i>
-            <span>Buddiez</span>
+            <span>BuddieZ</span>
           </a>
           <a onClick={this.handleClick.bind(this, 'newBeer')}>
             <i className="fa fa-user-plus" aria-hidden="true"></i>
-            <span>Beerz</span>
+            <span>BeerZ</span>
+          </a>
+          <a onClick={this.handleClick.bind(this, 'newFeedback')}>
+            <i className="fa fa-user-plus" aria-hidden="true"></i>
+            <span>FeedbackZ</span>
           </a>
         </div>
       </div>

@@ -3,6 +3,7 @@ import { check } from 'meteor/check';
 import { _ } from 'meteor/underscore';
 
 import { Channels } from './collection.js';
+import { Guilds } from '../guilds/collection.js';
 import { Messages } from '../messages/collection.js';
 
 Meteor.methods({
@@ -119,11 +120,19 @@ Meteor.methods({
     const channel = Channels.findOne(channelId);
 
     if (channel) {
-      
+      Channels.update(channelId, {
+        $push: { workers: userId }
+      });
+      const username = Meteor.user().username;
+      const msg = {
+        text: `L'utilisateur ${username} travaille maintenant sur cette mission.`,
+        channelId: channel._id
+      };
+      Messages.insert(msg);
     }
   },
 
-  'channels.setAsFinished'(channelId) {
+  'channels.seekFeedback'(channelId) {
     const userId = this.userId;
 
     if (!userId) {
@@ -135,11 +144,55 @@ Meteor.methods({
 
     const channel = Channels.findOne(channelId);
 
-    if (!_.contains(channel.members, userId)) {
-      throw new Meteor.Error('not-member',
-        "Seul les membres");
+    if (!_.contains(channel.workers, userId)) {
+      throw new Meteor.Error('not-worker',
+        "Seul ceux qui travaillent sur la mission peuvent en changer le status.");
+    }
+    if (channel.status === "ongoing") {
+      Channels.update(channelId, {
+        $set: { status: "seekingFeedback" }
+      });
+      const msg = {
+        text: `Vous pouvez désormais évaluer le résultat du travail effectué sur cette mission`,
+        channelId: channel._id
+      };
+      Messages.insert(msg);
+    }
+  },
+
+  'channels.setAsFinished'(channelId, reward) {
+    const userId = this.userId;
+
+    if (!userId) {
+      throw new Meteor.Error('not-logged-in',
+        "Vous devez être connecté pour rejoindre un groupe de discussion.");
     }
 
+    check(channelId, String);
+    check(reward, {
+      experience: Number,
+      points: Number
+    });
+
+    const channel = Channels.findOne(channelId);
+    let guild = {};
+
+    if (channel) {
+      guild = Guilds.findOne(channel.rootId);
+    }
+    if (_.contains(guild.leaders, userId)) {
+      Channels.update(channelId, {
+        $set: {
+          status: "finished",
+          reward: reward
+        }
+      });
+      const msg = {
+        text: `Cette mission a été marquée comme terminée, répartissez vous la récompense !`,
+        channelId: channel._id
+      };
+      Messages.insert(msg);
+    }
   },
 
   'channels.conversationCreate'(userInvited) {

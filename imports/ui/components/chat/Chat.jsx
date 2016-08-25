@@ -131,6 +131,7 @@ export default class Chat extends React.Component {
                   beers={beers}
                   polls={polls}
                   subChannels={subChannels}
+                  feedbacks={channel.feedbacks}
                 />
               </div>
             </div>
