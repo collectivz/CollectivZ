@@ -148,7 +148,7 @@ Meteor.methods({
         "Vous devez être connecté pour créer un groupe de discussion.");
     }
     const user = Meteor.user();
-    const channelsConversation = Channels.find({_id: {$in: user.conversationChannels}}).fetch();
+    const channelsConversation = Channels.find({_id: {$in: user.subscribedConversations}}).fetch();
     const participant = Meteor.users.findOne({username: userInvited});
     if (participant._id === user._id) {
       if (!this.userId) {
@@ -157,7 +157,7 @@ Meteor.methods({
       }
     }
     if (channelsConversation) {
-      participant.conversationChannels.forEach((conversationId) => {
+      participant.subscribedConversations.forEach((conversationId) => {
         if (_.contains(channelsConversation, conversation)) {
           throw new Meteor.Error('chan-alreay-exist',
           "Cette conversation existe deja");
@@ -174,7 +174,7 @@ Meteor.methods({
 
     const newConversationChannelId = Channels.insert(newConversationChannel);
     Meteor.users.update({_id: {$in: [user._id, participant._id]}}, {
-      $push: { conversationChannels: newConversationChannelId }
+      $push: { subscribedConversations: newConversationChannelId }
     });
   }
 });
