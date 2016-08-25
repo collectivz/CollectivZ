@@ -25,13 +25,9 @@ Meteor.methods({
       throw new Meteor.Error('parent-not-found',
         "Le petit Chan a perdu ses parents, il a donc été supprimé.")
     }
-    // if (!_.contains(parent.leaders, this.userId)) {
-    //   throw new Meteor.Error('not-allowed-to',
-    //     "Vous n'avez pas les droits nécessaires pour faire ça.");
-    // }
     channel.parentId = parent._id;
     channel.rootId = parent.rootId;
-
+    channel.status = "ongoing";
 
 
     const channelId = Channels.insert(channel)
@@ -80,6 +76,7 @@ Meteor.methods({
       Messages.insert(msg);
     }
   },
+
   'channels.leave'(channelId) {
     const userId = this.userId;
 
@@ -107,6 +104,42 @@ Meteor.methods({
       };
       Messages.insert(msg);
     }
+  },
+
+  'channels.becomeWorker'(channelId) {
+    const userId = this.userId;
+
+    if (!userId) {
+      throw new Meteor.Error('not-logged-in',
+        "Vous devez être connecté pour travailler sur une mission.");
+    }
+
+    check(channelId, String);
+
+    const channel = Channels.findOne(channelId);
+
+    if (channel) {
+      
+    }
+  },
+
+  'channels.setAsFinished'(channelId) {
+    const userId = this.userId;
+
+    if (!userId) {
+      throw new Meteor.Error('not-logged-in',
+        "Vous devez être connecté pour rejoindre un groupe de discussion.");
+    }
+
+    check(channelId, String);
+
+    const channel = Channels.findOne(channelId);
+
+    if (!_.contains(channel.members, userId)) {
+      throw new Meteor.Error('not-member',
+        "Seul les membres");
+    }
+
   },
 
   'channels.conversationCreate'(userInvited) {
