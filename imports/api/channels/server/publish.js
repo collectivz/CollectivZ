@@ -12,27 +12,43 @@ Meteor.publish('chanPage', function(id){
   const channel = Channels.findOne(id);
   let guilds;
   if (channel) {
-    guilds = Guilds.find({_id: channel.rootId});
+    return [
+      Channels.find({$or :[
+        {_id: id},
+        {parentId: id}
+      ]}),
+      Guilds.find({_id: channel.rootId}),
+      Messages.find({channelId: id}),
+      Beers.find({channelId: id}),
+      Polls.find({channelId: id}),
+      Meteor.users.find({subscribedChannels: {$in: [id]}})
+    ];
+  } else {
+    return [
+      Channels.find({$or :[
+        {_id: id},
+        {parentId: id}
+      ]}),
+      Messages.find({channelId: id}),
+      Beers.find({channelId: id}),
+      Polls.find({channelId: id}),
+      Meteor.users.find({subscribedChannels: {$in: [id]}})
+    ];
   }
 
-  return [
-    Channels.find({$or :[
-      {_id: id},
-      {parentId: id}
-    ]}),
-    guilds,
-    Messages.find({channelId: id}),
-    Beers.find({channelId: id}),
-    Polls.find({channelId: id}),
-    Meteor.users.find({subscribedChannels: {$in: [id]}})
-  ];
 });
 
-Meteor.publish('chanList', function(channelsIds) {
+Meteor.publish('chanList', function(channelsIds, conversationsIds) {
   check(channelsIds, [String]);
-
+  let allChan;
+  if (conversationsIds) {
+    allChan = channelsIds.concat(conversationsIds);
+  } else {
+    allChan = channelsIds;
+  }
+  console.log(allChan);
   if (this.userId) {
-    return Channels.find({_id: {$in: channelsIds}}, {$sort: { lastActivity: 1 }});
+    return Channels.find({_id: {$in: allChan}}, {$sort: { lastActivity: 1 }});
   }
   return [];
 });

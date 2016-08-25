@@ -16,6 +16,7 @@ if (Meteor.isServer) {
     user.profile.lastLogin = Date.now();
     user.subscribedGuilds = [];
     user.subscribedChannels = [];
+    user.subscribedConversations = [];
     user.connections = {};
     return user;
   });
