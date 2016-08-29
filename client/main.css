@@ -33,12 +33,6 @@ body {
   -webkit-text-size-adjust: none;
   -moz-text-size-adjust: none;
   text-size-adjust: none;
-  -webkit-tap-highlight-color: transparent;
-  -webkit-tap-highlight-color: transparent;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
   top: 0;
   right: 0;
   bottom: 0;
@@ -133,4 +127,14 @@ button:focus {
 
 .has-user-header {
   top: 200px;
+}
+
+.tweakChevron {
+  color: white;
+  height: 25px;
+  width: 25px;
+  z-index: 1;
+  font-size: 16px !important;
+  padding-top: 6px;
+  padding-left: 6px;
 }
