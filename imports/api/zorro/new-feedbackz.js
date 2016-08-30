@@ -2,7 +2,7 @@ export default class Feedback {
 
   constructor(channelId) {
     this.question = {
-      text: 'Pour évaluer cette action, commencez par entrer une note sur 5.',
+      text: 'Pour évaluer cette action, commencez par entrer une note sur 5. Vous pouvez à tout moment écrire @stop pour annuler.',
       author: 'Zorro'
     };
     this.state = {
@@ -45,10 +45,12 @@ export default class Feedback {
       author: 'Zorro'
     };
 
-    if (this.expectedAnswer === 'rating') {
+    if (answer === '@stop') {
+      this.resetState();
+    } else if (this.expectedAnswer === 'rating') {
       const rating = parseInt(answer);
       if (!Number.isSafeInteger(rating) || rating > 5 || rating < 0) {
-        zorroMsg.text = `La valeur entrée n'est pas bonne, réessayez s'il vous plait.`;
+        zorroMsg.text = `La valeur entrée n'est pas bonne, veuillez entrer un nombre entre 0 et 5.`;
         dialog.push(zorroMsg);
       } else {
         zorroMsg.text = `Très bien, veuillez maintenant laisser un commentaire.`;

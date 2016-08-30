@@ -13,11 +13,11 @@ export default class AppNav extends Component {
       <div className="tabs-nav">
         <Link activeClassName="active" className="tab-item" to="/my-groups">
           <i className="fa fa-commenting" aria-hidden="true"></i>
-          <span className="tab-title">Mes groupes</span>
+          <span className="tab-title">Actions</span>
         </Link>
         <Link activeClassName="active" className="tab-item" to="/group-list">
           <i className="fa fa-university" aria-hidden="true"></i>
-          <span className="tab-title">Tout les groupes</span>
+          <span className="tab-title">Communautés</span>
         </Link>
         {user.profile.admin ?
         <Link activeClassName="active" className="tab-item" to="/admin">

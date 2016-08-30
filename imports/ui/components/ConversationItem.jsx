@@ -3,8 +3,6 @@ import { Meteor } from 'meteor/meteor';
 import { Link } from 'react-router';
 import { _ } from 'meteor/underscore';
 
-import './ConversationItem.css';
-
 export default class ConversationItem extends React.Component {
 
   render() {

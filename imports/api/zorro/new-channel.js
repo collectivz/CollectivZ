@@ -2,7 +2,7 @@ export default class Channel {
 
   constructor(channelId) {
     this.question = {
-      text: `Hola, je vois que vous voulez créer une nouvelle action ! Quel nom allez-vous lui donner ?`,
+      text: `Hola, je vois que vous voulez créer une nouvelle action ! Quel nom allez-vous lui donner ? Vous pouvez à tout moment écrire @stop pour annuler.`,
       author: 'Zorro'
     };
     this.state = {
@@ -44,7 +44,9 @@ export default class Channel {
       author: 'Zorro'
     };
 
-    if (this.expectedAnswer === 'chanName') {
+    if (answer === '@stop') {
+      this.resetState();
+    } else if (this.expectedAnswer === 'chanName') {
       this.result.name = answer;
       zorroMsg.text = `Vous souhaitez créer l'action : ${this.result.name}, dites oui pour confirmer.`;
       dialog.push(zorroMsg);

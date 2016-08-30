@@ -2,7 +2,7 @@ export default class Poll {
 
   constructor(channelId) {
     this.question = {
-      text: `Pour ce sondage je vais avoir besoin de savoir quelle question vous voulez poser?`,
+      text: `Pour ce sondage je vais avoir besoin de savoir quelle question vous voulez poser ? Vous pouvez à tout moment écrire @stop pour annuler.`,
       author: 'Zorro'
     };
     this.state = {
@@ -44,32 +44,39 @@ export default class Poll {
       author: 'Zorro'
     };
 
-    if (this.expectedAnswer === 'question') {
+    if (answer === '@stop') {
+      this.resetState();
+    } else if (this.expectedAnswer === 'question') {
       this.result.question = answer;
-      zorroMsg.text = `Ajoutez des choix à votre sondage, et écrivez @done quand c\'est fini ! Vous pouvez directement écrire @done si vous souhaitez créer un sondage "Pour/Contre"`;
+      zorroMsg.text = `Ajoutez des choix à votre sondage, et écrivez @fini quand c\'est fini ! Vous pouvez directement écrire @fini si vous souhaitez créer un sondage "Pour/Contre"`;
       dialog.push(zorroMsg);
       this.expectedAnswer = 'props';
     } else if (this.expectedAnswer === 'props') {
-      if (answer !== "@done") {
+      if (answer !== "@fini") {
         this.result.props.push(answer);
-        zorroMsg.text = `J'ai bien ajouté le choix ${answer}.`;
+        zorroMsg.text = `J'ai bien ajouté le choix "${answer}".`;
         dialog.push(zorroMsg);
       } else {
-        let question = `Vous allez créer un sondage avec pour question : ${this.result.question}, et comme choix : `;
-        let proposition = '';
-        let choiceCount = 1;
-        if (this.result.props.length) {
-          this.result.props.forEach((choice) => {
-            proposition = proposition + ', ' + choiceCount + ' : ' + choice;
-            choiceCount++;
-          });
+        if (this.result.props.length > 1 || !this.result.props.length) {
+          let question = `Vous allez créer un sondage avec pour question : "${this.result.question}", et comme choix : `;
+          let proposition = '';
+          let choiceCount = 1;
+          if (this.result.props.length) {
+            this.result.props.forEach((choice) => {
+              proposition = `${proposition}, ${choiceCount} : "${choice}"`;
+              choiceCount++;
+            });
+          } else {
+            proposition = '1 : "Pour", 2 : "Contre"'
+          }
+          question = question + proposition + '. Dites oui pour confirmer.';
+          zorroMsg.text = question;
+          dialog.push(zorroMsg);
+          this.expectedAnswer = 'confirm';
         } else {
-          proposition = '1 : Pour, 2 : Contre'
+          zorroMsg.text = `Vous devez entrer au moins 2 choix pour créer un sondage.`;
+          dialog.push(zorroMsg);
         }
-        question = question + proposition + '. Dites oui pour confirmer.';
-        zorroMsg.text = question;
-        dialog.push(zorroMsg);
-        this.expectedAnswer = 'confirm';
       }
     } else if (this.expectedAnswer === 'confirm' && (answer === 'oui' || answer === 'Oui')) {
       const pollMsg = {

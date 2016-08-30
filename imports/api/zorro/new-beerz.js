@@ -2,7 +2,7 @@ export default class Beer {
 
   constructor(channelId) {
     this.question = {
-      text: 'Alors vous voulez créer un nouvel evènement à ce que je vois! C\'est à quel occasion?',
+      text: 'Alors vous voulez créer un nouvel evènement à ce que je vois! C\'est à quel occasion ? Vous pouvez à tout moment écrire @stop pour annuler.',
       author: 'Zorro'
     };
     this.state = {
@@ -45,7 +45,10 @@ export default class Beer {
       author: 'Zorro'
     };
 
-    if (this.expectedAnswer === 'occasion') {
+
+    if (answer === '@stop') {
+      this.resetState();
+    } else if (this.expectedAnswer === 'occasion') {
       this.result.occasion = answer;
       zorroMsg.text = `Et où voulez vous que cet evènement ait lieu ?`;
       dialog.push(zorroMsg);

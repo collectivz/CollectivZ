@@ -2,7 +2,7 @@ export default class Buddie {
 
   constructor(channelId) {
     this.question = {
-      text: `Vous voulez ajouter un nouveau justicier dans le groupe, quel est son nom d'utilisateur ou son mail ?`,
+      text: `Vous voulez ajouter un nouveau justicier dans le groupe, quel est son nom d'utilisateur ou son mail ? Vous pouvez à tout moment écrire @stop pour annuler.`,
       author: 'Zorro'
     };
     this.state = {
@@ -43,7 +43,10 @@ export default class Buddie {
       author: 'Zorro'
     };
 
-    if (this.expectedAnswer === 'username') {
+
+    if (answer === '@stop') {
+      this.resetState();
+    } else if (this.expectedAnswer === 'username') {
       this.result.username = answer;
       zorroMsg.text = `Vous souhaitez ajouter l'utilisateur : ${this.result.username}, dites oui pour confirmer.`;
       dialog.push(zorroMsg);
