@@ -46,7 +46,6 @@ Meteor.publish('chanList', function(channelsIds, conversationsIds) {
   } else {
     allChan = channelsIds;
   }
-  console.log(allChan);
   if (this.userId) {
     return Channels.find({_id: {$in: allChan}}, {$sort: { lastActivity: 1 }});
   }
