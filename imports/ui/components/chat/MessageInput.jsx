@@ -17,7 +17,7 @@ export default class MessageInput extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.toggleAction = this.toggleAction.bind(this);
     this.textareaHeightTweak = this.textareaHeightTweak.bind(this);
-    this.catch13 = this.catch13.bind(this)
+    this.keyboardEvent = this.keyboardEvent.bind(this)
   }
 
   componentDidUpdate() {
@@ -32,7 +32,7 @@ export default class MessageInput extends Component {
     })
   }
 
-  catch13(e) {
+  keyboardEvent(e) {
     if (e.keyCode === 13) {
       this.handleSubmit(e)
     }
@@ -80,12 +80,10 @@ export default class MessageInput extends Component {
   }
 
   textareaHeightTweak(e) {
-    if (this.refs.textInput.scrollHeight > this.refs.bar.scrollHeight) {
-      this.setState({
-        barHeight: { height: this.refs.textInput.scrollHeight + 10 },
-        formHeight: { height: this.refs.textInput.scrollHeight }
-      })
-    }
+    this.setState({
+      barHeight: { height: this.refs.textInput.scrollHeight + 10 },
+      formHeight: { height: this.refs.textInput.scrollHeight }
+    })
   }
 
   render() {
@@ -97,7 +95,7 @@ export default class MessageInput extends Component {
           </button>
           <label className="item-input-wrapper">
             <form className="new-msg" onSubmit={this.handleSubmit} style={this.state.formHeight}>
-              <textarea onKeyUp={this.catch13} onChange={this.textareaHeightTweak} className="message-input" name="name" ref="textInput" ></textarea>
+              <textarea onKeyUp={this.keyboardEvent} onChange={this.textareaHeightTweak} className="message-input" name="name" ref="textInput" ></textarea>
             </form>
           </label>
           <button type="button" name="button" onClick={this.handleSubmit}>
