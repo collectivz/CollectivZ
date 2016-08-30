@@ -201,17 +201,21 @@ Meteor.methods({
         "Vous devez être connecté pour créer un groupe de discussion.");
     }
     const user = Meteor.user();
-    const channelsConversation = Channels.find({_id: {$in: user.subscribedConversations}}).fetch();
+    let conversationUser = user.subscribedConversations;
     const participant = Meteor.users.findOne({username: userInvited});
+    if (!participant) {
+      throw new Meteor.Error('user-not-found',
+      "Nous n'avons pas trouvé d'utilisateur ayant ce nom.");
+    }
     if (participant._id === user._id) {
       if (!this.userId) {
         throw new Meteor.Error('cannot-do-that',
         "Vous ne pouvez pas créer de conversation privée avec vous même.");
       }
     }
-    if (channelsConversation) {
+    if (conversationUser) {
       participant.subscribedConversations.forEach((conversationId) => {
-        if (_.contains(channelsConversation, conversation)) {
+        if (_.contains(conversationUser, conversationId)) {
           throw new Meteor.Error('chan-alreay-exist',
           "Cette conversation existe deja");
         }
@@ -228,6 +232,6 @@ Meteor.methods({
     const newConversationChannelId = Channels.insert(newConversationChannel);
     Meteor.users.update({_id: {$in: [user._id, participant._id]}}, {
       $push: { subscribedConversations: newConversationChannelId }
-    });
+    }, {multi: true});
   }
 });

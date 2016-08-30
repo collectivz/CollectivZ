@@ -1,19 +1,34 @@
 import React from 'react'
 
 import ChannelItem from '../components/ChannelItem.jsx';
+import ConversationItem from '../components/ConversationItem.jsx';
 import AppNav from '../components/AppNav.jsx';
 import TopNav from '../components/TopNav.jsx';
 
 export default class ChannelList extends React.Component {
+
+  constructor(props) {
+    super(props);
+
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleSubmit(e) {
+    e.preventDefault();
+    const userInvited = this.refs.userInvited.value;
+
+    if (userInvited) {
+      Meteor.call('channels.conversationCreate', userInvited);
+      this.refs.userInvited.value = '';
+    }
+  }
 
   render() {
     const {
       channels,
       user
     } = this.props;
-    // channels.sort((a, b) => {
-    //   return b.lastActivity - a.lastActivity;
-    // });
+
     let subscribedConversations = [];
     let subscribedChannels = [];
     if (user.subscribedConversations) {
@@ -35,10 +50,21 @@ export default class ChannelList extends React.Component {
                      return <ChannelItem key={channel._id} channel={channel} />;
                   })}
                 </div>
-                <div>Liste de mes conversations privées</div>
+                <div>Liste de mes conversations privées
+                  <div>
+                    <form onSubmit={this.handleSubmit}>
+                      <input
+                        type="text"
+                        placeholder="Nom de la personne"
+                        ref="userInvited"
+                      />
+                      <input type="submit" value="Creer une conversation" />
+                    </form>
+                  </div>
+                </div>
                 <div className="list">
                   {subscribedConversations.map(function(channel) {
-                     return <ChannelItem key={channel._id} channel={channel} />;
+                     return <ConversationItem key={channel._id} channel={channel} />;
                   })}
                 </div>
               </div>

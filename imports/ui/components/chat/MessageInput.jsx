@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { Meteor } from 'meteor/meteor';
 
-import ActionList from './ActionList.jsx';
+import ActionPicker from './ActionPicker.jsx';
 
 import './MessageInput.css';
 
@@ -103,7 +103,7 @@ export default class MessageInput extends Component {
           </button>
         </div>
         {this.state.showActions
-          ? <ActionList changeInputMode={this.props.changeInputMode}/>
+          ? <ActionPicker changeInputMode={this.props.changeInputMode}/>
           : ''}
       </div>
     );
