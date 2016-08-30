@@ -33,7 +33,7 @@ export default class ChannelPageHeader extends Component {
 
     return (
       <div className="top-nav">
-        <Link to={'/my-groups'}><i className="fa fa-chevron-left"></i></Link>
+        <Link className="tweakChevron" to={'/my-groups'}><i className="fa fa-chevron-left"></i></Link>
         <div className="title">
           <h2>{`groupe ${channel.name} de la guilde ${guild.name}`}</h2>
         </div>

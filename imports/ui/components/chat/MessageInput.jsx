@@ -16,11 +16,25 @@ export default class MessageInput extends Component {
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.toggleAction = this.toggleAction.bind(this);
+    this.textareaHeightTweak = this.textareaHeightTweak.bind(this);
+    this.catch13 = this.catch13.bind(this)
   }
 
   componentDidUpdate() {
     if (!this.state.showActions && this.props.inputMode != 'message') {
       this.props.changeInputMode('message');
+    }
+  }
+
+  componentDidMount() {
+    this.setState({
+      barHeight: { height: this.refs.bar.scrollHeight + 10 }
+    })
+  }
+
+  catch13(e) {
+    if (e.keyCode === 13) {
+      this.handleSubmit(e)
     }
   }
 
@@ -39,6 +53,10 @@ export default class MessageInput extends Component {
           console.log(err);
         }
         this.refs.textInput.value = '';
+        this.setState({
+          barHeight: { height: 46 },
+          formHeight: { height: 36 }
+        })
       });
     } else {
       this.props.answerToZorro(text);
@@ -61,16 +79,25 @@ export default class MessageInput extends Component {
     }
   }
 
+  textareaHeightTweak(e) {
+    if (this.refs.textInput.scrollHeight > this.refs.bar.scrollHeight) {
+      this.setState({
+        barHeight: { height: this.refs.textInput.scrollHeight + 10 },
+        formHeight: { height: this.refs.textInput.scrollHeight }
+      })
+    }
+  }
+
   render() {
     return (
-      <div>
-        <div className={this.getCss()}>
+      <div ref="bar">
+        <div className={this.getCss()} style={this.state.barHeight} >
           <button type="button" name="button" onClick={this.toggleAction}>
             <i className="fa fa-plus-circle" aria-hidden="true"></i>
           </button>
           <label className="item-input-wrapper">
-            <form className="new-msg" onSubmit={this.handleSubmit} >
-              <input type="text" name="name" ref="textInput"/>
+            <form className="new-msg" onSubmit={this.handleSubmit} style={this.state.formHeight}>
+              <textarea onKeyUp={this.catch13} onChange={this.textareaHeightTweak} className="message-input" name="name" ref="textInput" ></textarea>
             </form>
           </label>
           <button type="button" name="button" onClick={this.handleSubmit}>
