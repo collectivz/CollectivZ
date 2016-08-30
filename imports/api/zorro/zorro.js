@@ -1,16 +1,27 @@
 import { Meteor } from 'meteor/meteor';
 
-import newChannel from './new-channel.js';
-import newBeer from './new-beerz.js';
-import newPoll from './new-pollz.js';
-import newBuddie from './new-buddies.js';
+import Channel from './new-channel.js';
+import Beer from './new-beerz.js';
+import Poll from './new-pollz.js';
+import Buddie from './new-buddies.js';
+import Feedback from './new-feedbackz.js';
 
-export const zorro = {
-  newChannel,
-  newBeer,
-  newPoll,
-  newBuddie
-};
+export default function zorroForm(type, channelId) {
+  switch(type) {
+    case 'newFeedback':
+      return new Feedback(channelId);
+    case 'newBuddie':
+      return new Buddie(channelId);
+    case 'newBeer':
+      return new Beer(channelId);
+    case 'newChannel':
+      return new Channel(channelId);
+    case 'newPoll':
+      return new Poll(channelId);
+    default:
+      break;
+  }
+}
 
 export default class Zorro {
 
@@ -155,6 +166,10 @@ export default class Zorro {
             channelId: this.channelId
           };
           Meteor.call('beers.insert', beer);
+          break;
+        case 'newFeedback':
+          const rating = parseInt(finalAnswer.rating);
+          Meteor.call('feedbacks.giveFeedback', this.channelId, rating, finalAnswer.comment);
           break;
         default:
           break;

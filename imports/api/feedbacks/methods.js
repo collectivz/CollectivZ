@@ -16,7 +16,9 @@ Meteor.methods({
 
     check(channelId, String);
     check(comment, String);
-    check(rating, Number);
+    check(rating, Match.Where((rating) => {
+      return (rating >= 0 && rating <= 5);
+    }));
 
     const channel = Channels.findOne(channelId);
 

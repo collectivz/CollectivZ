@@ -29,7 +29,7 @@ export default class BeerItem extends React.Component {
 
   participate () {
     const { beer } = this.props;
-    if (_.contains(beer.members, Meteor.userId())) {
+    if (beer && _.contains(beer.members, Meteor.userId())) {
       return (
         <div>Vous et {beer.members.length - 1} autres personne(s) participent {this.showMembers()}</div>
       );

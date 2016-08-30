@@ -3,34 +3,16 @@ import { Meteor } from 'meteor/meteor';
 import { Link } from 'react-router';
 import { _ } from 'meteor/underscore';
 
+import ActionList from './ActionList.jsx';
+
 import './ChannelItem.css';
 
 export default class ChannelItem extends React.Component {
-
-  constructor(props) {
-    super(props);
-    this.constructUrl = this.constructUrl.bind(this);
-  }
-
-  constructUrl(id) {
-    return "/chat/" + id;
-  }
-
   render() {
     const {
       channel
     } = this.props;
 
-    let store = []
-    if (this.props.channel.connections) {
-      let arr = _.keys(this.props.channel.connections)
-      for (var i = 0; i < arr.length; i++) {
-        store.push({
-          name: arr[i],
-          nb: this.props.channel.connections[arr[i]],
-        });
-      }
-    }
     return (
       <div className="item-avatar item-icon-right item item-complex item-right-editable">
         <Link className="item-content" to={`/group/${channel._id}`}>
@@ -43,10 +25,11 @@ export default class ChannelItem extends React.Component {
                 : `${channel.lastMessage.text}`
               : ''
             }
-            { store.length ? store.map(function(menu, index) {
-               return ( <p key={index} >{menu.name + ' ' + menu.nb}</p> );
-            }) :  <p>Il est temps de passer à l'action !</p> }
           </div>
+          {channel.connections ?
+            <ActionList actions={channel.connections} />
+            : ''
+          }
           <i className="fa fa-chevron-right fa-accessory"></i>
         </Link>
       </div>
