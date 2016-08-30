@@ -6,6 +6,7 @@ import { browserHistory, Router, Route, Link, withRouter, hashHistory } from 're
 import AppContainer from '../imports/ui/containers/AppContainer.jsx';
 import ChannelListContainer from '../imports/ui/containers/ChannelListContainer.jsx';
 import ChannelPageContainer from '../imports/ui/containers/ChannelPageContainer.jsx';
+import ConversationPageContainer from '../imports/ui/containers/ConversationPageContainer.jsx';
 import GuildListContainer from '../imports/ui/containers/GuildListContainer.jsx';
 import AdminPage from '../imports/ui/pages/AdminPage.jsx';
 import MyProfile from '../imports/ui/pages/MyProfile.jsx';
@@ -18,6 +19,7 @@ Meteor.startup(() => {
         <Route path='/my-groups' component={ChannelListContainer} />
         <Route path='/group/:groupId' component={ChannelPageContainer} />
         <Route path='/group-list' component={GuildListContainer} />
+        <Route path='/conversation/:conversationId' component={ConversationPageContainer} />
         <Route path='/admin' component={AdminPage} />
         <Route path='/profile' component={MyProfile} />
         <Route path='*' component={NotFound} />

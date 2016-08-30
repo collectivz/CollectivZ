@@ -7,11 +7,6 @@ import './ConversationItem.css';
 
 export default class ConversationItem extends React.Component {
 
-  constructor(props) {
-    super(props);
-    this.constructUrl = this.constructUrl.bind(this);
-  }
-
   render() {
     const {
       channel
@@ -19,7 +14,7 @@ export default class ConversationItem extends React.Component {
 
     return (
       <div className="item-avatar item-icon-right item item-complex item-right-editable">
-        <Link className="item-content" to={`/group/${channel._id}`}>
+        <Link className="item-content" to={`/conversation/${channel._id}`}>
           <img src="/img/zorro.jpg" alt="" />
           <h2>{channel.name}</h2>
           <div>
@@ -37,6 +32,6 @@ export default class ConversationItem extends React.Component {
   }
 }
 
-ChannelItem.propTypes = {
+ConversationItem.propTypes = {
   channel: PropTypes.object.isRequired,
 };

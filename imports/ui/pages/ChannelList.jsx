@@ -1,6 +1,7 @@
 import React from 'react'
 
 import ChannelItem from '../components/ChannelItem.jsx';
+import ConversationItem from '../components/ConversationItem.jsx';
 import AppNav from '../components/AppNav.jsx';
 import TopNav from '../components/TopNav.jsx';
 
@@ -63,7 +64,7 @@ export default class ChannelList extends React.Component {
                 </div>
                 <div className="list">
                   {subscribedConversations.map(function(channel) {
-                     return <ChannelItem key={channel._id} channel={channel} />;
+                     return <ConversationItem key={channel._id} channel={channel} />;
                   })}
                 </div>
               </div>

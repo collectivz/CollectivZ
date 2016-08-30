@@ -38,6 +38,16 @@ Meteor.publish('chanPage', function(id){
 
 });
 
+Meteor.publish('conversationPage', function(id){
+  check(id, String);
+  const channel = Channels.findOne(id);
+  return [
+    Messages.find({channelId: id}),
+    Channels.find(id),
+    Meteor.users.find({subscribedConversation: {$in: [id]}})
+  ];
+});
+
 Meteor.publish('chanList', function(channelsIds, conversationsIds) {
   check(channelsIds, [String]);
   let allChan;
