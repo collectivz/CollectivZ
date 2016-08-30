@@ -3,6 +3,7 @@ import { check } from 'meteor/check';
 import { _ } from 'meteor/underscore';
 
 import { Channels } from './collection.js';
+import { Guilds } from '../guilds/collection.js';
 import { Messages } from '../messages/collection.js';
 
 Meteor.methods({
@@ -25,13 +26,9 @@ Meteor.methods({
       throw new Meteor.Error('parent-not-found',
         "Le petit Chan a perdu ses parents, il a donc été supprimé.")
     }
-    // if (!_.contains(parent.leaders, this.userId)) {
-    //   throw new Meteor.Error('not-allowed-to',
-    //     "Vous n'avez pas les droits nécessaires pour faire ça.");
-    // }
     channel.parentId = parent._id;
     channel.rootId = parent.rootId;
-
+    channel.status = "ongoing";
 
 
     const channelId = Channels.insert(channel)
@@ -80,6 +77,7 @@ Meteor.methods({
       Messages.insert(msg);
     }
   },
+
   'channels.leave'(channelId) {
     const userId = this.userId;
 
@@ -103,6 +101,94 @@ Meteor.methods({
       const username = Meteor.users.findOne(userId).username;
       const msg = {
         text: `L'utilisateur ${username} vient de quitter le groupe.`,
+        channelId: channel._id
+      };
+      Messages.insert(msg);
+    }
+  },
+
+  'channels.becomeWorker'(channelId) {
+    const userId = this.userId;
+
+    if (!userId) {
+      throw new Meteor.Error('not-logged-in',
+        "Vous devez être connecté pour travailler sur une mission.");
+    }
+
+    check(channelId, String);
+
+    const channel = Channels.findOne(channelId);
+
+    if (channel) {
+      Channels.update(channelId, {
+        $push: { workers: userId }
+      });
+      const username = Meteor.user().username;
+      const msg = {
+        text: `L'utilisateur ${username} travaille maintenant sur cette mission.`,
+        channelId: channel._id
+      };
+      Messages.insert(msg);
+    }
+  },
+
+  'channels.seekFeedback'(channelId) {
+    const userId = this.userId;
+
+    if (!userId) {
+      throw new Meteor.Error('not-logged-in',
+        "Vous devez être connecté pour rejoindre un groupe de discussion.");
+    }
+
+    check(channelId, String);
+
+    const channel = Channels.findOne(channelId);
+
+    if (!_.contains(channel.workers, userId)) {
+      throw new Meteor.Error('not-worker',
+        "Seul ceux qui travaillent sur la mission peuvent en changer le status.");
+    }
+    if (channel.status === "ongoing") {
+      Channels.update(channelId, {
+        $set: { status: "seekingFeedback" }
+      });
+      const msg = {
+        text: `Vous pouvez désormais évaluer le résultat du travail effectué sur cette mission`,
+        channelId: channel._id
+      };
+      Messages.insert(msg);
+    }
+  },
+
+  'channels.setAsFinished'(channelId, reward) {
+    const userId = this.userId;
+
+    if (!userId) {
+      throw new Meteor.Error('not-logged-in',
+        "Vous devez être connecté pour rejoindre un groupe de discussion.");
+    }
+
+    check(channelId, String);
+    check(reward, {
+      experience: Number,
+      points: Number
+    });
+
+    const channel = Channels.findOne(channelId);
+    let guild = {};
+
+    if (channel) {
+      guild = Guilds.findOne(channel.rootId);
+    }
+    if (_.contains(guild.leaders, userId)) {
+      Channels.update(channelId, {
+        $set: {
+          status: "finished",
+          reward: reward
+        }
+      });
+      const msg = {
+        text: `Cette mission a été marquée comme terminée, répartissez vous la récompense !`,
         channelId: channel._id
       };
       Messages.insert(msg);

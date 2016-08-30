@@ -16,4 +16,6 @@ import '../../api/users/server/publish.js';
 
 import '../../api/beers/methods.js';
 
+import '../../api/feedbacks/methods.js';
+
 import '../../api/methods.js';

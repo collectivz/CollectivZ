@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Zorro from '../../../api/zorro/zorro.js';
+import zorroForm from '../../../api/zorro/zorro.js';
 
 import ChatFilter from './ChatFilter.jsx';
 import ZorroItem from './ZorroItem.jsx';
@@ -36,7 +36,7 @@ export default class Chat extends React.Component {
 
   componentDidUpdate() {
     if (this.state.inputMode != 'message' && !this.state.ongoingAction) {
-      const zorro = new Zorro(this.state.inputMode, this.props.channel._id);
+      const zorro = zorroForm(this.state.inputMode, this.props.channel._id);
       const newState = zorro.getState();
 
       this.setState({
@@ -131,6 +131,7 @@ export default class Chat extends React.Component {
                   beers={beers}
                   polls={polls}
                   subChannels={subChannels}
+                  feedbacks={channel.feedbacks}
                 />
               </div>
             </div>

@@ -3,6 +3,10 @@
   margin-bottom: 9px;
 }
 
+.message-wrapper:last-child {
+  margin-bottom: 25px;
+}
+
 .message-wrapper::after {
   content: "";
   display: table;

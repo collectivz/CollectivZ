@@ -1,15 +1,68 @@
-export const newBeer = {
-  name: 'newBeer',
-  toFill: ['occasion', 'place', 'date', 'confirm'],
-  finalAnswer: {
-    occasion: '',
-    place: '',
-    date: '',
-  },
-  questions: {
-    occasion: 'Alors vous voulez créer un nouvel evènement à ce que je vois! C\'est à quel occasion?',
-    place: 'Et où voulez vous que cet evènement ait lieu?',
-    date: 'Quand cela?',
-    confirm: "Dites moi oui si j'ai bien compris, vous désirez créer un evenement avec ces caractéristiques : "
+export default class Beer {
+
+  constructor(channelId) {
+    this.question = {
+      text: 'Alors vous voulez créer un nouvel evènement à ce que je vois! C\'est à quel occasion?',
+      author: 'Zorro'
+    };
+    this.state = {
+      inputMode: 'newBeer',
+      dialogWithZorro: [this.question],
+      ongoingAction: true,
+    };
+    this.expectedAnswer = 'occasion';
+    this.result = {
+      occasion: '',
+      date: '',
+      place: '',
+      channelId
+    };
+  }
+
+  resetState() {
+    this.state = {
+      inputMode: 'message',
+      ongoingAction: false,
+      dialogWithZorro: [],
+      zorro: {}
+    };
+  }
+
+  getState() {
+    return this.state;
+  }
+
+  answerToZorro(answer) {
+    const msg = {
+      text: answer,
+      author: 'self'
+    };
+    const dialog = this.state.dialogWithZorro;
+
+    dialog.push(msg);
+    let zorroMsg = {
+      text: '',
+      author: 'Zorro'
+    };
+
+    if (this.expectedAnswer === 'occasion') {
+      this.result.occasion = answer;
+      zorroMsg.text = `Et où voulez vous que cet evènement ait lieu ?`;
+      dialog.push(zorroMsg);
+      this.expectedAnswer = 'place';
+    } else if (this.expectedAnswer === 'place') {
+      this.result.place = answer;
+      zorroMsg.text = `Quand cela ?`;
+      dialog.push(zorroMsg);
+      this.expectedAnswer = 'date';
+    } else if (this.expectedAnswer === 'date') {
+      this.result.date = answer;
+      zorroMsg.text = `Parfait, en résumé, vous voulez créer l'événement suivant : ${this.result.occasion}, lieu : ${this.result.place}, date : ${this.result.date}. Dites oui pour confirmer.`;
+      dialog.push(zorroMsg);
+      this.expectedAnswer = 'confirm';
+    } else if (this.expectedAnswer === 'confirm' && (answer === 'oui' || answer === 'Oui')) {
+      Meteor.call('beers.insert', this.result);
+      this.resetState();
+    }
   }
 }

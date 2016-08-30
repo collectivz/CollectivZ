@@ -3,6 +3,7 @@ import React from 'react';
 import MessageItem from './MessageItem.jsx';
 import SubChannelItem from './SubChannelItem.jsx';
 import BeerItemContainer from '../../containers/BeerItemContainer.jsx';
+import FeedbackItem from './FeedbackItem.jsx';
 import PollItemContainer from '../../containers/PollItemContainer.jsx';
 
 export default class MessageList extends React.Component {
@@ -11,7 +12,8 @@ export default class MessageList extends React.Component {
       beers,
       polls,
       messages,
-      subChannels
+      subChannels,
+      feedbacks
     } = this.props;
 
     return (
@@ -39,6 +41,13 @@ export default class MessageList extends React.Component {
                 return false;
               });
               return (<SubChannelItem key={message._id} channel={channel} />);
+            case 'feedback':
+              const feedback = feedbacks.find((feedback) => {
+                if (feedback.messageId === message._id)
+                  return true;
+                return false;
+              });
+              return (<FeedbackItem key={message._id} feedback={feedback} />);
             default:
               return (<MessageItem key={message._id} message={message}/>);
           }

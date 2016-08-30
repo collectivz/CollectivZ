@@ -1,16 +1,27 @@
 import { Meteor } from 'meteor/meteor';
 
-import newChannel from './new-channel.js';
-import newBeer from './new-beerz.js';
-import newPoll from './new-pollz.js';
-import newBuddie from './new-buddies.js';
+import Channel from './new-channel.js';
+import Beer from './new-beerz.js';
+import Poll from './new-pollz.js';
+import Buddie from './new-buddies.js';
+import Feedback from './new-feedbackz.js';
 
-export const zorro = {
-  newChannel,
-  newBeer,
-  newPoll,
-  newBuddie
-};
+export default function zorroForm(type, channelId) {
+  switch(type) {
+    case 'newFeedback':
+      return new Feedback(channelId);
+    case 'newBuddie':
+      return new Buddie(channelId);
+    case 'newBeer':
+      return new Beer(channelId);
+    case 'newChannel':
+      return new Channel(channelId);
+    case 'newPoll':
+      return new Poll(channelId);
+    default:
+      break;
+  }
+}
 
 export default class Zorro {
 
@@ -79,8 +90,6 @@ export default class Zorro {
       this.resetState();
     } else if (currentAction.name === "newPoll") {
         if (answer === "@done" && this.state.expectedAnswer === "props") {
-          console.log("present");
-          console.log(currentAction);
           question = question + '\n' + 'Question : ' + currentAction.finalAnswer.question;
           let proposition = '';
           let choiceCount = 1;
@@ -97,8 +106,6 @@ export default class Zorro {
           };
           dialog.push(zorroMsg);
           this.state.expectedAnswer = currentAction.toFill[0];
-          console.log("ici");
-          console.log(currentAction);
         } else if (this.state.expectedAnswer !== "props" && this.state.expectedAnswer !== "confirm") {
           currentAction.finalAnswer[this.state.expectedAnswer] = answer;
           index = currentAction.toFill.indexOf(this.state.expectedAnswer);
@@ -108,22 +115,16 @@ export default class Zorro {
             text: question,
             author: 'Zorro'
           };
-          console.log("la");
-          console.log(currentAction);
           dialog.push(zorroMsg);
           this.state.expectedAnswer = currentAction.toFill[0];
         } else if (this.state.expectedAnswer === "props" && answer !== "@done") {
           currentAction.finalAnswer[this.state.expectedAnswer].push(answer);
-          console.log("here");
-          console.log(currentAction);
         } else if (this.state.expectedAnswer === "confirm" && (answer === "oui" || answer === "Oui")) {
           const pollMsg = {
             text: currentAction.finalAnswer.question,
             channelId: this.channelId,
             type: "poll",
           };
-          console.log("final current Action");
-          console.log(currentAction);
           Meteor.call('polls.insert', pollMsg, currentAction.finalAnswer.props);
           this.resetState();
         }
@@ -165,6 +166,10 @@ export default class Zorro {
             channelId: this.channelId
           };
           Meteor.call('beers.insert', beer);
+          break;
+        case 'newFeedback':
+          const rating = parseInt(finalAnswer.rating);
+          Meteor.call('feedbacks.giveFeedback', this.channelId, rating, finalAnswer.comment);
           break;
         default:
           break;
