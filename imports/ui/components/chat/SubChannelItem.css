@@ -1,0 +1,38 @@
+.actionz-item {
+  background: #fff;
+  border-radius: 20px;
+  border: 1px solid #AAA;
+  padding: 10px 10px 10px 60px;
+  margin-bottom: 12px;
+}
+
+.actionz-pie {
+  position: absolute;
+  height: 100%;
+}
+
+.actionz-percent {
+  color: #333;
+  font-size: 11px;
+}
+
+.actionz-pie i {
+  color: #888;
+  font-size: 30px;
+  margin-left: -45px;
+  padding-top: 2px;
+}
+
+.actionz-title {
+  color: blue;
+  font-size: 14px;
+  padding-bottom: 12px;
+}
+
+.actionz-prop-count {
+  padding-right: 5px;
+}
+
+.actionz-prop {
+  padding-bottom: 8px;
+}

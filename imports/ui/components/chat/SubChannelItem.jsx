@@ -1,4 +1,5 @@
 import React from 'react';
+import './SubChannelItem.css'
 
 export default class SubChannelItem extends React.Component {
 
@@ -18,8 +19,15 @@ export default class SubChannelItem extends React.Component {
     } = this.props;
 
     return (
-      <div>
-        <a href={'/group/' + channel._id} onClick={this.joinChannel}>{channel.name}<button>Rejoindre</button></a>
+      <div className="actionz-item">
+        <div className="actionz-pie">
+          <i className="fa fa-cogs"></i>
+        </div>
+        <div>
+          <h4>Nouvelle Actionz !</h4>
+          <p><a href={'/group/' + channel._id} onClick={this.joinChannel}>{channel.name}</a></p>
+          <button>Rejoindre</button>
+        </div>
       </div>
     );
   }

@@ -13,7 +13,7 @@ export default class ChatFilter extends React.Component {
         <div className="second">
           <p onClick={setFilterOption.bind(this, 'all')}>Tout voir</p>
           {channel.connections ?
-            <div>
+            <div className="chat-filter-icon-list">
             {channel.connections.pollCount ?
               <i className="fa fa-pie-chart" aria-hidden="true" onClick={setFilterOption.bind(this, 'poll')}>{channel.connections.pollCount}</i>
               : ''

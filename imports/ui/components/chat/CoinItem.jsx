@@ -1,7 +1,7 @@
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
 import { check } from 'meteor/check';
-
+import './CoinItem.css'
 
 export default class CoinItem extends React.Component {
   constructor(props) {
@@ -24,12 +24,16 @@ export default class CoinItem extends React.Component {
       coin,
     } = this.props;
     return (
-      <div>
-        <div>
-          <div> Nouveau Coinz! </div>
-          <p>But : {coin.purpose}</p>
-          {coin.totalEarned}/{coin.goal} reçu
+      <div className="message-wrapper coinz-item">
+        <div className="coinz-pie">
+          <i className="fa fa-eur"></i>
         </div>
+        <div>
+          <p>Nouveau Coinz !</p>
+          <p className="coinz-title">{coin.purpose}</p>
+        </div>
+        <div className="coinz-prop">
+          <p className="coinz-percent">{coin.totalEarned}/{coin.goal} reçu</p>
         <form onSubmit={this.handleSubmit}>
           <input
             type="number"
@@ -37,7 +41,9 @@ export default class CoinItem extends React.Component {
           />
           <input type="submit" value="Financer" />
         </form>
+        </div>
       </div>
     );
   }
+
 }
