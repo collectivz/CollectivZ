@@ -92,7 +92,9 @@ export default class Chat extends React.Component {
       subChannels,
       beers,
       polls,
+      coins,
     } = this.props;
+    console.log(coins);
     const {
       zorro,
       dialogWithZorro,
@@ -132,6 +134,7 @@ export default class Chat extends React.Component {
                   polls={polls}
                   subChannels={subChannels}
                   feedbacks={channel.feedbacks}
+                  coins={coins}
                 />
               </div>
             </div>

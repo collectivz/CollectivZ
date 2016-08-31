@@ -5,6 +5,7 @@ import { Guilds } from '../../guilds/collection.js';
 import { Channels } from '../collection.js';
 import { Messages } from '../../messages/collection.js';
 import { Beers } from '../../beers/collection.js';
+import { Coins } from '../../coins/collection.js';
 import { Polls, Propositions } from '../../polls/collection.js';
 
 Meteor.publish('chanPage', function(id){
@@ -21,6 +22,7 @@ Meteor.publish('chanPage', function(id){
       Messages.find({channelId: id}),
       Beers.find({channelId: id}),
       Polls.find({channelId: id}),
+      Coins.find({channelId: id}),
       Meteor.users.find({subscribedChannels: {$in: [id]}})
     ];
   } else {
@@ -32,6 +34,7 @@ Meteor.publish('chanPage', function(id){
       Messages.find({channelId: id}),
       Beers.find({channelId: id}),
       Polls.find({channelId: id}),
+      Coins.find({channelId: id}),
       Meteor.users.find({subscribedChannels: {$in: [id]}})
     ];
   }

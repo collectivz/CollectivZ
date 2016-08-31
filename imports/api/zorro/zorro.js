@@ -5,6 +5,7 @@ import Beer from './new-beerz.js';
 import Poll from './new-pollz.js';
 import Buddie from './new-buddies.js';
 import Feedback from './new-feedbackz.js';
+import Coin from './new-coinz.js';
 
 export default function zorroForm(type, channelId) {
   switch(type) {
@@ -18,6 +19,8 @@ export default function zorroForm(type, channelId) {
       return new Channel(channelId);
     case 'newPoll':
       return new Poll(channelId);
+    case 'newCoin':
+      return new Coin(channelId);
     default:
       break;
   }
