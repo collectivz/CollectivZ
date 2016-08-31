@@ -7,7 +7,7 @@ export default class FeedbackItem extends React.Component {
     } = this.props;
 
     return (
-      <div>
+      <div className="actionz-item">
         {`${feedback.username} a évalué le résultat de cette mission a ${feedback.rating}/5, et a laissé comme commentaire : ${feedback.comment}.`}
       </div>
     );

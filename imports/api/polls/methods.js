@@ -44,7 +44,7 @@ Meteor.methods({
       channelId: message.channelId,
       totalVote: 0,
     };
-    pollId = Polls.insert(newPoll);
+    const pollId = Polls.insert(newPoll);
 
     // there is two type of poll, one where the user enter is own prop
     // and the other at "default" where there is for and against prop

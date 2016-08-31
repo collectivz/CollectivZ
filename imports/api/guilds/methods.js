@@ -73,5 +73,32 @@ Meteor.methods({
       { $push: { members: user._id } },
       { $inc: { 'connections.memberCount': 1 } }
     );
+  },
+
+  'guilds.changeName'(newName, guildId) {
+    if (!this.userId) {
+      throw new Meteor.Error('not-logged-in',
+        'Vous devez être connecté pour renommer une guilde.');
+    }
+
+    check(newName, String);
+    check(guildId, String);
+
+    const guild = Guilds.findOne(guildId);
+    const user = Meteor.users.findOne(this.userId);
+
+    if (!guild) {
+      throw new Meteor.Error('does not exist',
+        "Cette guilde n'existe pas.");
+    }
+
+    if (!_.contains(guild.leaders, user._id) || !user.profile.admin) {
+      throw new Meteor.Error('no-right',
+        "Vous n'avez pas les droits pour changer le nom de cette guilde.");
+    }
+
+    Guilds.update(guildId, {
+      $set: { name: newName }
+    });
   }
 });

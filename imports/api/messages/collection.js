@@ -4,11 +4,11 @@ import { Mongo } from 'meteor/mongo';
 import { Channels } from '../channels/collection.js';
 
 class messageCollection extends Mongo.Collection {
-  
+
   insert(message, callback) {
     message.createdAt = Date.now();
     message.author = message.author ? message.author
-      : Meteor.users.findOne({username: 'zorro'})._id;
+      : Meteor.users.findOne({username: 'Zorro'})._id;
 
     const author = Meteor.users.findOne(message.author);
     message.authorName = author.username;

@@ -18,11 +18,11 @@ export default React.createClass({
       if(xhr.readyState === 4){
         if(xhr.status === 200){
           console.log('request accepted.');
-          Meteor.users.update(Meteor.user()._id, {$set: { 'profile.background': url}}, (err, res) => {
+          Meteor.call('users.changeBackground', url, (err, res) => {
             if (err)
               return;
             this.replaceState({});
-          })
+          });
         }
         else{
           console.log('Could not upload file.');

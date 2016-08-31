@@ -7,36 +7,6 @@ import './GuildItem.css';
 
 export default class GuildItem extends Component {
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      hasJoined: false
-    };
-
-    this.joinGuild = this.joinGuild.bind(this);
-  }
-
-  componentWillMount() {
-    const {
-      guild,
-      user
-    } = this.props;
-
-    if (_.contains(guild.members, user._id)) {
-      this.setState({
-        hasJoined: true
-      });
-    }
-  }
-
-  joinGuild() {
-    Meteor.call('guilds.join', this.props.guild._id);
-    this.setState({
-      hasJoined: true
-    });
-  }
-
   getMemberCount(guild) {
     if (guild.members.length === 1) {
       return `${guild.members.length} membre.`
@@ -51,17 +21,13 @@ export default class GuildItem extends Component {
     } = this.props;
 
     return (
-      <div className="guild">
-        <div className="item-content">
-          <div className="wrap-img">
-            <img src="/img/zorro.jpg" alt="" />
-          </div>
+      <div className="guild item-avatar item-icon-right item item-complex item-right-editable">
+        <Link className="item-content" to={`/guild/${guild._id}`}>
+          <img src={guild.picture} alt="" />
           <h2>{guild.name}</h2>
           <p>{this.getMemberCount(guild)}</p>
-        </div>
-        {this.state.hasJoined ?
-          'Vous faites parti de ce groupe.'
-          : <button onClick={this.joinGuild}>Join guild</button>}
+          <i className="fa fa-chevron-right fa-accessory"></i>
+        </Link>
       </div>
     );
   }
