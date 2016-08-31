@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Meteor } from 'meteor/meteor';
 import { _ } from 'meteor/underscore';
+import './BeerItem.css'
 
 export default class BeerItem extends React.Component {
 
@@ -48,12 +49,19 @@ export default class BeerItem extends React.Component {
     const { beer } = this.props;
 
     return (
-      <div>
-        <div>Occasion:  {beer.occasion}</div>
-        <div>Date:  {beer.date}</div>
-        <div>Lieu:  {beer.place}</div>
-        {this.participate()}
+      <div className="actionz-item">
+        <div className="actionz-pie">
+          <i className="fa fa-calendar"></i>
+        </div>
+        <div>
+          <h4>Nouvelle Beerz !</h4>
+          <p className="beerz-title">Occasion:  {beer.occasion}</p>
+          <p><span className="strong">Occasion </span>:  {beer.occasion}</p>
+          <p><span className="strong">Date </span>:  {beer.date}</p>
+          <p><span className="strong">Lieu </span>:  {beer.place}</p>
+        </div>
       </div>
+        // {this.participate()}
     );
   }
 }

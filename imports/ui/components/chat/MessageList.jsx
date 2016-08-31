@@ -18,7 +18,7 @@ export default class MessageList extends React.Component {
       coins,
     } = this.props;
     return (
-      <div>
+      <div className="msg-list-parser">
         {messages.map((message) => {
           switch(message.type) {
             case 'beer':

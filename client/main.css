@@ -138,3 +138,11 @@ button:focus {
   padding-top: 6px;
   padding-left: 6px;
 }
+
+.chat-filter-icon-list i {
+  margin-right: 10px;
+}
+
+.strong {
+  font-weight: 800;
+}
