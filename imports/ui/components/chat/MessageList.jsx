@@ -1,6 +1,7 @@
 import React from 'react';
 
 import MessageItem from './MessageItem.jsx';
+import CoinItem from './CoinItem.jsx';
 import SubChannelItem from './SubChannelItem.jsx';
 import BeerItemContainer from '../../containers/BeerItemContainer.jsx';
 import FeedbackItem from './FeedbackItem.jsx';
@@ -13,9 +14,9 @@ export default class MessageList extends React.Component {
       polls,
       messages,
       subChannels,
-      feedbacks
+      feedbacks,
+      coins,
     } = this.props;
-
     return (
       <div>
         {messages.map((message) => {
@@ -41,6 +42,13 @@ export default class MessageList extends React.Component {
                 return false;
               });
               return (<SubChannelItem key={message._id} channel={channel} />);
+            case 'coin':
+              const coin = coins.find((coin) => {
+                if (coin.messageId === message._id)
+                  return true;
+                return false;
+              });
+              return (<CoinItem key={message._id} coin={coin} />);
             case 'feedback':
               const feedback = feedbacks.find((feedback) => {
                 if (feedback.messageId === message._id)

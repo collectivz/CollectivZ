@@ -30,6 +30,10 @@ export default class ChatFilter extends React.Component {
               <i className="fa fa-star-o" aria-hidden="true" onClick={setFilterOption.bind(this, 'feedback')}>{channel.connections.feedbackCount}</i>
               : ''
             }
+            {channel.connections.coinCount ?
+              <i className="fa fa-eur" aria-hidden="true" onClick={setFilterOption.bind(this, 'coin')}>{channel.connections.coinCount}</i>
+              : ''
+            }
             </div>
             : ''
           }

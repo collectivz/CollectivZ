@@ -9,6 +9,7 @@ export default class Buddie {
       inputMode: 'newBuddie',
       dialogWithZorro: [this.question],
       ongoingAction: true,
+      choices: ['@stop']
     };
     this.channelId = channelId;
     this.expectedAnswer = 'username';
@@ -51,6 +52,7 @@ export default class Buddie {
       zorroMsg.text = `Vous souhaitez ajouter l'utilisateur : ${this.result.username}, dites oui pour confirmer.`;
       dialog.push(zorroMsg);
       this.expectedAnswer = 'confirm';
+      this.state.choices.push('oui');
     } else if (this.expectedAnswer === 'confirm' && (answer === 'oui' || answer === 'Oui')) {
       Meteor.call('buddies.inviteToChannel', this.result.username, this.channelId);
       this.resetState();

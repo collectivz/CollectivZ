@@ -36,6 +36,10 @@ export default class ActionPicker extends Component {
             <i className="fa fa-star-o" aria-hidden="true"></i>
             <span>FeedbackZ</span>
           </a>
+          <a onClick={this.handleClick.bind(this, 'newCoin')}>
+            <i className="fa fa-eur" aria-hidden="true"></i>
+            <span>CoinZ</span>
+          </a>
         </div>
       </div>
     );

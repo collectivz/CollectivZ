@@ -9,6 +9,7 @@ export default class Feedback {
       inputMode: 'newFeedback',
       dialogWithZorro: [this.question],
       ongoingAction: true,
+      choices: ['@stop', '0', '1', '2', '3', '4', '5']
     };
     this.channelId = channelId;
     this.expectedAnswer = 'rating';
@@ -57,12 +58,14 @@ export default class Feedback {
         dialog.push(zorroMsg);
         this.expectedAnswer = 'comment';
         this.result.rating = rating;
+        this.state.choices = ['@stop'];
       }
     } else if (this.expectedAnswer === 'comment') {
       this.result.comment = answer;
       zorroMsg.text = `Parfait, en résumé, vous voulez donner la note de ${this.result.rating}/5, avec pour commentaire "${this.result.comment}". Dites oui pour laisser cette évaluation.`;
       dialog.push(zorroMsg);
       this.expectedAnswer = 'confirm';
+      this.state.choices.push('oui');
     } else if (this.expectedAnswer === 'confirm' && (answer === 'oui' || answer === 'Oui')) {
       Meteor.call('feedbacks.giveFeedback', this.channelId, this.result.rating, this.result.comment);
       this.resetState();

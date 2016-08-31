@@ -22,6 +22,7 @@ export default class Chat extends React.Component {
       currentAction: {},
       ongoingAction: false,
       expectedAnswer: '',
+      choices: []
     };
 
     this.setFilterOption = this.setFilterOption.bind(this);
@@ -92,12 +93,14 @@ export default class Chat extends React.Component {
       subChannels,
       beers,
       polls,
+      coins,
     } = this.props;
     const {
       zorro,
       dialogWithZorro,
       ongoingAction,
-      filter
+      filter,
+      choices
     } = this.state;
 
     let filteredMessages = [];
@@ -132,6 +135,7 @@ export default class Chat extends React.Component {
                   polls={polls}
                   subChannels={subChannels}
                   feedbacks={channel.feedbacks}
+                  coins={coins}
                 />
               </div>
             </div>
@@ -139,7 +143,7 @@ export default class Chat extends React.Component {
               <div className="scroll">
                 <div className="message-list">
                   {dialogWithZorro.map((message, index) => {
-                    return (<ZorroItem message={message} key={index}/>);
+                    return (<ZorroItem message={message} key={index} answerToZorro={this.answerToZorro} choices={choices}/>);
                   })}
                 </div>
               </div>

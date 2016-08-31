@@ -18,6 +18,7 @@ if (Meteor.isServer) {
     user.subscribedChannels = [];
     user.subscribedConversations = [];
     user.connections = {};
+    user.coinz = 100;
     return user;
   });
 }
