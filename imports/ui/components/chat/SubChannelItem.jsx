@@ -24,9 +24,8 @@ export default class SubChannelItem extends React.Component {
           <i className="fa fa-cogs"></i>
         </div>
         <div>
-          <h4>Nouvelle Actionz !</h4>
-          <p><a href={'/group/' + channel._id} onClick={this.joinChannel}>{channel.name}</a></p>
-          <button>Rejoindre</button>
+          <h4>Nouvelle Actionz : {channel.name} !</h4>
+          <p><a href={'/group/' + channel._id} onClick={this.joinChannel}><button>Rejoindre</button></a></p>
         </div>
       </div>
     );

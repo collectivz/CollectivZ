@@ -160,7 +160,7 @@ Meteor.methods({
     }
   },
 
-  'channels.setAsFinished'(channelId, experience) {
+  'channels.setAsFinished'(channelId) {
     const userId = this.userId;
 
     if (!userId) {
@@ -169,7 +169,6 @@ Meteor.methods({
     }
 
     check(channelId, String);
-    check(experience, Number);
 
     const channel = Channels.findOne(channelId);
     let guild = {};
@@ -181,11 +180,10 @@ Meteor.methods({
       Channels.update(channelId, {
         $set: {
           status: "finished",
-          experience
         }
       });
       const msg = {
-        text: `Cette mission a été marquée comme terminée, répartissez vous la récompense !`,
+        text: `Cette mission a été marquée comme terminée !`,
         channelId: channel._id
       };
       Messages.insert(msg);

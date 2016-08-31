@@ -56,12 +56,11 @@ export default class BeerItem extends React.Component {
         <div>
           <h4>Nouvelle Beerz !</h4>
           <p className="beerz-title">Occasion:  {beer.occasion}</p>
-          <p><span className="strong">Occasion </span>:  {beer.occasion}</p>
           <p><span className="strong">Date </span>:  {beer.date}</p>
           <p><span className="strong">Lieu </span>:  {beer.place}</p>
         </div>
+        {this.participate()}
       </div>
-        // {this.participate()}
     );
   }
 }

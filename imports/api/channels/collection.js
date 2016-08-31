@@ -9,10 +9,6 @@ class ChannelCollection extends Mongo.Collection {
     channel.leaders = [userId];
     channel.members = [userId];
     channel.workers = [];
-    channel.reward = {
-      experience: 0,
-      points: 0
-    };
     channel.createdAt = Date.now();
     channel.lastActivity = Date.now();
 
