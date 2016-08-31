@@ -58,8 +58,8 @@ export default class ZorroItem extends Component {
           </div>
           {message.author === 'Zorro' ?
             <div>
-            {choices.map((choice) => {
-              return (<button onClick={answerToZorro.bind(this, choice)}>{choice}</button>);
+            {choices.map((choice, index) => {
+              return (<button onClick={answerToZorro.bind(this, choice)} key={index}>{choice}</button>);
             })}
             </div>
             : ''

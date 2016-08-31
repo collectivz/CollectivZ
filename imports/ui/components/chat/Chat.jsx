@@ -95,7 +95,6 @@ export default class Chat extends React.Component {
       polls,
       coins,
     } = this.props;
-    console.log(coins);
     const {
       zorro,
       dialogWithZorro,
