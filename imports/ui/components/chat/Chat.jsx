@@ -45,12 +45,7 @@ export default class Chat extends React.Component {
       });
       this.setState(newState);
     }
-    if (this.state.filter === "all") {
-      this.refs.scroll.scrollTop += this.refs.scroll.scrollHeight;
-    } else {
-      this.refs.scroll.scrollTop = 0;
-    }
-
+    this.refs.scroll.scrollTop += this.refs.scroll.scrollHeight;
   }
 
   setFilterOption(filter) {
