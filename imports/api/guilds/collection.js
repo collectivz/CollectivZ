@@ -8,6 +8,8 @@ class GuildCollection extends Mongo.Collection {
     guild.members = [userId];
     guild.leaders = [userId];
     guild.createdAt = Date.now();
+    guild.background = '/img/ugly.png';
+    guild.picture = '/img/cfecgc.png';
 
     if (!super.findOne({name: guild.name})) {
       return super.insert(guild, callback);

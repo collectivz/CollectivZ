@@ -12,6 +12,7 @@ import '../../api/polls/methods.js';
 import '../../api/polls/server/publish.js';
 
 import '../../api/users/users.js';
+import '../../api/users/methods.js';
 import '../../api/users/server/publish.js';
 
 import '../../api/beers/methods.js';

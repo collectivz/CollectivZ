@@ -8,6 +8,7 @@ import ChannelListContainer from '../imports/ui/containers/ChannelListContainer.
 import ChannelPageContainer from '../imports/ui/containers/ChannelPageContainer.jsx';
 import ConversationPageContainer from '../imports/ui/containers/ConversationPageContainer.jsx';
 import GuildListContainer from '../imports/ui/containers/GuildListContainer.jsx';
+import GuildPageContainer from '../imports/ui/containers/GuildPageContainer.jsx';
 import AdminPage from '../imports/ui/pages/AdminPage.jsx';
 import MyProfile from '../imports/ui/pages/MyProfile.jsx';
 import NotFound from '../imports/ui/pages/NotFound.jsx';
@@ -18,7 +19,8 @@ Meteor.startup(() => {
       <Route path="/" component={AppContainer}>
         <Route path='/my-groups' component={ChannelListContainer} />
         <Route path='/group/:groupId' component={ChannelPageContainer} />
-        <Route path='/group-list' component={GuildListContainer} />
+        <Route path='/guild-list' component={GuildListContainer} />
+        <Route path='/guild/:guildId' component={GuildPageContainer} />
         <Route path='/conversation/:conversationId' component={ConversationPageContainer} />
         <Route path='/admin' component={AdminPage} />
         <Route path='/profile' component={MyProfile} />

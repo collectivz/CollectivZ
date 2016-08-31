@@ -13,7 +13,6 @@ class ChannelCollection extends Mongo.Collection {
       experience: 0,
       points: 0
     };
-    channel.feedbacks = [];
     channel.createdAt = Date.now();
     channel.lastActivity = Date.now();
 

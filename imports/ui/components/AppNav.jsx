@@ -15,7 +15,7 @@ export default class AppNav extends Component {
           <i className="fa fa-commenting" aria-hidden="true"></i>
           <span className="tab-title">Actions</span>
         </Link>
-        <Link activeClassName="active" className="tab-item" to="/group-list">
+        <Link activeClassName="active" className="tab-item" to="/guild-list">
           <i className="fa fa-university" aria-hidden="true"></i>
           <span className="tab-title">Communautés</span>
         </Link>
