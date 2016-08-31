@@ -18,7 +18,8 @@ export default class MessageItem extends Component {
     this.deleteMessage = this.deleteMessage.bind(this);
   }
 
-  editMessage() {
+  editMessage(e) {
+    e.preventDefault()
     const {
       message
     } = this.props;
@@ -80,6 +81,15 @@ export default class MessageItem extends Component {
     return (
       <div className="message-wrapper">
         <div className={this.isMine()}>
+          <div className="messageActionWrapper">
+          { (message.author === Meteor.userId()) ?
+              <div className="messageActionBar">
+                <i className="messageActionItem fa fa-pencil" aria-hidden="true" onClick={this.toggleEdit}></i>
+                <i className="messageActionItem fa fa-trash" aria-hidden="true" onClick={this.deleteMessage}></i>
+              </div>
+           : ''
+          }
+          </div>
           <div className="message-header">
             <span className="message-user">
               { message.type
@@ -100,13 +110,6 @@ export default class MessageItem extends Component {
               : <p>{message.text}</p>
             }
           </div>
-          { (message.author === Meteor.userId()) ?
-              <div>
-                <i className="fa fa-pencil" aria-hidden="true" onClick={this.toggleEdit}></i>
-                <i className="fa fa-trash" aria-hidden="true" onClick={this.deleteMessage}></i>
-              </div>
-           : ''
-          }
           <span className="picture">
             <img src={this.userAvatar(message.author)} alt="" />
           </span>
