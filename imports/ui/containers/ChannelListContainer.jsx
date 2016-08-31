@@ -10,9 +10,11 @@ export default createContainer(({ user }) => {
   const channels = Channels.find(
     {_id: {$in: user.subscribedChannels}},
     { sort: { lastActivity: -1 } }).fetch();
+  const conversations = Channels.find({_id: {$in: user.subscribedConversations}}).fetch();
 
   return {
     channels,
+    conversations,
     loading: !channelSub.ready(),
   };
 }, ChannelList);
