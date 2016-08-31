@@ -7,7 +7,7 @@
 
 .poll-pie {
   position: absolute;
-  height: 100%;
+  /*height: 100%;*/
 }
 
 .poll-percent {

@@ -14,7 +14,7 @@ if (Meteor.isServer) {
   Accounts.onCreateUser(function(options, user) {
     user.profile = options.profile || {};
     user.profile.background = '/img/ugly.jpg';
-    user.profile.avatar = '/img/no-user.png';
+    user.profile.avatar = user.profile.avatar ? user.profile.avatar : '/img/no-user.png';
     user.lastLogin = Date.now();
     user.subscribedGuilds = [];
     user.subscribedChannels = [];

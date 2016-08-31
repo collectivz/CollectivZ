@@ -110,6 +110,7 @@ Meteor.startup(function() {
       username: 'Zorro',
       password : 'zorro',
       profile: {
+        avatar: '/img/zorro.png',
         firstName: 'zorro',
         lastName: 'de la Vega'
       }
