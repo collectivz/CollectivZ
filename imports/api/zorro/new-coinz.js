@@ -9,6 +9,7 @@ export default class Coin {
       inputMode: 'newCoin',
       dialogWithZorro: [this.question],
       ongoingAction: true,
+      choices: ['@stop']
     };
     this.channel = channelId;
     this.expectedAnswer = 'purpose';
@@ -61,6 +62,7 @@ export default class Coin {
         zorroMsg.text = `Vous voulez lever des fonds : ${this.result.purpose} et vous avez besoin de ${this.result.goal} coinz, dites oui pour confirmer.`;
         this.expectedAnswer = 'confirm';
         dialog.push(zorroMsg);
+        this.state.choices.push('oui');
       }
     } else if (this.expectedAnswer === 'confirm' && (answer === 'oui' || answer === 'Oui')) {
       const message = {

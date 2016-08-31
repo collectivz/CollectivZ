@@ -26,17 +26,17 @@ export default class ChannelList extends React.Component {
   render() {
     const {
       channels,
+      conversations,
       user
     } = this.props;
 
-    let subscribedConversations = [];
-    let subscribedChannels = [];
-    if (user.subscribedConversations) {
-      subscribedConversations = Channels.find({_id: {$in: user.subscribedConversations}});
-    }
-    if (user.subscribedChannels) {
-      subscribedChannels = Channels.find({_id: {$in: user.subscribedChannels}});
-    }
+    const sortedChannels = channels.sort((a, b) => {
+      return b.lastActivity - a.lastActivity;
+    });
+    const sortedConversations = conversations.sort((a, b) => {
+      return b.lastActivity - a.lastActivity;
+    });
+
     return (
       <div>
         <TopNav text={'Vos groupes de discussion'} />
@@ -46,7 +46,7 @@ export default class ChannelList extends React.Component {
               <div className="disable-user-behavior">
                 <div>Liste de mes groupes de discussion</div>
                 <div className="list">
-                  {subscribedChannels.map(function(channel) {
+                  {sortedChannels.map(function(channel) {
                      return <ChannelItem key={channel._id} channel={channel} />;
                   })}
                 </div>
@@ -63,7 +63,7 @@ export default class ChannelList extends React.Component {
                   </div>
                 </div>
                 <div className="list">
-                  {subscribedConversations.map(function(channel) {
+                  {sortedConversations.map(function(channel) {
                      return <ConversationItem key={channel._id} channel={channel} />;
                   })}
                 </div>
