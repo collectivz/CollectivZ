@@ -2,8 +2,6 @@ import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import { Meteor } from 'meteor/meteor';
 
-// import { Chans } from '../../api/channels.js';
-// import Channel from '../channel/Channel.jsx';
 import './ZorroItem.css';
 
 export default class ZorroItem extends Component {
@@ -44,7 +42,9 @@ export default class ZorroItem extends Component {
 
   render() {
     const {
-      message
+      message,
+      answerToZorro,
+      choices
     } = this.props;
 
     return (
@@ -56,6 +56,14 @@ export default class ZorroItem extends Component {
           <div className="text">
             {message.text}
           </div>
+          {message.author === 'Zorro' ?
+            <div>
+            {choices.map((choice) => {
+              return (<button onClick={answerToZorro.bind(this, choice)}>{choice}</button>);
+            })}
+            </div>
+            : ''
+          }
           <span className="picture">
             <img src={this.userAvatar(message.author)} alt="" />
           </span>
