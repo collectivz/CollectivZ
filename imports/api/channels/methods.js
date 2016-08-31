@@ -160,7 +160,7 @@ Meteor.methods({
     }
   },
 
-  'channels.setAsFinished'(channelId, reward) {
+  'channels.setAsFinished'(channelId, experience) {
     const userId = this.userId;
 
     if (!userId) {
@@ -169,10 +169,7 @@ Meteor.methods({
     }
 
     check(channelId, String);
-    check(reward, {
-      experience: Number,
-      points: Number
-    });
+    check(experience, Number);
 
     const channel = Channels.findOne(channelId);
     let guild = {};
@@ -184,7 +181,7 @@ Meteor.methods({
       Channels.update(channelId, {
         $set: {
           status: "finished",
-          reward: reward
+          experience
         }
       });
       const msg = {

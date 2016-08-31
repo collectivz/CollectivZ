@@ -9,6 +9,7 @@ export default class Beer {
       inputMode: 'newBeer',
       dialogWithZorro: [this.question],
       ongoingAction: true,
+      choices: ['@stop']
     };
     this.expectedAnswer = 'occasion';
     this.result = {
@@ -24,7 +25,8 @@ export default class Beer {
       inputMode: 'message',
       ongoingAction: false,
       dialogWithZorro: [],
-      zorro: {}
+      zorro: {},
+      choices: []
     };
   }
 
@@ -63,6 +65,7 @@ export default class Beer {
       zorroMsg.text = `Parfait, en résumé, vous voulez créer l'événement suivant : ${this.result.occasion}, lieu : ${this.result.place}, date : ${this.result.date}. Dites oui pour confirmer.`;
       dialog.push(zorroMsg);
       this.expectedAnswer = 'confirm';
+      this.state.choices.push('oui');
     } else if (this.expectedAnswer === 'confirm' && (answer === 'oui' || answer === 'Oui')) {
       Meteor.call('beers.insert', this.result);
       this.resetState();

@@ -9,6 +9,7 @@ export default class Channel {
       inputMode: 'newChannel',
       dialogWithZorro: [this.question],
       ongoingAction: true,
+      choices: ['@stop']
     };
     this.channelId = channelId;
     this.expectedAnswer = 'chanName';
@@ -51,6 +52,7 @@ export default class Channel {
       zorroMsg.text = `Vous souhaitez créer l'action : ${this.result.name}, dites oui pour confirmer.`;
       dialog.push(zorroMsg);
       this.expectedAnswer = 'confirm';
+      this.state.choices.push('oui');
     } else if (this.expectedAnswer === 'confirm' && (answer === 'oui' || answer === 'Oui')) {
       Meteor.call('channels.insert', this.result, this.channelId);
       this.resetState();

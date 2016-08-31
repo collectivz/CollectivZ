@@ -9,6 +9,7 @@ export default class Poll {
       inputMode: 'newPoll',
       dialogWithZorro: [this.question],
       ongoingAction: true,
+      choices: ['@stop']
     };
     this.channelId = channelId;
     this.expectedAnswer = 'question';
@@ -51,6 +52,7 @@ export default class Poll {
       zorroMsg.text = `Ajoutez des choix à votre sondage, et écrivez @fini quand c\'est fini ! Vous pouvez directement écrire @fini si vous souhaitez créer un sondage "Pour/Contre"`;
       dialog.push(zorroMsg);
       this.expectedAnswer = 'props';
+      this.state.choices.push('@fini');
     } else if (this.expectedAnswer === 'props') {
       if (answer !== "@fini") {
         this.result.props.push(answer);
@@ -73,6 +75,7 @@ export default class Poll {
           zorroMsg.text = question;
           dialog.push(zorroMsg);
           this.expectedAnswer = 'confirm';
+          this.state.choices = ['@stop', 'oui'];
         } else {
           zorroMsg.text = `Vous devez entrer au moins 2 choix pour créer un sondage.`;
           dialog.push(zorroMsg);
