@@ -52,5 +52,45 @@ Meteor.methods({
     Channels.update(parentId, {
       $inc: {'connections.coinCount': 1}
     });
+  },
+
+  'coins.donate'(coinId, moneyDonated) {
+    if (!this.userId) {
+      throw new Meteor.Error('not-logged-in',
+        "Vous devez être connecté pour rejoindre un évènement.");
+    }
+
+    check(coinId, String);
+    const money = parseInt(moneyDonated);
+    check(money, Number);
+    const user = Meteor.users.findOne(this.userId);
+    if (user.coinz < money) {
+      throw new Meteor.Error('not-enough-coinz',
+        "Vous n'avez pas assez de coinz pour donner autant.");
+    }
+    const coin = Coins.findOne(coinId);
+    let found = 0;
+    if (coin.givers) {
+      coin.givers.forEach((giver) => {
+        if (giver.userId === this.userId) {
+          giver.donated += money;
+          found = 1;
+        }
+      });
+    }
+    if (found === 0) {
+      newDonateMan = {
+        userId: this.userId,
+        donated: money,
+      };
+      coin.givers.push(newDonateMan);
+    }
+    Coins.update(coinId, {
+      $set: {givers: coin.givers},
+      $inc: {totalEarned: money},
+    });
+    Meteor.users.update(this.userId, {
+      $inc: {coinz: -money},
+    });
   }
 });

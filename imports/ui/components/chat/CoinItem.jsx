@@ -1,12 +1,22 @@
 import React from 'react';
+import { Meteor } from 'meteor/meteor';
+import { check } from 'meteor/check';
+
 
 export default class CoinItem extends React.Component {
   constructor(props) {
     super(props);
+
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  donateMoney(number) {
-    // Meteor.call('polls.vote', this.props.poll._id, propositionId);
+  handleSubmit(e) {
+    e.preventDefault();
+    let number = this.refs.number.value;
+    if (number > 0) {
+      Meteor.call('coins.donate', this.props.coin._id, number);
+      this.refs.number.value = '';
+    }
   }
 
   render() {
@@ -20,6 +30,13 @@ export default class CoinItem extends React.Component {
           <p>But : {coin.purpose}</p>
           {coin.totalEarned}/{coin.goal} reçu
         </div>
+        <form onSubmit={this.handleSubmit}>
+          <input
+            type="number"
+            ref="number"
+          />
+          <input type="submit" value="Financer" />
+        </form>
       </div>
     );
   }
