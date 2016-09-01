@@ -1,4 +1,7 @@
 import React from 'react';
+import { _ } from 'meteor/underscore';
+
+import GuildUpdatePicture from './GuildUpdatePicture.jsx';
 
 export default class GuildBody extends React.Component {
 
@@ -43,6 +46,10 @@ export default class GuildBody extends React.Component {
         {this.state.hasJoined ?
           'Vous faites parti de cette communauté.'
           : <button onClick={this.joinGuild}>Rejoindre {guild.name}</button>
+        }
+        {_.contains(guild.leaders, user._id) ?
+            <GuildUpdatePicture guild={guild}/>
+          : ''
         }
       </div>
     );

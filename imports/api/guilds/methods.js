@@ -100,5 +100,20 @@ Meteor.methods({
     Guilds.update(guildId, {
       $set: { name: newName }
     });
+  },
+  'guilds.changePicture'(url, guildId) {
+    const userId = this.userId;
+
+    if (!userId) {
+      throw new Meteor.Error('not-logged-in',
+        "Vous devez être connecté pour changer d'avatar.");
+    }
+
+    check(url, String);
+    check(guildId, String);
+
+    Guilds.update(guildId, {
+      $set: { picture : url }
+    });
   }
 });
