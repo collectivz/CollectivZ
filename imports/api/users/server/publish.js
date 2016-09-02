@@ -10,6 +10,7 @@ Meteor.publish('user', function() {
       subscribedChannels: 1,
       connections: 1,
       profile: 1,
+      history: 1,
     }});
   } else {
     this.ready();

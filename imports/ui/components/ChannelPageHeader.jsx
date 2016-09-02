@@ -11,6 +11,7 @@ export default class ChannelPageHeader extends Component {
     this.isWorker = this.isWorker.bind(this);
     this.seekFeedback = this.seekFeedback.bind(this);
     this.becomeWorker = this.becomeWorker.bind(this);
+    this.setAsFinished = this.setAsFinished.bind(this);
   }
 
   isWorker() {
@@ -23,6 +24,10 @@ export default class ChannelPageHeader extends Component {
 
   becomeWorker() {
     Meteor.call('channels.becomeWorker', this.props.channel._id);
+  }
+
+  setAsFinished() {
+    Meteor.call('channels.setAsFinished', this.props.channel._id);
   }
 
   render() {
@@ -51,6 +56,7 @@ export default class ChannelPageHeader extends Component {
             : <button onClick={this.becomeWorker}>Travailler sur cette mission</button>
           : ''
         }
+        <button onClick={this.setAsFinished}>Clore la mission</button>
       </div>
     );
   }

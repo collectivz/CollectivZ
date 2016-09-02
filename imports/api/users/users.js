@@ -21,6 +21,7 @@ if (Meteor.isServer) {
     user.subscribedConversations = [];
     user.connections = {};
     user.coinz = 100;
+    user.history = '';
     return user;
   });
 }

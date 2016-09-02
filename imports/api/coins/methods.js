@@ -26,6 +26,9 @@ Meteor.methods({
     } else if (message.type !== "coin") {
       throw new Meteor.Error('wrong-typed',
       'The message must be a coin message.');
+    } else if (result.goal <= 0) {
+      throw new Meteor.Error('wrong-amount',
+      'Le montant donné doit etre positif');
     }
 
     const parent = Channels.findOne(parentId);
