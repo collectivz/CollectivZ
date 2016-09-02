@@ -5,6 +5,7 @@ import { _ } from 'meteor/underscore';
 import { Channels } from './collection.js';
 import { Guilds } from '../guilds/collection.js';
 import { Messages } from '../messages/collection.js';
+import historyUserAction from '../history/functions.js';
 
 Meteor.methods({
   'channels.insert'(channel, parentId) {
@@ -12,7 +13,6 @@ Meteor.methods({
       throw new Meteor.Error('not-logged-in',
         "Vous devez être connecté pour créer un canal de discussion.");
     }
-
 
     check(parentId, String);
     check(channel, {
@@ -187,6 +187,7 @@ Meteor.methods({
         channelId: channel._id
       };
       Messages.insert(msg);
+      historyUserAction(channelId);
     }
   },
 
