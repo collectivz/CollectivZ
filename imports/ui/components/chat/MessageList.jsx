@@ -16,6 +16,7 @@ export default class MessageList extends React.Component {
       subChannels,
       feedbacks,
       coins,
+      user
     } = this.props;
     return (
       <div className="msg-list-parser">
@@ -41,7 +42,7 @@ export default class MessageList extends React.Component {
                   return true;
                 return false;
               });
-              return (<SubChannelItem key={message._id} channel={channel} />);
+              return (<SubChannelItem key={message._id} channel={channel} user={user}/>);
             case 'coin':
               const coin = coins.find((coin) => {
                 if (coin.messageId === message._id)

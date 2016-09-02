@@ -6,7 +6,7 @@ import { Guilds } from '../../api/guilds/collection.js';
 
 import ChannelPage from '../pages/ChannelPage.jsx';
 
-export default createContainer(({ params }) => {
+export default createContainer(({ params, user }) => {
   const id = params.groupId;
   const channelSub = Meteor.subscribe('chanPage', id);
   const channel = Channels.findOne(id);
@@ -19,5 +19,6 @@ export default createContainer(({ params }) => {
     loading: !channelSub.ready(),
     channel,
     guild,
+    user
   };
 }, ChannelPage);

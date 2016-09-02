@@ -13,6 +13,7 @@ export default class ChannelPage extends React.Component {
       loading,
       channel,
       guild,
+      user
     } = this.props;
 
     return (
@@ -21,7 +22,7 @@ export default class ChannelPage extends React.Component {
         <Loader />
         : <div>
             <ChannelPageHeader channel={channel} guild={guild} />
-            <ChatContainer channel={channel}/>
+            <ChatContainer channel={channel} user={user}/>
           </div>
       }
       </div>

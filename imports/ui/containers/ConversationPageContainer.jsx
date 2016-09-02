@@ -5,13 +5,16 @@ import { Channels } from '../../api/channels/collection.js';
 
 import ConversationPage from '../pages/ConversationPage.jsx';
 
-export default createContainer(({ params }) => {
+export default createContainer(({ params, user }) => {
   const id = params.conversationId;
   const channelSub = Meteor.subscribe('conversationPage', id);
   const channel = Channels.findOne(id);
+  const messages = Messages.find({channelId: id}).fetch();
 
   return {
     loading: !channelSub.ready(),
     channel,
+    messages,
+    user
   };
 }, ConversationPage);
