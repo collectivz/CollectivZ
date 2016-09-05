@@ -4,6 +4,7 @@ import { createContainer } from 'meteor/react-meteor-data';
 
 import { Guilds } from '../../api/guilds/collection.js';
 import { Channels } from '../../api/channels/collection.js';
+import { History } from '../../api/history/collection.js';
 
 import ProfilePage from '../pages/ProfilePage.jsx';
 
@@ -13,11 +14,13 @@ export default createContainer(({ params, user }) => {
   if (_user) {
     var guilds = Guilds.find({_id: { $in: _user.subscribedGuilds }}).fetch();
     var channels = Channels.find({_id: { $in: _user.subscribedChannels }}).fetch();
+    var history = History.findOne({userId: _user._id});
   }
   return {
     user: _user,
     currentUser: user,
     guilds,
-    channels
+    channels,
+    history
   };
 }, ProfilePage);

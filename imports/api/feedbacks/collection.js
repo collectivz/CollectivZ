@@ -1,10 +1,13 @@
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 
+import logFeedbackToHistory from '../history/functions.js';
+
 class FeedbackCollection extends Mongo.Collection {
   insert(feedback, callback) {
     feedback.createdAt = Date.now();
 
+    logFeedbackToHistory(feedback);
     return super.insert(feedback, callback);
   }
 }

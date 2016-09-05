@@ -7,6 +7,7 @@ import AppNav from '../components/AppNav.jsx';
 import Loader from '../components/Loader.jsx';
 import GuildItem from '../components/GuildItem.jsx';
 import ChannelItem from '../components/ChannelItem.jsx';
+import HistoryItem from '../components/HistoryItem.jsx';
 
 export default class ProfilePage extends Component {
 
@@ -15,7 +16,8 @@ export default class ProfilePage extends Component {
       user,
       guilds,
       channels,
-      currentUser
+      currentUser,
+      history
     } = this.props;
 
     return (
@@ -32,6 +34,15 @@ export default class ProfilePage extends Component {
               {channels.map(channel => {
                 return (<ChannelItem channel={channel} key={channel._id}/>);
               })}
+              <h4>Historique des évaluations</h4>
+              {history ?
+                <div>
+                  {history.actionHistory.map((historyItem, index) => {
+                    return (<HistoryItem historyItem={historyItem} key={index} />);
+                  })}
+                </div>
+                : ''
+              }
             </div>
             <AppNav user={currentUser} />
           </div>

@@ -10,7 +10,8 @@ export default class HistoryItem extends React.Component {
 
     return (
       <div>
-        <h2>Nom de mission: {historyItem.name} Note moyenne de la mission: {historyItem.rating}</h2>
+        <h2>Nom de mission: {historyItem.name} évaluation: {historyItem.actionRating}/5, commentaire : {historyItem.actionComment}</h2>
+        <h2>Evaluation personnelle: {historyItem.userRating}/5, commentaire : {historyItem.userComment}</h2>
       </div>
     );
   }

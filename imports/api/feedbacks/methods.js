@@ -4,10 +4,11 @@ import { _ } from 'meteor/underscore';
 
 import { Feedbacks } from './collection.js';
 import { Channels } from '../channels/collection.js';
+import { Guilds } from '../guilds/collection.js';
 import { Messages } from '../messages/collection.js';
 
 Meteor.methods({
-  'feedbacks.giveFeedback'(channelId, rating, comment) {
+  'feedbacks.giveFeedback'(channelId, feedback) {
     const userId = this.userId;
 
     if (!userId) {
@@ -16,10 +17,29 @@ Meteor.methods({
     }
 
     check(channelId, String);
-    check(comment, String);
-    check(rating, Number);
-    check(rating, Match.Where((rating) => {
-      return (rating >= 0 && rating <= 5);
+    check(feedback, Match.Where(feedback => {
+      check(feedback.rating, Match.Where(rating => {
+        check(rating, Number);
+        if (rating >= 0 && rating < 6) {
+          return true;
+        }
+        return false;
+      }));
+      check(feedback.comment, String);
+      _.each(feedback.userFeedbacks, userFeedback => {
+        check(userFeedback, {
+          userId: String,
+          rating: Match.Where(rating => {
+            check(rating, Number);
+            if (rating >= 0 && rating < 6) {
+              return true;
+            }
+            return false;
+          }),
+          comment: String
+        });
+      });
+      return true;
     }));
 
     const channel = Channels.findOne(channelId);
@@ -27,11 +47,22 @@ Meteor.methods({
     if (channel) {
 
       const author = Meteor.user();
-      const exists = Feedbacks.findOne({channelId, author: author._id});
 
-      if (exists) {
+      if (channel.receivedFeedback) {
         throw new Meteor.Error('feedback-already-given',
           "Vous avez déjà évalué cette mission.");
+      }
+
+      const guild = Guilds.findOne({_id: channel.rootId});
+
+      if (!guild) {
+        throw new Meteor.Error('guild-not-found',
+          "La communauté à laquelle appartient cette action n'a pas été trouvée.");
+      }
+
+      if (!_.contains(channel.leaders, author._id) && !_.contains(guild.leaders, author._id)) {
+        throw new Meteor.Error('not-allowed',
+          "Vous n'avez pas les droits pour laisser une évaluation ici.");
       }
 
       const message = {
@@ -40,21 +71,19 @@ Meteor.methods({
         type: 'feedback'
       };
       const messageId = Messages.insert(message);
-      const feedback = {
-        username: author.username,
-        messageId,
-        channelId,
-        rating,
-        comment,
-        author: author._id
-      };
+      
+      feedback.channelId = channelId;
+      feedback.messageId = messageId;
+      feedback.username = author.username;
+      feedback.author = author._id;
       const feedbackId = Feedbacks.insert(feedback);
 
       Messages.update(messageId, {
         $set: { feedbackId }
       });
       Channels.update(channelId, {
-        $inc : { 'connections.feedbackCount': 1 }
+        $inc : { 'connections.feedbackCount': 1 },
+        $set: { receivedFeedback: true }
       });
     }
   }
