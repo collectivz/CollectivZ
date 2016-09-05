@@ -17,7 +17,6 @@ Meteor.methods({
     check(parentId, String);
     check(channel, {
       name: String,
-      depth: Number,
     });
 
     const parent = Channels.findOne(parentId);
@@ -27,8 +26,8 @@ Meteor.methods({
         "Le petit Chan a perdu ses parents, il a donc été supprimé.")
     }
     channel.parentId = parent._id;
+    channel.depth = parent.depth + 1;
     channel.rootId = parent.rootId;
-    channel.status = "ongoing";
 
 
     const channelId = Channels.insert(channel)
@@ -51,6 +50,7 @@ Meteor.methods({
       $push: { subscribedChannels: channelId },
     });
   },
+  
   'channels.join'(channelId) {
     if (!this.userId) {
       throw new Meteor.Error('not-logged-in',
@@ -104,90 +104,6 @@ Meteor.methods({
         channelId: channel._id
       };
       Messages.insert(msg);
-    }
-  },
-
-  'channels.becomeWorker'(channelId) {
-    const userId = this.userId;
-
-    if (!userId) {
-      throw new Meteor.Error('not-logged-in',
-        "Vous devez être connecté pour travailler sur une mission.");
-    }
-
-    check(channelId, String);
-
-    const channel = Channels.findOne(channelId);
-
-    if (channel) {
-      Channels.update(channelId, {
-        $push: { workers: userId }
-      });
-      const username = Meteor.user().username;
-      const msg = {
-        text: `L'utilisateur ${username} travaille maintenant sur cette mission.`,
-        channelId: channel._id
-      };
-      Messages.insert(msg);
-    }
-  },
-
-  'channels.seekFeedback'(channelId) {
-    const userId = this.userId;
-
-    if (!userId) {
-      throw new Meteor.Error('not-logged-in',
-        "Vous devez être connecté pour rejoindre un groupe de discussion.");
-    }
-
-    check(channelId, String);
-
-    const channel = Channels.findOne(channelId);
-
-    if (!_.contains(channel.workers, userId)) {
-      throw new Meteor.Error('not-worker',
-        "Seul ceux qui travaillent sur la mission peuvent en changer le status.");
-    }
-    if (channel.status === "ongoing") {
-      Channels.update(channelId, {
-        $set: { status: "seekingFeedback" }
-      });
-      const msg = {
-        text: `Vous pouvez désormais évaluer le résultat du travail effectué sur cette mission`,
-        channelId: channel._id
-      };
-      Messages.insert(msg);
-    }
-  },
-
-  'channels.setAsFinished'(channelId) {
-    const userId = this.userId;
-
-    if (!userId) {
-      throw new Meteor.Error('not-logged-in',
-        "Vous devez être connecté pour rejoindre un groupe de discussion.");
-    }
-
-    check(channelId, String);
-
-    const channel = Channels.findOne(channelId);
-    let guild = {};
-
-    if (channel) {
-      guild = Guilds.findOne(channel.rootId);
-    }
-    if (_.contains(guild.leaders, userId)) {
-      Channels.update(channelId, {
-        $set: {
-          status: "finished",
-        }
-      });
-      const msg = {
-        text: `Cette mission a été marquée comme terminée !`,
-        channelId: channel._id
-      };
-      Messages.insert(msg);
-      historyUserAction(channelId);
     }
   },
 

@@ -3,8 +3,6 @@ import { Mongo } from 'meteor/mongo';
 
 class FeedbackCollection extends Mongo.Collection {
   insert(feedback, callback) {
-    const userId = Meteor.userId();
-
     feedback.createdAt = Date.now();
 
     return super.insert(feedback, callback);

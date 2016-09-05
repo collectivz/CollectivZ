@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router';
 import { _ } from 'meteor/underscore';
 
 export default class GuildPageHeader extends React.Component {
@@ -54,6 +55,7 @@ export default class GuildPageHeader extends React.Component {
 
     return (
       <div className="header-wrapper">
+        <Link className="tweakChevron" to={'/guild-list'}><i className="fa fa-chevron-left"></i></Link>
         <div className="user-bg-wrapper" style={{background: `url(${guild.background})`}}>
         </div>
         <div className="info">

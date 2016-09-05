@@ -1,5 +1,8 @@
 import { Meteor } from 'meteor/meteor';
 
+import { Channels } from '../../channels/collection.js';
+import { Guilds } from '../../guilds/collection.js';
+
 Meteor.publish('user', function() {
   if (this.userId) {
     let zorro = Meteor.users.findOne({username: 'Zorro'});
@@ -12,6 +15,20 @@ Meteor.publish('user', function() {
       profile: 1,
       history: 1,
     }});
+  } else {
+    this.ready();
+  }
+});
+
+Meteor.publish('userProfile', function(userId) {
+  if (this.userId) {
+    const user = Meteor.users.findOne(userId);
+
+    return [
+      Meteor.users.find(userId),
+      Channels.find({ _id: { $in: user.subscribedChannels } }),
+      Guilds.find({ _id: { $in: user.subscribedGuilds } })
+    ];
   } else {
     this.ready();
   }

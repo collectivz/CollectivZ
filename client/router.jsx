@@ -10,6 +10,7 @@ import ConversationPageContainer from '../imports/ui/containers/ConversationPage
 import GuildListContainer from '../imports/ui/containers/GuildListContainer.jsx';
 import GuildPageContainer from '../imports/ui/containers/GuildPageContainer.jsx';
 import HistoryPageContainer from '../imports/ui/containers/HistoryPageContainer.jsx';
+import ProfilePageContainer from '../imports/ui/containers/ProfilePageContainer.jsx';
 import AdminPage from '../imports/ui/pages/AdminPage.jsx';
 import MyProfile from '../imports/ui/pages/MyProfile.jsx';
 import NotFound from '../imports/ui/pages/NotFound.jsx';
@@ -25,6 +26,7 @@ Meteor.startup(() => {
         <Route path='/conversation/:conversationId' component={ConversationPageContainer} />
         <Route path='/admin' component={AdminPage} />
         <Route path='/profile' component={MyProfile} />
+        <Route path='/user/:userId' component={ProfilePageContainer} />
         <Route path='/history/:userId' component={HistoryPageContainer} />
         <Route path='*' component={NotFound} />
       </Route>

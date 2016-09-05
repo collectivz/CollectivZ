@@ -2,6 +2,8 @@ import React from 'react';
 import { _ } from 'meteor/underscore';
 
 import GuildUpdatePicture from './GuildUpdatePicture.jsx';
+import ChannelItem from './ChannelItem.jsx';
+import UserItem from './UserItem.jsx';
 
 export default class GuildBody extends React.Component {
 
@@ -38,7 +40,9 @@ export default class GuildBody extends React.Component {
   render() {
     const {
       guild,
-      user
+      user,
+      members,
+      channels
     } = this.props;
 
     return (
@@ -50,6 +54,19 @@ export default class GuildBody extends React.Component {
         {_.contains(guild.leaders, user._id) ?
             <GuildUpdatePicture guild={guild}/>
           : ''
+        }
+        <h4>Liste des membres</h4>
+        {members.map(member => {
+          return (<UserItem user={member} key={member._id}/>);
+        })}
+        <h4>Liste des actions en cours</h4>
+        {channels.length ?
+          <div>
+            {channels.map(channel => {
+              return (<ChannelItem channel={channel} key={channel._id} />);
+            })}
+          </div>
+        : "Aucune action en cours"
         }
       </div>
     );

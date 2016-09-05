@@ -19,7 +19,7 @@ export default class SubChannelItem extends React.Component {
       channel,
       user
     } = this.props;
-
+    
     return _.contains(channel.members, user._id);
   }
 
@@ -36,7 +36,7 @@ export default class SubChannelItem extends React.Component {
         </div>
         <div>
           <h4>Nouvelle Actionz : {channel.name} !</h4>
-          {this.hasJoined ?
+          {this.hasJoined() ?
               'Vous faites parti de cette mission.'
             : <p><a href={'/group/' + channel._id} onClick={this.joinChannel}><button>Rejoindre</button></a></p>
           }

@@ -11,6 +11,8 @@ export default class GuildPage extends React.Component {
     const {
       loading,
       guild,
+      channels,
+      members,
       user
     } = this.props;
 
@@ -20,7 +22,12 @@ export default class GuildPage extends React.Component {
         <Loader />
         : <div>
             <GuildPageHeader guild={guild} user={user} />
-            <GuildBody guild={guild} user={user} />
+            <GuildBody
+              guild={guild}
+              user={user}
+              channels={channels}
+              members={members}
+            />
             <AppNav user={user}/>
           </div>
       }

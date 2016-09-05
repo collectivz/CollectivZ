@@ -8,7 +8,6 @@ class ChannelCollection extends Mongo.Collection {
     channel.author = userId;
     channel.leaders = [userId];
     channel.members = [userId];
-    channel.workers = [];
     channel.createdAt = Date.now();
     channel.lastActivity = Date.now();
 

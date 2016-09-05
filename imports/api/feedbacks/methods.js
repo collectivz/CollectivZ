@@ -25,10 +25,6 @@ Meteor.methods({
     const channel = Channels.findOne(channelId);
 
     if (channel) {
-      if (channel.status !== 'seekingFeedback') {
-        throw new Meteor.Error('not-seeking-feedback',
-          "Vous ne pouvez évaluer une mission en cours.");
-      }
 
       const author = Meteor.user();
       const exists = Feedbacks.findOne({channelId, author: author._id});
