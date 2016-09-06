@@ -14,8 +14,7 @@ export default class Channel {
     this.channelId = channelId;
     this.expectedAnswer = 'chanName';
     this.result = {
-      name: '',
-      depth: 2
+      name: ''
     };
   }
 
