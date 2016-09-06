@@ -42,4 +42,86 @@ Meteor.methods({
       $push: { invitationReceved: user._id }
     })
   },
+  'repertory.acceptInvite'(userSenderId) {
+    check(userSenderId, String);
+
+    const user = Meteor.user();
+    const userSender = Meteor.users.findOne(userSenderId);
+
+    if (!user) {
+      throw new Meteor.Error('not-logged-in',
+        'Vous devez être connecté pour accepter une invitation.');
+    } else if (!userSender) {
+      throw new Meteor.Error('not-found',
+        'L\'utilisateur n\'a pas été trouvé.');
+    }
+
+    const userRepertory = Repertory.findOne(user.repertory);
+    const userSenderRepertory = Repertory.findOne(userSender.repertory);
+
+    if (!userRepertory || !userSenderRepertory) {
+      throw new Meteor.Error('repertory-not-found',
+        'Erreur lors de la récupération du repertoire.');
+    }
+
+    const index1 = userRepertory.invitationReceved.indexOf(userSenderId);
+    const index2 = userSenderRepertory.invitationSend.indexOf(user._id);
+    if (index1 < 0) {
+      throw new Meteor.Error('invitation-not-found',
+      'Vous ne pouvez pas accepter une invitation non reçu.');
+    } else if (index2 < 0) {
+      throw new Meteor.Error('invitation-not-found',
+      'Vous ne pouvez pas accepter une invitation non envoyé.');
+    }
+
+    Repertory.update(user.repertory, {
+      $push: { contacts: userSenderId},
+      $pull: { invitationReceved: userSenderId},
+    });
+
+    Repertory.update(userSender.repertory, {
+      $push: { contacts: user._id},
+      $pull: { invitationSend: user._id}
+    });
+  },
+  'repertory.refuseInvite'(userSenderId) {
+    check(userSenderId, String);
+
+    const user = Meteor.user();
+    const userSender = Meteor.users.findOne(userSenderId);
+
+    if (!user) {
+      throw new Meteor.Error('not-logged-in',
+        'Vous devez être connecté pour accepter une invitation.');
+    } else if (!userSender) {
+      throw new Meteor.Error('not-found',
+        'L\'utilisateur n\'a pas été trouvé.');
+    }
+
+    const userRepertory = Repertory.findOne(user.repertory);
+    const userSenderRepertory = Repertory.findOne(userSender.repertory);
+
+    if (!userRepertory || !userSenderRepertory) {
+      throw new Meteor.Error('repertory-not-found',
+        'Erreur lors de la récupération du repertoire.');
+    }
+
+    const index1 = userRepertory.invitationReceved.indexOf(userSenderId);
+    const index2 = userSenderRepertory.invitationSend.indexOf(user._id);
+    if (index1 < 0) {
+      throw new Meteor.Error('invitation-not-found',
+      'Vous ne pouvez pas refuser une invitation non reçu.');
+    } else if (index2 < 0) {
+      throw new Meteor.Error('invitation-not-found',
+      'Vous ne pouvez pas refuser une invitation non envoyé.');
+    }
+
+    Repertory.update(user.repertory, {
+      $pull: { invitationReceved: userSenderId},
+    });
+
+    Repertory.update(userSender.repertory, {
+      $pull: { invitationSend: user._id},
+    });
+  },
 });

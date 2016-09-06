@@ -4,6 +4,7 @@ import AppNav from '../components/AppNav.jsx';
 import TopNav from '../components/TopNav.jsx';
 
 import InvitationRecevedItem from '../components/InvitationRecevedItem.jsx'
+import ContactItem from '../components/ContactItem.jsx'
 
 export default class ContactPage extends React.Component {
 
@@ -40,6 +41,7 @@ export default class ContactPage extends React.Component {
           <div className="page-wrapper">
             <div className="scroll-content has-top-nav has-tabs-nav">
               <div className="disable-user-behavior">
+                <div>Inviter un ami : </div>
                 <div>
                   <form onSubmit={this.handleSubmit}>
                     <input
@@ -50,9 +52,16 @@ export default class ContactPage extends React.Component {
                     <input type="submit" value="Envoyer une invitation" />
                   </form>
                 </div>
+                <div>Invitation(s) reçue(s) : </div>
                 <div className="list">
                   {usersInvitationReceved.map(function(userSelected) {
                      return <InvitationRecevedItem key={userSelected._id} userSelected={userSelected} />;
+                  })}
+                </div>
+                <div>Contact(s) : </div>
+                <div className="list">
+                  {usersContact.map(function(userSelected) {
+                     return <ContactItem key={userSelected._id} userSelected={userSelected} />;
                   })}
                 </div>
               </div>
