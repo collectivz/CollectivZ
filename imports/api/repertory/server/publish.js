@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 
 import { Repertory } from '../../repertory/collection.js';
+import { Teams } from '../../teams/collection.js';
 
 Meteor.publish('contactPage', function(repertoryId) {
   const repertory = Repertory.findOne(repertoryId);
@@ -10,5 +11,6 @@ Meteor.publish('contactPage', function(repertoryId) {
   return [
     Repertory.find({_id: repertoryId}),
     Meteor.users.find({_id: {$in: userToSubscribe}}),
+    Teams.find({_id: repertory.teams}),
   ];
 });
