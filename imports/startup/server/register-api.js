@@ -24,4 +24,7 @@ import '../../api/feedbacks/methods.js';
 import '../../api/history/functions.js';
 import '../../api/history/server/publish.js';
 
+import '../../api/repertory/methods.js';
+import '../../api/repertory/server/publish.js';
+
 import '../../api/methods.js';

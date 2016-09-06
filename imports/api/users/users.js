@@ -1,4 +1,5 @@
 import { Accounts } from 'meteor/accounts-base';
+import { Repertory } from '../repertory/collection.js';
 
 Accounts.onLogin(function() {
   // updates lastLogin date on succesful login
@@ -12,6 +13,7 @@ Accounts.onLogin(function() {
 
 if (Meteor.isServer) {
   Accounts.onCreateUser(function(options, user) {
+    const newRepertory = {};
     user.profile = options.profile || {};
     user.profile.background = '/img/ugly.jpg';
     user.profile.avatar = user.profile.avatar ? user.profile.avatar : '/img/no-user.png';
@@ -22,6 +24,7 @@ if (Meteor.isServer) {
     user.connections = {};
     user.coinz = 100;
     user.history = '';
+    user.repertory = Repertory.insert(newRepertory);
     return user;
   });
 }

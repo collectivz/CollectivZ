@@ -11,6 +11,7 @@ Meteor.publish('user', function() {
       connections: 1,
       profile: 1,
       history: 1,
+      repertory: 1,
     }});
   } else {
     this.ready();
