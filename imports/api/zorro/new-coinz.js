@@ -2,14 +2,14 @@ export default class Coin {
 
   constructor(channelId) {
     this.question = {
-      text: `Hola, je vois que vous voulez créer un coinz ! Dans quel but voulez vous lever des fonds ? Vous pouvez à tout moment écrire @stop pour annuler.`,
+      text: `Hola, je vois que vous voulez créer un coinz ! Dans quel but voulez vous lever des fonds ? Vous pouvez à tout moment écrire @annuler pour annuler.`,
       author: 'Zorro'
     };
     this.state = {
       inputMode: 'newCoin',
       dialogWithZorro: [this.question],
       ongoingAction: true,
-      choices: ['@stop']
+      choices: ['@annuler']
     };
     this.channel = channelId;
     this.expectedAnswer = 'purpose';
@@ -45,7 +45,7 @@ export default class Coin {
       author: 'Zorro'
     };
 
-    if (answer === '@stop') {
+    if (answer === '@annuler') {
       this.resetState();
     } else if (this.expectedAnswer === 'purpose') {
       this.result.purpose = answer;

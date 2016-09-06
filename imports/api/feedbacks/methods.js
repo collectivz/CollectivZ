@@ -28,6 +28,7 @@ Meteor.methods({
       check(feedback.comment, String);
       _.each(feedback.userFeedbacks, userFeedback => {
         check(userFeedback, {
+          username: String,
           userId: String,
           rating: Match.Where(rating => {
             check(rating, Number);
@@ -71,7 +72,7 @@ Meteor.methods({
         type: 'feedback'
       };
       const messageId = Messages.insert(message);
-      
+
       feedback.channelId = channelId;
       feedback.messageId = messageId;
       feedback.username = author.username;

@@ -45,6 +45,12 @@ export default class GuildBody extends React.Component {
       channels
     } = this.props;
 
+    let sortedChannels = channels;
+    if (sortedChannels.length > 1) {
+      sortedChannels = sortedChannels.sort((a, b) => {
+        return b.members.length - a.members.length;
+      });
+    }
     return (
       <div>
         {this.state.hasJoined ?

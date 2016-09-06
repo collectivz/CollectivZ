@@ -2,14 +2,14 @@ export default class Poll {
 
   constructor(channelId) {
     this.question = {
-      text: `Pour ce sondage je vais avoir besoin de savoir quelle question vous voulez poser ? Vous pouvez à tout moment écrire @stop pour annuler.`,
+      text: `Pour ce sondage je vais avoir besoin de savoir quelle question vous voulez poser ? Vous pouvez à tout moment écrire @annuler pour annuler.`,
       author: 'Zorro'
     };
     this.state = {
       inputMode: 'newPoll',
       dialogWithZorro: [this.question],
       ongoingAction: true,
-      choices: ['@stop']
+      choices: ['@annuler']
     };
     this.channelId = channelId;
     this.expectedAnswer = 'question';
@@ -45,7 +45,7 @@ export default class Poll {
       author: 'Zorro'
     };
 
-    if (answer === '@stop') {
+    if (answer === '@annuler') {
       this.resetState();
     } else if (this.expectedAnswer === 'question') {
       this.result.question = answer;
@@ -75,7 +75,7 @@ export default class Poll {
           zorroMsg.text = question;
           dialog.push(zorroMsg);
           this.expectedAnswer = 'confirm';
-          this.state.choices = ['@stop', 'oui'];
+          this.state.choices = ['@annuler', 'oui'];
         } else {
           zorroMsg.text = `Vous devez entrer au moins 2 choix pour créer un sondage.`;
           dialog.push(zorroMsg);

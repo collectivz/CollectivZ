@@ -2,14 +2,14 @@ export default class Channel {
 
   constructor(channelId) {
     this.question = {
-      text: `Hola, je vois que vous voulez créer une nouvelle action ! Quel nom allez-vous lui donner ? Vous pouvez à tout moment écrire @stop pour annuler.`,
+      text: `Hola, je vois que vous voulez créer une nouvelle action ! Quel nom allez-vous lui donner ? Vous pouvez à tout moment écrire @annuler pour annuler.`,
       author: 'Zorro'
     };
     this.state = {
       inputMode: 'newChannel',
       dialogWithZorro: [this.question],
       ongoingAction: true,
-      choices: ['@stop']
+      choices: ['@annuler']
     };
     this.channelId = channelId;
     this.expectedAnswer = 'chanName';
@@ -44,7 +44,7 @@ export default class Channel {
       author: 'Zorro'
     };
 
-    if (answer === '@stop') {
+    if (answer === '@annuler') {
       this.resetState();
     } else if (this.expectedAnswer === 'chanName') {
       this.result.name = answer;
