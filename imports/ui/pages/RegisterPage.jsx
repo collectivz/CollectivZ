@@ -12,10 +12,6 @@ export default class RegisterPage extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  componentDidUpdate() {
-    console.log(this.state.errors);
-  }
-
   handleSubmit(e) {
     const errors = [];
     const mailRegex = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -48,8 +44,6 @@ export default class RegisterPage extends React.Component {
     if (errors.length) {
       this.setState({
         errors
-      }, () => {
-        console.log(this.state);
       });
     } else {
       Accounts.createUser({email, username, password}, (err) => {
@@ -57,6 +51,12 @@ export default class RegisterPage extends React.Component {
           this.setState({
             errors: [err.reason]
           });
+        } else {
+          Meteor.loginWithPassword(username, password, (err) => {
+            if (!err) {
+              this.context.router.push('/my-groups');
+            }
+          })
         }
       });
     }
@@ -96,3 +96,7 @@ export default class RegisterPage extends React.Component {
     );
   }
 }
+
+RegisterPage.contextTypes = {
+  router: React.PropTypes.object
+};
