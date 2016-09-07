@@ -29,7 +29,7 @@ Meteor.methods({
         'Vous avez déja invité cette personne.');
     } else if (_.contains(userRepertory.invitationReceved, userInvited)) {
       throw new Meteor.Error('already-invited',
-        'Cet Utilisateur vous a déjà envoyé une intitation.');
+        'Cet Utilisateur vous a déjà envoyé une invitation.');
     } else if (_.contains(userInvitedRepertory, user._id)) {
       throw new Meteor.Error('blackListed',
         'Cet Utilisateur vous a bloqué.');

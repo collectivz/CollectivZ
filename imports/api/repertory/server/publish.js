@@ -5,12 +5,14 @@ import { Teams } from '../../teams/collection.js';
 
 Meteor.publish('contactPage', function(repertoryId) {
   const repertory = Repertory.findOne(repertoryId);
-
-  const userToSubscribe = repertory.contacts.concat(repertory.invitationReceved, repertory.invitationSend, repertory.blackList);
+  let userToSubscribe = [];
+  if (repertory) {
+    userToSubscribe = repertory.contacts.concat(repertory.invitationReceved, repertory.invitationSend, repertory.blackList);
+  }
 
   return [
     Repertory.find({_id: repertoryId}),
     Meteor.users.find({_id: {$in: userToSubscribe}}),
-    Teams.find({_id: repertory.teams}),
+    Teams.find({_id: {$in: repertory.teams}}),
   ];
 });

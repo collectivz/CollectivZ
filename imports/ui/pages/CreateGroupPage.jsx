@@ -18,6 +18,7 @@ export default class CreateGroupPage extends React.Component {
     this.removeFromNewGroup = this.removeFromNewGroup.bind(this);
     this.createNewGroup = this.createNewGroup.bind(this);
     this.resetNewGroup = this.resetNewGroup.bind(this);
+    this.toggleCreateButton = this.toggleCreateButton.bind(this);
   }
 
   addToNewGroup(userSelectedId) {
@@ -31,9 +32,11 @@ export default class CreateGroupPage extends React.Component {
   }
 
   removeFromNewGroup(userSelectedId) {
-    let index = this.state.newGroup.indexOf(userSelectedId);
+    const index = this.state.newGroup.indexOf(userSelectedId);
+    let newGroup = this.state.newGroup;
+    newGroup.splice(index, 1);
     this.setState({
-      newGroup: this.state.newGroup.splice(index, 1),
+      newGroup,
     });
   }
 
@@ -52,6 +55,19 @@ export default class CreateGroupPage extends React.Component {
     });
   }
 
+  toggleCreateButton() {
+    let state = this.state.newGroup;
+    if (state.length > 0) {
+      return (
+        <div>
+          <button onClick={this.createNewGroup}>Créer un nouveau groupe</button>
+        </div>
+      );
+    } else {
+      return ;
+    }
+  }
+
   render() {
     const {
       repertory,
@@ -67,6 +83,7 @@ export default class CreateGroupPage extends React.Component {
             <div className="scroll-content has-top-nav has-tabs-nav">
               <div className="disable-user-behavior">
                 </div>
+                {this.toggleCreateButton()}
                 <div>Contact(s) : </div>
                 <div className="list">
                   {usersContact.map(function(userSelected) {

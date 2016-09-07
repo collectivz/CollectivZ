@@ -8,7 +8,6 @@ import { Teams } from './collection.js';
 
 Meteor.methods({
   'teams.insert'(usersId) {
-
     const user = Meteor.user();
 
     if (!user) {
@@ -32,8 +31,7 @@ Meteor.methods({
       members: usersId,
     };
     const teamId = Teams.insert(newTeam);
-    usersId.push(user._id);
-    Repertory.update({_id: {$in: usersId}}, {
+    Repertory.update({userId: {$in: usersId}}, {
       $push: { teams: teamId}},
       {multi: true}
     );

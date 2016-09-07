@@ -9,8 +9,10 @@ class TeamCollection extends Mongo.Collection {
     team.members.push(userId);
     team.createdAt = Date.now();
     team.lastActivity = Date.now();
-    team.name = '';
+    team.name = "";
 
+    console.log("log team juste avant le super insert");
+    console.log(team);
     return super.insert(team);
   }
 }
