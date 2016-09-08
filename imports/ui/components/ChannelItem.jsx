@@ -26,6 +26,9 @@ export default class ChannelItem extends React.Component {
               : ''
             }
           </div>
+          <div>
+            <i className="fa fa-user" aria-hidden="true">{channel.members.length}</i>
+          </div>
           {channel.connections ?
             <ActionList actions={channel.connections} />
             : ''

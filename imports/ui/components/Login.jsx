@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Meteor } from 'meteor/meteor';
+import { Link } from 'react-router';
 
 import './Login.css';
 
@@ -39,7 +40,7 @@ export default class Login extends Component {
               />
             <input type="submit" value="Login" />
           </div>
-
+          <Link to="/register">Register</Link>
         </form>
       </div>
     );
