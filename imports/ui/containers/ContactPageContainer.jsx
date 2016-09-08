@@ -24,7 +24,6 @@ export default createContainer(({ user }) => {
       {_id: {$in: repertory.invitationReceved}},
       { sort: { username: 1 } }).fetch();
   }
-  console.log('container    ' + teams);
 
   return {
     repertory,
