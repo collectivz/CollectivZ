@@ -1,7 +1,8 @@
-import React, { Component, PropTypes } from 'react';
-import { Meteor } from 'meteor/meteor';
+import React, { Component, PropTypes }    from 'react';
+import { Meteor }                         from 'meteor/meteor';
 
-import './MessageItem.css';
+import { Moment }                         from 'moment';
+
 
 export default class MessageItem extends Component {
 
@@ -47,9 +48,9 @@ export default class MessageItem extends Component {
     } = this.props;
 
     if (Meteor.userId() === message.author) {
-      return 'message message-mine';
+      return 'chat-bubble chat-bubble-mine';
     } else {
-      return 'message message-other';
+      return 'chat-bubble chat-bubble-other';
     }
   }
 
@@ -69,51 +70,64 @@ export default class MessageItem extends Component {
   }
 
   render() {
-    const {
-      message,
-      user,
-    } = this.props;
+    const { message, user } = this.props;
 
-    const {
-      editing
-    } = this.state;
+    const { editing } = this.state;
+
+    console.log(Moment);
+    
+    let time = "";
+
+    //let time = Moment(message.createdAt).fromNow();
 
     return (
-      <div className="message-wrapper">
-        <div className={this.isMine()}>
-          <div className="messageActionWrapper">
-          { (message.author === Meteor.userId()) ?
-              <div className="messageActionBar">
-                <i className="messageActionItem fa fa-pencil" aria-hidden="true" onClick={this.toggleEdit}></i>
-                <i className="messageActionItem fa fa-trash" aria-hidden="true" onClick={this.deleteMessage}></i>
+      <div className={this.isMine()} >
+
+          <img src={this.userAvatar(message.author)} />
+
+          <div className="bubble-content">
+
+              <div className="bubble-content-header">
+
+                <span className="name">
+                    {
+                      message.type ?
+                        'Zorro'
+                      :
+                        message.authorName
+                    }
+                </span>
+
+                <span className="date">{time}</span>
+                
+                {
+                  (message.author === Meteor.userId()) ?
+                    <div className="bubble-content-admin">
+                      <i className="icon icon-pencil" onClick={this.toggleEdit}></i>
+                      <i className="icon icon-trash" onClick={this.deleteMessage}></i>
+                    </div>
+                  :
+                    ''
+                }
+
               </div>
-           : ''
-          }
+              
+              {
+                editing ?
+                  <div>
+                    <form className="merged" >
+                      <input className="small" type="text" name="name" ref="textInput" defaultValue={message.text} />
+                      <button className="small primary button" type="button" name="button" onClick={this.editMessage}>
+                        <i className="icon icon-pencil" aria-hidden="true"></i>
+                      </button>
+                    </form>
+                  </div>
+                :
+                  <p>{message.text}</p>
+              }
+
           </div>
-          <div className="message-header">
-            <span className="message-user">
-              { message.type
-                ? 'Zorro'
-                : message.authorName }
-            </span>
-          </div>
-          <div className="text">
-            {editing ?
-              <div>
-                <form className="new-msg" onSubmit={this.editMessage} >
-                  <input type="text" name="name" ref="textInput" defaultValue={message.text} />
-                </form>
-                <button type="button" name="button" onClick={this.editMessage}>
-                  <i className="fa fa-paper-plane" aria-hidden="true"></i>
-                </button>
-              </div>
-              : <p>{message.text}</p>
-            }
-          </div>
-          <span className="picture">
-            <img src={this.userAvatar(message.author)} alt="" />
-          </span>
-        </div>
+
       </div>
     );
   }

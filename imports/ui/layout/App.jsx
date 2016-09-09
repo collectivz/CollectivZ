@@ -8,7 +8,7 @@ export default class App extends React.Component {
 
   componentWillUpdate({ loading, user, children }) {
     if (!loading && user && !children) {
-      this.context.router.push('/my-groups')
+      this.context.router.push('/guild-list')
     }
   }
 
@@ -26,7 +26,7 @@ export default class App extends React.Component {
     });
 
     return (
-      <div>
+      <div id="app-container">
         {loading ? <Loader /> :
           user ?
           clonedChildren

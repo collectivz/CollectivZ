@@ -5,8 +5,6 @@ import AppNav from '../components/AppNav.jsx';
 import TopNav from '../components/TopNav.jsx';
 import GuildItem from '../components/GuildItem.jsx';
 
-import './GuildList.css';
-
 export default class GuildList extends Component {
 
   render() {
@@ -16,21 +14,15 @@ export default class GuildList extends Component {
     } = this.props;
 
     return (
-      <div>
-        <TopNav text="Liste des groupes"/>
-        <div className="view-container">
-          <div className="page-wrapper">
-            <div className="scroll-content has-top-nav has-tabs-nav">
-              <div className="disable-user-behavior">
-                <div className="list">
-                  {guilds.map(function(guild) {
-                     return <GuildItem key={guild._id} guild={guild} user={user}/>;
-                  })}
-                </div>
-              </div>
+      <div className="screen-box">
+        <TopNav text="Liste des projets"/>
+          <div className="sub-container">
+            <div className="list">
+              {guilds.map(function(guild) {
+                 return <GuildItem key={guild._id} guild={guild} user={user}/>;
+              })}
             </div>
           </div>
-        </div>
         <AppNav user={user}/>
       </div>
     );

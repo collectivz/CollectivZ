@@ -1,0 +1,195 @@
+/* # Button
+
+    Markup : *.button
+                i.icon.icon-whatever
+                span text
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+
+    .button-box {
+      display:inline-block;
+      text-align: center;
+      width:100%;
+    }
+
+    .button{
+        display: inline-block;
+        padding:10px 30px;
+        text-decoration: none;
+        cursor:pointer;
+        color:rgb(60,60,60);
+        background-color:transparent;
+        border: 1px solid color("grey", "base");
+        text-transform: uppercase;
+        text-decoration: none;
+        white-space: nowrap;
+        transition: all, 200ms, ease-in-out;
+        border-radius:3px;
+        user-select:none;
+        font-weight: bold;
+
+        &.self-center {
+          margin: auto;
+          text-align: center;
+        }
+
+        &:hover {
+          border: 1px solid white;
+        }
+        + .button, + button {
+          margin: 0 0 0 10px;
+        }
+
+        i {
+          color:white;
+          margin-top: 3px;
+        }
+
+        i + span {
+            display:inline-block;
+            margin-left:10px;
+        }
+
+        span + i {
+            display:inline-block;
+            margin-left:10px;
+        }
+
+        &:hover {
+          border: 1px solid white;
+        }
+
+        &:active {
+        }
+
+    }
+
+/* Specific buttons
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+
+.button, .special-button {
+  &.rounded {
+    border-radius: 100px;
+  }
+
+  &.small {
+    padding: 11px 15px 12px 15px;
+  }
+
+  &.big {
+    padding:15px 35px;
+  }
+
+  &.full {
+    padding:10px 20px;
+    margin:15px 15px 15px 15px;
+    width:calc(100% - 30px);
+  }
+
+  &.primary {
+    background-color:color("primary", "base");
+    color:white;
+    cursor:pointer;
+    text-shadow: 0px 1px 0px rgba(0,0,0,0.3);
+    border: 1px solid color("primary", "darken-2");
+    &:hover {
+      background-color: color("primary", "lighten-1");
+    }
+    &:active {
+      background-color: color("primary", "darken-1");
+    }
+  }
+
+  &.complement {
+    background-color:color("complement", "base");
+    color:white;
+    cursor:pointer;
+    border: 1px solid color("complement", "darken-2");
+    &:hover {
+      background-color: color("complement", "lighten-1");
+    }
+    &:active {
+      background-color: color("complement", "darken-1");
+    }
+  }
+
+  &.danger {
+    background-color:color("danger", "base");
+    color:white;
+    cursor:pointer;
+    border: 1px solid color("danger", "darken-1");
+    &:hover {
+      background-color: color("danger", "lighten-1");
+    }
+    &:active {
+      background-color: color("danger", "darken-1");
+    }
+  }
+
+  &.success {
+    background-color:color("success", "base");
+    color:white;
+    cursor:pointer;
+    border: 1px solid color("success", "darken-1");
+    &:hover {
+      background-color: color("success", "lighten-1");
+    }
+    &:active {
+      background-color: color("success", "darken-1");
+    }
+  }
+
+  &.info {
+    background-color:color("info", "base");
+    color:white;
+    cursor:pointer;
+    border: 1px solid color("info", "darken-1");
+    &:hover {
+      background-color: color("info", "lighten-1");
+    }
+    &:active {
+      background-color: color("info", "darken-1");
+    }
+  }
+
+  &.disabled {
+    background-color:color("grey", "lighten-2");
+    color:white;
+    cursor:initial;
+    border: 1px solid color("grey", "lighten-4");
+    &:hover {
+      background-color: color("grey", "lighten-3");
+    }
+  }
+
+  &.spinner {
+    position:relative;
+    width: 249px;
+    .icon-spin {
+      position:absolute;
+      top:12px;
+      right:65px;
+      opacity:0;
+      transition: all, 200ms, ease-in-out;
+      background-image:url('/img/spinner.svg');
+      width:32px;
+      height:32px;
+    }
+
+    span {
+      transition: margin-left, 200ms, ease-in-out;
+    }
+
+    &.spinner-active {
+      span {
+        margin-left:-30px;
+      }
+      &.icon-spin {
+        opacity:1;
+      }
+    }
+
+  }
+  &.spinner.spinner-active .icon-spin {
+    opacity: 1;
+  }
+}

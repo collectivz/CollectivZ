@@ -1,47 +1,71 @@
 import React, { Component } from 'react';
 import { Meteor } from 'meteor/meteor';
-import { Link } from 'react-router';
-
-import './Login.css';
+import classNames                       from 'classnames';
 
 export default class Login extends Component {
 
   constructor(props) {
     super(props);
 
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.state = { isClicked : false };
+    this.handleClick = this.handleClick.bind(this);
   }
 
-  handleSubmit(e) {
-    e.preventDefault();
-    const username = this.refs.username.value;
-    const password = this.refs.password.value;
+  handleClick(e) {
 
-    if (username && password) {
-      Meteor.loginWithPassword(username, password);
-    }
+      e.preventDefault();
+      this.setState( { isClicked : true } );
+
+      setTimeout( () => {
+          this.setState( { isClicked : false } );
+          const username = this.refs.username.value;
+          const password = this.refs.password.value;
+
+          if (username && password) {
+            Meteor.loginWithPassword(username, password);
+          }
+      }, 500);
+
   }
 
   render() {
     return (
-      <div className="login-wrapp">
-        <form id="box" className="loginForm" onSubmit={this.handleSubmit}>
-          <div className="inner">
-            <img className="avatar" src="/img/zorro.jpg" />
+      <div className="login screen-box center">
+        <div className="center-wrapper">
+          <form>
+            <img src="/img/logo.svg" width="64" height="64" />
+            <fieldset className="large has-icon name">
+              <i className="icon icon-user"></i>
               <input
+                className="large"
                 type="text"
-                placeholder="Username"
+                placeholder="Nom d'utilisateur"
                 ref="username"
               />
+            </fieldset>
+            <fieldset className="large has-icon">
+              <i className="icon icon-lock"></i>
               <input
+                className="large"
                 type="password"
-                placeholder="Password"
+                placeholder="Mot de passe"
                 ref="password"
               />
-            <input type="submit" value="Login" />
+            </fieldset>
+            <button onClick={ this.handleClick } className={classNames("large big primary button spinner touch-event", { "touch-active spinner-active": this.state.isClicked})}>
+              <div className="icon-spin"/>
+              <span>Se connecter</span>
+            </button>
+          </form>
+          <div className="extra-content">
+            <div className="error">
+              <i className="icon icon-error"/>
+              <span>ErrorCode</span>
+            </div>
+            <a href="#"> Mot de passe perdu ? </a>
+            <a href="/register"> Inscription </a>
           </div>
-          <Link to="/register">Register</Link>
-        </form>
+        </div>
       </div>
     );
   }

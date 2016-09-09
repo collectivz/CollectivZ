@@ -1,49 +1,16 @@
-import React from 'react';
-import { _ } from 'meteor/underscore';
+import React                      from 'react';
+import { _ }                      from 'meteor/underscore';
 
-import GuildUpdatePicture from './GuildUpdatePicture.jsx';
-import ChannelItem from './ChannelItem.jsx';
-import UserItem from './UserItem.jsx';
+import GuildUpdatePicture         from './GuildUpdatePicture.jsx';
+import ChannelItem                from './ChannelItem.jsx';
+import UserItem                   from './UserItem.jsx';
+
 
 export default class GuildBody extends React.Component {
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      hasJoined: false
-    };
-
-    this.joinGuild = this.joinGuild.bind(this);
-  }
-
-  componentWillMount() {
-    const {
-      guild,
-      user
-    } = this.props;
-
-    if (_.contains(guild.members, user._id)) {
-      this.setState({
-        hasJoined: true
-      });
-    }
-  }
-
-  joinGuild() {
-    Meteor.call('guilds.join', this.props.guild._id);
-    this.setState({
-      hasJoined: true
-    });
-  }
-
   render() {
-    const {
-      guild,
-      user,
-      members,
-      channels
-    } = this.props;
+
+    const { members, channels } = this.props;
 
     let sortedChannels = channels;
     if (sortedChannels.length > 1) {
@@ -51,28 +18,33 @@ export default class GuildBody extends React.Component {
         return b.members.length - a.members.length;
       });
     }
+
     return (
-      <div>
-        {this.state.hasJoined ?
-          'Vous faites parti de cette communauté.'
-          : <button onClick={this.joinGuild}>Rejoindre {guild.name}</button>
-        }
-        {_.contains(guild.leaders, user._id) ?
-            <GuildUpdatePicture guild={guild}/>
-          : ''
-        }
-        <h4>Liste des membres</h4>
+      <div className="list">
+
+        <div className="list-sub-menu">
+            <i className="big-icon icon icon-users"/>
+            <h5>Liste des membres</h5>
+        </div>
+
         {members.map(member => {
           return (<UserItem user={member} key={member._id}/>);
         })}
-        <h4>Liste des actions en cours</h4>
-        {channels.length ?
+
+        <div className="list-sub-menu">
+            <i className="big-icon icon icon-bubble"/>
+            <h5>Liste des actions en cours</h5>
+        </div>
+
+        {sortedChannels.length ?
           <div>
-            {channels.map(channel => {
+            {sortedChannels.map(channel => {
               return (<ChannelItem channel={channel} key={channel._id} />);
             })}
           </div>
-        : "Aucune action en cours"
+        : <div className="list-empty">
+            <p><i className="icon icon-sad"/> Aucune action en cours</p>
+          </div>
         }
       </div>
     );

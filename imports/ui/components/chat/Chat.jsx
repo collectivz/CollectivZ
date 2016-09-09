@@ -1,11 +1,14 @@
-import React from 'react';
+import React                from 'react';
+import classNames           from 'classnames';
+import $                    from 'jquery';
 
-import zorroForm from '../../../api/zorro/zorro.js';
+import zorroForm            from '../../../api/zorro/zorro.js';
 
-import ChatFilter from './ChatFilter.jsx';
-import ZorroItem from './ZorroItem.jsx';
-import MessageInput from './MessageInput.jsx';
-import MessageList from './MessageList.jsx';
+import ChatFilter           from './ChatFilter.jsx';
+import ZorroItem            from './ZorroItem.jsx';
+import MessageInput         from './MessageInput.jsx';
+import MessageList          from './MessageList.jsx';
+
 
 export default class Chat extends React.Component {
 
@@ -14,8 +17,6 @@ export default class Chat extends React.Component {
 
     this.state = {
       filter: 'all',
-      padding: 'small-padding',
-      padding:'small-padding',
       inputMode: 'message',
       zorro: {},
       dialogWithZorro: [],
@@ -28,7 +29,6 @@ export default class Chat extends React.Component {
     this.setFilterOption = this.setFilterOption.bind(this);
     this.changeInputMode = this.changeInputMode.bind(this);
     this.answerToZorro = this.answerToZorro.bind(this);
-    this.toggleMarginBottom = this.toggleMarginBottom.bind(this);
   }
 
   componentDidMount() {
@@ -61,50 +61,23 @@ export default class Chat extends React.Component {
     });
   }
 
-  toggleMarginBottom() {
-    if (this.state.padding !== 'large-padding') {
-      this.setState({
-        padding: 'large-padding',
-      }, () => {
-        this.refs.scroll.scrollTop += this.refs.scroll.scrollHeight;
-      });
-    } else {
-      this.setState({
-        padding: 'small-padding',
-      }, () => {
-        this.refs.scroll.scrollTop += this.refs.scroll.scrollHeight;
-      });
-    }
-  }
-
-  answerToZorro(answer) {
+  answerToZorro(answer, e) {
+    if (e)
+      e.preventDefault();
     const zorro = this.state.zorro;
     zorro.answerToZorro(answer);
     const newState = zorro.getState();
 
-    this.setState(newState, () => {
-      this.refs.scroll.scrollTop += this.refs.scroll.scrollHeight;
-    });
+    this.setState(newState);
+    $(".chat-sub-container").stop().animate({
+      scrollTop: 10000
+    }, 500);
   }
 
   render() {
-    const {
-      channel,
-      messages,
-      subChannels,
-      beers,
-      polls,
-      coins,
-      feedbacks,
-      user
-    } = this.props;
-    const {
-      zorro,
-      dialogWithZorro,
-      ongoingAction,
-      filter,
-      choices
-    } = this.state;
+
+    const { channel, messages, subChannels, beers, polls, coins, feedbacks, user } = this.props;
+    const { zorro, dialogWithZorro, ongoingAction, filter, choices } = this.state;
 
     let filteredMessages = [];
 
@@ -121,15 +94,18 @@ export default class Chat extends React.Component {
     }
 
     return (
-      <div className="view-container">
+      <div className={classNames("chat-sub-container", {"chat-with-filter-sub-container" : channel.connections})}>
+
         {channel.connections ?
           <ChatFilter channel={channel} setFilterOption={this.setFilterOption} />
           : ''
         }
-        <div className="pane">
-          <div ref='scroll' className={this.state.padding
-                      + " scroll-content has-chanbar has-tabs has-footer chat "}>
 
+        <div className="chat">
+          <div className="chat-separator">
+              <h5>Cette semaine</h5>
+          </div>
+          <div ref='scroll'>
             <div className="scroll">
               <div className="message-list">
                 <MessageList
@@ -147,7 +123,8 @@ export default class Chat extends React.Component {
               <div className="scroll">
                 <div className="message-list">
                   {dialogWithZorro.map((message, index) => {
-                    return (<ZorroItem message={message} key={index} answerToZorro={this.answerToZorro} choices={choices}/>);
+                    const _choices = ((index + 1) === dialogWithZorro.length) ? choices : [];
+                    return (<ZorroItem message={message} key={index} answerToZorro={this.answerToZorro} choices={_choices}/>);
                   })}
                 </div>
               </div>

@@ -1,0 +1,51 @@
+/* # Checkbox
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+
+	.checkbox {
+
+		margin-top:3px;
+		
+		user-select:none;
+
+		&:before {
+			@include clearfix();
+		}
+		label {
+			margin-top:3px;
+		}
+		label {
+			display:block;
+			position:relative;
+			width:19px;
+			height:19px;
+			border-radius: 5px;
+			border:1px solid color("grey", "lighten-2");
+			cursor:pointer;
+			&:after {
+				opacity: 0.1;
+				content: '';
+				position: absolute;
+				width: 9px;
+				height: 5px;
+				background: transparent;
+				top: 4px;
+				left: 4px;
+				border: 3px solid darken($color-primary, 5%);
+				border-top: none;
+				border-right: none;
+				transform: rotate(-45deg);
+				transition: all 200ms ease;
+			}
+			&:hover::after {
+				opacity: 0.2;
+			}
+		}
+		input[type="checkbox"]:checked + label:after {
+			opacity: 1;
+		}
+		input[type="checkbox"] {
+			visibility: hidden;
+			display:none;
+		}
+
+	}

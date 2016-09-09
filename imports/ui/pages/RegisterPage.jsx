@@ -54,7 +54,7 @@ export default class RegisterPage extends React.Component {
         } else {
           Meteor.loginWithPassword(username, password, (err) => {
             if (!err) {
-              this.context.router.push('/my-groups');
+              this.context.router.push('/guild-list');
             }
           })
         }
@@ -64,33 +64,46 @@ export default class RegisterPage extends React.Component {
 
   render() {
     return (
-      <div>
-        <form id="box" onSubmit={this.handleSubmit}>
-          <div className="inner">
-            <input
-              type="text"
-              placeholder="Username"
-              ref="username"
-            />
-            <input
-              type="text"
-              placeholder="Email"
-              ref="email"
-            />
-            <input
-              type="password"
-              placeholder="Password"
-              ref="password"
-            />
-            <input
-              type="password"
-              placeholder="Password"
-              ref="passwordAgain"
-            />
-            <input type="submit" value="Register" />
-          </div>
+      <div className="login screen-box center">
+        <div className="center-wrapper">
+          <form id="box" onSubmit={this.handleSubmit}>
+            <img src="/img/logo.svg" width="64" height="64" />
+            <fieldset className="large has-icon">
+              <input
+                className="large"
+                type="text"
+                placeholder="Nom d'utilisateur"
+                ref="username"
+              />
+            </fieldset>
+            <fieldset className="large has-icon">
+              <input
+                className="large"
+                type="text"
+                placeholder="Email"
+                ref="email"
+              />
+            </fieldset>
+            <fieldset className="large has-icon">
+              <input
+                className="large"
+                type="password"
+                placeholder="Mot de passe"
+                ref="password"
+              />
+            </fieldset>
+            <fieldset className="large has-icon">
+              <input
+                className="large"
+                type="password"
+                placeholder="Confirmation mot de passe"
+                ref="passwordAgain"
+              />
+              <input type="submit" value="S'enregister" className="large big primary button"/>
+            </fieldset>
 
-        </form>
+          </form>
+        </div>
 
       </div>
     );

@@ -1,0 +1,25 @@
+/* # Font core
+
+   NOTE: To use include-font directive,
+		 be sure to have theses four formats in the right directory
+
+		 .ttf - Works in most browsers except IE and iPhone.
+		 .eot - IE only. 
+		 .woff - Compressed, emerging standard. 
+		 .svg - iPhone/iPad
+
+		 .include-font("path/to/font", "font-name", "font-weight", "font-style");
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+
+@mixin include-font($path:"../assets/fonts/", $name: arial, $weight: normal, $style: normal){
+	@font-face{
+		font-family: $name;
+		src:url('#{$path}#{$name}.eot');
+		src:url('#{$path}#{$name}.eot?#iefix') format('embedded-opentype'),
+			url('#{$path}#{$name}.woff') format('woff'),
+			url('#{$path}#{$name}.ttf') format('truetype'),
+			url('#{$path}#{$name}.svg#icon') format('svg');
+		font-weight: $weight;
+		font-style: $style;
+	}
+}

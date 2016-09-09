@@ -1,0 +1,68 @@
+$circle-size: 35px;
+$border-size: 10px;
+
+$button-size: 50px;
+$number-of-buttons: 8;
+
+$centered-button-pos: $circle-size / 2 - $button-size / 2;
+$base-delay: 0.20;
+$x:0;
+$y:0;
+$pi: pi();
+
+$base-angle: 50deg; // defines the first button place
+$offset-angle: 52; // defines the separation angle between each buttons
+$radius: $circle-size * 0.85;
+
+.preloader {
+  background-color:color("complement", "lighten-1");
+  &>div {
+    -webkit-filter: url("#fancy-goo");
+    margin:auto;
+    position:relative;
+    width:0px;
+    height:0px;
+    padding:30px;
+    &>div {
+      position:absolute;
+      width:10px;
+      height:10px;
+      border-radius:100%;
+      transition: all 200ms ease;
+      top:0;
+      left:0;
+      margin-left:10px;
+      margin-top:10px;
+      background-color: #c79595;
+    }
+  }
+}
+
+@for $i from 1 through $number-of-buttons {
+    $x: $radius * cos($base-angle);
+    $y: $radius * sin($base-angle);
+    .circle-#{$i} {
+        transform: translateX($x + 10)
+        translateY($y + 10)
+        rotate(0deg);
+        animation:pop-in ease-in-out #{$number-of-buttons*$base-delay}s  #{$base-delay*$i}s infinite alternate;
+    }
+    // incrementing base angle
+    $base-angle: $base-angle + $offset-angle;
+}
+
+@keyframes pop-in{
+  0%{
+  width:10px;
+  height:10px;
+  }
+  50%{
+  width:19px;
+  height:19px;
+  }
+  100%{
+  width:10px;
+  height:10px;
+  
+  }
+}

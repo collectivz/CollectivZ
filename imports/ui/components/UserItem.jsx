@@ -1,22 +1,31 @@
 import React from 'react';
-import { Link } from 'react-router';
+import { Router, Route, Link, browserHistory }  from 'react-router';
 
-import './ChannelItem.css';
+import TouchEvent                               from './TouchEvent';
+import classNames                               from 'classnames';
+
 
 export default class UserItem extends React.Component {
+
+  onClick(dest) {
+    setTimeout( () => {
+      if (dest) {
+        browserHistory.push(dest);
+      }
+    }, 350 );
+  }
+
   render() {
-    const {
-      user
-    } = this.props;
+    const { user } = this.props;
 
     return (
-      <div className="item-avatar item-icon-right item item-complex item-right-editable">
-        <Link className="item-content" to={`/user/${user._id}`}>
-          <img src={user.profile.avatar} alt="/img/no-user.png" />
-          <h2>{user.username}</h2>
-          <i className="fa fa-chevron-right fa-accessory"></i>
-        </Link>
-      </div>
+      <TouchEvent class="list-item touch-event" onClick={ () => { this.onClick(`/user/${user._id}`) } }>
+          <img src={user.profile.avatar} alt="" />
+          <div className="list-item-content">
+              <p className="title">{user.username}</p>
+          </div>
+          <i className="icon icon-3x icon-chevron-right"/>
+      </TouchEvent>
     );
   }
 }

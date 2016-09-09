@@ -1,0 +1,59 @@
+$breadcrumb-height: 60px;
+$breadcrumb-size-of-icon: 25px;
+
+$breadcrumb-info-width: 200px;
+
+$breadcrumb-touch-size: $breadcrumb-height * 1.5;
+$breadcrumb-info-touch-size: $breadcrumb-info-width * 1.5;
+
+$breadcrumb-base-index: 999;
+
+.breadcrumb {
+	width:100%;
+	height:$breadcrumb-height;
+	background-color:color("grey", "darken-3");
+	z-index: $breadcrumb-base-index;
+	box-shadow: 0 4px 10px rgba(color("grey", "darken-2"), .25);
+	.back-button, .logout-button {
+		width:$breadcrumb-height;
+		height:$breadcrumb-height;
+		position:relative;
+		float:left;
+		i {
+			position:absolute;
+			font-size: $breadcrumb-size-of-icon;
+			top: ($breadcrumb-height - $breadcrumb-size-of-icon) / 2;
+			left: ($breadcrumb-height - $breadcrumb-size-of-icon) / 2;
+			color:white;
+		}
+		&::after {
+			background-color:rgba(white, 0.5);
+			width:$breadcrumb-touch-size;
+			height:$breadcrumb-touch-size;
+			margin-left:-($breadcrumb-touch-size / 2);
+			margin-top:-($breadcrumb-touch-size / 2);
+		}
+	}
+	.logout-button {
+		i {
+			left: (($breadcrumb-height - $breadcrumb-size-of-icon) / 2) + 3;
+		}
+		float:right;
+	}
+	.text {
+		text-align: center;
+		position:absolute;
+		width:50%;
+		left:25%;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		height:$breadcrumb-height;
+		color:white;
+		font-family: $nav-font;
+		h4 {
+			margin:0;
+			line-height: 56px;
+		}
+	}
+}

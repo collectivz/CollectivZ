@@ -1,0 +1,31 @@
+.list-sub-menu {
+	width:100%;
+	padding:$text-size * 2;
+	background-color: color("grey", "lighten-2");
+	position:relative;
+	h1,h2,h3,h4,h5,h6 {
+		font-family: $nav-font;
+		margin:0;
+		position:relative;
+		z-index: 1;
+		margin-left:15px;
+		text-transform: uppercase;
+		display:inline;
+	}
+	&>i {
+		font-size: 47px;
+		position:absolute;
+		left:20px;
+		top:12px;
+		color:white;
+		z-index: 0;
+		opacity:0.3;
+	}
+	form.merged {
+		position:absolute;
+		right:15px;
+		top:28px;
+		z-index: 2;
+		margin-top:-$text-size;
+	}
+}

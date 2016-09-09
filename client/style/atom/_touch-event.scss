@@ -1,0 +1,36 @@
+@keyframes anim-effect-jelena {
+  0% {
+    opacity: 1;
+    -webkit-transform: scale3d(0.5, 0.5, 1);
+    transform: scale3d(0.5, 0.5, 1);
+  }
+  to {
+    opacity: 0;
+    -webkit-transform: scale3d(1.2, 1.2, 1);
+    transform: scale3d(1.2, 1.2, 1);
+  }
+}
+
+.touch-event {
+	overflow: visible;
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+	position:relative;
+	cursor:pointer;
+	overflow: hidden;
+	&::after {
+		background-color:rgba(color("primary","darken-2"), 0.2);
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		margin: -20px 0 0 -20px;
+		width: 40px;
+		height: 40px;
+		border-radius: 50%;
+		content: '';
+		opacity: 0;
+		pointer-events: none;
+	}
+	&.touch-active::after {
+		animation: anim-effect-jelena 0.3s ease-out forwards;
+	}
+}

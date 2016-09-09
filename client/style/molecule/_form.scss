@@ -1,0 +1,14 @@
+form.merged {
+	margin-top:$text-size;
+	input, button {
+		margin:0;
+	}
+	input {
+		border-bottom-right-radius: 0px;
+		border-top-right-radius: 0px;
+	}
+	button {
+		border-bottom-left-radius: 0px;
+		border-top-left-radius: 0px;
+	}
+}

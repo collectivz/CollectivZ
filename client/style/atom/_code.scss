@@ -1,0 +1,31 @@
+/* # Code
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+
+code {
+  padding: .2rem $text-size;
+  margin: 0;
+  white-space: nowrap;
+  background: #F1F1F1;
+  border: 1px solid #E1E1E1;
+  border-radius: 4px;
+  display:inline-block;
+  margin:0 $text-size / 2;
+  margin-bottom:$text-size;
+white-space:pre;
+white-space:pre-wrap;
+word-break:break-all;
+word-wrap:break-word;
+}
+
+pre {
+  margin: 0;
+white-space:pre;
+white-space:pre-wrap;
+word-break:break-all;
+word-wrap:break-word;
+  & > code {
+    display: block;
+    padding: 1rem 1.5rem;
+    white-space: pre;
+  }
+}

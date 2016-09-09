@@ -1,9 +1,9 @@
-import React, { Component, PropTypes } from 'react';
-import { Meteor } from 'meteor/meteor';
+import $                                  from 'jquery';
+import React, { Component, PropTypes }    from 'react';
+import { Meteor }                         from 'meteor/meteor';
 
-import ActionPicker from './ActionPicker.jsx';
+import ActionPicker                       from './ActionPicker.jsx';
 
-import './MessageInput.css';
 
 export default class MessageInput extends Component {
 
@@ -17,7 +17,7 @@ export default class MessageInput extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.toggleAction = this.toggleAction.bind(this);
     this.textareaHeightTweak = this.textareaHeightTweak.bind(this);
-    this.keyboardEvent = this.keyboardEvent.bind(this)
+    this.keyboardEvent = this.keyboardEvent.bind(this);
   }
 
   componentDidUpdate() {
@@ -29,7 +29,10 @@ export default class MessageInput extends Component {
   componentDidMount() {
     this.setState({
       barHeight: { height: this.refs.bar.scrollHeight + 10 }
-    })
+    });
+    setTimeout( () => {
+      $(".chat-sub-container").scrollTop(1000000);
+    }, 150 );
   }
 
   keyboardEvent(e) {
@@ -56,11 +59,19 @@ export default class MessageInput extends Component {
         this.setState({
           barHeight: { height: 46 },
           formHeight: { height: 36 }
-        })
+        });
+
+        $(".chat-sub-container").stop().animate({
+          scrollTop: 10000
+        }, 500);
+
       });
     } else {
       this.props.answerToZorro(text);
       this.refs.textInput.value = '';
+      $(".chat-sub-container").stop().animate({
+        scrollTop: 10000
+      }, 500);
     }
   }
 
@@ -68,7 +79,9 @@ export default class MessageInput extends Component {
     this.setState({
       showActions: !this.state.showActions
     });
-    this.props.toggleMarginBottom();
+    $(".chat-input-wrapper").toggleClass("open");
+    $(".chat-sub-container").toggleClass("open");
+    $(".icon-plus-circle").toggleClass("icon-rotate-45");
   }
 
   getCss() {
@@ -83,29 +96,32 @@ export default class MessageInput extends Component {
     this.setState({
       barHeight: { height: this.refs.textInput.scrollHeight + 10 },
       formHeight: { height: this.refs.textInput.scrollHeight }
-    })
+    });
   }
 
   render() {
     return (
-      <div ref="bar">
-        <div className={this.getCss()} style={this.state.barHeight} >
-          <button type="button" name="button" onClick={this.toggleAction}>
-            <i className="fa fa-plus-circle" aria-hidden="true"></i>
+      <div ref="bar" className="chat-input-wrapper">
+        <div className="chat-input">
+          <button onClick={this.toggleAction} className="chat-input-button-left button">
+            <i className="icon icon-plus-circle"></i>
           </button>
-          <label className="item-input-wrapper">
-            <form className="new-msg" onSubmit={this.handleSubmit} style={this.state.formHeight}>
-              <textarea onKeyUp={this.keyboardEvent} onChange={this.textareaHeightTweak} className="message-input" name="name" ref="textInput" ></textarea>
-            </form>
-          </label>
-          <button type="button" name="button" onClick={this.handleSubmit}>
-            <i className="fa fa-paper-plane" aria-hidden="true"></i>
+          <form className="chat-input-form">
+            <textarea
+              onKeyUp={this.keyboardEvent}
+              onChange={this.textareaHeightTweak}
+              name="name"
+              className="chat-input-textarea"
+              ref="textInput">
+            </textarea>
+          </form>
+          <button onClick={this.handleSubmit} className="chat-input-button-right button">
+            <i className="icon icon-paperplane"></i>
           </button>
         </div>
-        {this.state.showActions
-          ? <ActionPicker changeInputMode={this.props.changeInputMode}/>
-          : ''}
+        <ActionPicker changeInputMode={this.props.changeInputMode}/>
       </div>
     );
   }
+
 }

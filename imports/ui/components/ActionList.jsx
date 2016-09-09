@@ -1,4 +1,4 @@
-import React from 'react';
+import React        from 'react';
 
 export default class ActionList extends React.Component {
 
@@ -10,26 +10,30 @@ export default class ActionList extends React.Component {
     return (
       <div>
         {actions.pollCount ?
-          <div>
-            <i className="fa fa-pie-chart" aria-hidden="true">{actions.pollCount}</i>
+          <div className="tag">
+              <i className="icon icon-pie-chart"/>
+              <span>{actions.pollCount}</span>
           </div>
           : ''
         }
         {actions.chanCount ?
-          <div>
-            <i className="fa fa-cogs" aria-hidden="true">{actions.chanCount}</i>
+          <div className="tag">
+              <i className="icon icon-cog"/>
+              <span>{actions.chanCount}</span>
           </div>
           : ''
         }
         {actions.beerCount ?
-          <div>
-            <i className="fa fa-calendar" aria-hidden="true">{actions.beerCount}</i>
+          <div className="tag">
+              <i className="icon icon-calendar-full"/>
+              <span>{actions.beerCount}</span>
           </div>
           : ''
         }
         {actions.feedbackCount ?
-          <div>
-            <i className="fa fa-star-o" aria-hidden="true">{actions.feedbackCount}</i>
+          <div className="tag">
+              <i className="icon icon-star"/>
+              <span>{actions.feedbackCount}</span>
           </div>
           : ''
         }

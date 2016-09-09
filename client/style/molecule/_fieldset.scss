@@ -1,0 +1,30 @@
+$base-index: 0;
+
+fieldset {
+	border:none;
+	margin:0;
+	padding:0;
+	position:relative;
+    display: inline-block;
+    &.large {
+    	width:100%;
+    }
+	&.has-icon {
+		input {
+			z-index: $base-index;
+			padding-left:40px;
+		}
+		i {
+			z-index: $base-index + 1;
+			position:absolute;
+			top:15px;
+			left:13px;
+			opacity:0.5;
+		}
+		&.small {
+			i {
+				top:13px;
+			}
+		}
+	}
+}

@@ -1,0 +1,25 @@
+/* # Links
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+
+	a.link {
+		color:color('grey', "darken-1");
+		cursor:pointer;
+		text-decoration: none;
+		outline: 0;
+		i {
+			color:color('grey', "lighten-2");
+		}
+		&:hover 	{ 
+			outline: 0;
+			color:color('grey', "darken-2");
+			i {
+				color:color('grey', "lighten-1");
+			}
+		}
+		&:active 	{ outline: 0; }
+		&:focus	 	{  outline: 0; }
+	}
+
+	a {
+		font-family: $nav-font;
+	}

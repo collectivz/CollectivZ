@@ -1,0 +1,40 @@
+blockquote {
+  font-style: italic;
+  margin-left: -20px;
+  padding-left:20px;
+  border-left: 4px solid rgba(0,0,0,0.2);
+}
+
+
+blockquote.pullquote {
+    border-left: none;
+	text-indent: -0.32em;
+	display: inline-block;
+	font-style: italic;
+	padding-left: 60px;
+	p {
+		@include modular-scale(1, $title-size, $ratio);
+		font-style: inherit;
+		margin-bottom:0;
+		color: color("grey", "darken-2");
+		&:before {
+			content:"“ ";
+			color: color("grey", "lighten-2");
+
+		}
+		&:after {
+			content:" ”";
+			color: color("grey", "lighten-2");
+		}
+	}
+	footer {
+		padding-left: 40px;
+		margin-top:10px;
+		color: color("grey", "lighten-2");
+		&:before {
+			content: '\2014';
+  			padding: 0 0.5em;
+		}
+	}
+}
+

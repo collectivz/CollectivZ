@@ -1,21 +1,40 @@
-import React, { Component } from 'react';
-import { Meteor } from 'meteor/meteor';
-import { Link } from 'react-router';
-import { _ } from 'meteor/underscore';
+import React, { Component }                     from 'react';
+import { Meteor }                               from 'meteor/meteor';
+import { Router, Route, Link, browserHistory }  from 'react-router';
+import { _ }                                    from 'meteor/underscore';
+
+import TouchEvent                               from './TouchEvent';
+import classNames                               from 'classnames';
 
 export default class ConversationPageHeader extends Component {
 
+  logout(){
+    setTimeout( () => {
+      Meteor.logout();
+    }, 350);
+  }
+
+  onClick(dest) {
+    setTimeout( () => {
+      if (dest) {
+        browserHistory.push(dest);
+      }
+    }, 350 );
+  }
+
   render() {
-    const {
-      channel,
-    } = this.props;
+
+    const { channel } = this.props;
 
     return (
-      <div className="top-nav">
-        <Link className="tweakChevron" to={'/my-groups'}><i className="fa fa-chevron-left"></i></Link>
-        <div className="title">
-          <h2>{`${channel.name}`}</h2>
-        </div>
+      <div className="breadcrumb">
+        <TouchEvent class="back-button touch-event" onClick={ () => { this.onClick('/my-groups') } }>
+          <i className="icon icon-3x icon-chevron-left"/>
+        </TouchEvent>
+        <h4 className="text">{`${channel.name}`}</h4>
+        <TouchEvent class="logout-button touch-event" onClick={ this.logout }>
+          <i className="icon icon-3x icon-exit"/>
+        </TouchEvent>
       </div>
     );
   }

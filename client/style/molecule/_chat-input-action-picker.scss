@@ -1,0 +1,41 @@
+$chat-action-picker-height: 80px;
+
+.chat-input-action-picker {
+	background-color: color("grey", "darken-3");
+	width:100%;
+	position:absolute;
+	top:$chat-input-height;
+	left:0;
+	height:$chat-action-picker-height;
+    display: flex;
+    justify-content: center;
+	.chat-input-action-picker-item {
+		display:inline-block;
+		text-align: center;
+		height:$navbar-height;
+		max-width: $navbar-item-width;
+		user-select: none;
+		flex: 1;
+		transition: all 200ms ease;
+		i {
+			color:white;
+			display:block;
+			padding: 18px 12px 8px 12px;
+		}
+		span {
+			color:white;
+			font-family: $nav-font;
+			user-select: none;
+		}
+		&.active {
+			background-color:color("grey", "base");
+		}
+		&::after {
+			background-color:rgba(white, 0.5);
+			width:$navbar-item-width;
+			height:$navbar-item-width;
+			margin-left:-($navbar-item-width / 2);
+			margin-top:-($navbar-item-width / 2);
+		}
+	}
+}

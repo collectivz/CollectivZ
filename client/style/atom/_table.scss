@@ -1,0 +1,57 @@
+/* # Table
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+
+table {
+	width: 100%;
+	text-align: left;
+	thead {
+		font-weight: 800;
+		tr th{
+			&:first-child {
+				margin-left: 5px;
+			}
+			button {
+				margin-right:15px;
+			}
+			padding: 15px 15px 15px 1px;
+		}
+
+	}
+
+	tbody {
+
+		tr {
+			&:last-child {
+				border-bottom:1px solid $color-grey-30;
+			}
+			&:nth-child(2n) {
+				background-color: $color-grey-10;
+				margin:5px;
+			}
+			&:hover {
+				background-color: $color-grey-20;
+				td:first-child {
+					margin-left:5px;
+				}
+			}
+			td {
+				&:first-child {
+					margin-left: 5px;
+				}
+				border-top: 1px solid $color-grey-30;
+				padding: 15px 15px 15px 1px;
+				input {
+					min-width: 10px;
+				    max-width: 100%;
+				    width: 100%;
+				}
+				.currency {
+					opacity:0.3;
+				}
+			}
+			
+		}
+
+	}
+
+}

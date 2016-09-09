@@ -3,8 +3,6 @@ import { Meteor } from 'meteor/meteor';
 import ReactDOM from 'react-dom';
 import xhr from 'xhr';
 
-import './UpdateBg.css';
-
 export default React.createClass({
   getInitialState () {
     return {
@@ -65,7 +63,7 @@ export default React.createClass({
   render: function(){
     return (
       <div className="update-bg-wrapper">
-        <p>Select new background image</p>
+        <p>Changer votre image de fond</p>
         <input type="file" onChange={this.handleOnChange}/>
         <div className="preview">
           {this.state.preview ? <img src={this.state.preview}/> : '' }

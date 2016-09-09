@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Meteor } from 'meteor/meteor';
 import { _ } from 'meteor/underscore';
-import './BeerItem.css'
 
 export default class BeerItem extends React.Component {
 
@@ -32,14 +31,26 @@ export default class BeerItem extends React.Component {
     const { beer } = this.props;
     if (beer && _.contains(beer.members, Meteor.userId())) {
       return (
-        <div>Vous et {beer.members.length - 1} autres personne(s) participent {this.showMembers()}</div>
+        <div className="beer-participate">
+          <div className="tag">
+            <i className="icon icon-users"/>
+            <span>{beer.members.length - 1}</span>
+          </div>
+          <div className="tag">
+            <span>Vous participez !</span>
+          </div>
+        </div>
       );
     }
     else {
       return (
-        <div>
-          <div>{beer.members.length} personne(s) participent</div>
-          <button onClick={this.joinBeer}>Participer</button>
+        <div className="beer-participate">
+          <div className="tag">
+            <i className="icon icon-users"/>
+            <span>{beer.members.length}</span>
+          </div>
+          <hr className="invisble"/>
+          <button className="primary button" onClick={this.joinBeer}>Participer</button>
         </div>
       );
     }
@@ -49,17 +60,19 @@ export default class BeerItem extends React.Component {
     const { beer } = this.props;
 
     return (
-      <div className="actionz-item">
-        <div className="actionz-pie">
-          <i className="fa fa-calendar"></i>
-        </div>
-        <div>
-          <h4>Nouvelle Beerz !</h4>
-          <p className="beerz-title">Occasion:  {beer.occasion}</p>
-          <p><span className="strong">Date </span>:  {beer.date}</p>
-          <p><span className="strong">Lieu </span>:  {beer.place}</p>
-        </div>
-        {this.participate()}
+      <div className="chat-special-bubble chat-special-bubble-beer">
+          <div className="bubble-content">
+              <i className="big-icon icon icon-beer"/>
+              <div className="bubble-header">
+                  <i className="icon icon-beer"/>
+                  <span>Nouvelle beerZ !</span>
+              </div>
+              <h3>{beer.occasion}</h3>
+              <p><i className="icon icon-calendar-full"/>  {beer.date}</p>
+              <p><i className="icon icon-earth"/>  {beer.place}</p>
+
+              {this.participate()}
+          </div>
       </div>
     );
   }
