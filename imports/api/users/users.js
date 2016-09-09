@@ -14,7 +14,9 @@ Accounts.onLogin(function() {
 
 if (Meteor.isServer) {
   Accounts.onCreateUser(function(options, user) {
-    const newRepertory = {};
+    const newRepertory = {
+      userId: user._id,
+    };
     user.profile = options.profile || {};
     user.profile.background = '/img/ugly.jpg';
     user.profile.avatar = user.profile.avatar ? user.profile.avatar : '/img/no-user.png';

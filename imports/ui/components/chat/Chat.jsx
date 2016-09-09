@@ -62,7 +62,12 @@ export default class Chat extends React.Component {
   }
 
   answerToZorro(answer, e) {
+<<<<<<< HEAD
     e.preventDefault();
+=======
+    if (e)
+      e.preventDefault();
+>>>>>>> b77988a58866ec7b9c2c1000a882d6b6d22f85a5
     const zorro = this.state.zorro;
     zorro.answerToZorro(answer);
     const newState = zorro.getState();

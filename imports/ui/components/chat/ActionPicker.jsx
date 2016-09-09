@@ -29,8 +29,13 @@ export default class ActionPicker extends Component {
               <span>BuddieZ</span>
           </TouchEvent>
           <TouchEvent onClick={this.handleClick.bind(this, 'newChannel')} class="chat-input-action-picker-item touch-event">
+<<<<<<< HEAD
               <i className="icon icon-2x icon-user"/>
               <span>ChannelZ</span>
+=======
+              <i className="icon icon-2x icon-cog"/>
+              <span>ActionZ</span>
+>>>>>>> b77988a58866ec7b9c2c1000a882d6b6d22f85a5
           </TouchEvent>
           <TouchEvent onClick={this.handleClick.bind(this, 'newBeer')} class="chat-input-action-picker-item touch-event">
               <i className="icon icon-2x icon-beer"/>

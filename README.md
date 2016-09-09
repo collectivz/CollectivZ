@@ -15,6 +15,7 @@ user = {
                                       // faible complexité pour la recherche
                                       // et l'écriture ?
   subscribedGuilds: [String id],     // idem.
+  subscribedChannels: [String]
   connections: Object : {
     guildCount: Number,   //optional
     chanCount: Number,

@@ -28,7 +28,7 @@ Meteor.startup(() => {
         <Route path='/guild/:guildId' component={GuildPageContainer} />
         <Route path='/conversation/:conversationId' component={ConversationPageContainer} />
         <Route path='/admin' component={AdminPage} />
-        <Route path='/contact' component={ContactPageContainer} />
+        <Route path='/contact/view' component={ContactPageContainer} />
         <Route path='/profile' component={MyProfileContainer} />
         <Route path='/user/:userId' component={ProfilePageContainer} />
         <Route path='/history/:userId' component={HistoryPageContainer} />
