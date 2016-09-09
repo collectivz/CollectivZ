@@ -1,3 +1,17 @@
+/*
+
+	Markup :
+
+    <div className="chat-filter">
+        <div class="filter-item filter-item-active touch-event">
+            Tous les messages
+        </div>
+        <div class="filter-item touch-event">
+            Un autre filtre
+        </div>
+    </div>
+*/
+
 $chat-filter-height: 50px;
 $chat-filter-open-height: 150px;
 
@@ -24,6 +38,7 @@ $chat-filter-open-height: 150px;
 			margin-left:5px;
 			opacity:0.5;
 		}
+		/* override de .touch-event */
 		&::after {
 			width:100px;
 			height:100px;

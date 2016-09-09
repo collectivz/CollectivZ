@@ -1,3 +1,21 @@
+
+/*
+
+	Markup :
+	
+    <div style={{ backgroundImage: bgUrl }} className="profile">
+        <div className="profile-header">
+            <img src="images/zorro.jpg"/>
+            <h3>Zorro</h3>
+            <div className="tag white">
+                <i className="icon icon-user"/>
+                <span>3</span>
+            </div>
+        </div>
+    </div>
+
+*/
+
 $profile-base-index: 0;
 $profile-height: 250px;
 

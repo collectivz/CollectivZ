@@ -1,3 +1,23 @@
+/*
+
+	Markup :
+
+	<div className="chat-input-wrapper">
+	    <div className="chat-input">
+	        <button className="chat-input-button-left button">
+	            <i className="icon icon-plus-circle"></i>
+	        </button>
+	        <form className="chat-input-form">
+	            <textarea className="chat-input-textarea"></textarea>
+	        </form>
+	        <button className="chat-input-button-right button">
+	            <i className="icon icon-paperplane"></i>
+	        </button>
+	    </div>
+	    // la boite action picker vient juste ici
+	</div>
+*/
+
 $chat-input-height: 60px;
 $chat-input-open-height: 140px;
 

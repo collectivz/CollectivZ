@@ -1,3 +1,25 @@
+
+/*
+
+	Markup :
+	
+    <div className="navbar">
+      <div class="navbar-item active touch-event">
+        <i className="icon icon-3x icon-text-bubble"/>
+        <span>ActionZ</span>
+      </div>
+      <div class="navbar-item touch-event" >
+        <i className="icon icon-3x icon-temple"/>
+        <span>Communautés</span>
+      </div>
+      <div class="navbar-item touch-event" >
+        <i className="icon icon-3x icon-big-user"/>
+        <span>Profil</span>
+      </div>
+    </div>
+
+*/
+
 $navbar-height: 80px;
 $navbar-size-of-icon: 30px;
 

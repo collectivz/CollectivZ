@@ -1,3 +1,18 @@
+/*
+	Markup :
+
+	<div className="breadcrumb">
+	  <div class="back-button touch-event">
+	    <i className="icon icon-3x icon-chevron-left"/>
+	  </div>
+	  <h4 className="text">Vos groupes de discussion</h4>
+	  <div class="logout-button touch-event">
+	    <i className="icon icon-3x icon-exit"/>
+	  </div>
+	</div>
+*/
+
+
 $breadcrumb-height: 60px;
 $breadcrumb-size-of-icon: 25px;
 

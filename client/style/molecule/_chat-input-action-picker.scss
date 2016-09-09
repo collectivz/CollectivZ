@@ -1,3 +1,19 @@
+/*
+
+	Markup :
+
+	<div className="chat-input-action-picker">
+	    <div class="chat-input-action-picker-item touch-event">
+	        <i className="icon icon-2x icon-pie-chart"/>
+	        <span>PollZ</span>
+	    </div>
+	    <div class="chat-input-action-picker-item touch-event">
+	        <i className="icon icon-2x icon-user"/>
+	        <span>BuddieZ</span>
+	    </div>
+	</div>
+*/
+
 $chat-action-picker-height: 80px;
 
 .chat-input-action-picker {

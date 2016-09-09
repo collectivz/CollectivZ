@@ -1,3 +1,27 @@
+/*
+
+	Note : La classe chat-bubble-mine vient étendre la classe
+	       chat-bubble pour lui ajouter une couleure verte et
+	       display ses boutons d'administrations
+
+	Markup :
+
+	<div className="chat-bubble">
+	    <img src="images/zorro.jpg"/>
+	    <div className="bubble-content">
+	        <div className="bubble-content-header">
+	            <span className="name">Zorro</span>
+	            <span className="date">à 17h34</span>
+	            <div className="bubble-content-admin">
+	                <i className="icon icon-pencil"/>
+	                <i className="icon icon-trash"/>
+	            </div>
+	        </div>
+	        <p>Ton texte ici</p>
+	    </div>
+	</div>
+*/
+
 $bubble-2n-color: #fbfbfb;
 
 .chat-bubble {

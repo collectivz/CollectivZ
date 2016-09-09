@@ -1,3 +1,22 @@
+
+/*
+
+	Note : Définit un bloc de formulaire
+	       contenant un input avec icone
+
+	Markup :
+	
+	  <fieldset className="large has-icon">
+	    <i className="icon icon-lock"></i>
+	    <input
+	      className="large"
+	      type="password"
+	      placeholder="Password"
+	    />
+	  </fieldset>
+    
+*/
+
 $base-index: 0;
 
 fieldset {

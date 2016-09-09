@@ -1,3 +1,27 @@
+
+/*
+
+	Note : La classe merged est présente au niveau du form
+	       pour définir un bloc button + input accollés l'un à l'autre
+
+	Markup :
+
+    <form className="merged">
+      <fieldset className="small has-icon">
+        <i className="icon icon-user"></i>
+        <input
+          className="small"
+          type="text"
+          placeholder="Ajouter un utilisateur"
+        />
+      </fieldset>
+      <button className="small primary button">
+        <i className="icon icon-rotate-45 icon-cross"/>
+      </button>
+    </form>
+    
+*/
+
 form.merged {
 	margin-top:$text-size;
 	input, button {
