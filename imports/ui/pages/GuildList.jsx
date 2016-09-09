@@ -15,7 +15,7 @@ export default class GuildList extends Component {
 
     return (
       <div className="screen-box">
-        <TopNav text="Liste des groupes"/>
+        <TopNav text="Liste des projets"/>
           <div className="sub-container">
             <div className="list">
               {guilds.map(function(guild) {

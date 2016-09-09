@@ -49,7 +49,7 @@ export default class ChannelList extends React.Component {
               {sortedChannels.map(function(channel) {
                  return <ChannelItem key={channel._id} channel={channel} />;
               })}
-              <div className="list-sub-menu">
+              {/* <div className="list-sub-menu">
                   <i className="big-icon icon icon-users"></i>
                   <h5>Liste de mes conversations privées</h5>
                   <form className="merged">
@@ -69,7 +69,7 @@ export default class ChannelList extends React.Component {
               </div>
               {sortedConversations.map(function(channel) {
                  return <ConversationItem key={channel._id} channel={channel} />;
-              })}
+              })} */}
             </div>
           </div>
         <AppNav user={user}/>

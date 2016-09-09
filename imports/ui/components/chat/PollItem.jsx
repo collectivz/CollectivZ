@@ -1,7 +1,7 @@
 import React            from 'react';
 
 export default class PollItem extends React.Component {
-  
+
   constructor(props) {
     super(props);
   }
@@ -17,14 +17,13 @@ export default class PollItem extends React.Component {
     } = this.props;
 
     const propositionNodes = propositions.map(function(proposition, i) {
-      const percentage = proposition.voteRecevedFrom.length / poll.totalVote * 100 || 0;
       return (
         <div key={proposition._id}>
           <p>
             <span >{i}</span> {proposition.name}
           </p>
           <p>
-            {percentage} % de vote recus
+            {proposition.voteRecevedFrom.length} votes reçus
           </p>
           <button className="primary button" onClick={this.voteForAPoll.bind(this, proposition._id)}>
             Vote pour ce choix

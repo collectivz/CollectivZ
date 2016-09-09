@@ -1,5 +1,6 @@
 import React                from 'react';
 import classNames           from 'classnames';
+import $                    from 'jquery';
 
 import zorroForm            from '../../../api/zorro/zorro.js';
 
@@ -16,8 +17,6 @@ export default class Chat extends React.Component {
 
     this.state = {
       filter: 'all',
-      padding: 'small-padding',
-      padding:'small-padding',
       inputMode: 'message',
       zorro: {},
       dialogWithZorro: [],
@@ -30,7 +29,6 @@ export default class Chat extends React.Component {
     this.setFilterOption = this.setFilterOption.bind(this);
     this.changeInputMode = this.changeInputMode.bind(this);
     this.answerToZorro = this.answerToZorro.bind(this);
-    this.toggleMarginBottom = this.toggleMarginBottom.bind(this);
   }
 
   componentDidMount() {
@@ -63,30 +61,16 @@ export default class Chat extends React.Component {
     });
   }
 
-  toggleMarginBottom() {
-    if (this.state.padding !== 'large-padding') {
-      this.setState({
-        padding: 'large-padding',
-      }, () => {
-        this.refs.scroll.scrollTop += this.refs.scroll.scrollHeight;
-      });
-    } else {
-      this.setState({
-        padding: 'small-padding',
-      }, () => {
-        this.refs.scroll.scrollTop += this.refs.scroll.scrollHeight;
-      });
-    }
-  }
-
-  answerToZorro(answer) {
+  answerToZorro(answer, e) {
+    e.preventDefault();
     const zorro = this.state.zorro;
     zorro.answerToZorro(answer);
     const newState = zorro.getState();
 
-    this.setState(newState, () => {
-      this.refs.scroll.scrollTop += this.refs.scroll.scrollHeight;
-    });
+    this.setState(newState);
+    $(".chat-sub-container").stop().animate({
+      scrollTop: 10000
+    }, 500);
   }
 
   render() {
@@ -110,7 +94,7 @@ export default class Chat extends React.Component {
 
     return (
       <div className={classNames("chat-sub-container", {"chat-with-filter-sub-container" : channel.connections})}>
-        
+
         {channel.connections ?
           <ChatFilter channel={channel} setFilterOption={this.setFilterOption} />
           : ''
@@ -138,7 +122,8 @@ export default class Chat extends React.Component {
               <div className="scroll">
                 <div className="message-list">
                   {dialogWithZorro.map((message, index) => {
-                    return (<ZorroItem message={message} key={index} answerToZorro={this.answerToZorro} choices={choices}/>);
+                    const _choices = ((index + 1) === dialogWithZorro.length) ? choices : [];
+                    return (<ZorroItem message={message} key={index} answerToZorro={this.answerToZorro} choices={_choices}/>);
                   })}
                 </div>
               </div>

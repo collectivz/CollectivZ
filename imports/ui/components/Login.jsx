@@ -15,13 +15,11 @@ export default class Login extends Component {
 
       e.preventDefault();
       this.setState( { isClicked : true } );
-      
+
       setTimeout( () => {
           this.setState( { isClicked : false } );
           const username = this.refs.username.value;
           const password = this.refs.password.value;
-
-          console.log(username, password);
 
           if (username && password) {
             Meteor.loginWithPassword(username, password);
@@ -41,7 +39,7 @@ export default class Login extends Component {
               <input
                 className="large"
                 type="text"
-                placeholder="Username"
+                placeholder="Nom d'utilisateur"
                 ref="username"
               />
             </fieldset>
@@ -50,13 +48,13 @@ export default class Login extends Component {
               <input
                 className="large"
                 type="password"
-                placeholder="Password"
+                placeholder="Mot de passe"
                 ref="password"
               />
             </fieldset>
             <button onClick={ this.handleClick } className={classNames("large big primary button spinner touch-event", { "touch-active spinner-active": this.state.isClicked})}>
               <div className="icon-spin"/>
-              <span>Login</span>
+              <span>Se connecter</span>
             </button>
           </form>
           <div className="extra-content">
@@ -65,7 +63,7 @@ export default class Login extends Component {
               <span>ErrorCode</span>
             </div>
             <a href="#"> Mot de passe perdu ? </a>
-            <a href="#"> Inscription </a>
+            <a href="/register"> Inscription </a>
           </div>
         </div>
       </div>

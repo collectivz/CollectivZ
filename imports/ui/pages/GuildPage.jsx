@@ -15,22 +15,27 @@ export default class GuildPage extends React.Component {
 
     return (
       <div className="screen-box">
-        <div className="screen-box">
-          <TopNav text="Profil de guilde"/>
-          <div className="sub-container">
-            <GuildPageHeader
+        {
+          loading ?
+            <Loader />
+          :
+          <div className="screen-box">
+            <TopNav text="Profil de guilde"/>
+            <div className="sub-container">
+              <GuildPageHeader
               guild={guild}
               user={user}
               channels={channels}
               members={members}
               />
-            <GuildBody
+              <GuildBody
               channels={channels}
               members={members}
-            />
+              />
+            </div>
+            <AppNav user={user}/>
           </div>
-          <AppNav user={user}/>
-        </div>
+        }
       </div>
     );
   }

@@ -14,11 +14,13 @@ import HistoryPageContainer from '../imports/ui/containers/HistoryPageContainer.
 import ProfilePageContainer from '../imports/ui/containers/ProfilePageContainer.jsx';
 import MyProfileContainer from '../imports/ui/containers/MyProfileContainer.jsx';
 import AdminPage from '../imports/ui/pages/AdminPage.jsx';
+import RegisterPage from '../imports/ui/pages/RegisterPage.jsx';
 import NotFound from '../imports/ui/pages/NotFound.jsx';
 
 Meteor.startup(() => {
   render((
     <Router history={browserHistory}>
+    <Route path='/register' component={RegisterPage} />
       <Route path="/" component={AppContainer}>
         <Route path='/my-groups' component={ChannelListContainer} />
         <Route path='/group/:groupId' component={ChannelPageContainer} />

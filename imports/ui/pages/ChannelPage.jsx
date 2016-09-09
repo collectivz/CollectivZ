@@ -7,15 +7,23 @@ import ChatContainer                    from '../containers/ChatContainer.jsx';
 
 
 export default class ChannelPage extends React.Component {
-  
+
   render() {
-    
+
     const { loading, channel, guild, user } = this.props;
 
     return (
+
       <div className="screen-box">
-        <ChannelPageHeader channel={channel} guild={guild} />
-        <ChatContainer channel={channel} user={user}/>
+        {
+          loading ?
+           <Loader />
+          :
+            <div>
+              <ChannelPageHeader channel={channel} guild={guild} />
+              <ChatContainer channel={channel} user={user}/>
+            </div>
+        }
       </div>
     );
   }

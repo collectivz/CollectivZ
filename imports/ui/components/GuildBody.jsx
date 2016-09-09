@@ -12,6 +12,13 @@ export default class GuildBody extends React.Component {
 
     const { members, channels } = this.props;
 
+    let sortedChannels = channels;
+    if (sortedChannels.length > 1) {
+      sortedChannels = sortedChannels.sort((a, b) => {
+        return b.members.length - a.members.length;
+      });
+    }
+
     return (
       <div className="list">
 
@@ -29,9 +36,9 @@ export default class GuildBody extends React.Component {
             <h5>Liste des actions en cours</h5>
         </div>
 
-        {channels.length ?
+        {sortedChannels.length ?
           <div>
-            {channels.map(channel => {
+            {sortedChannels.map(channel => {
               return (<ChannelItem channel={channel} key={channel._id} />);
             })}
           </div>
