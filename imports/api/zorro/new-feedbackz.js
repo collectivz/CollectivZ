@@ -145,10 +145,6 @@ export default class Feedback {
         Meteor.call('feedbacks.giveFeedback', this.channelId, this.result);
         this.resetState();
       }
-<<<<<<< HEAD
-    }
-=======
     } 
->>>>>>> b77988a58866ec7b9c2c1000a882d6b6d22f85a5
   }
 }
