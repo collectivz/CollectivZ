@@ -1,33 +1,68 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router';
-
-import './AppNav.css';
+import React, { Component }                     from 'react';
+import { Router, Route, Link, browserHistory }  from 'react-router';
+import TouchEvent                               from './TouchEvent';
+import classNames                               from 'classnames';
 
 export default class AppNav extends Component {
 
+  constructor( props ) {
+      super( props );
+      this.state = {activeUrl: null};
+      this.onClick = this.onClick.bind(this);
+  }
+
+  onClick(dest) {
+
+    setTimeout( () => {
+      if (dest) {
+        browserHistory.push(dest);
+      }
+    }, 350 );
+
+  }
+
   render() {
-    const {
-      user
-    } = this.props;
+
+    let activeUrl = null;
+
+    browserHistory.listen(function(event) {
+        activeUrl = event.pathname;
+    });
+
+    const { user } = this.props;
+
     return (
-      <div className="tabs-nav">
-        <Link activeClassName="active" className="tab-item" to="/my-groups">
-          <i className="fa fa-commenting" aria-hidden="true"></i>
-          <span className="tab-title">Actions</span>
-        </Link>
-        <Link activeClassName="active" className="tab-item" to="/guild-list">
-          <i className="fa fa-university" aria-hidden="true"></i>
-          <span className="tab-title">Communautés</span>
-        </Link>
+      <div className="navbar">
+        <TouchEvent
+            onClick={ ()=>{this.onClick("/my-groups")} } 
+            class={ classNames( "navbar-item touch-event", { active: activeUrl == "/my-groups" } ) }>
+
+            <i className="icon icon-3x icon-text-bubble"/>
+            <span>ActionZ</span>
+        </TouchEvent>
+        <TouchEvent
+            onClick={ ()=>{this.onClick("/guild-list")} } 
+            class={ classNames( "navbar-item touch-event", { active: activeUrl == "/guild-list" } ) }>
+            
+            <i className="icon icon-3x icon-temple"/>
+            <span>Communautés</span>
+        </TouchEvent>
         {user.profile.admin ?
-        <Link activeClassName="active" className="tab-item" to="/admin">
-          <i className="fa fa-wrench" aria-hidden="true"></i>
-          <span className="tab-title">Admin</span>
-        </Link> : '' }
-        <Link activeClassName="active" className="tab-item" to="/profile">
-          <i className="fa fa-info-circle" aria-hidden="true"></i>
-          <span className="tab-title">Mon profil</span>
-        </Link>
+          <TouchEvent
+              onClick={ ()=>{this.onClick("/admin")} } 
+              class={ classNames( "navbar-item touch-event", { active: activeUrl == "/admin" } ) }>
+              
+              <i className="icon icon-3x icon-star"/>
+              <span>Admin</span>
+          </TouchEvent>
+        : '' }
+        <TouchEvent
+            onClick={ ()=>{this.onClick("/profile")} } 
+            class={ classNames( "navbar-item touch-event", { active: activeUrl == "/profile" } ) }>
+            
+            <i className="icon icon-3x icon-big-user"/>
+            <span>Profil</span>
+        </TouchEvent>
       </div>
     );
   }

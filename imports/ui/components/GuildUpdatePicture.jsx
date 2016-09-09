@@ -1,15 +1,16 @@
-import React, { Component, PropTypes } from 'react';
-import { Meteor } from 'meteor/meteor';
-import xhr from 'xhr';
+import React, { Component, PropTypes }  from 'react';
+import { Meteor }                       from 'meteor/meteor';
+import xhr                              from 'xhr';
 
-import './UpdateAvatar.css';
 
 export default React.createClass({
+
   getInitialState () {
     return {
       preview: '',
     }
   },
+
   uploadFile(file, signedRequest, url, guildId){
     const xhr = new XMLHttpRequest();
     xhr.open('PUT', signedRequest);
@@ -30,9 +31,11 @@ export default React.createClass({
     };
     xhr.send(file);
   },
+
   handleSubmit(){
     this.uploadFile(this.state.file, this.state.signedRequest, this.state.url, this.props.guild._id);
   },
+
   handleOnChange(e){
     e.preventDefault();
     const files = e.target.files;
@@ -61,10 +64,11 @@ export default React.createClass({
       });
     }
   },
+
   render: function(){
     return (
       <div className="update-avatar-wrapper">
-        <p>Sélectionner une nouvelle image</p>
+        <i classname="icon icon-pencil"/>
         <input type="file" onChange={this.handleOnChange}/>
         <div className="preview">
           {this.state.preview ? <img src={this.state.preview}/> : '' }
@@ -73,4 +77,5 @@ export default React.createClass({
       </div>
       );
   }
+  
 });

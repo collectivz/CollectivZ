@@ -1,5 +1,4 @@
 import React from 'react';
-import './SubChannelItem.css'
 
 export default class SubChannelItem extends React.Component {
 
@@ -30,16 +29,17 @@ export default class SubChannelItem extends React.Component {
     } = this.props;
 
     return (
-      <div className="actionz-item">
-        <div className="actionz-pie">
-          <i className="fa fa-cogs"></i>
-        </div>
-        <div>
-          <h4>Nouvelle Actionz : {channel.name} !</h4>
-          {this.hasJoined() ?
-              'Vous faites parti de cette mission.'
-            : <p><a href={'/group/' + channel._id} onClick={this.joinChannel}><button>Rejoindre</button></a></p>
-          }
+      <div className="chat-special-bubble chat-special-bubble-mission">
+          <div className="bubble-content">
+              <i className="big-icon icon icon-thumbs-up"/>
+              <div className="bubble-header">
+                  <i className="icon icon-cog"/>
+                  <span>Nouvelle Actionz : {channel.name} !</span>
+              </div>
+              {this.hasJoined() ?
+                  <p>Vous faites maintenant parti de cette mission !</p>
+                : <p><a href={'/group/' + channel._id} onClick={this.joinChannel}><button>Rejoindre</button></a></p>
+              }
           </div>
       </div>
     );

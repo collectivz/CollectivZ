@@ -1,11 +1,12 @@
-import React from 'react';
+import React                          from 'react';
 
-import MessageItem from './MessageItem.jsx';
-import CoinItem from './CoinItem.jsx';
-import SubChannelItem from './SubChannelItem.jsx';
-import BeerItemContainer from '../../containers/BeerItemContainer.jsx';
-import FeedbackItem from './FeedbackItem.jsx';
-import PollItemContainer from '../../containers/PollItemContainer.jsx';
+import MessageItem                    from './MessageItem.jsx';
+import CoinItem                       from './CoinItem.jsx';
+import SubChannelItem                 from './SubChannelItem.jsx';
+import BeerItemContainer              from '../../containers/BeerItemContainer.jsx';
+import FeedbackItem                   from './FeedbackItem.jsx';
+import PollItemContainer              from '../../containers/PollItemContainer.jsx';
+
 
 export default class MessageList extends React.Component {
   render() {

@@ -1,9 +1,9 @@
-import React from 'react';
-import { Meteor } from 'meteor/meteor';
-import { check } from 'meteor/check';
-import './CoinItem.css'
+import React            from 'react';
+import { Meteor }       from 'meteor/meteor';
+import { check }        from 'meteor/check';
 
 export default class CoinItem extends React.Component {
+
   constructor(props) {
     super(props);
 
@@ -20,28 +20,32 @@ export default class CoinItem extends React.Component {
   }
 
   render() {
-    const {
-      coin,
-    } = this.props;
+
+    const { coin } = this.props;
+
     return (
-      <div className="message-wrapper coinz-item">
-        <div className="coinz-pie">
-          <i className="fa fa-eur"></i>
-        </div>
-        <div>
-          <p>Nouveau Coinz !</p>
-          <p className="coinz-title">{coin.purpose}</p>
-        </div>
-        <div className="coinz-prop">
-          <p className="coinz-percent">{coin.totalEarned}/{coin.goal} reçu</p>
-        <form onSubmit={this.handleSubmit}>
-          <input
-            type="number"
-            ref="number"
-          />
-          <input type="submit" value="Financer" />
-        </form>
-        </div>
+      <div className="chat-special-bubble chat-special-bubble-coin">
+          <div className="bubble-content">
+              <i className="big-icon icon icon-euro"/>
+              <div className="bubble-header">
+                  <i className="icon icon-euro"/>
+                  <span>Nouveau CoinZ !</span>
+              </div>
+              <h3>{coin.purpose}</h3>
+              <h4>{coin.totalEarned} / {coin.goal} reçu</h4>
+              <form className="merged" onSubmit={this.handleSubmit}>
+                <input
+                  className="small"
+                  type="number"
+                  ref="number"
+                />
+                <button className="small primary button"onClick={this.handleSubmit}>
+                  Financer
+                </button>
+              </form>
+
+
+          </div>
       </div>
     );
   }

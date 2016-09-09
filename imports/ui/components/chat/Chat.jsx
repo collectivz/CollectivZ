@@ -1,11 +1,13 @@
-import React from 'react';
+import React                from 'react';
+import classNames           from 'classnames';
 
-import zorroForm from '../../../api/zorro/zorro.js';
+import zorroForm            from '../../../api/zorro/zorro.js';
 
-import ChatFilter from './ChatFilter.jsx';
-import ZorroItem from './ZorroItem.jsx';
-import MessageInput from './MessageInput.jsx';
-import MessageList from './MessageList.jsx';
+import ChatFilter           from './ChatFilter.jsx';
+import ZorroItem            from './ZorroItem.jsx';
+import MessageInput         from './MessageInput.jsx';
+import MessageList          from './MessageList.jsx';
+
 
 export default class Chat extends React.Component {
 
@@ -88,23 +90,9 @@ export default class Chat extends React.Component {
   }
 
   render() {
-    const {
-      channel,
-      messages,
-      subChannels,
-      beers,
-      polls,
-      coins,
-      feedbacks,
-      user
-    } = this.props;
-    const {
-      zorro,
-      dialogWithZorro,
-      ongoingAction,
-      filter,
-      choices
-    } = this.state;
+
+    const { channel, messages, subChannels, beers, polls, coins, feedbacks, user } = this.props;
+    const { zorro, dialogWithZorro, ongoingAction, filter, choices } = this.state;
 
     let filteredMessages = [];
 
@@ -121,15 +109,18 @@ export default class Chat extends React.Component {
     }
 
     return (
-      <div className="view-container">
+      <div className={classNames("chat-sub-container", {"chat-with-filter-sub-container" : channel.connections})}>
+        
         {channel.connections ?
           <ChatFilter channel={channel} setFilterOption={this.setFilterOption} />
           : ''
         }
-        <div className="pane">
-          <div ref='scroll' className={this.state.padding
-                      + " scroll-content has-chanbar has-tabs has-footer chat "}>
 
+        <div className="chat">
+          <div className="chat-separator">
+              <h5>Cette semaine</h5>
+          </div>
+          <div ref='scroll'>
             <div className="scroll">
               <div className="message-list">
                 <MessageList

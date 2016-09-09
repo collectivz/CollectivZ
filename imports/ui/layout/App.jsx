@@ -26,7 +26,7 @@ export default class App extends React.Component {
     });
 
     return (
-      <div>
+      <div id="app-container">
         {loading ? <Loader /> :
           user ?
           clonedChildren

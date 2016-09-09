@@ -1,9 +1,9 @@
-import React from 'react'
+import React              from 'react'
 
-import ChannelItem from '../components/ChannelItem.jsx';
-import ConversationItem from '../components/ConversationItem.jsx';
-import AppNav from '../components/AppNav.jsx';
-import TopNav from '../components/TopNav.jsx';
+import ChannelItem        from '../components/ChannelItem.jsx';
+import ConversationItem   from '../components/ConversationItem.jsx';
+import AppNav             from '../components/AppNav.jsx';
+import TopNav             from '../components/TopNav.jsx';
 
 export default class ChannelList extends React.Component {
 
@@ -38,39 +38,40 @@ export default class ChannelList extends React.Component {
     });
 
     return (
-      <div>
+      <div className="screen-box">
         <TopNav text={'Vos groupes de discussion'} />
-        <div className="view-container">
-          <div className="page-wrapper">
-            <div className="scroll-content has-top-nav has-tabs-nav">
-              <div className="disable-user-behavior">
-                <div>Liste de mes groupes de discussion</div>
-                <div className="list">
-                  {sortedChannels.map(function(channel) {
-                     return <ChannelItem key={channel._id} channel={channel} />;
-                  })}
-                </div>
-                <div>Liste de mes conversations privées
-                  <div>
-                    <form onSubmit={this.handleSubmit}>
-                      <input
-                        type="text"
-                        placeholder="Nom de la personne"
-                        ref="userInvited"
-                      />
-                      <input type="submit" value="Creer une conversation" />
-                    </form>
-                  </div>
-                </div>
-                <div className="list">
-                  {sortedConversations.map(function(channel) {
-                     return <ConversationItem key={channel._id} channel={channel} />;
-                  })}
-                </div>
+          <div className="sub-container">
+            <div className="list">
+              <div className="list-sub-menu">
+                  <i className="big-icon icon icon-bubble"></i>
+                  <h5>Liste de mes groupes de discussion</h5>
               </div>
+              {sortedChannels.map(function(channel) {
+                 return <ChannelItem key={channel._id} channel={channel} />;
+              })}
+              <div className="list-sub-menu">
+                  <i className="big-icon icon icon-users"></i>
+                  <h5>Liste de mes conversations privées</h5>
+                  <form className="merged">
+                    <fieldset className="small has-icon">
+                      <i className="icon icon-user"></i>
+                      <input
+                        className="small"
+                        type="text"
+                        ref="userInvited"
+                        placeholder="Ajouter un utilisateur"
+                      />
+                    </fieldset>
+                    <button className="small primary button" onClick={this.handleSubmit}>
+                      <i className="icon icon-rotate-45 icon-cross"/>
+                    </button>
+                  </form>
+              </div>
+              {sortedConversations.map(function(channel) {
+                 return <ConversationItem key={channel._id} channel={channel} />;
+              })}
             </div>
           </div>
-        </div>
         <AppNav user={user}/>
       </div>
     );

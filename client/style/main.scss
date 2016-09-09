@@ -1,0 +1,101 @@
+/*
+–––––––––––––––––––––––––––––––––––––––
+  ███╗   ███╗  █████╗  ██╗ ███╗   ██╗
+  ████╗ ████║ ██╔══██╗ ██║ ████╗  ██║
+  ██╔████╔██║ ███████║ ██║ ██╔██╗ ██║
+  ██║╚██╔╝██║ ██╔══██║ ██║ ██║╚██╗██║
+  ██║ ╚═╝ ██║ ██║  ██║ ██║ ██║ ╚████║
+  ╚═╝     ╚═╝ ╚═╝  ╚═╝ ╚═╝ ╚═╝  ╚═══╝
+–––––––––––––––––––––––––––––––––––––––
+*/
+
+@import "helper/core";
+
+@import "color";
+@import "base";
+
+$background-color: color("grey", "lighten-3");
+
+@import "atom/blockquote";
+@import "atom/button";
+@import "atom/input";
+@import "atom/list";
+@import "atom/link";
+@import "atom/code";
+@import "atom/hr";
+@import "atom/tag";
+@import "atom/select";
+@import "atom/touch-event";
+@import "atom/toggle";
+@import "atom/checkbox";
+@import "atom/preloader";
+@import "atom/toastr";
+
+@import "molecule/form";
+@import "molecule/fieldset";
+@import "molecule/center";
+@import "molecule/navbar";
+@import "molecule/breadcrumb";
+@import "molecule/list-sub-menu";
+@import "molecule/list-item";
+@import "molecule/list-empty";
+@import "molecule/chat-input";
+@import "molecule/chat-input-action-picker";
+@import "molecule/chat-bubble";
+@import "molecule/chat-special-bubble";
+@import "molecule/chat-filter";
+@import "molecule/chat-separator";
+@import "molecule/profile";
+
+@import "template/login";
+@import "template/chat";
+@import "template/list";
+@import "template/admin";
+
+html, body, #app-container, #render-target {
+	width:100%;
+	height:100%;
+	position:relative;
+	background-color: $background-color;
+}
+
+svg {
+  display:none;
+}
+
+$sub-container-offset: $breadcrumb-height + $navbar-height;
+
+$chat-sub-container-offset: $breadcrumb-height + $chat-input-height;
+$chat-with-filter-sub-container-offset: $breadcrumb-height + $chat-filter-height + $chat-input-height;
+
+$chat-open-sub-container-offset: $breadcrumb-height + $chat-input-open-height;
+$chat-open-with-filter-sub-container-offset: $breadcrumb-height + $chat-filter-height + $chat-input-open-height;
+
+.sub-container {
+	height: calc(100% - #{$sub-container-offset});
+	top: $breadcrumb-height;
+	width:100%;
+	overflow-y:scroll;
+	position:absolute;
+}
+
+.chat-sub-container, .chat-with-filter-sub-container {
+	height: calc(100% - #{$chat-sub-container-offset});
+	top: $breadcrumb-height;
+	width:100%;
+	overflow-y:scroll;
+	position:absolute;
+	transition: height 200ms ease;
+	&.open {
+		height: calc(100% - #{$chat-open-sub-container-offset});
+	}
+}
+
+
+.chat-with-filter-sub-container {
+	height: calc(100% - #{$chat-with-filter-sub-container-offset});
+	top: $breadcrumb-height + $chat-filter-height;
+	&.open {
+		height: calc(100% - #{$chat-open-with-filter-sub-container-offset});
+	}
+}

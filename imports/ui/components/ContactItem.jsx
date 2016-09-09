@@ -1,12 +1,11 @@
-import React, { Component, PropTypes } from 'react';
-import { Meteor } from 'meteor/meteor';
+import React, { Component, PropTypes }  from 'react';
+import { Meteor }                       from 'meteor/meteor';
 
 export default class ContactItem extends React.Component {
 
   render() {
-    const {
-      userSelected
-    } = this.props;
+    
+    const { userSelected } = this.props;
 
     return (
       <div>

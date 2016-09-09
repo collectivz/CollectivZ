@@ -1,0 +1,51 @@
+$navbar-height: 80px;
+$navbar-size-of-icon: 30px;
+
+$navbar-item-width: 150px;
+
+$navbar-touch-size: $navbar-height * 1.5;
+
+$navbar-base-index: 999;
+
+.navbar {
+	position:fixed;
+	bottom:0;
+	width:100%;
+	height:$navbar-height;
+	z-index: $navbar-base-index;
+	box-shadow: 0 -4px 10px rgba(color("grey", "darken-2"), .25);
+	background-color:color("grey", "darken-2");
+
+    display: flex;
+    justify-content: center;
+
+	.navbar-item {
+		display:inline-block;
+		text-align: center;
+		height:$navbar-height;
+		max-width: $navbar-item-width;
+		-webkit-user-select: none;
+		flex: 1;
+		transition: all 200ms ease;
+		i {
+			color:white;
+			display:block;
+			padding: 12px 12px 8px 12px;
+		}
+		span {
+			color:white;
+			font-family: $nav-font;
+			user-select: none;
+		}
+		&.active {
+			background-color:color("grey", "base");
+		}
+		&::after {
+			background-color:rgba(white, 0.5);
+			width:$navbar-item-width;
+			height:$navbar-item-width;
+			margin-left:-($navbar-item-width / 2);
+			margin-top:-($navbar-item-width / 2);
+		}
+	}
+}

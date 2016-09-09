@@ -1,9 +1,9 @@
-import React, { Component, PropTypes } from 'react';
-import { Meteor } from 'meteor/meteor';
-import { Link } from 'react-router';
-import { _ } from 'meteor/underscore';
-
-import './GuildItem.css';
+import React, { Component, PropTypes }          from 'react';
+import { Meteor }                               from 'meteor/meteor';
+import { Router, Route, Link, browserHistory }  from 'react-router';
+import { _ }                                    from 'meteor/underscore';
+import TouchEvent                               from './TouchEvent';
+import classNames                               from 'classnames';
 
 export default class GuildItem extends Component {
 
@@ -15,20 +15,33 @@ export default class GuildItem extends Component {
     }
   }
 
+  onClick(dest) {
+
+    setTimeout( () => {
+      if (dest) {
+        browserHistory.push(dest);
+      }
+    }, 350 );
+
+  }
+
   render() {
     const {
       guild
     } = this.props;
 
     return (
-      <div className="guild item-avatar item-icon-right item item-complex item-right-editable">
-        <Link className="item-content" to={`/guild/${guild._id}`}>
+      <TouchEvent class="list-item touch-event" onClick={ () => { this.onClick(`/guild/${guild._id}`) } }>
           <img src={guild.picture} alt="" />
-          <h2>{guild.name}</h2>
-          <p>{this.getMemberCount(guild)}</p>
-          <i className="fa fa-chevron-right fa-accessory"></i>
-        </Link>
-      </div>
+          <div className="list-item-content">
+              <p className="title">{guild.name}</p>
+              <div className="tag">
+                <i className="icon icon-user"/>
+                <span>{this.getMemberCount(guild)}</span>
+              </div>
+          </div>
+          <i className="icon icon-3x icon-chevron-right"/>
+      </TouchEvent>
     );
   }
 }

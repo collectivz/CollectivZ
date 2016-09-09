@@ -1,0 +1,12 @@
+@mixin clearfix() {
+	content: "";
+	display: table;
+	clear: both;
+	min-height: 0px;
+	overflow: hidden;
+	display: block;
+}
+
+.clearfix {
+	@include clearfix();
+}

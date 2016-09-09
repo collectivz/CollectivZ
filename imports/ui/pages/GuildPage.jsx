@@ -1,36 +1,36 @@
-import React from 'react';
+import React            from 'react';
 
-import GuildPageHeader from '../components/GuildPageHeader.jsx';
-import AppNav from '../components/AppNav.jsx';
-import Loader from '../components/Loader.jsx';
-import GuildBody from '../components/GuildBody.jsx';
+import GuildPageHeader  from '../components/GuildPageHeader.jsx';
+import AppNav           from '../components/AppNav.jsx';
+import TopNav           from '../components/TopNav.jsx';
+import Loader           from '../components/Loader.jsx';
+import GuildBody        from '../components/GuildBody.jsx';
+
 
 export default class GuildPage extends React.Component {
 
   render() {
-    const {
-      loading,
-      guild,
-      channels,
-      members,
-      user
-    } = this.props;
+
+    const { loading, guild, channels, members, user } = this.props;
 
     return (
-      <div>
-      {loading ?
-        <Loader />
-        : <div>
-            <GuildPageHeader guild={guild} user={user} />
-            <GuildBody
+      <div className="screen-box">
+        <div className="screen-box">
+          <TopNav text="Profil de guilde"/>
+          <div className="sub-container">
+            <GuildPageHeader
               guild={guild}
               user={user}
               channels={channels}
               members={members}
+              />
+            <GuildBody
+              channels={channels}
+              members={members}
             />
-            <AppNav user={user}/>
           </div>
-      }
+          <AppNav user={user}/>
+        </div>
       </div>
     );
   }

@@ -1,38 +1,48 @@
-import React, { Component, PropTypes } from 'react';
-import { Meteor } from 'meteor/meteor';
-import { Link } from 'react-router';
-import { _ } from 'meteor/underscore';
+import React, { Component, PropTypes }          from 'react';
+import { Meteor }                               from 'meteor/meteor';
+import { Router, Route, Link, browserHistory }  from 'react-router';
+import { _ }                                    from 'meteor/underscore';
+import TouchEvent                               from './TouchEvent';
+import classNames                               from 'classnames';
 
-import ActionList from './ActionList.jsx';
-
-import './ChannelItem.css';
+import ActionList                               from './ActionList.jsx';
 
 export default class ChannelItem extends React.Component {
+
+  onClick(dest) {
+
+    setTimeout( () => {
+      if (dest) {
+        browserHistory.push(dest);
+      }
+    }, 350 );
+
+  }
+
   render() {
-    const {
-      channel
-    } = this.props;
+
+    const { channel } = this.props;
 
     return (
-      <div className="item-avatar item-icon-right item item-complex item-right-editable">
-        <Link className="item-content" to={`/group/${channel._id}`}>
+      <TouchEvent class="list-item touch-event" onClick={ () => { this.onClick(`/group/${channel._id}`) } }>
           <img src="/img/zorro.jpg" alt="" />
-          <h2>{channel.name}</h2>
-          <div>
-            {channel.lastMessage ?
-              channel.lastMessage.author ?
-                `${channel.lastMessage.author} : ${channel.lastMessage.text}`
-                : `${channel.lastMessage.text}`
-              : ''
-            }
+          <div className="list-item-content">
+              <p className="title">{channel.name}</p>
+              <p className="text">
+                {channel.lastMessage ?
+                  channel.lastMessage.author ?
+                    `${channel.lastMessage.author} : ${channel.lastMessage.text}`
+                    : `${channel.lastMessage.text}`
+                  : ''
+                }
+              </p>
+              {channel.connections ?
+                <ActionList actions={channel.connections} />
+                : ''
+              }
           </div>
-          {channel.connections ?
-            <ActionList actions={channel.connections} />
-            : ''
-          }
-          <i className="fa fa-chevron-right fa-accessory"></i>
-        </Link>
-      </div>
+          <i className="icon icon-3x icon-chevron-right"/>
+      </TouchEvent>
     );
   }
 }

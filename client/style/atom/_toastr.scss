@@ -1,0 +1,20 @@
+.toastr {
+
+  right: 12px;
+  bottom: 12px;
+  position: fixed;
+  z-index: 999999;
+  padding:10px;
+  border-radius:3px;
+  
+  &.toast-success {
+    background-color: color("success", "base");
+  }
+  &.toast-error {
+    background-color: color("danger", "base");
+  }
+  &.toast-info {
+    background-color: color("info", "base");
+  }
+  
+}

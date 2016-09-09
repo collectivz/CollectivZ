@@ -1,8 +1,7 @@
-import React, { Component, PropTypes } from 'react';
-import ReactDOM from 'react-dom';
-import { Meteor } from 'meteor/meteor';
+import React, { Component, PropTypes }    from 'react';
+import ReactDOM                           from 'react-dom';
+import { Meteor }                         from 'meteor/meteor';
 
-import './ZorroItem.css';
 
 export default class ZorroItem extends Component {
 
@@ -16,9 +15,9 @@ export default class ZorroItem extends Component {
 
   isMine () {
     if (this.props.message.author === 'self') {
-      return 'message message-mine';
+      return 'chat-bubble chat-bubble-mine';
     } else {
-      return 'message message-other';
+      return 'chat-bubble chat-bubble-other';
     }
   }
 
@@ -48,30 +47,31 @@ export default class ZorroItem extends Component {
     } = this.props;
 
     return (
-      <div className="message-wrapper">
-        <div className={this.isMine()}>
-          <div className="message-header">
-            <span className="message-user">{this.getName()}</span>
+      <div className={this.isMine()}>
+          <img src={this.userAvatar(message.author)}/>
+          <div className="bubble-content">
+              <div className="bubble-content-header">
+                  <span className="name">{this.getName()}</span>
+              </div>
+              <p className="text">
+                {message.text}
+              </p>
+              {
+                message.author === 'Zorro' ?
+                <form class="merged">
+                  {choices.map((choice, index) => {
+                    return (<button className="button primary" onClick={answerToZorro.bind(this, choice)} key={index}>{choice}</button>);
+                  })}
+                </form>
+                :
+                  ''
+              }
           </div>
-          <div className="text">
-            {message.text}
-          </div>
-          {message.author === 'Zorro' ?
-            <div>
-            {choices.map((choice, index) => {
-              return (<button onClick={answerToZorro.bind(this, choice)} key={index}>{choice}</button>);
-            })}
-            </div>
-            : ''
-          }
-          <span className="picture">
-            <img src={this.userAvatar(message.author)} alt="" />
-          </span>
-        </div>
       </div>
     );
   }
 }
+
 
 ZorroItem.propTypes = {
   message: PropTypes.object.isRequired,

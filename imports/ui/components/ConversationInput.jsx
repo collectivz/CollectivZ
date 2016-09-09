@@ -1,12 +1,12 @@
 import React, { Component, PropTypes } from 'react';
-import { Meteor } from 'meteor/meteor';
+import { Meteor }                      from 'meteor/meteor';
+import $                                  from 'jquery';
 
 
 export default class ConversationInput extends Component {
 
   constructor(props) {
     super(props);
-
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.textareaHeightTweak = this.textareaHeightTweak.bind(this);
@@ -16,7 +16,11 @@ export default class ConversationInput extends Component {
   componentDidMount() {
     this.setState({
       barHeight: { height: this.refs.bar.scrollHeight + 10 }
-    })
+    });
+    setTimeout( () => {
+       console.log(1234);
+      $(".chat-sub-container").scrollTop(1000000);
+    }, 150);
   }
 
   keyboardEvent(e) {
@@ -25,8 +29,10 @@ export default class ConversationInput extends Component {
     }
   }
 
-  handleSubmit(event) {
-    event.preventDefault();
+  handleSubmit(e) {
+
+    e.preventDefault();
+
     const text = this.refs.textInput.value.trim();
 
     if (text !== '') {
@@ -48,10 +54,6 @@ export default class ConversationInput extends Component {
     }
   }
 
-  getCss() {
-    return "bar-stable bar bar-footer item-input-inset";
-  }
-
   textareaHeightTweak(e) {
     this.setState({
       barHeight: { height: this.refs.textInput.scrollHeight + 10 },
@@ -61,15 +63,19 @@ export default class ConversationInput extends Component {
 
   render() {
     return (
-      <div ref="bar">
-        <div className={this.getCss()}>
-          <label className="item-input-wrapper">
-            <form className="new-msg" onSubmit={this.handleSubmit}>
-              <textarea onKeyUp={this.keyboardEvent} onChange={this.textareaHeightTweak} className="message-input" name="name" ref="textInput" ></textarea>
-            </form>
-          </label>
-          <button type="button" name="button" onClick={this.handleSubmit}>
-            <i className="fa fa-paper-plane" aria-hidden="true"></i>
+      <div ref="bar" className="chat-input-wrapper">
+        <div className="chat-input">
+          <form className="chat-input-form">
+            <textarea
+              onKeyUp={this.keyboardEvent}
+              onChange={this.textareaHeightTweak}
+              name="name"
+              className="chat-input-textarea"
+              ref="textInput">
+            </textarea>
+          </form>
+          <button onClick={this.handleSubmit} className="chat-input-button-right button">
+            <i className="icon icon-paperplane"></i>
           </button>
         </div>
       </div>

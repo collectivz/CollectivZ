@@ -1,0 +1,39 @@
+$chat-filter-height: 50px;
+$chat-filter-open-height: 150px;
+
+.chat-filter {
+	background-color: color("grey", "darken-2");
+	width:100%;
+	position:fixed;
+	top: $breadcrumb-height;
+	height: $chat-filter-height;
+	text-align: center;
+	box-shadow: 0 4px 10px rgba(color("grey", "darken-1"), .25);
+	.filter-item {
+
+		-webkit-user-select:none;
+
+		display:inline-block;
+		color:white;
+		background-color: color("grey", "darken-2");
+		padding:16px;
+		&.active {
+			background-color: color("grey", "darken-1");
+		}
+		i {
+			margin-left:5px;
+			opacity:0.5;
+		}
+		&::after {
+			width:100px;
+			height:100px;
+			margin-left:-50px;
+			margin-top:-50px;
+			background-color: color("grey", "lighten-1");
+		}
+	}
+
+	&.open {
+		height:$chat-filter-open-height;
+	}
+}

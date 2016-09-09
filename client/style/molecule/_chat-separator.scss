@@ -1,0 +1,26 @@
+.chat-separator {
+	position: relative;
+	width: 100%;
+	margin: ($text-size * 2) auto;
+	overflow: hidden;
+	h5 {
+		text-align: center;
+		padding: 0 15px;
+		font-family: $nav-font;
+		text-transform: uppercase;
+		background-color: $background-color;
+		&::before, &::after {
+			content: "";
+			display: inline-block;
+			width: 50%;
+			height: 1px;
+			background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAHklEQVQIW2NkQAX1jEj8eiC7ESYA5oAkQQJwDkgAAGKuA4R0d0m8AAAAAElFTkSuQmCC) repeat;
+			opacity: 0.4;
+			margin: 0 1.4rem 4px -55%;
+			vertical-align: middle;
+		}
+		&::after {
+			margin: 0 -55% 4px 1.4rem;
+		}
+	}
+}
