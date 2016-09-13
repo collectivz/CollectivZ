@@ -7,6 +7,7 @@ import TopNav                           from '../components/TopNav.jsx';
 import HistoryItem                      from '../components/HistoryItem.jsx';
 import GuildItem                        from '../components/GuildItem.jsx';
 import ChannelItem                      from '../components/ChannelItem.jsx';
+import UpdateAvatar                     from '../components/UpdateAvatar.jsx';
 
 
 export default class MyProfile extends Component {
@@ -23,7 +24,7 @@ export default class MyProfile extends Component {
         <div className="sub-container">
 
           <UserHeader user={user}/>
-
+          <UpdateAvatar />
           <div className="list">
             <div className="list-sub-menu">
               <i className="big-icon icon icon-temple"/>
