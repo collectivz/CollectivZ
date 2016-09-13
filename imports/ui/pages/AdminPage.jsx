@@ -32,12 +32,12 @@ export default class AdminPage extends Component {
           <div className="sub-container center">
             <div className="center-wrapper admin">
               <i className="big-icon icon icon-2x icon-temple"/>
-              <h5>Créer une nouvelle guilde</h5>
+              <h5>Créer une nouvelle projet</h5>
               <form className="merged">
                 <input
                   type="text"
                   className="small"
-                  placeholder="Nom de la guilde"
+                  placeholder="Nom de la projet"
                   ref="guildName"
                 />
                 <button onClick={this.handleSubmit} className="small button primary">

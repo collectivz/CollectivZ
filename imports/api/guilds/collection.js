@@ -15,7 +15,7 @@ class GuildCollection extends Mongo.Collection {
       return super.insert(guild, callback);
     } else {
       throw new Meteor.Error('guild-exists',
-        "Une guilde portant ce nom existe déjà");
+        "Une projet portant ce nom existe déjà");
     }
   }
 }

@@ -31,7 +31,7 @@ export default class ProfilePage extends Component {
                   
                   <div className="list-sub-menu">
                       <i className="big-icon icon icon-temple"/>
-                      <h5>Guildes dont {user.username} fait parti</h5>
+                      <h5>Projets dont {user.username} fait parti</h5>
                   </div>
 
                   {guilds.map(guild => {

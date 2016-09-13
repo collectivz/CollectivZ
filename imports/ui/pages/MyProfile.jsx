@@ -27,7 +27,7 @@ export default class MyProfile extends Component {
           <div className="list">
             <div className="list-sub-menu">
               <i className="big-icon icon icon-temple"/>
-              <h5>Guildes dont vous faites parti</h5>
+              <h5>Projets dont vous faites parti</h5>
             </div>
             {guilds ?
               <div>
@@ -36,7 +36,7 @@ export default class MyProfile extends Component {
                 })}
               </div>
               : <div className="list-empty">
-                  <p><i className="icon icon-sad"/>Vous n'avez pas encore de guilde</p>
+                  <p><i className="icon icon-sad"/>Vous n'avez pas encore de projet</p>
                 </div>
             }
             <div className="list-sub-menu">

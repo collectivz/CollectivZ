@@ -10,13 +10,13 @@ Meteor.methods({
   'guilds.insert'(guildName) {
     if (!this.userId) {
       throw new Meteor.Error('not-logged-in',
-        'Vous devez être connecté pour créer une guilde.');
+        'Vous devez être connecté pour créer une projet.');
     }
     check(guildName, String);
 
     if (guildName.length === 0) {
       throw new Meteor.Error('no-name',
-        'Une guilde doit porter un nom.');
+        'Une projet doit porter un nom.');
     }
 
     let guild = {
@@ -49,7 +49,7 @@ Meteor.methods({
   'guilds.join'(guildId) {
     if (!this.userId) {
       throw new Meteor.Error('not-logged-in',
-        'Vous devez être connecté pour rejoindre une guilde.');
+        'Vous devez être connecté pour rejoindre une projet.');
     }
 
     check(guildId, String);
@@ -59,10 +59,10 @@ Meteor.methods({
 
     if (!guild) {
       throw new Meteor.Error('does not exist',
-        "Cette guilde n'existe pas.");
+        "Cette projet n'existe pas.");
     } else if (_.contains(user.subscribedGuilds, guildId)) {
       throw new Meteor.Error('already joined',
-        "Vous faites déjà parti de cette guilde.");
+        "Vous faites déjà parti de cette projet.");
     }
 
     Meteor.users.update(this.userId,
@@ -78,7 +78,7 @@ Meteor.methods({
   'guilds.changeName'(newName, guildId) {
     if (!this.userId) {
       throw new Meteor.Error('not-logged-in',
-        'Vous devez être connecté pour renommer une guilde.');
+        'Vous devez être connecté pour renommer une projet.');
     }
 
     check(newName, String);
@@ -89,12 +89,12 @@ Meteor.methods({
 
     if (!guild) {
       throw new Meteor.Error('does not exist',
-        "Cette guilde n'existe pas.");
+        "Cette projet n'existe pas.");
     }
 
     if (!_.contains(guild.leaders, user._id) || !user.profile.admin) {
       throw new Meteor.Error('no-right',
-        "Vous n'avez pas les droits pour changer le nom de cette guilde.");
+        "Vous n'avez pas les droits pour changer le nom de cette projet.");
     }
 
     Guilds.update(guildId, {

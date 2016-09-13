@@ -20,7 +20,7 @@ export default class GuildPage extends React.Component {
             <Loader />
           :
           <div className="screen-box">
-            <TopNav text="Profil de guilde"/>
+            <TopNav text="Profil de projet"/>
             <div className="sub-container">
               <GuildPageHeader
               guild={guild}
