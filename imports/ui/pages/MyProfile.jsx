@@ -18,10 +18,10 @@ export default class MyProfile extends Component {
     return (
       <div className="screen-box">
 
-        <TopNav text="Profile"/>
-        
+        <TopNav text="Profil"/>
+
         <div className="sub-container">
-        
+
           <UserHeader user={user}/>
 
           <div className="list">
