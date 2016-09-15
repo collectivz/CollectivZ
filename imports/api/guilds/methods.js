@@ -100,6 +100,9 @@ Meteor.methods({
     Guilds.update(guildId, {
       $set: { name: newName }
     });
+    Channels.update(guild.mainChannel, {
+      $set : { name: newName }
+    });
   },
   'guilds.changePicture'(url, guildId) {
     const userId = this.userId;
