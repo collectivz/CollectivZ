@@ -22,14 +22,6 @@ export default class GuildBody extends React.Component {
     return (
       <div className="list">
 
-        <div className="list-sub-menu">
-            <i className="big-icon icon icon-users"/>
-            <h5>Liste des membres</h5>
-        </div>
-
-        {members.map(member => {
-          return (<UserItem user={member} key={member._id}/>);
-        })}
 
         <div className="list-sub-menu">
             <i className="big-icon icon icon-bubble"/>
@@ -46,6 +38,15 @@ export default class GuildBody extends React.Component {
             <p><i className="icon icon-sad"/> Aucune action en cours</p>
           </div>
         }
+        
+        <div className="list-sub-menu">
+            <i className="big-icon icon icon-users"/>
+            <h5>Liste des membres</h5>
+        </div>
+
+        {members.map(member => {
+          return (<UserItem user={member} key={member._id}/>);
+        })}
       </div>
     );
   }

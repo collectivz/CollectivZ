@@ -39,13 +39,13 @@ export default class ChannelList extends React.Component {
 
     return (
       <div className="screen-box">
-        <TopNav text={'Vos groupes de discussion'} />
+        <TopNav text={'Récent'} />
           <div className="sub-container">
             <div className="list">
-              <div className="list-sub-menu">
+              {/* <div className="list-sub-menu">
                   <i className="big-icon icon icon-bubble"></i>
                   <h5>Liste de mes groupes de discussion</h5>
-              </div>
+              </div> */}
               {sortedChannels.map(function(channel) {
                  return <ChannelItem key={channel._id} channel={channel} />;
               })}

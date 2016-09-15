@@ -32,7 +32,7 @@ export default class AdminPage extends Component {
           <div className="sub-container center">
             <div className="center-wrapper admin">
               <i className="big-icon icon icon-2x icon-temple"/>
-              <h5>Créer une nouvelle projet</h5>
+              <h5>Créer une nouveau groupe</h5>
               <form className="merged">
                 <input
                   type="text"

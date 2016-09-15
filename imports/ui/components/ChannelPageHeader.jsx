@@ -1,10 +1,10 @@
 import React, { Component }                     from 'react';
 import { Meteor }                               from 'meteor/meteor';
 import { Router, Route, Link, browserHistory }  from 'react-router';
-
-import TouchEvent                               from './TouchEvent';
 import classNames                               from 'classnames';
 
+import TouchEvent                               from './TouchEvent';
+import ChevronBack                              from './ChevronBack';
 
 export default class ChannelPageHeader extends Component {
 
@@ -28,10 +28,8 @@ export default class ChannelPageHeader extends Component {
 
     return (
       <div className="breadcrumb">
-        <TouchEvent class="back-button touch-event" onClick={ () => { this.onClick('/my-groups') } }>
-          <i className="icon icon-3x icon-chevron-left"/>
-        </TouchEvent>
-        <h4 className="text">{`groupe ${channel.name}`}</h4>
+        <ChevronBack />
+        <h4 className="text">{`Groupe ${channel.name}`}</h4>
         <TouchEvent class="logout-button touch-event" onClick={ this.logout }>
           <i className="icon icon-3x icon-exit"/>
         </TouchEvent>

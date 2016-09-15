@@ -53,12 +53,10 @@ export default class GuildPageHeader extends React.Component {
   }
 
   render() {
-    
+
     const { guild, user, members, channels } = this.props;
 
     let hasJoined = false;
-    
-    console.log(guild);
 
     if (_.contains(guild.members, user._id)) {
       hasJoined = true;
@@ -97,7 +95,7 @@ export default class GuildPageHeader extends React.Component {
               {this.state.hasJoined || hasJoined ?
                 <div className="tag white">
                     <i className="icon icon-checkmark-circle"/>
-                    <span>Vous faites parti de cette communauté.</span>
+                    <span>Vous faites partie de ce groupe.</span>
                 </div>
                 :
                 <button className="primary button" onClick={this.joinGuild}>Rejoindre {guild.name}</button>

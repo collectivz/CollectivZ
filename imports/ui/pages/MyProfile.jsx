@@ -28,7 +28,7 @@ export default class MyProfile extends Component {
           <div className="list">
             <div className="list-sub-menu">
               <i className="big-icon icon icon-temple"/>
-              <h5>Projets dont vous faites parti</h5>
+              <h5>Groupes dont vous faites partie</h5>
             </div>
             {guilds ?
               <div>
@@ -42,7 +42,7 @@ export default class MyProfile extends Component {
             }
             <div className="list-sub-menu">
               <i className="big-icon icon icon-bubble"/>
-              <h5>Discussions dont vous faites parti</h5>
+              <h5>Discussions dont vous faites partie</h5>
             </div>
             {channels ?
                 <div>

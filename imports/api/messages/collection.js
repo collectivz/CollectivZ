@@ -27,10 +27,13 @@ class messageCollection extends Mongo.Collection {
     const lastMessage = {
       text: 'Message supprimé.'
     };
+    const channel = Channels.findOne(_message.channelId);
 
-    Channels.update(_message.channelId, {
-      $set: { lastMessage }
-    });
+    if (channel.lastMessage.text === _message.text) {
+      Channels.update(_message.channelId, {
+        $set: { lastMessage }
+      });
+    }
 
     return super.remove(message, callback);
   }

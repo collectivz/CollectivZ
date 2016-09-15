@@ -18,7 +18,6 @@ export default class ConversationInput extends Component {
       barHeight: { height: this.refs.bar.scrollHeight + 10 }
     });
     setTimeout( () => {
-       console.log(1234);
       $(".chat-sub-container").scrollTop(1000000);
     }, 150);
   }

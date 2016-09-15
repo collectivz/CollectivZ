@@ -13,7 +13,7 @@ import HistoryItem from '../components/HistoryItem.jsx';
 export default class ProfilePage extends Component {
 
   render() {
-    
+
     const { user, guilds, channels, currentUser, history } = this.props;
 
     return (
@@ -21,31 +21,31 @@ export default class ProfilePage extends Component {
         {user ?
             <div className="screen-box">
 
-              <TopNav text="Profile"/>
+              <TopNav text="Profil"/>
 
               <div className="sub-container">
 
                 <UserHeader user={user}/>
 
                 <div className='list'>
-                  
+
                   <div className="list-sub-menu">
                       <i className="big-icon icon icon-temple"/>
-                      <h5>Projets dont {user.username} fait parti</h5>
+                      <h5>Groupes dont {user.username} fait partie</h5>
                   </div>
 
                   {guilds.map(guild => {
                     return (<GuildItem guild={guild} key={guild._id}/>);
                   })}
-                  
+
                   <div className="list-sub-menu">
                       <i className="big-icon icon icon-bubble"/>
-                      <h5>Discussions dont {user.username} fait parti</h5>
+                      <h5>Discussions dont {user.username} fait partie</h5>
                   </div>
                   {channels.map(channel => {
                     return (<ChannelItem channel={channel} key={channel._id}/>);
                   })}
-                  
+
                   <div className="list-sub-menu">
                       <i className="big-icon icon icon-history"/>
                       <h5>Historique des évaluations</h5>
@@ -56,7 +56,7 @@ export default class ProfilePage extends Component {
                         return (<HistoryItem historyItem={historyItem} key={index} />);
                       })}
                     </div>
-                    : 
+                    :
                     <div className="list-empty">
                       <p><i className="icon icon-sad"/> Aucune évaluation</p>
                     </div>

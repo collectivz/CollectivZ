@@ -1,7 +1,7 @@
 import React, { Component, PropTypes }    from 'react';
 import { Meteor }                         from 'meteor/meteor';
 
-import { Moment }                         from 'moment';
+import moment                             from 'moment';
 
 
 export default class MessageItem extends Component {
@@ -74,11 +74,7 @@ export default class MessageItem extends Component {
 
     const { editing } = this.state;
 
-    console.log(Moment);
-    
-    let time = "";
-
-    //let time = Moment(message.createdAt).fromNow();
+    let time = moment(message.createdAt).fromNow();
 
     return (
       <div className={this.isMine()} >
@@ -99,7 +95,7 @@ export default class MessageItem extends Component {
                 </span>
 
                 <span className="date">{time}</span>
-                
+
                 {
                   (message.author === Meteor.userId()) ?
                     <div className="bubble-content-admin">
@@ -111,7 +107,7 @@ export default class MessageItem extends Component {
                 }
 
               </div>
-              
+
               {
                 editing ?
                   <div>

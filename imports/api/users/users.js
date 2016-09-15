@@ -6,7 +6,6 @@ Accounts.onLogin(function() {
   const lastLogin = Meteor.user().lastLogin;
   const date = Date.now();
 
-  console.log('yolooo');
   if (lastLogin < date) {
     Meteor.users.update(Meteor.userId(), {$set: {lastLogin: date }})
   }

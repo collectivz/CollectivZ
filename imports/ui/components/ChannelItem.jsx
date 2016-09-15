@@ -19,6 +19,13 @@ export default class ChannelItem extends React.Component {
 
   }
 
+  renderLastMessage(message) {
+    if (message.length > 70) {
+      return message.slice(0, 69) + '...';
+    }
+    return message;
+  }
+
   render() {
 
     const { channel } = this.props;
@@ -31,8 +38,8 @@ export default class ChannelItem extends React.Component {
               <p className="text">
                 {channel.lastMessage ?
                   channel.lastMessage.author ?
-                    `${channel.lastMessage.author} : ${channel.lastMessage.text}`
-                    : `${channel.lastMessage.text}`
+                    `${channel.lastMessage.author} : ${this.renderLastMessage(channel.lastMessage.text)}`
+                    : `${this.renderLastMessage(channel.lastMessage.text)}`
                   : ''
                 }
               </p>

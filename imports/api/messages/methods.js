@@ -41,12 +41,15 @@ Meteor.methods({
       throw new Meteor.Error('not-author',
         "Vous devez être auteur d'un message pour l'éditer.");
     }
+    const channel = Channels.findOne(message.channelId);
 
+    if (channel.lastMessage.text === message.text) {
+      Channels.update(message.channelId, {
+        $set: { 'lastMessage.text' : newText }
+      });
+    }
     Messages.update(messageId, {
       $set: { text : newText }
-    });
-    Channels.update(message.channelId, {
-      $set: { 'lastMessage.text' : newText }
     });
   },
   'messages.delete'(messageId) {
