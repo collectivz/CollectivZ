@@ -28,6 +28,7 @@ Meteor.methods({
     channel.parentId = parent._id;
     channel.depth = parent.depth + 1;
     channel.rootId = parent.rootId;
+    channel.type = 'channel';
 
 
     const channelId = Channels.insert(channel)
@@ -144,6 +145,7 @@ Meteor.methods({
       parentId: "",
       rootId: "",
       messageId: "",
+      type: 'conversation'
     }
 
     const newConversationChannelId = Channels.insert(newConversationChannel);

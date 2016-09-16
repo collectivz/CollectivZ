@@ -42,6 +42,7 @@ class messageCollection extends Mongo.Collection {
     }
 
     const hasSeenFieldName = 'hasSeen.' + channel._id;
+
     Meteor.users.update(
       { subscribedChannels : { $in: [channel._id] } },
       { $inc: { [hasSeenFieldName] : -1 } },

@@ -24,6 +24,7 @@ export default class MessageItem extends Component {
     const {
       message
     } = this.props;
+    
     const newText = this.refs.textInput.value;
 
     Meteor.call('messages.edit', newText, message._id);
@@ -74,6 +75,7 @@ export default class MessageItem extends Component {
 
     const { editing } = this.state;
 
+    moment.locale('fr');
     let time = moment(message.createdAt).fromNow();
 
     return (

@@ -21,7 +21,10 @@ export default class MessageInput extends Component {
   }
 
   componentDidUpdate() {
-    if (!this.state.showActions && this.props.inputMode != 'message') {
+    const { inputMode, hasActionPicker } = this.props;
+    const { showActions } = this.state;
+
+    if (!showActions && inputMode != 'message' && hasActionPicker === true) {
       this.props.changeInputMode('message');
     }
   }
@@ -43,9 +46,10 @@ export default class MessageInput extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
+    const { inputMode, hasActionPicker } = this.props;
     const text = this.refs.textInput.value.trim();
 
-    if (this.props.inputMode === 'message') {
+    if (inputMode === 'message' || hasActionPicker === false) {
       let message = {
         text,
         channelId: this.props.channelId,
@@ -100,12 +104,18 @@ export default class MessageInput extends Component {
   }
 
   render() {
+    const { hasActionPicker } = this.props;
+
     return (
       <div ref="bar" className="chat-input-wrapper">
         <div className="chat-input">
-          <button onClick={this.toggleAction} className="chat-input-button-left button">
-            <i className="icon icon-plus-circle"></i>
-          </button>
+          {
+            hasActionPicker ?
+              <button onClick={this.toggleAction} className="chat-input-button-left button">
+                <i className="icon icon-plus-circle"></i>
+              </button>
+            : ''
+          }
           <form className="chat-input-form">
             <textarea
               onKeyUp={this.keyboardEvent}
@@ -119,7 +129,11 @@ export default class MessageInput extends Component {
             <i className="icon icon-paperplane"></i>
           </button>
         </div>
-        <ActionPicker changeInputMode={this.props.changeInputMode}/>
+        {
+          hasActionPicker ?
+            <ActionPicker changeInputMode={this.props.changeInputMode}/>
+          : ''
+        }
       </div>
     );
   }

@@ -51,5 +51,25 @@ Meteor.methods({
     Meteor.users.update(this.userId, {
       $set: { [hasSeenFieldName] : channel.messageCount }
     });
+  },
+  'users.getUnreadTotal'() {
+    if (!this.userId) {
+      throw new Meteor.Error('not-logged-in',
+        "Vous devez être connecté pour changer d'avatar.");
+    }
+
+    const user = Meteor.user();
+    const channels = Channels.find(
+      { _id: { $in: user.subscribedChannels } },
+      { fields: { messageCount: 1, _id: 1 } }
+    ).fetch()
+
+    let total = 0;
+
+    channels.forEach(channel => {
+      total = total + (channel.messageCount - user.hasSeen[channel._id]);
+    });
+
+    return total;
   }
 });

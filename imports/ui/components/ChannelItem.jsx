@@ -13,14 +13,21 @@ export default class ChannelItem extends React.Component {
     super(props);
 
     this.getUnseenCount = this.getUnseenCount.bind(this);
+    this.onClick = this.onClick.bind(this);
   }
 
-  onClick(dest) {
+  onClick() {
+    const { channel } = this.props;
+    let dest = '';
+
+    if (channel.type === 'conversation') {
+      dest = `/conversation/${channel._id}`;
+    } else {
+      dest = `/group/${channel._id}`;
+    }
 
     setTimeout( () => {
-      if (dest) {
-        browserHistory.push(dest);
-      }
+      browserHistory.push(dest);
     }, 350 );
 
   }
@@ -46,7 +53,7 @@ export default class ChannelItem extends React.Component {
     const { channel } = this.props;
 
     return (
-      <TouchEvent class="list-item touch-event" onClick={ () => { this.onClick(`/group/${channel._id}`) } }>
+      <TouchEvent class="list-item touch-event" onClick={this.onClick}>
           <img src="/img/zorro.jpg" alt="" />
           <div className="list-item-content">
               <p className="title">{channel.name}</p>
@@ -62,7 +69,7 @@ export default class ChannelItem extends React.Component {
                 <ActionList actions={channel.connections} />
                 : ''
               }
-              T'as pas vu : {this.getUnseenCount()} message(s)
+              {/* T'as pas vu : {this.getUnseenCount()} message(s) */}
           </div>
           <i className="icon icon-3x icon-chevron-right"/>
       </TouchEvent>

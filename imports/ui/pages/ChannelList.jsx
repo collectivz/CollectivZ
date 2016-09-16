@@ -1,9 +1,8 @@
-import React              from 'react'
+import React               from 'react'
 
-import ChannelItem        from '../components/ChannelItem.jsx';
-import ConversationItem   from '../components/ConversationItem.jsx';
-import AppNav             from '../components/AppNav.jsx';
-import TopNav             from '../components/TopNav.jsx';
+import List                from '../components/List.jsx';
+import AppNav              from '../components/AppNav.jsx';
+import Breadcrumb          from '../components/Breadcrumb.jsx';
 
 export default class ChannelList extends React.Component {
 
@@ -39,18 +38,15 @@ export default class ChannelList extends React.Component {
 
     return (
       <div className="screen-box">
-        <TopNav text={'Récent'} />
+        <Breadcrumb title="Récent" hasBack={false} />
           <div className="sub-container">
             <div className="list">
               {/* <div className="list-sub-menu">
                   <i className="big-icon icon icon-bubble"></i>
                   <h5>Liste de mes groupes de discussion</h5>
               </div> */}
-              {sortedChannels.map(function(channel) {
-                const messageSeenCount = user.hasSeen[channel._id];
-                return <ChannelItem key={channel._id} channel={channel} messageSeenCount={messageSeenCount}/>;
-              })}
-              {/* <div className="list-sub-menu">
+              <List data={sortedChannels} user={user} type="channel" />
+              <div className="list-sub-menu">
                   <i className="big-icon icon icon-users"></i>
                   <h5>Liste de mes conversations privées</h5>
                   <form className="merged">
@@ -68,9 +64,7 @@ export default class ChannelList extends React.Component {
                     </button>
                   </form>
               </div>
-              {sortedConversations.map(function(channel) {
-                 return <ConversationItem key={channel._id} channel={channel} />;
-              })} */}
+              <List data={sortedConversations} user={user} type="conversation" />
             </div>
           </div>
         <AppNav user={user}/>

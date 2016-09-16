@@ -2,7 +2,7 @@ import React, { Component, PropTypes }    from 'react';
 import { Meteor }                         from 'meteor/meteor';
 
 import AppNav                             from '../components/AppNav.jsx';
-import TopNav                             from '../components/TopNav.jsx';
+import Breadcrumb                             from '../components/Breadcrumb.jsx';
 
 export default class AdminPage extends Component {
 
@@ -28,7 +28,7 @@ export default class AdminPage extends Component {
 
     return (
       <div className="screen-box">
-        <TopNav text="Config admin"/>
+        <Breadcrumb title="Coordination" hasBack={false} />
           <div className="sub-container center">
             <div className="center-wrapper admin">
               <i className="big-icon icon icon-2x icon-temple"/>

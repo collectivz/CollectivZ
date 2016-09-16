@@ -3,10 +3,8 @@ import { Meteor }                       from 'meteor/meteor';
 
 import UserHeader                       from '../components/UserHeader.jsx';
 import AppNav                           from '../components/AppNav.jsx';
-import TopNav                           from '../components/TopNav.jsx';
-import HistoryItem                      from '../components/HistoryItem.jsx';
-import GuildItem                        from '../components/GuildItem.jsx';
-import ChannelItem                      from '../components/ChannelItem.jsx';
+import Breadcrumb                       from '../components/Breadcrumb.jsx';
+import List                             from '../components/List';
 import UpdateAvatar                     from '../components/UpdateAvatar.jsx';
 
 
@@ -19,8 +17,7 @@ export default class MyProfile extends Component {
     return (
       <div className="screen-box">
 
-        <TopNav text="Profil"/>
-
+        <Breadcrumb title="Mon profil" hasBack={false} />
         <div className="sub-container">
 
           <UserHeader user={user}/>
@@ -30,44 +27,17 @@ export default class MyProfile extends Component {
               <i className="big-icon icon icon-temple"/>
               <h5>Groupes dont vous faites partie</h5>
             </div>
-            {guilds ?
-              <div>
-                {guilds.map(guild => {
-                  return (<GuildItem guild={guild} key={guild._id}/>);
-                })}
-              </div>
-              : <div className="list-empty">
-                  <p><i className="icon icon-sad"/>Vous n'avez pas encore de projet</p>
-                </div>
-            }
+            <List data={guilds} type="guild" user={user} />
             <div className="list-sub-menu">
               <i className="big-icon icon icon-bubble"/>
               <h5>Discussions dont vous faites partie</h5>
             </div>
-            {channels ?
-                <div>
-                  {channels.map(channel => {
-                    return (<ChannelItem channel={channel} key={channel._id}/>);
-                  })}
-                </div>
-              : <div className="list-empty">
-                  <p><i className="icon icon-sad"/>Vous n'avez pas de discussion en cours</p>
-                </div>
-            }
+            <List data={channels} type="channel" />
             <div className="list-sub-menu">
               <i className="big-icon icon icon-history"/>
               <h5>Historique des évaluations</h5>
             </div>
-            {history ?
-              <div>
-                {history.actionHistory.map((historyItem, index) => {
-                  return (<HistoryItem historyItem={historyItem} key={index} />);
-                })}
-              </div>
-              : <div className="list-empty">
-                  <p><i className="icon icon-sad"/> Aucune évaluation</p>
-                </div>
-            }
+            <List data={history.actionHistory} type="history" />
           </div>
 
         </div>

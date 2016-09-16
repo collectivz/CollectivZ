@@ -31,7 +31,7 @@ export default class GuildItem extends Component {
     } = this.props;
 
     return (
-      <TouchEvent class="list-item touch-event" onClick={ () => { this.onClick(`/guild/${guild._id}`) } }>
+      <TouchEvent class="list-item touch-event" onClick={ () => { this.onClick(`/group/${guild.mainChannel}`) } }>
           <img src={guild.picture} alt="" />
           <div className="list-item-content">
               <p className="title">{guild.name}</p>

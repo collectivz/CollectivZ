@@ -9,8 +9,6 @@ import ContactPageContainer from '../imports/ui/containers/ContactPageContainer.
 import ChannelPageContainer from '../imports/ui/containers/ChannelPageContainer.jsx';
 import ConversationPageContainer from '../imports/ui/containers/ConversationPageContainer.jsx';
 import GuildListContainer from '../imports/ui/containers/GuildListContainer.jsx';
-import GuildPageContainer from '../imports/ui/containers/GuildPageContainer.jsx';
-import HistoryPageContainer from '../imports/ui/containers/HistoryPageContainer.jsx';
 import ProfilePageContainer from '../imports/ui/containers/ProfilePageContainer.jsx';
 import MyProfileContainer from '../imports/ui/containers/MyProfileContainer.jsx';
 import CreateGroupPageContainer from '../imports/ui/containers/CreateGroupPageContainer.jsx';
@@ -26,14 +24,12 @@ Meteor.startup(() => {
         <Route path='/my-groups' component={ChannelListContainer} />
         <Route path='/group/:groupId' component={ChannelPageContainer} />
         <Route path='/guild-list' component={GuildListContainer} />
-        <Route path='/guild/:guildId' component={GuildPageContainer} />
         <Route path='/conversation/:conversationId' component={ConversationPageContainer} />
         <Route path='/admin' component={AdminPage} />
         <Route path='/contact/view' component={ContactPageContainer} />
         <Route path='/contact/createGroup' component={CreateGroupPageContainer} />
         <Route path='/profile' component={MyProfileContainer} />
         <Route path='/user/:userId' component={ProfilePageContainer} />
-        <Route path='/history/:userId' component={HistoryPageContainer} />
         <Route path='*' component={NotFound} />
       </Route>
     </Router>

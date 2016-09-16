@@ -5,6 +5,7 @@ class GuildCollection extends Mongo.Collection {
   insert(guild, callback) {
     const userId = Meteor.userId();
 
+    guild.type = 'guild';
     guild.members = [userId];
     guild.leaders = [userId];
     guild.createdAt = Date.now();
