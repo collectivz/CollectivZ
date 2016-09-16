@@ -1,10 +1,12 @@
 import React from 'react'
+import { Link } from 'react-router';
 
 import AppNav from '../components/AppNav.jsx';
 import TopNav from '../components/TopNav.jsx';
 
-import InvitationRecevedItem from '../components/InvitationRecevedItem.jsx'
-import ContactItem from '../components/ContactItem.jsx'
+import InvitationRecevedItem from '../components/contact/InvitationRecevedItem.jsx'
+import ContactItem from '../components/contact/ContactItem.jsx'
+import TeamItem from '../components/contact/TeamItem.jsx'
 
 export default class ContactPage extends React.Component {
 
@@ -28,7 +30,7 @@ export default class ContactPage extends React.Component {
     const {
       repertory,
       usersContact,
-      usersTeams,
+      teams,
       usersInvitationReceved,
       loading,
       user,
@@ -62,6 +64,13 @@ export default class ContactPage extends React.Component {
                 <div className="list">
                   {usersContact.map(function(userSelected) {
                      return <ContactItem key={userSelected._id} userSelected={userSelected} />;
+                  })}
+                </div>
+                <div>Groupe(s) : </div>
+                <Link to={'/contact/createGroup'}>Creer un groupe</Link>
+                <div className="list">
+                  {teams.map(function(teamSelected) {
+                     return <TeamItem key={teamSelected._id} teamSelected={teamSelected} />;
                   })}
                 </div>
               </div>
