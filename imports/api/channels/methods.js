@@ -46,11 +46,13 @@ Meteor.methods({
     Channels.update(channelId, {
       $set: { messageId: messageId }
     });
+    const hasSeenFieldName = 'hasSeen.' + channel._id;
     Meteor.users.update(this.userId, {
       $push: { subscribedChannels: channelId },
+      $set: { [hasSeenFieldName]: channel.messageCount }
     });
   },
-  
+
   'channels.join'(channelId) {
     if (!this.userId) {
       throw new Meteor.Error('not-logged-in',
@@ -65,8 +67,11 @@ Meteor.methods({
       Channels.update(channelId, {
         $push: { members: this.userId },
       });
+
+      const hasSeenFieldName = 'hasSeen.' + channel._id;
       Meteor.users.update(this.userId, {
         $push: { subscribedChannels: channelId },
+        $set: { [hasSeenFieldName]: channel.messageCount }
       });
 
       const username = Meteor.users.findOne(this.userId).username;

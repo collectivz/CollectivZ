@@ -20,7 +20,7 @@ export default class PollItem extends React.Component {
       return (
         <div key={proposition._id}>
           <p>
-            <span >{i}</span> {proposition.name}
+            {proposition.name}
           </p>
           <p>
             {proposition.voteRecevedFrom.length} votes reçus

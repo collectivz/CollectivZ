@@ -92,6 +92,7 @@ export default class Chat extends React.Component {
     } else {
       filteredMessages = messages;
     }
+    Meteor.call('users.markAsSeen', channel._id);
 
     return (
       <div className={classNames("chat-sub-container", {"chat-with-filter-sub-container" : channel.connections})}>

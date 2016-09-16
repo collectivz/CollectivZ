@@ -38,9 +38,12 @@ Meteor.methods({
       $inc: { 'connections.chanCount': 1, 'connections.memberCount': 1 },
       $set: { mainChannel: channelId },
     });
+
+    const hasSeenFieldName = 'hasSeen.' + channelId;
     Meteor.users.update(this.userId,
       { $push: { subscribedGuilds: guildId, subscribedChannels: channelId } },
-      { $inc: { 'connections.guildCount': 1 } }
+      { $inc: { 'connections.guildCount': 1 } },
+      { $set: { [hasSeenFieldName]: 0 } }
     );
 
     return channelId;
@@ -65,9 +68,13 @@ Meteor.methods({
         "Vous faites déjà parti de cette projet.");
     }
 
+    const channel = Channels.findOne(guild.mainChannel);
+    const hasSeenFieldName = 'hasSeen.' + channel._id;
+
     Meteor.users.update(this.userId,
       { $push: { subscribedGuilds: guildId, subscribedChannels: guild.mainChannel } },
-      { $inc: { 'connections.guildCount': 1 } }
+      { $inc: { 'connections.guildCount': 1 } },
+      { $set: { [hasSeenFieldName]: channel.messageCount } }
     );
     Guilds.update(guildId,
       { $push: { members: user._id } },

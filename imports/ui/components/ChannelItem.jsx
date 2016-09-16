@@ -9,6 +9,12 @@ import ActionList                               from './ActionList.jsx';
 
 export default class ChannelItem extends React.Component {
 
+  constructor(props) {
+    super(props);
+
+    this.getUnseenCount = this.getUnseenCount.bind(this);
+  }
+
   onClick(dest) {
 
     setTimeout( () => {
@@ -17,6 +23,15 @@ export default class ChannelItem extends React.Component {
       }
     }, 350 );
 
+  }
+
+  getUnseenCount() {
+    const {
+      channel,
+      messageSeenCount
+    } = this.props;
+
+    return channel.messageCount - messageSeenCount;
   }
 
   renderLastMessage(message) {
@@ -47,6 +62,7 @@ export default class ChannelItem extends React.Component {
                 <ActionList actions={channel.connections} />
                 : ''
               }
+              T'as pas vu : {this.getUnseenCount()} message(s)
           </div>
           <i className="icon icon-3x icon-chevron-right"/>
       </TouchEvent>

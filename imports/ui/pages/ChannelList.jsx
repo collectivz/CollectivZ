@@ -47,7 +47,8 @@ export default class ChannelList extends React.Component {
                   <h5>Liste de mes groupes de discussion</h5>
               </div> */}
               {sortedChannels.map(function(channel) {
-                 return <ChannelItem key={channel._id} channel={channel} />;
+                const messageSeenCount = user.hasSeen[channel._id];
+                return <ChannelItem key={channel._id} channel={channel} messageSeenCount={messageSeenCount}/>;
               })}
               {/* <div className="list-sub-menu">
                   <i className="big-icon icon icon-users"></i>
