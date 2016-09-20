@@ -54,7 +54,7 @@ export default class RegisterPage extends React.Component {
         } else {
           Meteor.loginWithPassword(username, password, (err) => {
             if (!err) {
-              this.context.router.push('/guild-list');
+              this.context.router.push('/my-groups');
             }
           })
         }

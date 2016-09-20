@@ -47,10 +47,8 @@ Meteor.methods({
     Channels.update(channelId, {
       $set: { messageId: messageId }
     });
-    const hasSeenFieldName = 'hasSeen.' + channel._id;
     Meteor.users.update(this.userId, {
       $push: { subscribedChannels: channelId },
-      $set: { [hasSeenFieldName]: channel.messageCount }
     });
   },
 
@@ -69,10 +67,8 @@ Meteor.methods({
         $push: { members: this.userId },
       });
 
-      const hasSeenFieldName = 'hasSeen.' + channel._id;
       Meteor.users.update(this.userId, {
         $push: { subscribedChannels: channelId },
-        $set: { [hasSeenFieldName]: channel.messageCount }
       });
 
       const username = Meteor.users.findOne(this.userId).username;

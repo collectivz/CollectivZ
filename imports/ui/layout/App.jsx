@@ -8,7 +8,7 @@ export default class App extends React.Component {
 
   componentWillUpdate({ loading, user, children }) {
     if (!loading && user && !children) {
-      this.context.router.push('/guild-list')
+      this.context.router.push('/my-groups')
     }
   }
 

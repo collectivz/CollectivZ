@@ -32,40 +32,15 @@ export default class ChannelList extends React.Component {
     const sortedChannels = channels.sort((a, b) => {
       return b.lastActivity - a.lastActivity;
     });
-    const sortedConversations = conversations.sort((a, b) => {
-      return b.lastActivity - a.lastActivity;
-    });
+    // const sortedConversations = conversations.sort((a, b) => {
+    //   return b.lastActivity - a.lastActivity;
+    // });
 
     return (
       <div className="screen-box">
         <Breadcrumb title="Récent" hasBack={false} />
           <div className="sub-container">
-            <div className="list">
-              {/* <div className="list-sub-menu">
-                  <i className="big-icon icon icon-bubble"></i>
-                  <h5>Liste de mes groupes de discussion</h5>
-              </div> */}
-              <List data={sortedChannels} user={user} type="channel" />
-              <div className="list-sub-menu">
-                  <i className="big-icon icon icon-users"></i>
-                  <h5>Liste de mes conversations privées</h5>
-                  <form className="merged">
-                    <fieldset className="small has-icon">
-                      <i className="icon icon-user"></i>
-                      <input
-                        className="small"
-                        type="text"
-                        ref="userInvited"
-                        placeholder="Ajouter un utilisateur"
-                      />
-                    </fieldset>
-                    <button className="small primary button" onClick={this.handleSubmit}>
-                      <i className="icon icon-rotate-45 icon-cross"/>
-                    </button>
-                  </form>
-              </div>
-              <List data={sortedConversations} user={user} type="conversation" />
-            </div>
+            <List data={sortedChannels} type="channel" />
           </div>
         <AppNav user={user}/>
       </div>

@@ -12,7 +12,6 @@ export default class ChannelItem extends React.Component {
   constructor(props) {
     super(props);
 
-    this.getUnseenCount = this.getUnseenCount.bind(this);
     this.onClick = this.onClick.bind(this);
   }
 
@@ -32,15 +31,6 @@ export default class ChannelItem extends React.Component {
 
   }
 
-  getUnseenCount() {
-    const {
-      channel,
-      messageSeenCount
-    } = this.props;
-
-    return channel.messageCount - messageSeenCount;
-  }
-
   renderLastMessage(message) {
     if (message.length > 70) {
       return message.slice(0, 69) + '...';
@@ -54,24 +44,22 @@ export default class ChannelItem extends React.Component {
 
     return (
       <TouchEvent class="list-item touch-event" onClick={this.onClick}>
-          <img src="/img/zorro.jpg" alt="" />
-          <div className="list-item-content">
-              <p className="title">{channel.name}</p>
-              <p className="text">
-                {channel.lastMessage ?
-                  channel.lastMessage.author ?
-                    `${channel.lastMessage.author} : ${this.renderLastMessage(channel.lastMessage.text)}`
-                    : `${this.renderLastMessage(channel.lastMessage.text)}`
-                  : ''
-                }
-              </p>
-              {channel.connections ?
-                <ActionList actions={channel.connections} />
-                : ''
-              }
-              {/* T'as pas vu : {this.getUnseenCount()} message(s) */}
-          </div>
-          <i className="icon icon-3x icon-chevron-right"/>
+        <div className="list-item-content">
+          <p className="title">{channel.name}</p>
+          <p className="text">
+            {channel.lastMessage ?
+              channel.lastMessage.author ?
+                `${channel.lastMessage.author} : ${this.renderLastMessage(channel.lastMessage.text)}`
+                : `${this.renderLastMessage(channel.lastMessage.text)}`
+              : ''
+            }
+          </p>
+          {channel.connections ?
+            <ActionList actions={channel.connections} />
+            : ''
+          }
+        </div>
+        <i className="icon icon-3x icon-chevron-right"/>
       </TouchEvent>
     );
   }

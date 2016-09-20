@@ -13,6 +13,11 @@ export default class MyProfile extends Component {
   render() {
 
     const { user, guilds, channels, history } = this.props;
+    let actionHistory = [];
+
+    if (history) {
+      actionHistory = history.actionHistory;
+    }
 
     return (
       <div className="screen-box">
@@ -37,7 +42,7 @@ export default class MyProfile extends Component {
               <i className="big-icon icon icon-history"/>
               <h5>Historique des évaluations</h5>
             </div>
-            <List data={history.actionHistory} type="history" />
+            <List data={actionHistory} type="history" />
           </div>
 
         </div>
