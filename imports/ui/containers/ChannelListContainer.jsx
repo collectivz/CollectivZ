@@ -7,14 +7,15 @@ import ChannelList from '../pages/ChannelList.jsx'
 
 export default createContainer(({ user }) => {
   const channelSub = Meteor.subscribe('chanList', user.subscribedChannels, user.subscribedConversations);
+  const userChannels = user.subscribedChannels.concat(user.subscribedConversations);
   const channels = Channels.find(
-    {_id: {$in: user.subscribedChannels}},
+    {_id: {$in: userChannels}},
     { sort: { lastActivity: -1 } }).fetch();
-  const conversations = Channels.find({_id: {$in: user.subscribedConversations}}).fetch();
+  // const conversations = Channels.find({_id: {$in: user.subscribedConversations}}).fetch();
 
   return {
     channels,
-    conversations,
+    // conversations,
     loading: !channelSub.ready(),
   };
 }, ChannelList);

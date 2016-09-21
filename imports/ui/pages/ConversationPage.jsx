@@ -1,35 +1,34 @@
 import React, { Component, PropTypes } from 'react';
 import { Meteor } from 'meteor/meteor';
 
-import ConversationPageHeader from '../components/ConversationPageHeader.jsx';
+import Breadcrumb from '../components/Breadcrumb.jsx';
 import Loader from '../components/Loader.jsx';
-import MessageItem from '../components/chat/MessageItem.jsx';
-import ConversationInput from '../components/ConversationInput.jsx';
+import MessageList from '../components/chat/MessageList.jsx';
+import MessageInput from '../components/chat/MessageInput.jsx';
 
 export default class ConversationPage extends React.Component {
 
   render() {
-    
+
     const { loading, channel, messages, user } = this.props;
 
     return (
-      <div>
-        <ConversationPageHeader channel={channel}/>
-        <div className="chat-sub-container">
-          <div ref='scroll'>
-            <div className="chat">
-              <div className="message-list">
-                {messages.map(message => {
-                  return (<MessageItem message={message} user={user} key={message._id} />);
-                })}
+      loading ?
+        <Loader />
+      :
+        <div>
+          <Breadcrumb title="Conversation" hasBack={true} />
+          <div className="chat-sub-container">
+            <div ref='scroll'>
+              <div className="chat">
+                <div className="message-list">
+                  <MessageList messages={messages}/>
+                </div>
               </div>
             </div>
           </div>
+          <MessageInput hasActionPicker={false} channelId={channel._id}/>
         </div>
-        <ConversationInput
-          channelId={channel._id}
-        />
-      </div>
     );
   }
 }

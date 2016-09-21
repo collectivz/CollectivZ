@@ -17,7 +17,8 @@ class messageCollection extends Mongo.Collection {
       text: message.text
     };
     Channels.update(message.channelId, {
-      $set: { lastActivity: message.createdAt, lastMessage: lastMessage }
+      $set: { lastActivity: message.createdAt, lastMessage: lastMessage },
+      $inc: { messageCount: 1 }
     });
     return super.insert(message);
   }
@@ -31,9 +32,22 @@ class messageCollection extends Mongo.Collection {
 
     if (channel.lastMessage.text === _message.text) {
       Channels.update(_message.channelId, {
-        $set: { lastMessage }
+        $set: { lastMessage },
+        $inc: { messageCount: -1 }
+      });
+    } else {
+      Channels.update(_message.channelId, {
+        $inc: { messageCount: -1 }
       });
     }
+
+    const hasSeenFieldName = 'hasSeen.' + channel._id;
+
+    Meteor.users.update(
+      { subscribedChannels : { $in: [channel._id] } },
+      { $inc: { [hasSeenFieldName] : -1 } },
+      { multi : true}
+    );
 
     return super.remove(message, callback);
   }

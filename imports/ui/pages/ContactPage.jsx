@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router';
 
 import AppNav from '../components/AppNav.jsx';
-import TopNav from '../components/TopNav.jsx';
+import Breadcrumb from '../components/Breadcrumb.jsx';
 
 import InvitationRecevedItem from '../components/contact/InvitationRecevedItem.jsx'
 import ContactItem from '../components/contact/ContactItem.jsx'
@@ -38,7 +38,7 @@ export default class ContactPage extends React.Component {
 
     return (
       <div>
-        <TopNav text={'Contact'} />
+        <Breadcrumb title="Contact" hasBack={false} />
         <div className="view-container">
           <div className="page-wrapper">
             <div className="scroll-content has-top-nav has-tabs-nav">

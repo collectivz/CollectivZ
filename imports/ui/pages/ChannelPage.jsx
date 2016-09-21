@@ -1,12 +1,14 @@
 import React, { Component, PropTypes }  from 'react';
 import { Meteor }                       from 'meteor/meteor';
 
-import ChannelPageHeader                from '../components/ChannelPageHeader.jsx';
+import Breadcrumb                       from '../components/Breadcrumb';
 import Loader                           from '../components/Loader.jsx';
 import ChatContainer                    from '../containers/ChatContainer.jsx';
 
 
 export default class ChannelPage extends React.Component {
+
+
 
   render() {
 
@@ -20,7 +22,7 @@ export default class ChannelPage extends React.Component {
            <Loader />
           :
             <div>
-              <ChannelPageHeader channel={channel} guild={guild} />
+              <Breadcrumb title={channel.name} hasBack={true}></Breadcrumb>
               <ChatContainer channel={channel} user={user}/>
             </div>
         }

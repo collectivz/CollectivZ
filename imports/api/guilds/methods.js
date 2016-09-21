@@ -30,6 +30,7 @@ Meteor.methods({
       depth: 1,
       parentId: guildId,
       rootId: guildId,
+      type: 'group'
     };
 
     const channelId = Channels.insert(channel);
@@ -38,10 +39,11 @@ Meteor.methods({
       $inc: { 'connections.chanCount': 1, 'connections.memberCount': 1 },
       $set: { mainChannel: channelId },
     });
-    Meteor.users.update(this.userId,
-      { $push: { subscribedGuilds: guildId, subscribedChannels: channelId } },
-      { $inc: { 'connections.guildCount': 1 } }
-    );
+
+    Meteor.users.update(this.userId, {
+      $push: { subscribedGuilds: guildId, subscribedChannels: channelId },
+      $inc: { 'connections.guildCount': 1 },
+    });
 
     return channelId;
   },
@@ -65,14 +67,16 @@ Meteor.methods({
         "Vous faites déjà parti de cette projet.");
     }
 
-    Meteor.users.update(this.userId,
-      { $push: { subscribedGuilds: guildId, subscribedChannels: guild.mainChannel } },
-      { $inc: { 'connections.guildCount': 1 } }
-    );
-    Guilds.update(guildId,
-      { $push: { members: user._id } },
-      { $inc: { 'connections.memberCount': 1 } }
-    );
+    const channel = Channels.findOne(guild.mainChannel);
+
+    Meteor.users.update(this.userId, {
+      $push: { subscribedGuilds: guildId, subscribedChannels: guild.mainChannel },
+      $inc: { 'connections.guildCount': 1 },
+    });
+    Guilds.update(guildId, {
+      $push: { members: user._id },
+      $inc: { 'connections.memberCount': 1 }
+    });
   },
 
   'guilds.changeName'(newName, guildId) {

@@ -6,20 +6,10 @@ export default class SubChannelItem extends React.Component {
     super(props);
 
     this.joinChannel = this.joinChannel.bind(this);
-    this.hasJoined = this.hasJoined.bind(this);
   }
 
   joinChannel() {
     Meteor.call('channels.join', this.props.channel._id);
-  }
-
-  hasJoined() {
-    const {
-      channel,
-      user
-    } = this.props;
-    
-    return _.contains(channel.members, user._id);
   }
 
   render() {
@@ -29,19 +19,18 @@ export default class SubChannelItem extends React.Component {
     } = this.props;
 
     return (
+      channel ?
       <div className="chat-special-bubble chat-special-bubble-mission">
           <div className="bubble-content">
               <i className="big-icon icon icon-thumbs-up"/>
               <div className="bubble-header">
                   <i className="icon icon-cog"/>
-                  <span>Nouvelle Actionz : {channel.name} !</span>
+                  <span>Nouvelle Actionz : {channel.name}</span>
               </div>
-              {this.hasJoined() ?
-                  <p>Vous faites maintenant parti de cette mission !</p>
-                : <p><a href={'/group/' + channel._id} onClick={this.joinChannel}><button>Rejoindre</button></a></p>
-              }
+                <p><a href={'/group/' + channel._id} onClick={this.joinChannel}><button>Rejoindre</button></a></p>
           </div>
       </div>
+      : null
     );
   }
 }

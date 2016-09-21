@@ -19,6 +19,7 @@ export default class MessageList extends React.Component {
       coins,
       user
     } = this.props;
+
     return (
       <div className="msg-list-parser">
         {messages.map((message) => {

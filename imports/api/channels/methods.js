@@ -28,6 +28,7 @@ Meteor.methods({
     channel.parentId = parent._id;
     channel.depth = parent.depth + 1;
     channel.rootId = parent.rootId;
+    channel.type = 'channel';
 
 
     const channelId = Channels.insert(channel)
@@ -50,7 +51,7 @@ Meteor.methods({
       $push: { subscribedChannels: channelId },
     });
   },
-  
+
   'channels.join'(channelId) {
     if (!this.userId) {
       throw new Meteor.Error('not-logged-in',
@@ -65,6 +66,7 @@ Meteor.methods({
       Channels.update(channelId, {
         $push: { members: this.userId },
       });
+
       Meteor.users.update(this.userId, {
         $push: { subscribedChannels: channelId },
       });
@@ -139,6 +141,7 @@ Meteor.methods({
       parentId: "",
       rootId: "",
       messageId: "",
+      type: 'conversation'
     }
 
     const newConversationChannelId = Channels.insert(newConversationChannel);

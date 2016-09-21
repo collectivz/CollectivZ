@@ -29,6 +29,7 @@ export default class Chat extends React.Component {
     this.setFilterOption = this.setFilterOption.bind(this);
     this.changeInputMode = this.changeInputMode.bind(this);
     this.answerToZorro = this.answerToZorro.bind(this);
+    this.filterMessage = this.filterMessage.bind(this);
   }
 
   componentDidMount() {
@@ -74,16 +75,14 @@ export default class Chat extends React.Component {
     }, 500);
   }
 
-  render() {
-
-    const { channel, messages, subChannels, beers, polls, coins, feedbacks, user } = this.props;
-    const { zorro, dialogWithZorro, ongoingAction, filter, choices } = this.state;
-
+  filterMessage() {
+    const { messages } = this.props;
+    const { filter } = this.state;
     let filteredMessages = [];
 
     if (filter !== 'all') {
       filteredMessages = messages.filter(message => {
-        if (message.type && message.type === this.state.filter) {
+        if (message.type && message.type === filter) {
           return true;
         } else {
           return false;
@@ -92,6 +91,25 @@ export default class Chat extends React.Component {
     } else {
       filteredMessages = messages;
     }
+    return filteredMessages;
+  }
+
+  render() {
+    const {
+      channel,
+      messages,
+      subChannels,
+      beers,
+      polls,
+      coins,
+      feedbacks,
+      user,
+
+    } = this.props;
+    const { zorro, dialogWithZorro, ongoingAction, filter, choices } = this.state;
+    const filteredMessages = this.filterMessage();
+
+    Meteor.call('users.markAsSeen', channel._id);
 
     return (
       <div className={classNames("chat-sub-container", {"chat-with-filter-sub-container" : channel.connections})}>
@@ -138,6 +156,7 @@ export default class Chat extends React.Component {
           answerToZorro={this.answerToZorro}
           channelId={channel._id}
           toggleMarginBottom={this.toggleMarginBottom}
+          hasActionPicker={true}
         />
       </div>
     );

@@ -3,7 +3,6 @@ import { Meteor } from 'meteor/meteor';
 
 import UserHeader from '../components/UserHeader.jsx';
 import AppNav from '../components/AppNav.jsx';
-import TopNav from '../components/TopNav.jsx';
 import Loader from '../components/Loader.jsx';
 import GuildItem from '../components/GuildItem.jsx';
 import ChannelItem from '../components/ChannelItem.jsx';

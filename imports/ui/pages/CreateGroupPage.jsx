@@ -1,7 +1,7 @@
 import React from 'react'
 
 import AppNav from '../components/AppNav.jsx';
-import TopNav from '../components/TopNav.jsx';
+import Breadcrumb from '../components/Breadcrumb.jsx';
 
 import AddToGroupItem from '../components/contact/AddToGroupItem.jsx'
 
@@ -77,10 +77,10 @@ export default class CreateGroupPage extends React.Component {
       loading,
       user,
     } = this.props;
-    console.log(this.state.newGroup);
+
     return (
       <div>
-        <TopNav text={'Nouveau groupe'} />
+        <Breadcrumb title="Créer un groupe" hasBack={true} />
         <div className="view-container">
           <div className="page-wrapper">
             <div className="scroll-content has-top-nav has-tabs-nav">

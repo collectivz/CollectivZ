@@ -9,12 +9,24 @@ import ActionList                               from './ActionList.jsx';
 
 export default class ChannelItem extends React.Component {
 
-  onClick(dest) {
+  constructor(props) {
+    super(props);
+
+    this.onClick = this.onClick.bind(this);
+  }
+
+  onClick() {
+    const { channel } = this.props;
+    let dest = '';
+
+    if (channel.type === 'conversation') {
+      dest = `/conversation/${channel._id}`;
+    } else {
+      dest = `/group/${channel._id}`;
+    }
 
     setTimeout( () => {
-      if (dest) {
-        browserHistory.push(dest);
-      }
+      browserHistory.push(dest);
     }, 350 );
 
   }
@@ -31,24 +43,23 @@ export default class ChannelItem extends React.Component {
     const { channel } = this.props;
 
     return (
-      <TouchEvent class="list-item touch-event" onClick={ () => { this.onClick(`/group/${channel._id}`) } }>
-          <img src="/img/zorro.jpg" alt="" />
-          <div className="list-item-content">
-              <p className="title">{channel.name}</p>
-              <p className="text">
-                {channel.lastMessage ?
-                  channel.lastMessage.author ?
-                    `${channel.lastMessage.author} : ${this.renderLastMessage(channel.lastMessage.text)}`
-                    : `${this.renderLastMessage(channel.lastMessage.text)}`
-                  : ''
-                }
-              </p>
-              {channel.connections ?
-                <ActionList actions={channel.connections} />
-                : ''
-              }
-          </div>
-          <i className="icon icon-3x icon-chevron-right"/>
+      <TouchEvent class="list-item touch-event" onClick={this.onClick}>
+        <div className="list-item-content">
+          <p className="title">{channel.name}</p>
+          <p className="text">
+            {channel.lastMessage ?
+              channel.lastMessage.author ?
+                `${channel.lastMessage.author} : ${this.renderLastMessage(channel.lastMessage.text)}`
+                : `${this.renderLastMessage(channel.lastMessage.text)}`
+              : ''
+            }
+          </p>
+          {channel.connections ?
+            <ActionList actions={channel.connections} />
+            : ''
+          }
+        </div>
+        <i className="icon icon-3x icon-chevron-right"/>
       </TouchEvent>
     );
   }

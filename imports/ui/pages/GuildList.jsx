@@ -2,7 +2,8 @@ import React, { Component, PropTypes } from 'react';
 import { Meteor } from 'meteor/meteor';
 
 import AppNav from '../components/AppNav.jsx';
-import TopNav from '../components/TopNav.jsx';
+import Breadcrumb from '../components/Breadcrumb.jsx';
+import List   from '../components/List';
 import GuildItem from '../components/GuildItem.jsx';
 
 export default class GuildList extends Component {
@@ -15,13 +16,9 @@ export default class GuildList extends Component {
 
     return (
       <div className="screen-box">
-        <TopNav text="Groupes"/>
+        <Breadcrumb title="Groupes" hasBack={false} />
           <div className="sub-container">
-            <div className="list">
-              {guilds.map(function(guild) {
-                 return <GuildItem key={guild._id} guild={guild} user={user}/>;
-              })}
-            </div>
+            <List data={guilds} user={user} type="guild"/>
           </div>
         <AppNav user={user}/>
       </div>

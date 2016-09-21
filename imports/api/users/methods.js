@@ -1,6 +1,8 @@
 import { Meteor } from 'meteor/meteor';
 import { check } from 'meteor/check';
 
+import { Channels } from '../channels/collection.js';
+
 Meteor.methods({
   'users.changeAvatar'(url) {
     const userId = this.userId;
@@ -30,5 +32,12 @@ Meteor.methods({
     Meteor.users.update(userId, {
       $set: { 'profile.background' : url }
     });
+  },
+  
+  'users.getUnreadTotal'() {
+    if (!this.userId) {
+      throw new Meteor.Error('not-logged-in',
+        "Vous devez être connecté pour changer d'avatar.");
+    }
   }
 });

@@ -7,6 +7,7 @@ export default class FeedbackItem extends React.Component {
     } = this.props;
 
     return (
+      feedback ?
       <div className="chat-special-bubble chat-special-bubble-poll">
         <div className="bubble-content">
           <i className="big-icon icon icon-star"/>
@@ -30,6 +31,7 @@ export default class FeedbackItem extends React.Component {
           }
         </div>
       </div>
+      : null
     );
   }
 }
