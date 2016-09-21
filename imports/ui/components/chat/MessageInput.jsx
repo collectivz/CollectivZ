@@ -106,8 +106,18 @@ export default class MessageInput extends Component {
   render() {
     const { hasActionPicker } = this.props;
 
+    if($(".chat-input-wrapper").hasClass('disabled'))
+    {
+      $(".chat-input-wrapper").toggleClass("open");
+      $(".chat-sub-container").toggleClass("open");
+    }
+
     return (
-      <div ref="bar" className="chat-input-wrapper">
+      <div ref="bar" className="chat-input-wrapper disabled">
+        <div className="chat-input-disabled">
+          <p>Vous devez rejoindre cette action avant de pouvoir envoyer un message</p>
+          <button className="success button">Rejoindre</button>
+        </div>
         <div className="chat-input">
           {
             hasActionPicker ?
@@ -125,9 +135,6 @@ export default class MessageInput extends Component {
               ref="textInput">
             </textarea>
           </form>
-          <button onClick={this.handleSubmit} className="chat-input-button-right button">
-            <i className="icon icon-paperplane"></i>
-          </button>
         </div>
         {
           hasActionPicker ?

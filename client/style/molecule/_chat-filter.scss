@@ -17,7 +17,7 @@ $chat-filter-height: 50px;
 $chat-filter-open-height: 150px;
 
 .chat-filter {
-	background-color: color("grey", "darken-2");
+	background-color: color("grey", "lighten-4");
 	width:100%;
 	position:fixed;
 	top: $breadcrumb-height;
@@ -29,11 +29,11 @@ $chat-filter-open-height: 150px;
 		-webkit-user-select:none;
 
 		display:inline-block;
-		color:white;
-		background-color: color("grey", "darken-2");
+		color:color("grey", "darken-3");
+		background-color: color("grey", "lighten-4");
 		padding:16px;
 		&.active {
-			background-color: color("grey", "darken-1");
+			background-color: color("grey", "lighten-3");
 		}
 		i {
 			margin-left:5px;
@@ -45,7 +45,7 @@ $chat-filter-open-height: 150px;
 			height:100px;
 			margin-left:-50px;
 			margin-top:-50px;
-			background-color: color("grey", "lighten-1");
+			background-color: color("grey", "lighten-2");
 		}
 	}
 

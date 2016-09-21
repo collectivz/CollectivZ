@@ -58,6 +58,7 @@ export default class ChannelItem extends React.Component {
             <ActionList actions={channel.connections} />
             : ''
           }
+          <div className="list-item-notif">23</div>
         </div>
         <i className="icon icon-3x icon-chevron-right"/>
       </TouchEvent>

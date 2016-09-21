@@ -1,0 +1,74 @@
+// markup
+//
+//   div.burger-menu.active
+//       div
+
+$duration : 400ms;
+$base-color: color("primary", "base");
+$base-index: 1200;
+
+.burger-menu {
+	height: 44px;
+	overflow: hidden;
+	text-indent: 100%;
+	white-space: nowrap;
+	cursor: pointer;
+	border-radius: 50%;
+	background-color: #FFF;
+	//transition: all $duration / 2 ease-in-out;
+	div {
+		transition: all $duration / 2 ease-in-out;
+		position: absolute;
+		z-index: $base-index;
+		top: 48%;
+		right: 25%;
+		margin-left: -10px;
+		display: block;
+		width: 10px;
+		height: 1px;
+		background: $base-color;
+		&:before, &:after {
+			transition: all $duration ease;
+			content: '';
+			position: absolute;
+			right: 0;
+			background: inherit;
+			width: 20px;
+			height: 1px;
+			z-index: $base-index - 1;
+		}
+		&:before {
+			top:-6px;
+		}
+		&:after {
+			bottom:-6px;
+		}
+	}
+	&:hover div {
+		width:20px;
+		&:before {
+			transform: rotate(0deg);
+			top:-6px;
+		}
+		&:after {
+			transform: rotate(0deg);
+			bottom:-6px;
+		}
+	}
+	&.active {
+		background-color: rgba(255,255,255,0.6);
+		div {
+			background-color: rgba(color("primary", "darken-3"), 0);
+			&:before {
+				top:0;
+				background: color("primary", "darken-3");
+				transform: rotate(135deg);
+			}
+			&:after {
+				bottom:0;
+				background: color("primary", "darken-3");
+				transform: rotate(-135deg);
+			}
+		}
+	}
+}

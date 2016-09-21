@@ -28,6 +28,16 @@
 			color:color("grey", "lighten-1");
 		}
 	}
+	.list-item-notif {
+		position:absolute;
+		right: $text-size * 5;
+		top: calc(50% - 17.5px);
+		padding: 10px 20px;
+		border-radius: 3px;
+		color: white;
+		background-color: color("danger", "base");
+		border: 1px solid color("danger", "darken-1");
+	}
 	.icon-chevron-right {
 		position:absolute;
 		right:$text-size * 1.5;

@@ -30,7 +30,7 @@ $breadcrumb-base-index: 999;
 	background-color:color("grey", "darken-3");
 	z-index: $breadcrumb-base-index;
 	box-shadow: 0 4px 10px rgba(color("grey", "darken-2"), .25);
-	.back-button, .logout-button {
+	.back-button {
 		width:$breadcrumb-height;
 		height:$breadcrumb-height;
 		position:relative;
@@ -49,12 +49,6 @@ $breadcrumb-base-index: 999;
 			margin-left:-($breadcrumb-touch-size / 2);
 			margin-top:-($breadcrumb-touch-size / 2);
 		}
-	}
-	.logout-button {
-		i {
-			left: (($breadcrumb-height - $breadcrumb-size-of-icon) / 2) + 3;
-		}
-		float:right;
 	}
 	.text {
 		text-align: center;

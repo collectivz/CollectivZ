@@ -22,6 +22,24 @@
 $chat-input-height: 60px;
 $chat-input-open-height: 140px;
 
+
+.chat-input-disabled {
+	width:100%;
+	height:$chat-input-open-height;
+	background-color: color("grey", "darken-4");
+	z-index: 99999999;
+	display:none;
+	p {
+		margin-top:35px;
+		color:white;
+		text-align: center;
+	}
+	button {
+		margin: 0 auto;
+		display:block;
+	}
+}
+
 .chat-input-wrapper {
 	width:100%;
 	position:fixed;
@@ -34,7 +52,17 @@ $chat-input-open-height: 140px;
 	&.open {
 		height:$chat-input-open-height;
 	}
+	&.disabled {
+		.chat-input-disabled {
+			display:block;
+		}
+		.chat-input {
+			display:none;
+		}
+	}
 }
+
+
 
 .chat-input {
 	background-color: color("grey", "darken-2");
@@ -51,11 +79,6 @@ $chat-input-open-height: 140px;
 		border-bottom-right-radius: 0px;
 		border-top-right-radius: 0px;
 	}
-	.chat-input-button-right {
-		border-left: none;
-		border-bottom-left-radius: 0px;
-		border-top-left-radius: 0px;
-	}
 	.chat-input-form {
 		display: flex;
 		flex: 1 0;
@@ -70,5 +93,7 @@ $chat-input-open-height: 140px;
 		padding: 10px;
 		border:none;
 		border-radius:0px;
+		border-bottom-right-radius: 3px;
+		border-top-right-radius: 3px;
 	}
 }

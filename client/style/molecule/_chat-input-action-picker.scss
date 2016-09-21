@@ -18,7 +18,7 @@
 $chat-action-picker-height: 80px;
 
 .chat-input-action-picker {
-	background-color: color("grey", "darken-3");
+	background-color: color("grey", "lighten-4");
 	width:100%;
 	position:absolute;
 	top:$chat-input-height;
@@ -35,12 +35,12 @@ $chat-action-picker-height: 80px;
 		flex: 1;
 		transition: all 200ms ease;
 		i {
-			color:white;
+			color:color("grey", "darken-3");
 			display:block;
 			padding: 18px 12px 8px 12px;
 		}
 		span {
-			color:white;
+			color:color("grey", "darken-3");
 			font-family: $nav-font;
 			user-select: none;
 		}
