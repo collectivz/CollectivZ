@@ -2,7 +2,7 @@ import React              from 'react'
 import { Link }           from 'react-router';
 
 import AppNav             from '../components/AppNav.jsx';
-import TopNav             from '../components/TopNav.jsx';
+import Breadcrumb         from '../components/Breadcrumb';
 import Loader             from '../components/Loader.jsx';
 import TeamPageHeader     from '../components/TeamPageHeader.jsx';
 import TeamBody           from '../components/TeamBody.jsx';
@@ -30,7 +30,7 @@ export default class TeamPage extends React.Component {
         <Loader />
         :
         <div className="screen-box">
-        <TopNav text="Profil du groupe"/>
+        <Breadcrumb title="Profil du groupe" hasBack={true}/>
         <div className="sub-container">
         <TeamPageHeader
         team={team}
