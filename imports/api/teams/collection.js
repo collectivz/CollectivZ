@@ -10,8 +10,9 @@ class TeamCollection extends Mongo.Collection {
     team.createdAt = Date.now();
     team.lastActivity = Date.now();
     team.name = "";
+    team.background = '/img/ugly.png';
+    team.picture = '/img/no-user.png';
 
-    console.log(team);
     return super.insert(team);
   }
 }

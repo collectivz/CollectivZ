@@ -36,4 +36,39 @@ Meteor.methods({
       {multi: true}
     );
   },
+  'teams.editName'(teamId, newName) {
+    check(teamId, String);
+    check(newName, String);
+    if (!this.userId) {
+      throw new Meteor.Error('not-logged-in',
+        'Vous devez être connecté pour éditer une equipe.');
+    }
+    const team = Teams.findOne(teamId);
+    if (!team) {
+      throw new Meteor.Error('team-not-found',
+        'Equipe non trouvé.');
+    } else if (team.author !== this.userId) {
+      throw new Meteor.Error('not-allowed-to',
+        'Vous ne disposez pas des droits nécéssaires.');
+    }
+
+    Teams.update(teamId, {
+      $set: {name: newName}
+    });
+  },
+  'teams.editPicture'(url, teamId) {
+    const userId = this.userId;
+
+    if (!userId) {
+      throw new Meteor.Error('not-logged-in',
+        "Vous devez être connecté pour changer l'avatar du groupe.");
+    }
+
+    check(url, String);
+    check(teamId, String);
+
+    Teams.update(teamId, {
+      $set: { picture : url }
+    });
+  }
 });
