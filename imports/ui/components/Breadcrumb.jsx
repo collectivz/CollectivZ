@@ -4,7 +4,7 @@ import { browserHistory }     from 'react-router';
 import TouchEvent             from './TouchEvent';
 import DropDown               from './DropDown';
 
-export default class Breacrumb extends React.Component {
+export default class Breadcrumb extends React.Component {
 
   onClick() {
     setTimeout( () => {

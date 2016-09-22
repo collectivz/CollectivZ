@@ -88,14 +88,6 @@ export default class MessageInput extends Component {
     $(".icon-plus-circle").toggleClass("icon-rotate-45");
   }
 
-  getCss() {
-    if (this.state.showActions)
-      return "bar-stable bar bar-footer item-input-inset has-actions-list";
-    else {
-      return "bar-stable bar bar-footer item-input-inset";
-    }
-  }
-
   textareaHeightTweak(e) {
     this.setState({
       barHeight: { height: this.refs.textInput.scrollHeight + 10 },
@@ -106,18 +98,18 @@ export default class MessageInput extends Component {
   render() {
     const { hasActionPicker } = this.props;
 
-    if($(".chat-input-wrapper").hasClass('disabled'))
+    if ($(".chat-input-wrapper").hasClass('disabled'))
     {
       $(".chat-input-wrapper").toggleClass("open");
       $(".chat-sub-container").toggleClass("open");
     }
 
     return (
-      <div ref="bar" className="chat-input-wrapper disabled">
-        <div className="chat-input-disabled">
+      <div ref="bar" className="chat-input-wrapper">
+        {/* <div className="chat-input-disabled">
           <p>Vous devez rejoindre cette action avant de pouvoir envoyer un message</p>
           <button className="success button">Rejoindre</button>
-        </div>
+        </div> */}
         <div className="chat-input">
           {
             hasActionPicker ?

@@ -4,7 +4,7 @@ import classNames             from 'classnames';
 
 import TouchEvent             from './TouchEvent';
 
-export default class Breacrumb extends React.Component {
+export default class Breadcrumb extends React.Component {
 
     constructor( props ) {
         super( props );
@@ -13,7 +13,7 @@ export default class Breacrumb extends React.Component {
     }
 
     handleOpen() {
-        
+
         if (this.state.isOpen == true)
           this.setState( { isOpen : false } );
         else

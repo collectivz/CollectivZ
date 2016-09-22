@@ -40,9 +40,11 @@ Meteor.methods({
       $set: { mainChannel: channelId },
     });
 
+    const lastReadField = `lastReadAt.${channelId}`;
     Meteor.users.update(this.userId, {
       $push: { subscribedGuilds: guildId, subscribedChannels: channelId },
       $inc: { 'connections.guildCount': 1 },
+      $set: { [lastReadField]: Date.now() }
     });
 
     return channelId;
@@ -69,9 +71,11 @@ Meteor.methods({
 
     const channel = Channels.findOne(guild.mainChannel);
 
+    const lastReadField = `lastReadAt.${channel._id}`;
     Meteor.users.update(this.userId, {
       $push: { subscribedGuilds: guildId, subscribedChannels: guild.mainChannel },
       $inc: { 'connections.guildCount': 1 },
+      $set: { [lastReadField]: Date.now() }
     });
     Guilds.update(guildId, {
       $push: { members: user._id },

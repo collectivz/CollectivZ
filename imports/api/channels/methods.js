@@ -47,8 +47,11 @@ Meteor.methods({
     Channels.update(channelId, {
       $set: { messageId: messageId }
     });
+
+    const lastReadField = `lastReadAt.${channelId}`;
     Meteor.users.update(this.userId, {
       $push: { subscribedChannels: channelId },
+      $set: { [lastReadField]: Date.now() }
     });
   },
 
@@ -67,8 +70,10 @@ Meteor.methods({
         $push: { members: this.userId },
       });
 
+      const lastReadField = `lastReadAt.${channelId}`;
       Meteor.users.update(this.userId, {
         $push: { subscribedChannels: channelId },
+        $set: { [lastReadField]: Date.now() }
       });
 
       const username = Meteor.users.findOne(this.userId).username;
@@ -145,8 +150,12 @@ Meteor.methods({
     }
 
     const newConversationChannelId = Channels.insert(newConversationChannel);
+
+
+    const lastReadField = `lastReadAt.${channelId}`;
     Meteor.users.update({_id: {$in: [user._id, participant._id]}}, {
-      $push: { subscribedConversations: newConversationChannelId }
+      $push: { subscribedConversations: newConversationChannelId },
+      $set: { [lastReadField]: Date.now() }
     }, {multi: true});
   }
 });

@@ -109,8 +109,6 @@ export default class Chat extends React.Component {
     const { zorro, dialogWithZorro, ongoingAction, filter, choices } = this.state;
     const filteredMessages = this.filterMessage();
 
-    Meteor.call('users.markAsSeen', channel._id);
-
     return (
       <div className={classNames("chat-sub-container", {"chat-with-filter-sub-container" : channel.connections})}>
 

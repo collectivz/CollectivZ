@@ -26,8 +26,8 @@ if (Meteor.isServer) {
     user.connections = {};
     user.coinz = 100;
     user.history = '';
+    user.lastReadAt = {};
     user.repertory = Repertory.insert(newRepertory);
-    user.hasSeen = {};
     return user;
   });
 }
