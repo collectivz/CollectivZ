@@ -57,14 +57,13 @@ Meteor.methods({
     });
   },
 
-  'coins.donate'(coinId, moneyDonated) {
+  'coins.donate'(coinId, money) {
     if (!this.userId) {
       throw new Meteor.Error('not-logged-in',
         "Vous devez être connecté pour rejoindre un évènement.");
     }
 
     check(coinId, String);
-    const money = parseInt(moneyDonated);
     check(money, Number);
     const user = Meteor.users.findOne(this.userId);
     if (user.coinz < money) {
@@ -95,5 +94,38 @@ Meteor.methods({
     Meteor.users.update(this.userId, {
       $inc: {coinz: -money},
     });
+  },
+
+  'coins.edit'(coinId, newCoin) {
+    check(newCoin, {
+      purpose: String,
+      goal: Number
+    });
+    if (!this.userId) {
+      throw new Meteor.Error('not-logged-in',
+        "Vous devez être connecté pour rejoindre un évènement.");
+    }
+
+    const coin = Coins.findOne(coinId, { fields: { author: 1 } });
+
+    if (coin && coin.author === this.userId) {
+      Coins.update(coinId, {
+        $set : { goal: newCoin.goal, purpose: newCoin.purpose }
+      });
+    }
+  },
+
+  'coins.delete'(coinId) {
+    if (!this.userId) {
+      throw new Meteor.Error('not-logged-in',
+      "vous devez être connecté pour supprimer ceci.");
+    }
+    check(coinId, String);
+
+    const coin = Coins.findOne(coinId);
+
+    if (coin && coin.author === this.userId) {
+      Coins.remove(coinId);
+    }
   }
 });

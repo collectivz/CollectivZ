@@ -41,7 +41,12 @@ export default class ChannelList extends React.Component {
       <div className="screen-box">
         <Breadcrumb title="Récent" hasBack={false} />
           <div className="sub-container">
-            <List data={sortedChannels} type="channel" unreadCounts={unreadCounts} />
+            <List
+              data={sortedChannels}
+              type="channel"
+              unreadCounts={unreadCounts}
+              renderUnread={true}
+            />
           </div>
         <AppNav user={user}/>
       </div>

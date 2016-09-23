@@ -12,9 +12,11 @@ export default class CoinItem extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    let number = this.refs.number.value;
-    if (number > 0) {
-      Meteor.call('coins.donate', this.props.coin._id, number);
+    const { coin } = this.props;
+    const { number } = this.refs;
+    let numberInt = parseInt(number.value);
+    if (Number.isInteger(numberInt)) {
+      Meteor.call('coins.donate', this.props.coin._id, numberInt);
       this.refs.number.value = '';
     }
   }

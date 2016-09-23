@@ -17,6 +17,7 @@ reactive-var            # Reactive variable for tracker
 react-meteor-data
 standard-minifier-js    # JS minifier run for production mode
 accounts-password
+aldeed:simple-schema
 session
 fourseven:scss
 seba:minifiers-autoprefixer

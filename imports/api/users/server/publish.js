@@ -48,10 +48,10 @@ Meteor.publish('unread-count', function() {
     let initializing = true;
     const user = Meteor.users.findOne(this.userId, { fields: {
       subscribedChannels: 1,
-      subscribedConversation: 1,
+      subscribedConversations: 1,
       lastReadAt: 1
     } });
-    const userChannels = user.subscribedChannels.concat(user.subscribedConversation);
+    const userChannels = user.subscribedChannels.concat(user.subscribedConversations);
     const unreadCounts = [];
     const handle = Messages.find(
       { channelId: { $in: userChannels } }

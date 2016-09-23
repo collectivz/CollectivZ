@@ -41,7 +41,7 @@ export default class ChannelItem extends React.Component {
 
   render() {
 
-    const { channel, unreadCount } = this.props;
+    const { channel, unreadCount, renderUnread } = this.props;
 
     return (
       <TouchEvent class="list-item touch-event" onClick={this.onClick}>
@@ -60,7 +60,7 @@ export default class ChannelItem extends React.Component {
             : ''
           }
           {
-            unreadCount ?
+            renderUnread && unreadCount ?
               <div className="list-item-notif">{unreadCount}</div>
               : ''
           }

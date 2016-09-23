@@ -112,6 +112,7 @@ Meteor.methods({
       $set : { name: newName }
     });
   },
+
   'guilds.changePicture'(url, guildId) {
     const userId = this.userId;
 

@@ -90,7 +90,7 @@ Meteor.methods({
       'The poll is finished');
     }
 
-    const props = Propositions.find({pollId: pollId}).fetch();
+    const props = Propositions.find({pollId}).fetch();
     props.forEach((proposition) => {
       if (_.contains(proposition.voteRecevedFrom, this.userId)) {
         throw new Meteor.Error('already voted',
@@ -111,9 +111,61 @@ Meteor.methods({
     const prop = {
       name: proposition,
       voteRecevedFrom: [],
-      pollId: pollId
+      pollId
     }
 
     return Propositions.insert(prop);
+  },
+
+  'polls.editQuestion'(pollId, newQuestion) {
+    if (!this.userId) {
+      throw new Meteor.Error('not-logged-in',
+      'Vous devez être connecté pour modifier un sondage.');
+    }
+    check(pollId, String);
+    check(newQuestion, String);
+
+    const poll = Polls.findOne(pollId, { fields: { author: 1 } });
+
+    if (poll && poll.author === this.userId) {
+      Polls.update(pollId, { $set: { question: newQuestion } })
+    }
+
+  },
+
+  'polls.addProposition'(pollId, newProp) {
+    if (!this.userId) {
+      throw new Meteor.Error('not-logged-in',
+      'Vous devez être connecté pour modifier un sondage.');
+    }
+    check(pollId, String);
+    check(newProp, String);
+
+    const poll = Polls.findOne(pollId, { fields: { author: 1 } });
+
+    if (poll && poll.author === this.userId) {
+      const proposition = {
+        name: newProp,
+        voteRecevedFrom: [],
+        pollId,
+      };
+      Propositions.insert(proposition);
+    }
+
+  },
+
+  'polls.delete'(pollId) {
+    if (!this.userId) {
+      throw new Meteor.Error('not-logged-in',
+      'Vous devez être connecté pour modifier un sondage.');
+    }
+    check(pollId, String);
+
+    const poll = Polls.findOne(pollId, { fields: { author: 1 } });
+
+    if (poll && poll.author === this.userId) {
+      Polls.remove(pollId);
+    }
+
   }
 })

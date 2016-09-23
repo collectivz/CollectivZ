@@ -14,10 +14,10 @@ export default class List extends React.Component {
   }
 
   renderItem(item, index) {
-    const { user, type, unreadCounts } = this.props;
+    const { user, type, unreadCounts, renderUnread } = this.props;
     let count = 0;
 
-    if (type === 'channel' || type === 'conversation' || type === 'group') {
+    if (renderUnread && (type === 'channel' || type === 'conversation' || type === 'group')) {
       const unreadCount = unreadCounts.find(count => {
         if (count.channelId === item._id) {
           return true;
@@ -33,7 +33,12 @@ export default class List extends React.Component {
       case 'history':
         return <HistoryItem key={index} historyItem={item} />
       default:
-        return <ChannelItem key={index} channel={item} unreadCount={count} />;
+        return <ChannelItem
+          key={index}
+          channel={item}
+          unreadCount={count}
+          renderUnread={renderUnread}
+        />;
     }
   }
 

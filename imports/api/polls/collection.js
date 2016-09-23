@@ -11,6 +11,16 @@ class PollCollection extends Mongo.Collection {
 
     return super.insert(poll, callback);
   }
+
+  remove(selector) {
+    const polls = Polls.find(selector, { fields: { _id: 1 } }).fetch();
+
+    polls.forEach(poll => {
+      Propositions.remove({pollId: poll._id});
+    });
+
+    return super.remove(selector);
+  }
 }
 
 export const Polls = new Mongo.Collection('polls');
