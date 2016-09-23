@@ -24,7 +24,7 @@ export default class MessageInput extends Component {
     const { inputMode, hasActionPicker } = this.props;
     const { showActions } = this.state;
 
-    if (!showActions && inputMode != 'message' && hasActionPicker === true) {
+    if (!showActions && inputMode !== 'message' && hasActionPicker === true) {
       this.props.changeInputMode('message');
     }
   }
@@ -33,9 +33,6 @@ export default class MessageInput extends Component {
     this.setState({
       barHeight: { height: this.refs.bar.scrollHeight + 10 }
     });
-    setTimeout( () => {
-      $(".chat-sub-container").scrollTop(1000000);
-    }, 150 );
   }
 
   keyboardEvent(e) {
@@ -46,15 +43,18 @@ export default class MessageInput extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    const { inputMode, hasActionPicker } = this.props;
+    const { inputMode, hasActionPicker, channel, user } = this.props;
     const text = this.refs.textInput.value.trim();
 
     if (inputMode === 'message' || hasActionPicker === false) {
       let message = {
         text,
-        channelId: this.props.channelId,
+        channelId: channel._id,
       };
 
+      if (channel.type === 'group' && !_.contains(user.subscribedChannels, channel._id)) {
+        Meteor.call('channels.join', channel._id);
+      }
       Meteor.call('messages.insert', message, (err, res) => {
         if(err) {
           console.log(err);
@@ -65,17 +65,10 @@ export default class MessageInput extends Component {
           formHeight: { height: 36 }
         });
 
-        $(".chat-sub-container").stop().animate({
-          scrollTop: 10000
-        }, 500);
-
       });
     } else {
       this.props.answerToZorro(text);
       this.refs.textInput.value = '';
-      $(".chat-sub-container").stop().animate({
-        scrollTop: 10000
-      }, 500);
     }
   }
 
@@ -96,7 +89,7 @@ export default class MessageInput extends Component {
   }
 
   render() {
-    const { hasActionPicker } = this.props;
+    const { hasActionPicker, channel } = this.props;
 
     if ($(".chat-input-wrapper").hasClass('disabled'))
     {
@@ -106,10 +99,6 @@ export default class MessageInput extends Component {
 
     return (
       <div ref="bar" className="chat-input-wrapper">
-        {/* <div className="chat-input-disabled">
-          <p>Vous devez rejoindre cette action avant de pouvoir envoyer un message</p>
-          <button className="success button">Rejoindre</button>
-        </div> */}
         <div className="chat-input">
           {
             hasActionPicker ?

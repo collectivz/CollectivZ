@@ -70,16 +70,20 @@ Meteor.publish('unread-count', function() {
               channelId: fields.channelId,
               count: 1
             });
+            self.added('unread-count', fields.channelId, {
+              channelId: fields.channelId,
+              count: 1
+            });
           } else {
             unreadCounts[unreadObjectIndex].count++;
+            self.changed('unread-count', fields.channelId, {
+              count: unreadCounts[unreadObjectIndex].count
+            });
           }
         }
       }
     });
 
-    unreadCounts.forEach((count, index) => {
-      self.added('unread-count', index, count);
-    });
     self.ready();
     self.onStop(() => {
       handle.stop();

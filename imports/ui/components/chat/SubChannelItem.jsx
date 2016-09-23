@@ -5,11 +5,6 @@ export default class SubChannelItem extends React.Component {
   constructor(props) {
     super(props);
 
-    this.joinChannel = this.joinChannel.bind(this);
-  }
-
-  joinChannel() {
-    Meteor.call('channels.join', this.props.channel._id);
   }
 
   render() {
@@ -27,7 +22,7 @@ export default class SubChannelItem extends React.Component {
                   <i className="icon icon-cog"/>
                   <span>Nouvelle Actionz : {channel.name}</span>
               </div>
-                <p><a href={'/group/' + channel._id} onClick={this.joinChannel}><button>Rejoindre</button></a></p>
+                <p><a href={'/group/' + channel._id}><button>Rejoindre</button></a></p>
           </div>
       </div>
       : null

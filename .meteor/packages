@@ -9,7 +9,6 @@ underscore
 check
 ecmascript              # Enable ECMAScript2015+ syntax in app code
 es5-shim                # ECMAScript 5 compatibility for older browsers.
-insecure                # Allow all DB writes from clients (for prototyping)
 jquery                  # Helpful client-side library
 meteor-base             # Packages every Meteor app needs to have
 mobile-experience       # Packages for a great mobile UX

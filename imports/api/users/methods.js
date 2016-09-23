@@ -45,7 +45,7 @@ Meteor.methods({
 
     const lastReadField = `lastReadAt.${channelId}`;
     Meteor.users.update(userId, {
-      set: { [lastReadField]: Date.now() }
+      $set: { [lastReadField]: Date.now() }
     });
   }
 });

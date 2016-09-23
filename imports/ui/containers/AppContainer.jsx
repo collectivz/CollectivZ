@@ -6,7 +6,6 @@ import App from '../layout/App.jsx'
 
 export default createContainer(() => {
   const userSub = Meteor.subscribe('user');
-  const unreadSub = Meteor.subscribe('unread-count');
 
   return {
     user: Meteor.user(),
