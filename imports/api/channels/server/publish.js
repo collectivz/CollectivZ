@@ -13,19 +13,23 @@ Meteor.publish('chanPage', function(id){
   check(id, String);
   if (this.userId) {
     const channel = Channels.findOne(id);
-    return [
-      Channels.find({$or :[
-        {_id: id},
-        {parentId: id}
-      ]}),
-      Guilds.find({_id: channel.rootId}),
-      Messages.find({channelId: id}),
-      Feedbacks.find({channelId: id}),
-      Beers.find({channelId: id}),
-      Polls.find({channelId: id}),
-      Coins.find({channelId: id}),
-      Meteor.users.find({subscribedChannels: {$in: [id]}})
-    ];
+    if (channel) {
+      return [
+        Channels.find({$or :[
+          {_id: id},
+          {parentId: id}
+        ]}),
+        Guilds.find({_id: channel.rootId}),
+        Messages.find({channelId: id}),
+        Feedbacks.find({channelId: id}),
+        Beers.find({channelId: id}),
+        Polls.find({channelId: id}),
+        Coins.find({channelId: id}),
+        Meteor.users.find({subscribedChannels: {$in: [id]}})
+      ];
+    } else {
+      this.ready();
+    }
   } else {
     this.ready();
   }

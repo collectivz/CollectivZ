@@ -7,7 +7,6 @@ Meteor.startup(function() {
       username: 'mastermind',
       password : 'mastermind',
       profile: {
-        admin: true,
         firstName: 'tammy',
         lastName: 'mind'
       }

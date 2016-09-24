@@ -100,7 +100,7 @@ Meteor.methods({
         "Cette projet n'existe pas.");
     }
 
-    if (!_.contains(guild.leaders, user._id) || !user.profile.admin) {
+    if (!_.contains(guild.leaders, user._id) && !user.isAdmin) {
       throw new Meteor.Error('no-right',
         "Vous n'avez pas les droits pour changer le nom de cette projet.");
     }

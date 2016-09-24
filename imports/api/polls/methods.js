@@ -96,7 +96,7 @@ Meteor.methods({
         throw new Meteor.Error('already voted',
         'You\'ve alreday voted for this poll');
       }
-    })
+    });
 
     Propositions.update(propsId, {
       $push: {voteRecevedFrom: this.userId},

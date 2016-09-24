@@ -186,13 +186,13 @@ Meteor.methods({
     }
 
     const channel = Channels.findOne(channelId, { fields: { author: 1 } });
-    if (channel.author !== this.userId) {
+    if (channel.author !== this.userId && !Meteor.user().isAdmin) {
       throw new Meteor.Error('no-right', "Vous n'avez pas les droits pour faire ça.")
     }
 
     let modifier = {};
     _.keys(newChannel).forEach(key => {
-      modifier.key = newChannel[key];
+      modifier[key] = newChannel[key];
     });
 
     Channels.update(channelId, { $set: modifier });
@@ -219,7 +219,7 @@ Meteor.methods({
       type: 1,
       connections: 1
     } });
-    if (channel && channel.author === this.userId) {
+    if (channel && (channel.author === this.userId || Meteor.user().isAdmin)) {
       if (channel.type === 'channel' || channel.type === 'group') {
         const {
           pollCount,

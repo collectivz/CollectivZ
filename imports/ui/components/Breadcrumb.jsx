@@ -2,7 +2,7 @@ import React                  from 'react';
 import { browserHistory }     from 'react-router';
 
 import TouchEvent             from './TouchEvent';
-import DropDown               from './DropDown';
+// import DropDown               from './DropDown';
 
 export default class Breadcrumb extends React.Component {
 
@@ -34,13 +34,13 @@ export default class Breadcrumb extends React.Component {
             children
           : ''
         }
-        <DropDown>
+        {/* <DropDown>
           <ul>
             <li><a className="drop-down-menu-link" href="#"> Editer l'action </a></li>
             <li><a className="drop-down-menu-link" href="#"> Fermer l'action </a></li>
             <li><a className="drop-down-menu-link" href="#"> Déplacer l'action </a></li>
           </ul>
-        </DropDown>
+        </DropDown> */}
       </div>
     );
   }

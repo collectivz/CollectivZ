@@ -47,7 +47,7 @@ export default class AppNav extends Component {
             <i className="icon icon-3x icon-temple"/>
             <span>Groupes</span>
         </TouchEvent>
-        {user.profile.admin ?
+        {user.isAdmin ?
           <TouchEvent
               onClick={ ()=>{this.onClick("/admin")} }
               class={ classNames( "navbar-item touch-event", { active: activeUrl == "/admin" } ) }>
