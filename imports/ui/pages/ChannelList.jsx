@@ -26,7 +26,8 @@ export default class ChannelList extends React.Component {
     const {
       channels,
       conversations,
-      user
+      user,
+      unreadCounts
     } = this.props;
 
     const sortedChannels = channels.sort((a, b) => {
@@ -40,7 +41,12 @@ export default class ChannelList extends React.Component {
       <div className="screen-box">
         <Breadcrumb title="Récent" hasBack={false} />
           <div className="sub-container">
-            <List data={sortedChannels} type="channel" />
+            <List
+              data={sortedChannels}
+              type="channel"
+              unreadCounts={unreadCounts}
+              renderUnread={true}
+            />
           </div>
         <AppNav user={user}/>
       </div>

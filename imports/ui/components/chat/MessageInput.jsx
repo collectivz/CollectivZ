@@ -24,7 +24,7 @@ export default class MessageInput extends Component {
     const { inputMode, hasActionPicker } = this.props;
     const { showActions } = this.state;
 
-    if (!showActions && inputMode != 'message' && hasActionPicker === true) {
+    if (!showActions && inputMode !== 'message' && hasActionPicker === true) {
       this.props.changeInputMode('message');
     }
   }
@@ -33,9 +33,6 @@ export default class MessageInput extends Component {
     this.setState({
       barHeight: { height: this.refs.bar.scrollHeight + 10 }
     });
-    setTimeout( () => {
-      $(".chat-sub-container").scrollTop(1000000);
-    }, 150 );
   }
 
   keyboardEvent(e) {
@@ -46,15 +43,18 @@ export default class MessageInput extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    const { inputMode, hasActionPicker } = this.props;
+    const { inputMode, hasActionPicker, channel, user } = this.props;
     const text = this.refs.textInput.value.trim();
 
     if (inputMode === 'message' || hasActionPicker === false) {
       let message = {
         text,
-        channelId: this.props.channelId,
+        channelId: channel._id,
       };
 
+      if (channel.type === 'group' && !_.contains(user.subscribedChannels, channel._id)) {
+        Meteor.call('channels.join', channel._id);
+      }
       Meteor.call('messages.insert', message, (err, res) => {
         if(err) {
           console.log(err);
@@ -65,17 +65,10 @@ export default class MessageInput extends Component {
           formHeight: { height: 36 }
         });
 
-        $(".chat-sub-container").stop().animate({
-          scrollTop: 10000
-        }, 500);
-
       });
     } else {
       this.props.answerToZorro(text);
       this.refs.textInput.value = '';
-      $(".chat-sub-container").stop().animate({
-        scrollTop: 10000
-      }, 500);
     }
   }
 
@@ -88,14 +81,6 @@ export default class MessageInput extends Component {
     $(".icon-plus-circle").toggleClass("icon-rotate-45");
   }
 
-  getCss() {
-    if (this.state.showActions)
-      return "bar-stable bar bar-footer item-input-inset has-actions-list";
-    else {
-      return "bar-stable bar bar-footer item-input-inset";
-    }
-  }
-
   textareaHeightTweak(e) {
     this.setState({
       barHeight: { height: this.refs.textInput.scrollHeight + 10 },
@@ -104,7 +89,13 @@ export default class MessageInput extends Component {
   }
 
   render() {
-    const { hasActionPicker } = this.props;
+    const { hasActionPicker, channel } = this.props;
+
+    if ($(".chat-input-wrapper").hasClass('disabled'))
+    {
+      $(".chat-input-wrapper").toggleClass("open");
+      $(".chat-sub-container").toggleClass("open");
+    }
 
     return (
       <div ref="bar" className="chat-input-wrapper">
@@ -125,9 +116,6 @@ export default class MessageInput extends Component {
               ref="textInput">
             </textarea>
           </form>
-          <button onClick={this.handleSubmit} className="chat-input-button-right button">
-            <i className="icon icon-paperplane"></i>
-          </button>
         </div>
         {
           hasActionPicker ?

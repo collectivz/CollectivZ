@@ -5,6 +5,10 @@ import { _ } from 'meteor/underscore';
 import { Channels } from './collection.js';
 import { Guilds } from '../guilds/collection.js';
 import { Messages } from '../messages/collection.js';
+import { Polls } from '../polls/collection.js';
+import { Feedbacks } from '../feedbacks/collection.js';
+import { Beers } from '../beers/collection.js';
+import { Coins } from '../coins/collection.js';
 import historyUserAction from '../history/functions.js';
 
 Meteor.methods({
@@ -47,8 +51,11 @@ Meteor.methods({
     Channels.update(channelId, {
       $set: { messageId: messageId }
     });
+
+    const lastReadField = `lastReadAt.${channelId}`;
     Meteor.users.update(this.userId, {
       $push: { subscribedChannels: channelId },
+      $set: { [lastReadField]: Date.now() }
     });
   },
 
@@ -67,8 +74,10 @@ Meteor.methods({
         $push: { members: this.userId },
       });
 
+      const lastReadField = `lastReadAt.${channelId}`;
       Meteor.users.update(this.userId, {
         $push: { subscribedChannels: channelId },
+        $set: { [lastReadField]: Date.now() }
       });
 
       const username = Meteor.users.findOne(this.userId).username;
@@ -145,8 +154,113 @@ Meteor.methods({
     }
 
     const newConversationChannelId = Channels.insert(newConversationChannel);
+
+
+    const lastReadField = `lastReadAt.${channelId}`;
     Meteor.users.update({_id: {$in: [user._id, participant._id]}}, {
-      $push: { subscribedConversations: newConversationChannelId }
+      $push: { subscribedConversations: newConversationChannelId },
+      $set: { [lastReadField]: Date.now() }
     }, {multi: true});
+  },
+
+  'channels.edit'(channelId, newChannel) {
+    check(channelId, String);
+    new SimpleSchema({
+      name: {
+        type: String,
+        optional: true
+      },
+      description: {
+        type: String,
+        optional: true
+      },
+      imageUrl: {
+        type: String,
+        optional: true
+      }
+    }).validate(newChannel);
+
+    if (!this.userId) {
+      throw new Meteor.Error('not-logged-in',
+        "Vous devez être connecté pour créer un groupe de discussion.");
+    }
+
+    const channel = Channels.findOne(channelId, { fields: { author: 1 } });
+    if (channel.author !== this.userId && !Meteor.user().isAdmin) {
+      throw new Meteor.Error('no-right', "Vous n'avez pas les droits pour faire ça.")
+    }
+
+    let modifier = {};
+    _.keys(newChannel).forEach(key => {
+      modifier[key] = newChannel[key];
+    });
+
+    Channels.update(channelId, { $set: modifier });
+  },
+
+  'channels.delete'(channelId) {
+    check(channelId, String);
+
+    if (!this.userId) {
+      throw new Meteor.Error('not-logged-in',
+        "Vous devez être connecté pour supprimer une action.");
+    }
+    const hasChildren = Channels.find({parentId: channelId}).count();
+
+    if (hasChildren) {
+      throw new Meteor.Error('has-children',
+        "Cette action contient des sous-actions, vous ne pouvez la supprimer.");
+    }
+
+    const channel = Channels.findOne(channelId, { fields: {
+      author: 1,
+      parentId: 1,
+      rootId: 1,
+      type: 1,
+      connections: 1
+    } });
+    if (channel && (channel.author === this.userId || Meteor.user().isAdmin)) {
+      if (channel.type === 'channel' || channel.type === 'group') {
+        const {
+          pollCount,
+          beerCount,
+          feedbackCount,
+          coinCount
+        } = channel.connections;
+        if (pollCount) {
+          Polls.remove({channelId});
+        }
+        if (beerCount) {
+          Beers.remove({channelId});
+        }
+        if (feedbackCount) {
+          Feedbacks.remove({channelId});
+        }
+        if (coinCount) {
+          Coins.remove({channelId});
+        }
+        if (channel.type === 'group') {
+          const guild = Guilds.findOne({ mainChannel: channelId }, { fields: { _id: 1 } });
+          Meteor.users.update({ subscribedChannels: { $in: [channelId] } }, {
+            $pullAll: { subscribedGuilds: [guild._id] }
+          });
+          Guilds.remove(guild._id);
+        }
+
+        const lastReadField = `lastReadAt.${channelId}`;
+        Meteor.users.update({ subscribedChannels: { $in: [channelId] } }, {
+          $pullAll: { subscribedChannels: [channelId] },
+          $unset: { [lastReadField]: '' }
+        });
+      } else if (channel.type === 'conversation') {
+        const lastReadField = `lastReadAt.${channelId}`;
+        Meteor.users.update({ subscribedConversations: { $in: [channelId] } }, {
+          $pullAll: { subscribedConversations: [channelId] },
+          $unset: { [lastReadField]: '' }
+        });
+      }
+
+      Channels.remove(channelId);
+    }
   }
 });

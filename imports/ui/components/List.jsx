@@ -14,7 +14,18 @@ export default class List extends React.Component {
   }
 
   renderItem(item, index) {
-    const { user, type } = this.props;
+    const { user, type, unreadCounts, renderUnread } = this.props;
+    let count = 0;
+
+    if (renderUnread && (type === 'channel' || type === 'conversation' || type === 'group')) {
+      const unreadCount = unreadCounts.find(count => {
+        if (count.channelId === item._id) {
+          return true;
+        }
+        return false;
+      });
+      count = unreadCount ? unreadCount.count : 0;
+    }
 
     switch (type) {
       case 'guild':
@@ -22,7 +33,12 @@ export default class List extends React.Component {
       case 'history':
         return <HistoryItem key={index} historyItem={item} />
       default:
-        return <ChannelItem key={index} channel={item}  />;
+        return <ChannelItem
+          key={index}
+          channel={item}
+          unreadCount={count}
+          renderUnread={renderUnread}
+        />;
     }
   }
 

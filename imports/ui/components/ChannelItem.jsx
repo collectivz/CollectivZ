@@ -27,6 +27,7 @@ export default class ChannelItem extends React.Component {
 
     setTimeout( () => {
       browserHistory.push(dest);
+      Meteor.call('users.updateLastRead', channel._id);
     }, 350 );
 
   }
@@ -40,7 +41,7 @@ export default class ChannelItem extends React.Component {
 
   render() {
 
-    const { channel } = this.props;
+    const { channel, unreadCount, renderUnread } = this.props;
 
     return (
       <TouchEvent class="list-item touch-event" onClick={this.onClick}>
@@ -58,8 +59,12 @@ export default class ChannelItem extends React.Component {
             <ActionList actions={channel.connections} />
             : ''
           }
+          {
+            renderUnread && unreadCount ?
+              <div className="list-item-notif">{unreadCount}</div>
+              : ''
+          }
         </div>
-        <i className="icon icon-3x icon-chevron-right"/>
       </TouchEvent>
     );
   }

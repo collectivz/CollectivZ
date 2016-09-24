@@ -11,36 +11,28 @@ import { Polls, Propositions } from '../../polls/collection.js';
 
 Meteor.publish('chanPage', function(id){
   check(id, String);
-  const channel = Channels.findOne(id);
-  let guilds;
-  if (channel) {
-    return [
-      Channels.find({$or :[
-        {_id: id},
-        {parentId: id}
-      ]}),
-      Guilds.find({_id: channel.rootId}),
-      Messages.find({channelId: id}),
-      Feedbacks.find({channelId: id}),
-      Beers.find({channelId: id}),
-      Polls.find({channelId: id}),
-      Coins.find({channelId: id}),
-      Meteor.users.find({subscribedChannels: {$in: [id]}})
-    ];
+  if (this.userId) {
+    const channel = Channels.findOne(id);
+    if (channel) {
+      return [
+        Channels.find({$or :[
+          {_id: id},
+          {parentId: id}
+        ]}),
+        Guilds.find({_id: channel.rootId}),
+        Messages.find({channelId: id}),
+        Feedbacks.find({channelId: id}),
+        Beers.find({channelId: id}),
+        Polls.find({channelId: id}),
+        Coins.find({channelId: id}),
+        Meteor.users.find({subscribedChannels: {$in: [id]}})
+      ];
+    } else {
+      this.ready();
+    }
   } else {
-    return [
-      Channels.find({$or :[
-        {_id: id},
-        {parentId: id}
-      ]}),
-      Messages.find({channelId: id}),
-      Beers.find({channelId: id}),
-      Polls.find({channelId: id}),
-      Coins.find({channelId: id}),
-      Meteor.users.find({subscribedChannels: {$in: [id]}})
-    ];
+    this.ready();
   }
-
 });
 
 Meteor.publish('conversationPage', function(id){
@@ -49,7 +41,7 @@ Meteor.publish('conversationPage', function(id){
   return [
     Messages.find({channelId: id}),
     Channels.find(id),
-    Meteor.users.find({subscribedConversation: {$in: [id]}})
+    Meteor.users.find({subscribedConversations: {$in: [id]}})
   ];
 });
 

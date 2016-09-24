@@ -16,6 +16,9 @@ if (Meteor.isServer) {
     const newRepertory = {
       userId: user._id,
     };
+    if (Meteor.users.find().count() === 0) {
+      user.isAdmin = true;
+    }
     user.profile = options.profile || {};
     user.profile.background = '/img/ugly.jpg';
     user.profile.avatar = user.profile.avatar ? user.profile.avatar : '/img/no-user.png';
@@ -26,8 +29,8 @@ if (Meteor.isServer) {
     user.connections = {};
     user.coinz = 100;
     user.history = '';
+    user.lastReadAt = {};
     user.repertory = Repertory.insert(newRepertory);
-    user.hasSeen = {};
     return user;
   });
 }

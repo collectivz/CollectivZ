@@ -8,6 +8,7 @@ import ChatFilter           from './ChatFilter.jsx';
 import ZorroItem            from './ZorroItem.jsx';
 import MessageInput         from './MessageInput.jsx';
 import MessageList          from './MessageList.jsx';
+import JoinActionButton          from './JoinActionButton.jsx';
 
 
 export default class Chat extends React.Component {
@@ -23,7 +24,8 @@ export default class Chat extends React.Component {
       currentAction: {},
       ongoingAction: false,
       expectedAnswer: '',
-      choices: []
+      choices: [],
+      messageCount: this.props.messages.length
     };
 
     this.setFilterOption = this.setFilterOption.bind(this);
@@ -33,12 +35,16 @@ export default class Chat extends React.Component {
   }
 
   componentDidMount() {
-    this.refs.scroll.scrollTop += this.refs.scroll.scrollHeight;
+    $(".chat-sub-container").stop().animate({
+      scrollTop: 10000
+    }, 500);
   }
 
   componentDidUpdate() {
-    if (this.state.inputMode != 'message' && !this.state.ongoingAction) {
-      const zorro = zorroForm(this.state.inputMode, this.props.channel._id);
+    const { channel, messages } = this.props;
+    const { inputMode, ongoingAction, messageCount } = this.state;
+    if (inputMode !== 'message' && !ongoingAction) {
+      const zorro = zorroForm(inputMode, channel._id);
       const newState = zorro.getState();
 
       this.setState({
@@ -46,20 +52,39 @@ export default class Chat extends React.Component {
       });
       this.setState(newState);
     }
-    this.refs.scroll.scrollTop += this.refs.scroll.scrollHeight;
+    if (messageCount !== messages.length) {
+      Meteor.call('users.updateLastRead', channel._id);
+      this.setState({
+        messageCount: messages.length
+      });
+    }
+    $(".chat-sub-container").stop().animate({
+      scrollTop: 10000
+    }, 500);
   }
 
   setFilterOption(filter) {
     this.setState({
       filter
     });
-    this.refs.scroll.scrollTop += this.refs.scroll.scrollHeight;
+    $(".chat-sub-container").stop().animate({
+      scrollTop: 10000
+    }, 500);
   }
 
   changeInputMode(inputMode) {
     this.setState({
       inputMode
     });
+  }
+
+  hasJoined() {
+    const { user, channel } = this.props;
+
+    if (channel.type === 'channel' && !_.contains(user.subscribedChannels, channel._id)) {
+      return false;
+    }
+    return true;
   }
 
   answerToZorro(answer, e) {
@@ -70,9 +95,6 @@ export default class Chat extends React.Component {
     const newState = zorro.getState();
 
     this.setState(newState);
-    $(".chat-sub-container").stop().animate({
-      scrollTop: 10000
-    }, 500);
   }
 
   filterMessage() {
@@ -108,8 +130,6 @@ export default class Chat extends React.Component {
     } = this.props;
     const { zorro, dialogWithZorro, ongoingAction, filter, choices } = this.state;
     const filteredMessages = this.filterMessage();
-
-    Meteor.call('users.markAsSeen', channel._id);
 
     return (
       <div className={classNames("chat-sub-container", {"chat-with-filter-sub-container" : channel.connections})}>
@@ -150,14 +170,20 @@ export default class Chat extends React.Component {
             }
           </div>
         </div>
-        <MessageInput
-          inputMode={this.state.inputMode}
-          changeInputMode={this.changeInputMode}
-          answerToZorro={this.answerToZorro}
-          channelId={channel._id}
-          toggleMarginBottom={this.toggleMarginBottom}
-          hasActionPicker={true}
-        />
+        {
+          this.hasJoined() ?
+            <MessageInput
+              inputMode={this.state.inputMode}
+              changeInputMode={this.changeInputMode}
+              answerToZorro={this.answerToZorro}
+              channel={channel}
+              toggleMarginBottom={this.toggleMarginBottom}
+              hasActionPicker={true}
+              user={user}
+            />
+          :
+            <JoinActionButton channel={channel} />
+        }
       </div>
     );
   }

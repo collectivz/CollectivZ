@@ -81,5 +81,20 @@ Meteor.methods({
         }
       });
     }
+  },
+
+  'beers.delete'(beerId) {
+    if (!this.userId) {
+      throw new Meteor.Error('not-logged-in',
+      "vous devez être connecté pour supprimer ceci.");
+    }
+    check(beerId, String);
+
+    const beer = Beers.findOne(beerId);
+
+    if (beer && beer.author === this.userId) {
+      Beers.remove(beerId);
+    }
+
   }
 });

@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 
 import { Channels } from '../../channels/collection.js';
+import { Messages } from '../../messages/collection.js';
 import { History } from '../../history/collection.js';
 import { Guilds } from '../../guilds/collection.js';
 
@@ -17,7 +18,8 @@ Meteor.publish('user', function() {
         profile: 1,
         history: 1,
         repertory: 1,
-        hasSeen: 1
+        lastReadAt: 1,
+        isAdmin: 1
       }}),
       History.find({ userId: this.userId })
     ];
@@ -36,6 +38,58 @@ Meteor.publish('userProfile', function(userId) {
       Guilds.find({ _id: { $in: user.subscribedGuilds } }),
       History.find({ userId: user._id })
     ];
+  } else {
+    this.ready();
+  }
+});
+
+Meteor.publish('unread-count', function() {
+  if (this.userId) {
+    const self = this;
+    let initializing = true;
+    const user = Meteor.users.findOne(this.userId, { fields: {
+      subscribedChannels: 1,
+      subscribedConversations: 1,
+      lastReadAt: 1
+    } });
+    const userChannels = user.subscribedChannels.concat(user.subscribedConversations);
+    const unreadCounts = [];
+    const handle = Messages.find(
+      { channelId: { $in: userChannels } }
+    ).observeChanges({
+      added(id, fields) {
+        if (fields.createdAt > user.lastReadAt[fields.channelId]) {
+          const unreadObjectIndex = unreadCounts.findIndex(doc => {
+            if (doc && doc.channelId === fields.channelId) {
+              return true;
+            }
+            return false;
+          });
+
+          if (unreadObjectIndex === -1) {
+            unreadCounts.push({
+              channelId: fields.channelId,
+              count: 1
+            });
+            self.added('unread-count', fields.channelId, {
+              channelId: fields.channelId,
+              count: 1
+            });
+          } else {
+            unreadCounts[unreadObjectIndex].count++;
+            self.changed('unread-count', fields.channelId, {
+              count: unreadCounts[unreadObjectIndex].count
+            });
+          }
+        }
+      }
+    });
+
+    self.ready();
+    self.onStop(() => {
+      handle.stop();
+    });
+
   } else {
     this.ready();
   }

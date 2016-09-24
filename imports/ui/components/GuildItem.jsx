@@ -32,15 +32,14 @@ export default class GuildItem extends Component {
 
     return (
       <TouchEvent class="list-item touch-event" onClick={ () => { this.onClick(`/group/${guild.mainChannel}`) } }>
-          <img src={guild.picture} alt="" />
-          <div className="list-item-content">
-              <p className="title">{guild.name}</p>
-              <div className="tag">
-                <i className="icon icon-user"/>
-                <span>{this.getMemberCount(guild)}</span>
-              </div>
-          </div>
-          <i className="icon icon-3x icon-chevron-right"/>
+        <img src={guild.picture} alt="" />
+        <div className="list-item-content">
+            <p className="title">{guild.name}</p>
+            <div className="tag">
+              <i className="icon icon-user"/>
+              <span>{this.getMemberCount(guild)}</span>
+            </div>
+        </div>
       </TouchEvent>
     );
   }

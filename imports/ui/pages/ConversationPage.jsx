@@ -8,6 +8,11 @@ import MessageInput from '../components/chat/MessageInput.jsx';
 
 export default class ConversationPage extends React.Component {
 
+  componentDidUpdate() {
+    const { channel } = this.props;
+    Meteor.call('users.updateLastRead', channel._id);
+  }
+
   render() {
 
     const { loading, channel, messages, user } = this.props;
@@ -27,7 +32,7 @@ export default class ConversationPage extends React.Component {
               </div>
             </div>
           </div>
-          <MessageInput hasActionPicker={false} channelId={channel._id}/>
+          <MessageInput hasActionPicker={false} channel={channel} user={user} />
         </div>
     );
   }
