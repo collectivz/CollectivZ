@@ -13,12 +13,6 @@ export default class TeamBody extends React.Component {
     return (
       <div className="list">
 
-
-        <div className="list-sub-menu">
-            <i className="big-icon icon icon-bubble"/>
-            <h5>Liste des actions en cours</h5>
-        </div>
-
         <div className="list-sub-menu">
             <i className="big-icon icon icon-users"/>
             <h5>Liste des membres</h5>
