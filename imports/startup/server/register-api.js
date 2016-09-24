@@ -26,4 +26,6 @@ import '../../api/repertory/server/publish.js';
 import '../../api/teams/methods.js';
 import '../../api/teams/server/publish.js';
 
+import '../../api/admin/methods.js';
+
 import '../../api/methods.js';
