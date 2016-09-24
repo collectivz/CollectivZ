@@ -1,7 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { check } from 'meteor/check';
 
-import { Guilds } from '../../guilds/collection.js';
 import { Channels } from '../collection.js';
 import { Messages } from '../../messages/collection.js';
 import { Beers } from '../../beers/collection.js';
@@ -9,7 +8,15 @@ import { Coins } from '../../coins/collection.js';
 import { Feedbacks } from '../../feedbacks/collection.js';
 import { Polls, Propositions } from '../../polls/collection.js';
 
-Meteor.publish('chanPage', function(id){
+Meteor.publish('groupList', function() {
+  if (this.userId) {
+    return Channels.find({ type: 'group' });
+  } else {
+    this.ready();
+  }
+});
+
+Meteor.publish('chanPage', function(id) {
   check(id, String);
   if (this.userId) {
     const channel = Channels.findOne(id);
@@ -17,9 +24,8 @@ Meteor.publish('chanPage', function(id){
       return [
         Channels.find({$or :[
           {_id: id},
-          {parentId: id}
+          {parentId: id},
         ]}),
-        Guilds.find({_id: channel.rootId}),
         Messages.find({channelId: id}),
         Feedbacks.find({channelId: id}),
         Beers.find({channelId: id}),
@@ -35,7 +41,7 @@ Meteor.publish('chanPage', function(id){
   }
 });
 
-Meteor.publish('conversationPage', function(id){
+Meteor.publish('conversationPage', function(id) {
   check(id, String);
   const channel = Channels.findOne(id);
   return [

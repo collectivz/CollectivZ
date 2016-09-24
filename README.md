@@ -14,10 +14,8 @@ user = {
                                       // d'utilisateurs par channel => plus
                                       // faible complexité pour la recherche
                                       // et l'écriture ?
-  subscribedGuilds: [String id],     // idem.
   subscribedChannels: [String]
   connections: Object : {
-    guildCount: Number,   //optional
     chanCount: Number,
   }  
 }
@@ -47,17 +45,6 @@ messages = {
   authorName: String,
 
 }
-
-guilds = {
-  _id: String,
-  name: String,
-  depth: Number,   //indique son niveau de profondeur de chan imbriqué
-  author: String,
-  mainChannel: String,
-  connections: Object : {
-    memberCount: Number,   //optional
-    }
-  }
 
 polls = {
   author: String,

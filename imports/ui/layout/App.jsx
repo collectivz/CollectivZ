@@ -3,9 +3,10 @@ import { Meteor } from 'meteor/meteor';
 
 import Login from '../components/Login.jsx';
 import Loader from '../components/Loader.jsx';
+import AppNav from '../components/AppNav.jsx';
 
 export default class App extends React.Component {
-
+  
   componentWillUpdate({ loading, user, children }) {
     if (!loading && user && !children) {
       this.context.router.push('/my-groups')
@@ -17,11 +18,13 @@ export default class App extends React.Component {
       user,
       loading,
       children,
-      location
+      location,
+      unreadTotal
     } = this.props;
 
     const clonedChildren = children && React.cloneElement(children, {
       user,
+      unreadTotal,
       key: location.pathname,
     });
 

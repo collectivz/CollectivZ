@@ -17,7 +17,7 @@ export default class AdminPage extends Component {
     const guildName = this.refs.guildName.value;
 
     if (guildName) {
-      Meteor.call('guilds.insert', guildName);
+      Meteor.call('groups.insert', {name: guildName});
       this.refs.guildName.value = '';
     }
   }

@@ -46,8 +46,6 @@ export default class List extends React.Component {
     const { type } = this.props;
 
     switch (type) {
-      case 'guild':
-        return "Il n'y a pas de groupe pour l'instant";
       case 'history':
         return "Historique vide."
       case 'channel':

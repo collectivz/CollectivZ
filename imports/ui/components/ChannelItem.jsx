@@ -45,6 +45,7 @@ export default class ChannelItem extends React.Component {
 
     return (
       <TouchEvent class="list-item touch-event" onClick={this.onClick}>
+        <img src={channel.imageUrl} alt="" />
         <div className="list-item-content">
           <p className="title">{channel.name}</p>
           <p className="text">
