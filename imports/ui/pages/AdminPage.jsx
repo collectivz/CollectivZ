@@ -2,6 +2,7 @@ import React, { Component, PropTypes }    from 'react';
 import { Meteor }                         from 'meteor/meteor';
 
 import AppNav                             from '../components/AppNav.jsx';
+import List                             from '../components/List.jsx';
 import Breadcrumb                             from '../components/Breadcrumb.jsx';
 
 export default class AdminPage extends Component {
@@ -17,6 +18,7 @@ export default class AdminPage extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.getTotal = this.getTotal.bind(this);
     this.addMoney = this.addMoney.bind(this);
+    this.addAdmin = this.addAdmin.bind(this);
   }
 
   componentDidMount() {
@@ -25,6 +27,20 @@ export default class AdminPage extends Component {
         userNumber: res
       });
     });
+  }
+
+  addAdmin(e) {
+    e.preventDefault();
+    const adminName = this.refs.adminName.value;
+
+    if (adminName.length > 0) {
+      Meteor.call('admin.addAdmin', adminName, (err, res) => {
+        if (!err) {
+          this.refs.adminName.value = '';
+        }
+      });
+    }
+
   }
 
   getTotal() {
@@ -44,7 +60,11 @@ export default class AdminPage extends Component {
     const amount = parseInt(this.refs.amount.value);
 
     if (amount > 0) {
-      Meteor.call('admin.addMoney', amount);
+      Meteor.call('admin.addMoney', amount, (err, res) => {
+        if (!err) {
+          this.refs.amount.value = '';
+        }
+      });
     }
   }
 
@@ -60,7 +80,7 @@ export default class AdminPage extends Component {
 
   render() {
 
-    const { user } = this.props;
+    const { user, admins } = this.props;
     const { userNumber, coinTotal } = this.state;
 
     return (
@@ -97,6 +117,20 @@ export default class AdminPage extends Component {
                 <br />
                 <span>{coinTotal}</span>
               </form>
+              <h5>Ajouter un coordinateur</h5>
+              <form className="merged">
+                <input
+                  type="text"
+                  className="small"
+                  placeholder="Nom du coordinateur"
+                  ref="adminName"
+                />
+                <button onClick={this.addAdmin} className="small button primary">
+                  <span>Ajouter</span>
+                </button>
+              </form>
+              <h5>Liste des coordinateurs</h5>
+              <List data={admins} type='admin'/>
             </div>
           </div>
         <AppNav user={user} />

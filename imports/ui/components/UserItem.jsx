@@ -24,7 +24,6 @@ export default class UserItem extends React.Component {
           <div className="list-item-content">
               <p className="title">{user.username}</p>
           </div>
-          <i className="icon icon-3x icon-chevron-right"/>
       </TouchEvent>
     );
   }

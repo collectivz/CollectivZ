@@ -3,6 +3,7 @@ import React            from 'react';
 import GuildItem        from './GuildItem';
 import ChannelItem      from './ChannelItem';
 import HistoryItem      from './HistoryItem';
+import UserItem         from './UserItem';
 
 export default class List extends React.Component {
 
@@ -31,7 +32,9 @@ export default class List extends React.Component {
       case 'guild':
         return <GuildItem key={index} guild={item} user={user} />;
       case 'history':
-        return <HistoryItem key={index} historyItem={item} />
+        return <HistoryItem key={index} historyItem={item} />;
+      case 'admin':
+        return <UserItem key={index} user={item} />;
       default:
         return <ChannelItem
           key={index}
@@ -58,7 +61,6 @@ export default class List extends React.Component {
   render() {
     const {
       data,
-      user
     } = this.props;
 
     return (
