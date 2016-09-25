@@ -5,7 +5,7 @@ import AppNav             from '../components/AppNav.jsx';
 import Breadcrumb         from '../components/Breadcrumb';
 import Loader             from '../components/Loader.jsx';
 import TeamPageHeader     from '../components/TeamPageHeader.jsx';
-import TeamBody           from '../components/TeamBody.jsx';
+import List               from '../components/List.jsx';
 
 export default class TeamPage extends React.Component {
 
@@ -36,10 +36,15 @@ export default class TeamPage extends React.Component {
         team={team}
         user={user}
         />
-        <TeamBody
-        teamMembers={teamMembers}
-        usersContact={usersContact}
-        team={team}
+        <div>Membre(s) : </div>
+        <List
+          data={teamMembers}
+          type="manageGroup"
+        />
+        <div>Contact(s) : </div>
+        <List
+          data={usersContact}
+          type="manageGroup"
         />
         </div>
         <AppNav user={user}/>

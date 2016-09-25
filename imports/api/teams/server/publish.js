@@ -7,13 +7,10 @@ Meteor.publish('teamPage', function(repertoryId, teamId) {
   const repertory = Repertory.findOne(repertoryId);
   const team = Teams.findOne(teamId);
   let userToSubscribe = [];
-  if (repertory) {
-    userToSubscribe = repertory.contacts.concat(team.members);
-  }
 
   return [
     Repertory.find({_id: repertoryId}),
-    Meteor.users.find({_id: {$in: userToSubscribe}}),
+    Meteor.users.find({_id: {$in: repertory.contacts}}),
     Teams.find({_id: teamId}),
   ];
 });

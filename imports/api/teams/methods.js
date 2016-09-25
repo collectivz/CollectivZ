@@ -30,10 +30,10 @@ Meteor.methods({
     const newTeam = {
       members: usersId,
     };
+
     const teamId = Teams.insert(newTeam);
-    Repertory.update({userId: {$in: usersId}}, {
-      $push: { teams: teamId}},
-      {multi: true}
+    Repertory.update({userId: user._id}, {
+      $push: { teams: teamId}}
     );
   },
   'teams.editName'(teamId, newName) {
@@ -56,6 +56,7 @@ Meteor.methods({
       $set: {name: newName}
     });
   },
+
   'teams.editPicture'(url, teamId) {
     const userId = this.userId;
 
@@ -69,6 +70,66 @@ Meteor.methods({
 
     Teams.update(teamId, {
       $set: { picture : url }
+    });
+  },
+
+  'teams.removeMembers'(teamId, toRemoveId) {
+    const team = Teams.findOne(teamId);
+    let index;
+
+    if (this.userId) {
+      throw new Meteor.Error('not-logged-in',
+        "Vous devez être connecté pour modifier vos cercles.");
+    }
+
+    if (!team) {
+      throw new Meteor.Error('team-not-found',
+        "Le cercle spécifié est introuvable.");
+    }
+
+    if (team.author !== this.userId) {
+      throw new Meteor.Error('not-allowed-to',
+        "Vous n'avez pas les droits pour faire ceci.");
+    }
+
+    if ((index = team.members.indexOf(toRemoveId)) === -1) {
+      throw new Meteor.Error('user-not-found',
+        "L'utilisateur que vous voulez retirer n'a pas été trouvé.");
+    }
+
+    newMembers = team.members.splice(index, 1);
+    Teams.update(teamId, {
+      $set: {members: newMembers}
+    });
+  },
+
+  'teams.addMembers'(teamId, toAddId) {
+    const team = Teams.findOne(teamId);
+
+    if (this.userId) {
+      throw new Meteor.Error('not-logged-in',
+        "Vous devez être connecté pour modifier vos cercles.");
+    }
+
+    if (!team) {
+      throw new Meteor.Error('team-not-found',
+        "Le cercle spécifié est introuvable.");
+    }
+
+    if (team.author !== this.userId) {
+      throw new Meteor.Error('not-allowed-to',
+        "Vous n'avez pas les droits pour faire ceci.");
+    }
+
+    const userInvited = Meteor.users.findOne(toAddId)
+
+    if (!userInvited) {
+      throw new Meteor.Error('user-not-found',
+        "L'utilisateur que vous voulez ajouter n'a pas été trouvé.");
+    }
+
+    Teams.update(teamId, {
+      $addToSet: {members: toAddId}
     });
   }
 });

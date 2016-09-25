@@ -26,7 +26,12 @@ export default class TeamItem extends React.Component {
     return (
       <TouchEvent class="list-item touch-event" onClick={ () => { this.onClick(`/team/${teamSelected._id}`) } }>
       <div>
-        <h2>normalement le nom de la team</h2>
+      {
+        teamSelected.name ?
+          <h3>{teamSelected.name}</h3>
+          :
+          <h3>Sans nom</h3>
+      }
       </div>
       </TouchEvent>
     );
