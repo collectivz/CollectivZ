@@ -6,7 +6,6 @@ class TeamCollection extends Mongo.Collection {
     const userId = Meteor.userId();
 
     team.author = userId;
-    team.members.push(userId);
     team.createdAt = Date.now();
     team.lastActivity = Date.now();
     team.name = "";

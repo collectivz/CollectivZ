@@ -36,14 +36,44 @@ Meteor.methods({
       $push: { teams: teamId}}
     );
   },
-  'teams.editName'(teamId, newName) {
+
+  'teams.remove'(teamId) {
     check(teamId, String);
-    check(newName, String);
+
     if (!this.userId) {
       throw new Meteor.Error('not-logged-in',
         'Vous devez être connecté pour éditer une equipe.');
     }
+
     const team = Teams.findOne(teamId);
+    const user = Meteor.user();
+
+    if (!team) {
+      throw new Meteor.Error('team-not-found',
+        'Equipe non trouvé.');
+    } else if (team.author !== this.userId) {
+      throw new Meteor.Error('not-allowed-to',
+        'Vous ne disposez pas des droits nécéssaires.');
+    }
+
+    Repertory.update({userId: user._id}, {
+      $pull: {teams: teamId}
+    });
+    Teams.remove(teamId);
+  },
+
+  'teams.editName'(teamId, newName) {
+
+    check(teamId, String);
+    check(newName, String);
+
+    if (!this.userId) {
+      throw new Meteor.Error('not-logged-in',
+        'Vous devez être connecté pour éditer une equipe.');
+    }
+
+    const team = Teams.findOne(teamId);
+
     if (!team) {
       throw new Meteor.Error('team-not-found',
         'Equipe non trouvé.');

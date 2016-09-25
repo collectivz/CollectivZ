@@ -5,7 +5,7 @@ import AppNav from '../components/AppNav.jsx';
 import Breadcrumb from '../components/Breadcrumb.jsx';
 import List from '../components/List.jsx';
 
-import TeamItem from '../components/contact/TeamItem.jsx'
+import TeamItem from '../components/TeamItem.jsx'
 
 export default class ContactPage extends React.Component {
 
@@ -23,6 +23,10 @@ export default class ContactPage extends React.Component {
 
   refuseInvite(userSelectedId) {
     Meteor.call('repertory.refuseInvite', userSelectedId);
+  }
+
+  removeContact(userSelectedId) {
+    Meteor.call('repertory.removeContact', userSelectedId);
   }
 
   handleSubmit(e) {
@@ -82,14 +86,14 @@ export default class ContactPage extends React.Component {
                 <List
                   data={usersContact}
                   type="contact"
+                  removeContact={this.removeContact}
                 />
                 <div>Groupe(s) : </div>
                 <Link to={'/contact/createGroup'}>Creer un groupe</Link>
-                <div className="list">
-                  {teams.map(function(teamSelected) {
-                     return <TeamItem key={teamSelected._id} teamSelected={teamSelected} />;
-                  })}
-                </div>
+                <List
+                  data={teams}
+                  type="team"
+                />
               </div>
             </div>
           </div>

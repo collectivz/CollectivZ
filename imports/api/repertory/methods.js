@@ -42,6 +42,7 @@ Meteor.methods({
       $push: { invitationReceved: user._id }
     })
   },
+
   'repertory.acceptInvite'(userSenderId) {
     check(userSenderId, String);
 
@@ -84,6 +85,7 @@ Meteor.methods({
       $pull: { invitationSend: user._id}
     });
   },
+
   'repertory.refuseInvite'(userSenderId) {
     check(userSenderId, String);
 
@@ -124,4 +126,33 @@ Meteor.methods({
       $pull: { invitationSend: user._id},
     });
   },
+
+  'repertory.removeContact'(userToRemoveId) {
+    check(userToRemoveId, String);
+
+    const user = Meteor.user();
+    const userToRemove = Meteor.users.findOne(userToRemoveId);
+
+    if (!user) {
+      throw new Meteor.Error('not-logged-in',
+        'Vous devez être connecté pour accepter une invitation.');
+    } else if (!userToRemove) {
+      throw new Meteor.Error('not-found',
+        'L\'utilisateur n\'a pas été trouvé.');
+    }
+
+    const repertories = Repertory.find({_id: {$in: [user.repertory, userToRemove.repertory]}}).fetch();
+
+    Repertory.update({_id: {$in: [user.repertory, userToRemove.repertory]}}, {
+      $pull: { contacts: { $in: [ user._id, userToRemoveId ]}}},
+      {multi: true}
+    );
+
+    const teamList = repertories[0].teams.concat(repertories[1].teams);
+
+    Teams.update({_id: {$in: teamList}}, {
+      $pull: { members: { $in: [ user._id, userToRemoveId ]}}},
+      {multi: true}
+    );
+  }
 });
