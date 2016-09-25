@@ -9,6 +9,7 @@ import { Polls } from '../polls/collection.js';
 import { Feedbacks } from '../feedbacks/collection.js';
 import { Beers } from '../beers/collection.js';
 import { Coins } from '../coins/collection.js';
+import { Teams } from '../teams/collection.js';
 import historyUserAction from '../history/functions.js';
 
 Meteor.methods({
@@ -160,32 +161,27 @@ Meteor.methods({
     }
   },
 
-  'channels.conversationCreate'(userInvited) {
+  'channels.conversationCreate'(members, teamId) {
     if (!this.userId) {
       throw new Meteor.Error('not-logged-in',
         "Vous devez être connecté pour créer un groupe de discussion.");
     }
-    const user = Meteor.user();
-    let conversationUser = user.subscribedConversations;
-    const participant = Meteor.users.findOne({username: userInvited});
-    if (!participant) {
-      throw new Meteor.Error('user-not-found',
-      "Nous n'avons pas trouvé d'utilisateur ayant ce nom.");
-    }
-    if (participant._id === user._id) {
-      if (!this.userId) {
-        throw new Meteor.Error('cannot-do-that',
-        "Vous ne pouvez pas créer de conversation privée avec vous même.");
+    members.push(this.userId);
+
+    if (teamId) {
+      const team = Teams.findOne(teamId);
+      if (team.channel) {
+        throw new Meteor.Error('already-exist',
+        "Cette conversation existe deja.");
       }
     }
-    if (conversationUser) {
-      participant.subscribedConversations.forEach((conversationId) => {
-        if (_.contains(conversationUser, conversationId)) {
-          throw new Meteor.Error('chan-alreay-exist',
-          "Cette conversation existe deja");
-        }
-      });
+
+    const participants = Meteor.users.find({_id: {$in: members}}).fetch();
+    if (participants.length !== members.length) {
+      throw new Meteor.Error('user-not-found',
+      "Nous n'avons pas trouvé tout les utilisateurs pour créer une conversation.");
     }
+
     const newConversationChannel = {
       name: "Discussion privée",
       depth: 0,
@@ -195,9 +191,13 @@ Meteor.methods({
       type: 'conversation',
     };
 
-    const newConversationChannelId = Channels.insert(newConversationChannel);
+    const channelId = Channels.insert(newConversationChannel);
 
-
+    if (teamId) {
+      Teams.update(teamId, {
+        $set: {channel: channelId}
+      });
+    }
     const lastReadField = `lastReadAt.${newConversationChannelId}`;
     Meteor.users.update({_id: {$in: [user._id, participant._id]}}, {
       $push: { subscribedConversations: newConversationChannelId },

@@ -12,6 +12,8 @@ export default class TeamItem extends React.Component {
       super(props);
 
       this.removeTeam = this.removeTeam.bind(this);
+      this.createConversation = this.createConversation.bind(this);
+      this.toggleButton = this.toggleButton.bind(this);
   }
 
   onClick(dest) {
@@ -24,10 +26,38 @@ export default class TeamItem extends React.Component {
 
   }
 
+  createConversation(e) {
+    e.preventDefault();
+    const {
+      data
+    } = this.props;
+
+    Meteor.call('channels.conversationCreate', data.members, data._id);
+  }
+
   removeTeam(e) {
     e.preventDefault();
-    teamId = this.props.data._id;
+    const {
+      data
+    } = this.props;
+    teamId = data._id;
     Meteor.call('teams.remove', teamId);
+  }
+
+  toggleButton() {
+    const {
+      data
+    } = this.props;
+
+    if (data.channel) {
+      return (
+        <TouchEvent class="list-item touch-event" onClick={ () => { this.onClick(`/conversation/${data.channel}`) } }>
+          <button>Voir conversation</button>
+        </TouchEvent>
+      )
+    } else {
+      return  <button onClick={this.createConversation}>Creer conversation</button>;
+    }
   }
 
   render() {
@@ -46,6 +76,7 @@ export default class TeamItem extends React.Component {
         }
         </TouchEvent>
         <button onClick={this.removeTeam}>Supprimer</button>
+        {this.toggleButton()}
       </div>
     );
   }
