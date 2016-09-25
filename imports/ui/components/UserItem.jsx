@@ -46,11 +46,13 @@ export default class UserItem extends React.Component {
           )
         } else {
           return (
-            <div>
               <button onClick={this.props.addToGroup.bind(this, user._id)}>Ajouter</button>
-            </div>
           )
         }
+      case 'contact':
+        return (
+          <button onClick={this.props.removeContact.bind(this, user._id)}>Supprimer</button>
+        )
       default:
         return ;
     }

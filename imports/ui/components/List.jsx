@@ -4,6 +4,7 @@ import GuildItem        from './GuildItem';
 import ChannelItem      from './ChannelItem';
 import HistoryItem      from './HistoryItem';
 import UserItem         from './UserItem';
+import TeamItem         from './TeamItem';
 
 export default class List extends React.Component {
 
@@ -67,6 +68,7 @@ export default class List extends React.Component {
           key={index}
           user={item}
           type={type}
+          removeContact={this.props.removeContact}
         />
       case 'manageGroup':
         return <UserItem
@@ -77,6 +79,17 @@ export default class List extends React.Component {
           removeFromGroup={this.props.removeFromGroup}
           currentState={this.props.currentState}
           teamMembers={this.props.teamMembers}
+        />
+      case 'userMiniature':
+        return <UserItem
+          key={index}
+          user={item}
+          type={type}
+        />
+      case 'team':
+        return <TeamItem
+          key={index}
+          teamSelected={item}
         />
       default:
         return <ChannelItem

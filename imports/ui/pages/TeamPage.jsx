@@ -100,7 +100,7 @@ export default class TeamPage extends React.Component {
             <div>Membre(s) : </div>
             <List
               data={teamMembers}
-              type="contact"
+              type="userMiniature"
             />
             <div>Contact(s) : </div>
             {this.toggleButton()}
