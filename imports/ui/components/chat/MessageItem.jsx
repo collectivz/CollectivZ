@@ -3,6 +3,8 @@ import { Meteor }                         from 'meteor/meteor';
 
 import moment                             from 'moment';
 
+import DropDownBottom from '../DropDownBottom';
+
 
 export default class MessageItem extends Component {
 
@@ -17,6 +19,8 @@ export default class MessageItem extends Component {
     this.editMessage = this.editMessage.bind(this);
     this.toggleEdit = this.toggleEdit.bind(this);
     this.deleteMessage = this.deleteMessage.bind(this);
+    this.chatWithAuthor = this.chatWithAuthor.bind(this);
+    this.inviteToContacts = this.inviteToContacts.bind(this);
   }
 
   editMessage(e) {
@@ -24,7 +28,7 @@ export default class MessageItem extends Component {
     const {
       message
     } = this.props;
-    
+
     const newText = this.refs.textInput.value;
 
     Meteor.call('messages.edit', newText, message._id);
@@ -70,6 +74,26 @@ export default class MessageItem extends Component {
 
   }
 
+  inviteToContacts() {
+    const {
+      message
+    } = this.props;
+
+    Meteor.call('repertory.sendInvite', message.authorName);
+  }
+
+  chatWithAuthor() {
+    const {
+      message
+    } = this.props;
+
+    Meteor.call('channels.conversationCreate', message.authorName, (err, res) => {
+      if (!err) {
+        this.context.router.push(`/conversation/${res}`);
+      }
+    });
+  }
+
   render() {
     const { message, user } = this.props;
 
@@ -98,15 +122,25 @@ export default class MessageItem extends Component {
 
                 <span className="date">{time}</span>
 
-                {
-                  (message.author === Meteor.userId()) ?
-                    <div className="bubble-content-admin">
-                      <i className="icon icon-pencil" onClick={this.toggleEdit}></i>
-                      <i className="icon icon-trash" onClick={this.deleteMessage}></i>
-                    </div>
-                  :
-                    ''
-                }
+                <DropDownBottom>
+                  {
+                    (message.author === user._id || user.isAdmin) ?
+                      <ul>
+                        <li><a className="drop-down-menu-link" onClick={this.toggleEdit}> Editer le message </a></li>
+                        <li><a className="drop-down-menu-link" onClick={this.deleteMessage}> Supprimer le message </a></li>
+                      </ul>
+                    : ''
+                  }
+                  {
+                    (message.author !== user._id) ?
+                      <ul>
+                        <li><a className="drop-down-menu-link" onClick={this.inviteToContacts}> Ajouter l'auteur à mes contacts </a></li>
+                        <li><a className="drop-down-menu-link" onClick={this.chatWithAuthor}> Lancer une conversation avec l'auteur </a></li>
+
+                      </ul>
+                    : ''
+                  }
+                </DropDownBottom>
 
               </div>
 
@@ -134,3 +168,7 @@ export default class MessageItem extends Component {
 MessageItem.propTypes = {
   message: PropTypes.object.isRequired,
 }
+
+MessageItem.contextTypes = {
+  router: PropTypes.object
+};

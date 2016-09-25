@@ -33,9 +33,6 @@ export default class ChannelList extends React.Component {
     const sortedChannels = channels.sort((a, b) => {
       return b.lastActivity - a.lastActivity;
     });
-    // const sortedConversations = conversations.sort((a, b) => {
-    //   return b.lastActivity - a.lastActivity;
-    // });
 
     return (
       <div className="screen-box">

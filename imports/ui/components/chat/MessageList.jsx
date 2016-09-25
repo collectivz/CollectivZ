@@ -60,7 +60,7 @@ export default class MessageList extends React.Component {
               });
               return (<FeedbackItem key={message._id} feedback={feedback} />);
             default:
-              return (<MessageItem key={message._id} message={message}/>);
+              return (<MessageItem key={message._id} message={message} user={user}/>);
           }
         })}
       </div>

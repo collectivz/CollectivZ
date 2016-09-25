@@ -1,6 +1,7 @@
 import React                from 'react';
 import classNames           from 'classnames';
 import $                    from 'jquery';
+import _                    from 'lodash';
 
 import zorroForm            from '../../../api/zorro/zorro.js';
 
@@ -136,7 +137,7 @@ export default class Chat extends React.Component {
     return (
       <div className={classNames("chat-sub-container", {"chat-with-filter-sub-container" : channel.connections})}>
 
-        {channel.connections ?
+        {!_.isEmpty(channel.connections) ?
           <ChatFilter channel={channel} setFilterOption={this.setFilterOption} />
           : ''
         }
@@ -190,7 +191,6 @@ export default class Chat extends React.Component {
           <ul>
             <li><a className="drop-down-menu-link" href="#"> Supprimer le message </a></li>
             <li><a className="drop-down-menu-link" href="#"> Editer le message </a></li>
-            <li><a className="drop-down-menu-link" href="#"> Copier le message </a></li>
             <li><a className="drop-down-menu-link" href="#"> Ajouter l'utilisateur aux contacts </a></li>
           </ul>
         </DropDownBottom>
