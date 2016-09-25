@@ -11,6 +11,7 @@ class TeamCollection extends Mongo.Collection {
     team.name = "";
     team.background = '/img/ugly.png';
     team.picture = '/img/no-user.png';
+    team.channel = '';
 
     return super.insert(team);
   }
