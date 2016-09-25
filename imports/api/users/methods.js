@@ -47,5 +47,9 @@ Meteor.methods({
     Meteor.users.update(userId, {
       $set: { [lastReadField]: Date.now() }
     });
+  },
+
+  'users.getUserNumber'() {
+    return Meteor.users.find().count();
   }
 });

@@ -1,9 +1,9 @@
 import { Meteor } from 'meteor/meteor';
+import { Mongo } from 'meteor/mongo';
 import { check } from 'meteor/check';
 import { _ } from 'meteor/underscore';
 
 import { Channels } from './collection.js';
-import { Guilds } from '../guilds/collection.js';
 import { Messages } from '../messages/collection.js';
 import { Polls } from '../polls/collection.js';
 import { Feedbacks } from '../feedbacks/collection.js';
@@ -12,10 +12,51 @@ import { Coins } from '../coins/collection.js';
 import historyUserAction from '../history/functions.js';
 
 Meteor.methods({
+  'groups.insert'(group) {
+    new SimpleSchema({
+      name: {
+        type: String
+      },
+      description: {
+        type: String,
+        optional: true
+      },
+      imageUrl: {
+        type: String,
+        optional: true
+      }
+    }).validate(group);
+
+    if (!this.userId) {
+      throw new Meteor.Error('not-logged-in',
+        "Vous devez être connecté pour créer un groupe de discussion.");
+    }
+
+    group._id = new Mongo.ObjectID()._str;
+    group.rootId = group._id;
+    group.depth = 0;
+    group.type = 'group';
+    group.imageUrl = group.imageUrl ? group.imageUrl : '/img/user-group.png';
+
+    Channels.insert(group);
+
+    const msg = {
+      text: 'Le groupe : ' + group.name + ' a été crée.',
+      channelId: group._id
+    };
+    Messages.insert(msg);
+
+    const lastReadField = `lastReadAt.${group._id}`;
+    Meteor.users.update(this.userId, {
+      $push: { subscribedChannels: group._id },
+      $set: { [lastReadField]: Date.now() }
+    });
+  },
+
   'channels.insert'(channel, parentId) {
     if (!this.userId) {
       throw new Meteor.Error('not-logged-in',
-        "Vous devez être connecté pour créer un canal de discussion.");
+        "Vous devez être connecté pour créer une action.");
     }
 
     check(parentId, String);
@@ -33,6 +74,7 @@ Meteor.methods({
     channel.depth = parent.depth + 1;
     channel.rootId = parent.rootId;
     channel.type = 'channel';
+    channel.imageUrl = '/img/action.png';
 
 
     const channelId = Channels.insert(channel)
@@ -238,13 +280,6 @@ Meteor.methods({
         }
         if (coinCount) {
           Coins.remove({channelId});
-        }
-        if (channel.type === 'group') {
-          const guild = Guilds.findOne({ mainChannel: channelId }, { fields: { _id: 1 } });
-          Meteor.users.update({ subscribedChannels: { $in: [channelId] } }, {
-            $pullAll: { subscribedGuilds: [guild._id] }
-          });
-          Guilds.remove(guild._id);
         }
 
         const lastReadField = `lastReadAt.${channelId}`;

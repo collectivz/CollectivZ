@@ -4,7 +4,6 @@ import { _ } from 'meteor/underscore';
 
 import { Feedbacks } from './collection.js';
 import { Channels } from '../channels/collection.js';
-import { Guilds } from '../guilds/collection.js';
 import { Messages } from '../messages/collection.js';
 
 Meteor.methods({
@@ -54,14 +53,14 @@ Meteor.methods({
           "Vous avez déjà évalué cette mission.");
       }
 
-      const guild = Guilds.findOne({_id: channel.rootId});
+      const group = Channels.findOne({_id: channel.rootId});
 
-      if (!guild) {
-        throw new Meteor.Error('guild-not-found',
+      if (!group) {
+        throw new Meteor.Error('group-not-found',
           "La communauté à laquelle appartient cette action n'a pas été trouvée.");
       }
 
-      if (!_.contains(channel.leaders, author._id) && !_.contains(guild.leaders, author._id)) {
+      if (!_.contains(channel.leaders, author._id) && !_.contains(group.leaders, author._id)) {
         throw new Meteor.Error('not-allowed',
           "Vous n'avez pas les droits pour laisser une évaluation ici.");
       }

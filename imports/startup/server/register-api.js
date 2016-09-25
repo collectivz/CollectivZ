@@ -3,9 +3,6 @@ import '../../api/buddies/methods.js';
 import '../../api/channels/methods.js';
 import '../../api/channels/server/publish.js';
 
-import '../../api/guilds/methods.js';
-import '../../api/guilds/server/publish.js';
-
 import '../../api/messages/methods.js';
 
 import '../../api/polls/methods.js';
@@ -28,5 +25,7 @@ import '../../api/repertory/server/publish.js';
 
 import '../../api/teams/methods.js';
 import '../../api/teams/server/publish.js';
+
+import '../../api/admin/methods.js';
 
 import '../../api/methods.js';

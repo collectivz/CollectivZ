@@ -78,11 +78,6 @@ export default class TeamPageHeader extends React.Component {
                   <span>{this.getMemberCount(team)}</span>
               </div>
 
-              {/*_.contains(guild.leaders, user._id) ?
-                  <GuildUpdatePicture guild={guild}/>
-                : ''
-              */}
-
           </div>
       </div>
     );

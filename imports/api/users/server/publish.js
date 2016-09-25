@@ -3,7 +3,6 @@ import { Meteor } from 'meteor/meteor';
 import { Channels } from '../../channels/collection.js';
 import { Messages } from '../../messages/collection.js';
 import { History } from '../../history/collection.js';
-import { Guilds } from '../../guilds/collection.js';
 
 Meteor.publish('user', function() {
   if (this.userId) {
@@ -11,7 +10,6 @@ Meteor.publish('user', function() {
     return [
       Meteor.users.find({_id: { $in: [ this.userId,  zorro._id ] }}, {fields: {
         username: 1,
-        subscribedGuilds: 1,
         subscribedConversations: 1,
         subscribedChannels: 1,
         connections: 1,
@@ -19,7 +17,8 @@ Meteor.publish('user', function() {
         history: 1,
         repertory: 1,
         lastReadAt: 1,
-        isAdmin: 1
+        isAdmin: 1,
+        coinz: 1
       }}),
       History.find({ userId: this.userId })
     ];
@@ -35,7 +34,6 @@ Meteor.publish('userProfile', function(userId) {
     return [
       Meteor.users.find(userId),
       Channels.find({ _id: { $in: user.subscribedChannels } }),
-      Guilds.find({ _id: { $in: user.subscribedGuilds } }),
       History.find({ userId: user._id })
     ];
   } else {

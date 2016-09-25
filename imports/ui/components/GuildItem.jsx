@@ -9,9 +9,9 @@ export default class GuildItem extends Component {
 
   getMemberCount(guild) {
     if (guild.members.length === 1) {
-      return `${guild.members.length} membre.`
+      return `${guild.members.length} membre.`;
     } else {
-      return `${guild.members.length} membres.`
+      return `${guild.members.length} membres.`;
     }
   }
 
@@ -31,8 +31,8 @@ export default class GuildItem extends Component {
     } = this.props;
 
     return (
-      <TouchEvent class="list-item touch-event" onClick={ () => { this.onClick(`/group/${guild.mainChannel}`) } }>
-        <img src={guild.picture} alt="" />
+      <TouchEvent class="list-item touch-event" onClick={ () => { this.onClick(`/group/${guild._id}`) } }>
+        <img src={guild.imageUrl} alt="" />
         <div className="list-item-content">
             <p className="title">{guild.name}</p>
             <div className="tag">

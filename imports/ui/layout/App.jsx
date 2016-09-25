@@ -3,6 +3,7 @@ import { Meteor } from 'meteor/meteor';
 
 import Login from '../components/Login.jsx';
 import Loader from '../components/Loader.jsx';
+import AppNav from '../components/AppNav.jsx';
 
 export default class App extends React.Component {
 
@@ -17,7 +18,7 @@ export default class App extends React.Component {
       user,
       loading,
       children,
-      location
+      location,
     } = this.props;
 
     const clonedChildren = children && React.cloneElement(children, {
