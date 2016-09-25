@@ -10,76 +10,9 @@ export default class List extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      newGroup: [],
-    };
-
     this.renderItem = this.renderItem.bind(this);
     this.getEmptyPhrase = this.getEmptyPhrase.bind(this);
-    this.addToNewGroup = this.addToNewGroup.bind(this);
-    this.removeFromNewGroup = this.removeFromNewGroup.bind(this);
-    this.createNewGroup = this.createNewGroup.bind(this);
-    this.resetNewGroup = this.resetNewGroup.bind(this);
-    this.acceptInvite = this.acceptInvite.bind(this);
-    this.refuseInvite = this.refuseInvite.bind(this);
-    this.toggleCreateButton = this.toggleCreateButton.bind(this);
-  }
 
-  acceptInvite(userSelectedId) {
-    Meteor.call('repertory.acceptInvite', userSelectedId);
-  }
-
-  refuseInvite(userSelectedId) {
-    Meteor.call('repertory.refuseInvite', userSelectedId);
-  }
-
-  addToNewGroup(userSelectedId) {
-    if (_.contains(this.state.newGroup, userSelectedId)) {
-      console.log('Vous avez déjà ajouté cette personne.');
-    } else {
-      this.setState({
-        newGroup: this.state.newGroup.concat(userSelectedId),
-      });
-    }
-  }
-
-  removeFromNewGroup(userSelectedId) {
-    const index = this.state.newGroup.indexOf(userSelectedId);
-    if (index >= 0) {
-      let newGroup = this.state.newGroup;
-      newGroup.splice(index, 1);
-      this.setState({
-        newGroup,
-      });
-    }
-  }
-
-  toggleCreateButton() {
-    let state = this.state.newGroup;
-    if (state.length > 0) {
-      return (
-        <div>
-          <button onClick={this.createNewGroup}>Créer un nouveau groupe</button>
-        </div>
-      );
-    } else {
-      return ;
-    }
-  }
-
-  createNewGroup(e) {
-    e.preventDefault();
-    Meteor.call('teams.insert', this.state.newGroup);
-    this.setState({
-      newGroup: [],
-    });
-  }
-
-  resetNewGroup(e) {
-    e.preventDefault();
-    this.setState({
-      newGroup: [],
-    });
   }
 
   renderItem(item, index) {
@@ -105,25 +38,33 @@ export default class List extends React.Component {
         return <UserItem
           key={index}
           user={item}
-          acceptInvite={this.acceptInvite}
-          refuseInvite={this.refuseInvite}
+          type={type}
+          acceptInvite={this.props.acceptInvite}
+          refuseInvite={this.props.refuseInvite}
         />;
       case 'createGroup':
         return <UserItem
           key={index}
           user={item}
-          addToNewGroup={this.addToNewGroup}
-          removeFromNewGroup={this.removeFromNewGroup}
+          type={type}
+          addToNewGroup={this.props.addToNewGroup}
+          removeFromNewGroup={this.props.removeFromNewGroup}
         />
       case 'contact':
         return <UserItem
           key={index}
           user={item}
+          type={type}
         />
       case 'manageGroup':
         return <UserItem
           key={index}
           user={item}
+          type={type}
+          addToGroup={this.props.addToGroup}
+          removeFromGroup={this.props.removeFromGroup}
+          currentState={this.props.currentState}
+          teamMembers={this.props.teamMembers}
         />
       default:
         return <ChannelItem
@@ -159,14 +100,14 @@ export default class List extends React.Component {
   render() {
     const {
       data,
-      user
+      user,
+      type
     } = this.props;
 
     return (
       (data && data.length) ?
 
         <div className="list">
-          {this.toggleCreateButton()}
           {data.map((item, index) => {
             return this.renderItem(item, index);
           })}
