@@ -32,23 +32,6 @@ export default class ChannelItem extends React.Component {
 
   }
 
-  // renderUnreadCount() {
-  //   const {
-  //     data,
-  //     unreadCounts
-  //   } = this.props;
-  //
-  //   const unreadCount = unreadCounts.find(count => {
-  //     if (count.channelId === data._id) {
-  //       return true;
-  //     }
-  //     return false;
-  //   });
-  //
-  //   console.log(unreadCount);
-  //   return unreadCount.count;
-  // }
-
   renderLastMessage(message) {
     if (message.length > 70) {
       return message.slice(0, 69) + '...';

@@ -25,8 +25,7 @@ export default class ConversationPage extends React.Component {
       messageCount
     } = this.state;
 
-
-    if (messageCount !== messages.length) {
+    if (channel && messageCount !== messages.length) {
       Meteor.call('users.updateLastRead', channel._id);
       this.setState({
         messageCount: messages.length

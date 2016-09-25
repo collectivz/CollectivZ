@@ -31,7 +31,7 @@ Meteor.startup(() => {
         <Route path='/contact/view' component={ContactPageContainer} />
         <Route path='/contact/createGroup' component={CreateGroupPageContainer} />
         <Route path='/profile' component={MyProfileContainer} />
-        <Route path='/user/:userId' component={ProfilePageContainer} />
+        <Route path='/profile/:userId' component={ProfilePageContainer} />
         <Route path='*' component={NotFound} />
       </Route>
     </Router>

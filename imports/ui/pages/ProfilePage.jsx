@@ -2,8 +2,10 @@ import React, { Component, PropTypes } from 'react';
 import { Meteor } from 'meteor/meteor';
 
 import UserHeader from '../components/UserHeader.jsx';
+import Breadcrumb from '../components/Breadcrumb';
 import AppNav from '../components/AppNav.jsx';
 import Loader from '../components/Loader.jsx';
+import List from '../components/List.jsx';
 import GuildItem from '../components/GuildItem.jsx';
 import ChannelItem from '../components/ChannelItem.jsx';
 import HistoryItem from '../components/HistoryItem.jsx';
@@ -14,13 +16,18 @@ export default class ProfilePage extends Component {
   render() {
 
     const { user, guilds, channels, currentUser, history } = this.props;
+    let actionHistory = [];
+
+    if (history) {
+      actionHistory = history.actionHistory;
+    }
 
     return (
       <div className="screen-box">
         {user ?
             <div className="screen-box">
 
-              <TopNav text="Profil"/>
+              <Breadcrumb title={`Profil de ${user.username}`} hasBack={true} />
 
               <div className="sub-container">
 
@@ -32,34 +39,36 @@ export default class ProfilePage extends Component {
                       <i className="big-icon icon icon-temple"/>
                       <h5>Groupes dont {user.username} fait partie</h5>
                   </div>
-
-                  {guilds.map(guild => {
-                    return (<GuildItem guild={guild} key={guild._id}/>);
-                  })}
-
+                  <List
+                    data={guilds}
+                    type="guild"
+                    user={user}
+                    emptyListString={`${user.username} ne fait partie d'aucun groupe. Inviter le à coopérer !`}
+                  >
+                    <ChannelItem />
+                  </List>
                   <div className="list-sub-menu">
                       <i className="big-icon icon icon-bubble"/>
                       <h5>Discussions dont {user.username} fait partie</h5>
                   </div>
-                  {channels.map(channel => {
-                    return (<ChannelItem channel={channel} key={channel._id}/>);
-                  })}
-
+                  <List
+                    data={channels}
+                    type="channel"
+                    emptyListString={`${user.username} ne participe à aucune action.`}
+                  >
+                    <ChannelItem />
+                  </List>
                   <div className="list-sub-menu">
                       <i className="big-icon icon icon-history"/>
                       <h5>Historique des évaluations</h5>
                   </div>
-                  {history ?
-                    <div>
-                      {history.actionHistory.map((historyItem, index) => {
-                        return (<HistoryItem historyItem={historyItem} key={index} />);
-                      })}
-                    </div>
-                    :
-                    <div className="list-empty">
-                      <p><i className="icon icon-sad"/> Aucune évaluation</p>
-                    </div>
-                  }
+                  <List
+                    data={actionHistory}
+                    type="history"
+                    emptyListString="Aucune évaluation."
+                  >
+                    <HistoryItem />
+                  </List>
                 </div>
               </div>
               <AppNav user={currentUser} />

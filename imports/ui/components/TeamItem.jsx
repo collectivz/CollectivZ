@@ -40,8 +40,8 @@ export default class TeamItem extends React.Component {
     const {
       data
     } = this.props;
-    teamId = data._id;
-    Meteor.call('teams.remove', teamId);
+
+    Meteor.call('teams.remove', data._id);
   }
 
   toggleButton() {

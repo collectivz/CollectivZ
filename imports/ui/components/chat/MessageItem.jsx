@@ -21,6 +21,7 @@ export default class MessageItem extends Component {
     this.deleteMessage = this.deleteMessage.bind(this);
     this.chatWithAuthor = this.chatWithAuthor.bind(this);
     this.inviteToContacts = this.inviteToContacts.bind(this);
+    this.goToProfile = this.goToProfile.bind(this);
   }
 
   editMessage(e) {
@@ -94,6 +95,14 @@ export default class MessageItem extends Component {
     });
   }
 
+  goToProfile() {
+    const {
+      message
+    } = this.props;
+
+    this.context.router.push(`/profile/${message.author}`)
+  }
+
   render() {
     const { message, user } = this.props;
 
@@ -136,6 +145,7 @@ export default class MessageItem extends Component {
                       <ul>
                         <li><a className="drop-down-menu-link" onClick={this.inviteToContacts}> Ajouter l'auteur à mes contacts </a></li>
                         <li><a className="drop-down-menu-link" onClick={this.chatWithAuthor}> Lancer une conversation avec l'auteur </a></li>
+                        <li><a className="drop-down-menu-link" onClick={this.goToProfile}> Voir le profil </a></li>
 
                       </ul>
                     : ''
