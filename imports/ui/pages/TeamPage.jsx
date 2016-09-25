@@ -6,6 +6,7 @@ import Breadcrumb         from '../components/Breadcrumb';
 import Loader             from '../components/Loader.jsx';
 import TeamPageHeader     from '../components/TeamPageHeader.jsx';
 import List               from '../components/List.jsx';
+import UserItem               from '../components/UserItem.jsx';
 
 export default class TeamPage extends React.Component {
 
@@ -101,7 +102,10 @@ export default class TeamPage extends React.Component {
             <List
               data={teamMembers}
               type="userMiniature"
-            />
+              emptyListString="Aucun membre dans ce cercle. Supprimez le ?"
+            >
+              <UserItem />
+            </List>
             <div>Contact(s) : </div>
             {this.toggleButton()}
             <List
@@ -111,7 +115,10 @@ export default class TeamPage extends React.Component {
               removeFromGroup={this.removeFromGroup}
               teamMembers={team.members}
               currentState={this.state}
-            />
+              emptyListString="Vous n'avez personne à ajouter dans ce cercle. Invitez des personnes dans vos contact."
+            >
+              <UserItem />
+            </List>
           </div>
           <AppNav user={user}/>
         </div>

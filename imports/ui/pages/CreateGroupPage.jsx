@@ -4,6 +4,7 @@ import AppNav from '../components/AppNav.jsx';
 import Breadcrumb from '../components/Breadcrumb.jsx';
 
 import List from '../components/List.jsx'
+import UserItem from '../components/UserItem.jsx'
 
 export default class CreateGroupPage extends React.Component {
 
@@ -93,7 +94,10 @@ export default class CreateGroupPage extends React.Component {
                   type="createGroup"
                   addToNewGroup={this.addToNewGroup}
                   removeFromNewGroup={this.removeFromNewGroup}
-                />
+                  emptyListString="Vous n'avez aucun contact à ajouter dans ce cercle."
+                >
+                  <UserItem />
+                </List>
               </div>
             </div>
           </div>

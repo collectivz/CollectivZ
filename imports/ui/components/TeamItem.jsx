@@ -26,21 +26,21 @@ export default class TeamItem extends React.Component {
 
   removeTeam(e) {
     e.preventDefault();
-    teamId = this.props.teamSelected._id;
+    teamId = this.props.data._id;
     Meteor.call('teams.remove', teamId);
   }
 
   render() {
     const {
-      teamSelected
+      data
     } = this.props;
 
     return (
       <div>
-        <TouchEvent class="list-item touch-event" onClick={ () => { this.onClick(`/team/${teamSelected._id}`) } }>
+        <TouchEvent class="list-item touch-event" onClick={ () => { this.onClick(`/team/${data._id}`) } }>
         {
-          teamSelected.name ?
-            <h3>{teamSelected.name}</h3>
+          data.name ?
+            <h3>{data.name}</h3>
             :
             <h3>Sans nom</h3>
         }
@@ -51,6 +51,6 @@ export default class TeamItem extends React.Component {
   }
 }
 
-TeamItem.propTypes = {
-  teamSelected: PropTypes.object.isRequired,
-};
+// TeamItem.propTypes = {
+//   data: PropTypes.object.isRequired,
+// };

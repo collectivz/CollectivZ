@@ -4,6 +4,7 @@ import { Meteor }                         from 'meteor/meteor';
 import AppNav                             from '../components/AppNav.jsx';
 import List                             from '../components/List.jsx';
 import Breadcrumb                             from '../components/Breadcrumb.jsx';
+import UserItem                             from '../components/UserItem.jsx';
 
 export default class AdminPage extends Component {
 
@@ -89,6 +90,8 @@ export default class AdminPage extends Component {
     const { user, admins } = this.props;
     const { userNumber, coinTotal } = this.state;
 
+    const emptyListString = 'Aucun coordinateur sur la plate-forme. Veuillez contacter CollectivZ.'
+
     return (
       <div className="screen-box">
         <Breadcrumb title="Coordination" hasBack={false} />
@@ -136,7 +139,14 @@ export default class AdminPage extends Component {
                 </button>
               </form>
               <h5>Liste des coordinateurs</h5>
-              <List data={admins} type='admin' removeAdmin={this.removeAdmin}/>
+              <List
+                data={admins}
+                type='admin'
+                removeAdmin={this.removeAdmin}
+                emptyListString={emptyListString}
+              >
+                <UserItem />
+              </List>
             </div>
           </div>
         <AppNav user={user} />

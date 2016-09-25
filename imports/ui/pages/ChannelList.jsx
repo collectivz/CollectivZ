@@ -3,6 +3,7 @@ import React               from 'react'
 import List                from '../components/List.jsx';
 import AppNav              from '../components/AppNav.jsx';
 import Breadcrumb          from '../components/Breadcrumb.jsx';
+import ChannelItemContainer          from '../containers/ChannelItemContainer.jsx';
 
 export default class ChannelList extends React.Component {
 
@@ -33,6 +34,7 @@ export default class ChannelList extends React.Component {
     const sortedChannels = channels.sort((a, b) => {
       return b.lastActivity - a.lastActivity;
     });
+    const emptyListString = 'Aucune discussion en cours.'
 
     return (
       <div className="screen-box">
@@ -43,7 +45,10 @@ export default class ChannelList extends React.Component {
               type="channel"
               unreadCounts={unreadCounts}
               renderUnread={true}
-            />
+              emptyListString={emptyListString}
+            >
+              <ChannelItemContainer />
+            </List>
           </div>
         <AppNav user={user}/>
       </div>
