@@ -73,11 +73,10 @@ Meteor.methods({
     });
   },
 
-  'teams.removeMembers'(teamId, toRemoveId) {
+  'teams.changeMembers'(teamId, newSetOfMembers) {
     const team = Teams.findOne(teamId);
-    let index;
 
-    if (this.userId) {
+    if (!this.userId) {
       throw new Meteor.Error('not-logged-in',
         "Vous devez être connecté pour modifier vos cercles.");
     }
@@ -92,44 +91,14 @@ Meteor.methods({
         "Vous n'avez pas les droits pour faire ceci.");
     }
 
-    if ((index = team.members.indexOf(toRemoveId)) === -1) {
-      throw new Meteor.Error('user-not-found',
-        "L'utilisateur que vous voulez retirer n'a pas été trouvé.");
-    }
-
-    newMembers = team.members.splice(index, 1);
-    Teams.update(teamId, {
-      $set: {members: newMembers}
-    });
-  },
-
-  'teams.addMembers'(teamId, toAddId) {
-    const team = Teams.findOne(teamId);
-
-    if (this.userId) {
-      throw new Meteor.Error('not-logged-in',
-        "Vous devez être connecté pour modifier vos cercles.");
-    }
-
-    if (!team) {
-      throw new Meteor.Error('team-not-found',
-        "Le cercle spécifié est introuvable.");
-    }
-
-    if (team.author !== this.userId) {
-      throw new Meteor.Error('not-allowed-to',
-        "Vous n'avez pas les droits pour faire ceci.");
-    }
-
-    const userInvited = Meteor.users.findOne(toAddId)
-
-    if (!userInvited) {
-      throw new Meteor.Error('user-not-found',
-        "L'utilisateur que vous voulez ajouter n'a pas été trouvé.");
+    users = Meteor.users.find({_id: {$in: newSetOfMembers}}).fetch();
+    if (users.length !== newSetOfMembers.length) {
+      throw new Meteor.Error('not-found',
+        "Un des utilisateurs spécifié est intrvouvable");
     }
 
     Teams.update(teamId, {
-      $addToSet: {members: toAddId}
+      $set: {members: newSetOfMembers}
     });
   }
 });

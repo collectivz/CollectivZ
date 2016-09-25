@@ -13,6 +13,16 @@ export default class ContactPage extends React.Component {
     super(props);
 
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.acceptInvite = this.acceptInvite.bind(this);
+    this.refuseInvite = this.refuseInvite.bind(this);
+  }
+
+  acceptInvite(userSelectedId) {
+    Meteor.call('repertory.acceptInvite', userSelectedId);
+  }
+
+  refuseInvite(userSelectedId) {
+    Meteor.call('repertory.refuseInvite', userSelectedId);
   }
 
   handleSubmit(e) {
@@ -61,7 +71,8 @@ export default class ContactPage extends React.Component {
                       <List
                         data={usersInvitationReceved}
                         type="invitation"
-                        invitation={true}
+                        acceptInvite={this.acceptInvite}
+                        refuseInvite={this.refuseInvite}
                       />
                     </div>
                     : ''

@@ -11,6 +11,68 @@ export default class TeamPage extends React.Component {
 
   constructor(props) {
     super(props);
+
+    this.state = {
+      newGroup: [],
+      ini: 1
+    };
+
+    this.addToGroup = this.addToGroup.bind(this);
+    this.removeFromGroup = this.removeFromGroup.bind(this);
+    this.toggleButton = this.toggleButton.bind(this);
+    this.changeGroupMembers = this.changeGroupMembers.bind(this);
+  }
+
+  componentWillUpdate({ loading, team }) {
+    if (!loading && this.state.ini) {
+      this.setState({
+        newGroup: team.members,
+        ini: 0,
+        edit: 0
+      })
+    }
+  }
+
+  addToGroup(userSelectedId) {
+    if (!_.contains(this.state.newGroup, userSelectedId)) {
+      this.setState({
+        newGroup: this.state.newGroup.concat(userSelectedId),
+        edit: 1
+      });
+    }
+  }
+
+  removeFromGroup(userSelectedId) {
+    let index;
+    if (_.contains(this.state.newGroup, userSelectedId)) {
+      index = this.state.newGroup.indexOf(userSelectedId);
+      let newGroup = this.state.newGroup;
+      newGroup.splice(index, 1);
+      this.setState({
+        newGroup,
+        edit: 1
+      });
+    }
+  }
+
+  changeGroupMembers(e) {
+    e.preventDefault();
+    Meteor.call('teams.changeMembers', this.props.team._id, this.state.newGroup);
+    this.setState({
+      edit: 0
+    });
+  }
+
+  toggleButton() {
+    if (this.state.edit) {
+      return (
+        <div>
+          <button onClick={this.changeGroupMembers}>Enregistrer les modifications</button>
+        </div>
+      );
+    } else {
+      return ;
+    }
   }
 
   render() {
@@ -26,28 +88,32 @@ export default class TeamPage extends React.Component {
     return (
       <div className="screen-box">
       {
-        loading ?
-        <Loader />
+        loading ? <Loader />
         :
         <div className="screen-box">
-        <Breadcrumb title="Profil du groupe" hasBack={true}/>
-        <div className="sub-container">
-        <TeamPageHeader
-        team={team}
-        user={user}
-        />
-        <div>Membre(s) : </div>
-        <List
-          data={teamMembers}
-          type="manageGroup"
-        />
-        <div>Contact(s) : </div>
-        <List
-          data={usersContact}
-          type="manageGroup"
-        />
-        </div>
-        <AppNav user={user}/>
+          <Breadcrumb title="Profil du groupe" hasBack={true}/>
+          <div className="sub-container">
+            <TeamPageHeader
+              team={team}
+              user={user}
+            />
+            <div>Membre(s) : </div>
+            <List
+              data={teamMembers}
+              type="contact"
+            />
+            <div>Contact(s) : </div>
+            {this.toggleButton()}
+            <List
+              data={usersContact}
+              type="manageGroup"
+              addToGroup={this.addToGroup}
+              removeFromGroup={this.removeFromGroup}
+              teamMembers={team.members}
+              currentState={this.state}
+            />
+          </div>
+          <AppNav user={user}/>
         </div>
       }
       </div>
