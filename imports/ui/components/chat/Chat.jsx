@@ -10,6 +10,8 @@ import MessageInput         from './MessageInput.jsx';
 import MessageList          from './MessageList.jsx';
 import JoinActionButton          from './JoinActionButton.jsx';
 
+import DropDownBottom          from '../DropDownBottom.jsx';
+
 
 export default class Chat extends React.Component {
 
@@ -184,6 +186,14 @@ export default class Chat extends React.Component {
           :
             <JoinActionButton channel={channel} />
         }
+        <DropDownBottom isOpen={false}>
+          <ul>
+            <li><a className="drop-down-menu-link" href="#"> Supprimer le message </a></li>
+            <li><a className="drop-down-menu-link" href="#"> Editer le message </a></li>
+            <li><a className="drop-down-menu-link" href="#"> Copier le message </a></li>
+            <li><a className="drop-down-menu-link" href="#"> Ajouter l'utilisateur aux contacts </a></li>
+          </ul>
+        </DropDownBottom>
       </div>
     );
   }
