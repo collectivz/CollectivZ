@@ -4,7 +4,7 @@ import classNames             from 'classnames';
 
 import TouchEvent             from './TouchEvent';
 
-export default class Breadcrumb extends React.Component {
+export default class DropDown extends React.Component {
 
     constructor( props ) {
         super( props );
@@ -41,7 +41,7 @@ export default class Breadcrumb extends React.Component {
     return (
       <div className= {classNames("drop-down", {"drop-down--open": isOpen})} >
         <div className={classNames("touch-event", {"touch-active": isClicked})}  onClick={this.handleOpen.bind(this)}>
-          <i className="icon icon-3x icon-menu"/>
+          <i className="icon icon-3x icon-three-dot"/>
         </div>
         <div className="drop-down-menu">
           {children}

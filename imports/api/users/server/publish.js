@@ -4,6 +4,17 @@ import { Channels } from '../../channels/collection.js';
 import { Messages } from '../../messages/collection.js';
 import { History } from '../../history/collection.js';
 
+Meteor.publish('adminSub', function() {
+  if (this.userId) {
+    if (Meteor.users.findOne(this.userId).isAdmin) {
+      return Meteor.users.find({ isAdmin: true }, {
+        fields: { isAdmin: 1, _id: 1, username: 1, profile: 1 }
+      });
+    }
+  }
+  this.ready();
+});
+
 Meteor.publish('user', function() {
   if (this.userId) {
     let zorro = Meteor.users.findOne({username: 'Zorro'});

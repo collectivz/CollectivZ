@@ -16,7 +16,13 @@ export default class List extends React.Component {
   }
 
   renderItem(item, index) {
-    const { user, type, unreadCounts, renderUnread } = this.props;
+    const {
+      user,
+      type,
+      unreadCounts,
+      renderUnread,
+      removeAdmin
+    } = this.props;
     let count = 0;
 
     if (renderUnread && (type === 'channel' || type === 'conversation' || type === 'group')) {
@@ -34,6 +40,12 @@ export default class List extends React.Component {
         return <GuildItem key={index} guild={item} user={user} />;
       case 'history':
         return <HistoryItem key={index} historyItem={item} />;
+      case 'admin':
+        return <UserItem
+          key={index}
+          user={item}
+          removeAdmin={removeAdmin}
+        />;
       case 'invitation':
         return <UserItem
           key={index}
@@ -100,8 +112,6 @@ export default class List extends React.Component {
   render() {
     const {
       data,
-      user,
-      type
     } = this.props;
 
     return (

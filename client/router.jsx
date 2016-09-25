@@ -13,7 +13,7 @@ import ProfilePageContainer from '../imports/ui/containers/ProfilePageContainer.
 import MyProfileContainer from '../imports/ui/containers/MyProfileContainer.jsx';
 import CreateGroupPageContainer from '../imports/ui/containers/CreateGroupPageContainer.jsx';
 import TeamPageContainer from '../imports/ui/containers/TeamPageContainer.jsx';
-import AdminPage from '../imports/ui/pages/AdminPage.jsx';
+import AdminPageContainer from '../imports/ui/containers/AdminPageContainer.jsx';
 import RegisterPage from '../imports/ui/pages/RegisterPage.jsx';
 import NotFound from '../imports/ui/pages/NotFound.jsx';
 
@@ -27,7 +27,7 @@ Meteor.startup(() => {
         <Route path='/guild-list' component={GuildListContainer} />
         <Route path='/conversation/:conversationId' component={ConversationPageContainer} />
         <Route path='/team/:teamId' component={TeamPageContainer} />
-        <Route path='/admin' component={AdminPage} />
+        <Route path='/admin' component={AdminPageContainer} />
         <Route path='/contact/view' component={ContactPageContainer} />
         <Route path='/contact/createGroup' component={CreateGroupPageContainer} />
         <Route path='/profile' component={MyProfileContainer} />
