@@ -19,6 +19,7 @@ export default class AdminPage extends Component {
     this.getTotal = this.getTotal.bind(this);
     this.addMoney = this.addMoney.bind(this);
     this.addAdmin = this.addAdmin.bind(this);
+    this.removeAdmin = this.removeAdmin.bind(this);
   }
 
   componentDidMount() {
@@ -40,7 +41,12 @@ export default class AdminPage extends Component {
         }
       });
     }
+  }
 
+  removeAdmin(userId, e) {
+    e.preventDefault();
+
+    Meteor.call('admin.removeAdmin', userId);
   }
 
   getTotal() {
@@ -130,7 +136,7 @@ export default class AdminPage extends Component {
                 </button>
               </form>
               <h5>Liste des coordinateurs</h5>
-              <List data={admins} type='admin'/>
+              <List data={admins} type='admin' removeAdmin={this.removeAdmin}/>
             </div>
           </div>
         <AppNav user={user} />

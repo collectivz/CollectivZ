@@ -3,9 +3,8 @@ import { Link } from 'react-router';
 
 import AppNav from '../components/AppNav.jsx';
 import Breadcrumb from '../components/Breadcrumb.jsx';
+import List from '../components/List.jsx';
 
-import InvitationRecevedItem from '../components/contact/InvitationRecevedItem.jsx'
-import ContactItem from '../components/contact/ContactItem.jsx'
 import TeamItem from '../components/contact/TeamItem.jsx'
 
 export default class ContactPage extends React.Component {
@@ -54,18 +53,25 @@ export default class ContactPage extends React.Component {
                     <input type="submit" value="Envoyer une invitation" />
                   </form>
                 </div>
-                <div>Invitation(s) reçue(s) : </div>
-                <div className="list">
-                  {usersInvitationReceved.map(function(userSelected) {
-                     return <InvitationRecevedItem key={userSelected._id} userSelected={userSelected} />;
-                  })}
-                </div>
+
+                {
+                  usersInvitationReceved.length ?
+                    <div>
+                      <div>Invitation(s) reçue(s) : </div>
+                      <List
+                        data={usersInvitationReceved}
+                        type="invitation"
+                        invitation={true}
+                      />
+                    </div>
+                    : ''
+                }
+
                 <div>Contact(s) : </div>
-                <div className="list">
-                  {usersContact.map(function(userSelected) {
-                     return <ContactItem key={userSelected._id} userSelected={userSelected} />;
-                  })}
-                </div>
+                <List
+                  data={usersContact}
+                  type="contact"
+                />
                 <div>Groupe(s) : </div>
                 <Link to={'/contact/createGroup'}>Creer un groupe</Link>
                 <div className="list">

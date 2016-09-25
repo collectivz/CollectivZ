@@ -64,6 +64,11 @@ Meteor.methods({
 
     check(userId, String);
 
+    if (userId === this.userId) {
+      throw new Meteor.Error('use-your-brain',
+        "Mieux vaut ne pas vous retirer les droits d'administration.");
+    }
+
     Meteor.users.update(userId, {
       $set: { isAdmin: false }
     });

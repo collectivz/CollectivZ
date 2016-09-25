@@ -63,6 +63,13 @@ export default class AppNav extends Component {
             <i className="icon icon-3x icon-big-user"/>
             <span>Profil</span>
         </TouchEvent>
+        <TouchEvent
+            onClick={ ()=>{this.onClick("/contact/view")} }
+            class={ classNames( "navbar-item touch-event", { active: activeUrl == "/contact/view" } ) }>
+
+            <i className="icon icon-3x icon-big-user"/>
+            <span>Contacts</span>
+        </TouchEvent>
       </div>
     );
   }

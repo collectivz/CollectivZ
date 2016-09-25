@@ -19,12 +19,40 @@ export default class UserItem extends React.Component {
     const { user } = this.props;
 
     return (
-      <TouchEvent class="list-item touch-event" onClick={ () => { this.onClick(`/user/${user._id}`) } }>
+      <div className="list-item touch-event">
+      <TouchEvent onClick={ () => { this.onClick(`/user/${user._id}`) } }>
           <img src={user.profile.avatar} alt="" />
+      </TouchEvent>
           <div className="list-item-content">
               <p className="title">{user.username}</p>
           </div>
-      </TouchEvent>
+          {
+            this.props.addToNewGroup ?
+            <button onClick={this.props.addToNewGroup.bind(this, user._id)}>Ajouter</button>
+            : ''
+          }
+          {
+            this.props.removeFromNewGroup ?
+            <button onClick={this.props.removeFromNewGroup.bind(this, user._id)}>Enlever</button>
+            : ''
+          }
+          {
+            this.props.acceptInvite ?
+            <button onClick={this.props.acceptInvite.bind(this, user._id)}>Accepter</button>
+            : ''
+          }
+          {
+            this.props.refuseInvite ?
+            <button onClick={this.props.refuseInvite.bind(this, user._id)}>Refuser</button>
+            : ''
+          }
+          {
+            this.props.removeAdmin ?
+            <button onClick={this.props.removeAdmin.bind(this, user._id)}>Rétrograder</button>
+            : ''
+          }
+          <i className="icon icon-3x icon-chevron-right"/>
+        </div>
     );
   }
 }
