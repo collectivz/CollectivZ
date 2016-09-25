@@ -53,12 +53,20 @@ export default class ContactPage extends React.Component {
                     <input type="submit" value="Envoyer une invitation" />
                   </form>
                 </div>
-                <div>Invitation(s) reçue(s) : </div>
-                <List
-                  data={usersInvitationReceved}
-                  type="invitation"
-                  invitation={true}
-                />
+
+                {
+                  usersInvitationReceved.length ?
+                    <div>
+                      <div>Invitation(s) reçue(s) : </div>
+                      <List
+                        data={usersInvitationReceved}
+                        type="invitation"
+                        invitation={true}
+                      />
+                    </div>
+                    : ''
+                }
+
                 <div>Contact(s) : </div>
                 <List
                   data={usersContact}
