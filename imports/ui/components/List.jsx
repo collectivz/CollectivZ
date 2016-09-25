@@ -153,6 +153,8 @@ export default class List extends React.Component {
     switch (type) {
       case 'history':
         return "Historique vide."
+      case 'admin':
+        return "Aucun coordinateur sur la plate-forme. Veuillez contacter CollectivZ."
       case 'channel':
         return "Aucune discussion en cours."
       case 'contact':
