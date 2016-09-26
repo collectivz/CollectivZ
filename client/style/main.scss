@@ -47,11 +47,15 @@ $background-color: color("grey", "lighten-3");
 @import "molecule/chat-separator";
 @import "molecule/profile";
 @import "molecule/drop-down";
+@import "molecule/modal";
 
 @import "template/login";
 @import "template/chat";
 @import "template/list";
 @import "template/admin";
+
+@import "molecule/toastr";
+
 
 html, body, #app-container, #render-target {
 	width:100%;

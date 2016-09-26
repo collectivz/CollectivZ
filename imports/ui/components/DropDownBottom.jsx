@@ -13,10 +13,9 @@ export default class DropDownBottom extends React.Component {
   render() {
 
     const {
-      children
+      children,
+      isOpen
     } = this.props;
-
-    let isOpen = true;
 
     return (
       <div className= {classNames("drop-down-bottom", {"drop-down-bottom--open": isOpen})} >
