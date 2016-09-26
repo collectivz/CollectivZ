@@ -57,13 +57,9 @@ export default class DropDownBottom extends React.Component {
         <div className="bubble-content-admin" onClick={this.toggleMenu}>
           <i className="icon icon-3x icon-three-dot"/>
         </div>
-        {
-          isOpen ?
-            <div className= {classNames("drop-down-bottom", {"drop-down-bottom--open": isOpen})} >
-              {children}
-            </div>
-          : ''
-        }
+        <div className= {classNames("drop-down-bottom", {"drop-down-bottom--open": isOpen})} >
+          {children}
+        </div>
       </div>
     );
   }

@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 
+import { replaceParams } from './smiley-replacer';
 import { Channels } from '../channels/collection.js';
 
 class messageCollection extends Mongo.Collection {
@@ -19,6 +20,7 @@ class messageCollection extends Mongo.Collection {
     Channels.update(message.channelId, {
       $set: { lastActivity: message.createdAt, lastMessage: lastMessage },
     });
+    message.text = replaceParams(message.text);
     return super.insert(message);
   }
 

@@ -198,14 +198,6 @@ export default class Chat extends React.Component {
           :
             <JoinActionButton channel={channel} />
         }
-        {
-          displayModal ?
-            <Modal title="Titre" displayCall={true} onOpen={() => { console.log("onOpen");} } onClose={() => { console.log("onClose");} } close={() => { console.log("close");} } >
-              <h4>Coucou</h4>
-              <p>Coucou</p>
-            </Modal>
-          : ''
-        }
       </div>
     );
   }

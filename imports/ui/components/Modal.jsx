@@ -13,7 +13,6 @@ export default class Modal extends React.Component {
 
     handleDisplay() {
 
-      this.props.onOpen();
       this.setState( { isOpening : true } );
 
       setTimeout( () => {
@@ -24,9 +23,9 @@ export default class Modal extends React.Component {
 
     handleClose() {
 
-      this.props.onClose();
       this.setState( { isClosing : true } );
       setTimeout( () => {
+        // this.props.closeModal();
         this.setState( { isClosing: false, isOpen : false, isOpening: false } );
       }, 350);
 
@@ -34,7 +33,7 @@ export default class Modal extends React.Component {
 
     componentDidMount() {
       if (this.props.displayCall)
-        this.handleDisplay(); 
+        this.handleDisplay();
     }
 
 
@@ -71,7 +70,7 @@ export default class Modal extends React.Component {
 }
 
 Modal.propTypes = {
-  title: PropTypes.string.isRequired,
+  title: PropTypes.string,
   onClose: PropTypes.func,
   onOpen: PropTypes.func
 }

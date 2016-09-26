@@ -30,21 +30,21 @@ export default class MessageList extends React.Component {
                   return true;
                 return false;
               });
-              return (<BeerItemContainer key={message._id} beer={beer} />);
+              return (<BeerItemContainer key={message._id} beer={beer} user={user} />);
             case 'poll':
               const poll = polls.find((poll) => {
                 if (poll.messageId === message._id)
                   return true;
                 return false;
               });
-              return (<PollItemContainer key={message._id} poll={poll} />);
+              return (<PollItemContainer key={message._id} poll={poll} user={user} />);
             case 'channel':
               const channel = subChannels.find((channel) => {
                 if (channel.messageId === message._id)
                   return true;
                 return false;
               });
-              return (<SubChannelItem key={message._id} channel={channel} user={user}/>);
+              return (<SubChannelItem key={message._id} channel={channel} user={user} />);
             case 'coin':
               const coin = coins.find((coin) => {
                 if (coin.messageId === message._id)

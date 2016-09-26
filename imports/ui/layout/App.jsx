@@ -5,6 +5,7 @@ import Login from '../components/Login.jsx';
 import Loader from '../components/Loader.jsx';
 import AppNav from '../components/AppNav.jsx';
 import ToastrStack from '../components/ToastrStack.jsx';
+import ModalContainer from '../containers/ModalContainer.jsx';
 
 export default class App extends React.Component {
 
@@ -35,6 +36,7 @@ export default class App extends React.Component {
           : <Login />
         }
         <ToastrStack />
+        <ModalContainer />
       </div>
     );
   }
