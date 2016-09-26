@@ -39,6 +39,8 @@ export default class ContactPage extends React.Component {
     Meteor.call('repertory.removeContact', userSelectedId, (err, res) => {
       if (err) {
         Toast(err.reason, "danger");
+      } else {
+        Toast(`Le contact a été supprimé.`);
       }
     });
   }
@@ -51,6 +53,8 @@ export default class ContactPage extends React.Component {
       Meteor.call('repertory.sendInvite', userInvited, (err, res) => {
         if (err) {
           Toast(err.reason, "danger");
+        } else {
+          Toast(`Une invitation a été envoyé.`);
         }
       });
       this.refs.userInvited.value = '';

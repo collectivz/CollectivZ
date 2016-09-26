@@ -36,6 +36,8 @@ export default class TeamItem extends React.Component {
     Meteor.call('channels.conversationCreate', data.members, data._id, (err, res) => {
       if (err) {
         Toast(err.reason, "danger");
+      } else {
+        this.context.router.push(`/conversation/${res}`);
       }
     });
   }
@@ -49,6 +51,8 @@ export default class TeamItem extends React.Component {
     Meteor.call('teams.remove', data._id, (err, res) => {
       if (err) {
         Toast(err.reason, "danger");
+      } else {
+        Toast(`Le cercle a bien été supprimé.`);
       }
     });
   }
@@ -90,6 +94,10 @@ export default class TeamItem extends React.Component {
     );
   }
 }
+
+TeamItem.contextTypes = {
+  router: PropTypes.object
+};
 
 // TeamItem.propTypes = {
 //   data: PropTypes.object.isRequired,
