@@ -49,6 +49,8 @@ export default class TeamItem extends React.Component {
     Meteor.call('teams.remove', data._id, (err, res) => {
       if (err) {
         Toast(err.reason, "danger");
+      } else {
+        Toast(`Le cercle a bien été supprimé.`);
       }
     });
   }

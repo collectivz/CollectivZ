@@ -48,6 +48,8 @@ export default class CreateGroupPage extends React.Component {
     Meteor.call('teams.insert', this.state.newGroup, (err, res) => {
       if (err) {
         Toast(err.reason, "danger");
+      } else {
+        Toast(`Le cercle a bien été créé.`, "success");
       }
     });
     this.setState({
