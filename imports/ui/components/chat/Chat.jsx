@@ -13,6 +13,9 @@ import JoinActionButton          from './JoinActionButton.jsx';
 
 import DropDownBottom          from '../DropDownBottom.jsx';
 
+import Modal          from '../Modal.jsx';
+import Toastr          from '../Toastr.jsx';
+
 
 export default class Chat extends React.Component {
 
@@ -194,6 +197,13 @@ export default class Chat extends React.Component {
             <li><a className="drop-down-menu-link" href="#"> Ajouter l'utilisateur aux contacts </a></li>
           </ul>
         </DropDownBottom>
+        {/*
+        <Modal title="Titre" displayCall={true} onOpen={() => { console.log("onOpen");} } onClose={() => { console.log("onClose");} } close={() => { console.log("close");} } >
+          <h4>Coucou</h4>
+          <p>Coucou</p>
+        </Modal>
+        */}
+        <Toastr color="danger" title="Titre" content="contenu" displayCall={true}/>
       </div>
     );
   }

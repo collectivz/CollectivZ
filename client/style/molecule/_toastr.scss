@@ -1,0 +1,81 @@
+$toastr-easing-duration: 250ms;
+
+
+.toastr {
+	position:fixed;
+	bottom:$text-size * 2 + strip-unit($chat-input-height) * 0.1rem;
+	right:$text-size * 3;
+	z-index: 99999;
+	border-radius: 3px;
+	padding:15px;
+	background-color: color("grey", "lighten-2");
+	color: color("grey", "darken-3");
+	display:none;
+	opacity:0;
+	transition: all $toastr-easing-duration ease-in;
+	min-width: 220px;
+	transform: translateX(30px);
+
+	h1,h2,h3,h4,h5,h6 {
+		margin-top:0;
+	}
+
+	p {
+		margin-bottom:0;
+	}
+
+	.toastr--close-button {
+		position:absolute;
+		top:10px;
+		right:10px;
+		cursor:pointer;
+		opacity:0.5;
+		transition: all $toastr-easing-duration ease-in;
+		&:hover {
+			opacity:1;
+		}
+	}
+
+
+	&.toastr--opening {
+		display:block;
+	}
+
+
+	&.toastr--open {
+		opacity:1;
+		transform: translateX(0px);
+		display:block;
+	}
+
+	&.toastr--closing {
+		display:block;
+		opacity:0;
+		transition: all $toastr-easing-duration ease-out;
+	}
+
+	&.toastr--info, &.toastr--danger, &.toastr--success {
+		h1,h2,h3,h4,h5,h6, p {
+			color: white;
+		}
+	}
+
+	&.toastr--danger {
+		background-color: color("danger", "base");
+		color:white;
+	}
+	&.toastr--success {
+		background-color: color("success", "base");
+		color:white;
+	}
+	&.toastr--info {
+		background-color: color("info", "base");
+		color:white;
+	}
+}
+
+.chat {
+	.toastr {
+		bottom:$text-size * 2 + strip-unit($chat-input-height) * 0.1rem;
+	}
+}
