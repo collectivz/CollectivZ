@@ -16,6 +16,7 @@ export default class ChannelPage extends React.Component {
 
     this.renderAdminMenu = this.renderAdminMenu.bind(this);
     this.closeAction = this.closeAction.bind(this);
+    this.leaveAction = this.leaveAction.bind(this);
   }
 
   closeAction() {

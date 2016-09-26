@@ -67,9 +67,13 @@ export default class DropDown extends React.Component {
         <div className={classNames("touch-event", {"touch-active": isClicked})}  onClick={this.handleOpen.bind(this)}>
           <i className="icon icon-3x icon-three-dot"/>
         </div>
-        <div className="drop-down-menu">
-          {children}
-        </div>
+        {
+          isOpen ?
+            <div className="drop-down-menu">
+              {children}
+            </div>
+          : ''
+        }
       </div>
     );
   }

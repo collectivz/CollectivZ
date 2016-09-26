@@ -31,7 +31,8 @@ export default class Chat extends React.Component {
       ongoingAction: false,
       expectedAnswer: '',
       choices: [],
-      messageCount: this.props.messages.length
+      messageCount: this.props.messages.length,
+      displayModal: false
     };
 
     this.setFilterOption = this.setFilterOption.bind(this);
@@ -132,9 +133,16 @@ export default class Chat extends React.Component {
       coins,
       feedbacks,
       user,
-
     } = this.props;
-    const { zorro, dialogWithZorro, ongoingAction, filter, choices } = this.state;
+    const {
+      zorro,
+      dialogWithZorro,
+      ongoingAction,
+      filter,
+      choices,
+      displayModal
+    } = this.state;
+
     const filteredMessages = this.filterMessage();
 
     return (
@@ -190,20 +198,14 @@ export default class Chat extends React.Component {
           :
             <JoinActionButton channel={channel} />
         }
-        <DropDownBottom isOpen={false}>
-          <ul>
-            <li><a className="drop-down-menu-link" href="#"> Supprimer le message </a></li>
-            <li><a className="drop-down-menu-link" href="#"> Editer le message </a></li>
-            <li><a className="drop-down-menu-link" href="#"> Ajouter l'utilisateur aux contacts </a></li>
-          </ul>
-        </DropDownBottom>
-
-        {/* <Modal title="Titre" displayCall={true} onOpen={() => { console.log("onOpen");} } onClose={() => { console.log("onClose");} } close={() => { console.log("close");} } >
-          <h4>Coucou</h4>
-          <p>Coucou</p>
-        </Modal>
-
-        <Toastr color="danger" title="Titre" content="contenu" displayCall={true}/> */}
+        {
+          displayModal ?
+            <Modal title="Titre" displayCall={true} onOpen={() => { console.log("onOpen");} } onClose={() => { console.log("onClose");} } close={() => { console.log("close");} } >
+              <h4>Coucou</h4>
+              <p>Coucou</p>
+            </Modal>
+          : ''
+        }
       </div>
     );
   }
