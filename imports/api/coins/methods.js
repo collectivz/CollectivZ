@@ -65,11 +65,16 @@ Meteor.methods({
 
     check(coinId, String);
     check(money, Number);
+
     const user = Meteor.users.findOne(this.userId);
     if (user.coinz < money) {
       throw new Meteor.Error('not-enough-coinz',
         "Vous n'avez pas assez de coinz pour donner autant.");
+    } else if (money <= 0) {
+      throw new Meteor.Error('not-enough-donated',
+        "Vous ne pouvez pas donner de montant négatif.");
     }
+    
     const coin = Coins.findOne(coinId);
     let found = 0;
     if (coin.givers) {
