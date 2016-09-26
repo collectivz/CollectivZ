@@ -39,6 +39,7 @@ export default class GuildItem extends Component {
               <i className="icon icon-user"/>
               <span>{this.getMemberCount(data)}</span>
             </div>
+            <i className="icon icon-3x icon-chevron-right"/>
         </div>
       </TouchEvent>
     );
