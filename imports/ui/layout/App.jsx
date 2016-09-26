@@ -4,6 +4,7 @@ import { Meteor } from 'meteor/meteor';
 import Login from '../components/Login.jsx';
 import Loader from '../components/Loader.jsx';
 import AppNav from '../components/AppNav.jsx';
+import ToastrStack from '../components/ToastrStack.jsx';
 
 export default class App extends React.Component {
 
@@ -33,7 +34,7 @@ export default class App extends React.Component {
           clonedChildren
           : <Login />
         }
-        <div id="notifications-container"></div>
+        <ToastrStack />
       </div>
     );
   }
