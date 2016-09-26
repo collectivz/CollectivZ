@@ -51,7 +51,7 @@ export default class MessageList extends React.Component {
                   return true;
                 return false;
               });
-              return (<CoinItem key={message._id} coin={coin} />);
+              return (<CoinItem key={message._id} coin={coin} user={user}/>);
             case 'feedback':
               const feedback = feedbacks.find((feedback) => {
                 if (feedback.messageId === message._id)

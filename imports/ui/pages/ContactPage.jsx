@@ -6,6 +6,7 @@ import Breadcrumb from '../components/Breadcrumb.jsx';
 import List from '../components/List.jsx';
 import TeamItem from '../components/TeamItem.jsx'
 import UserItem from '../components/UserItem.jsx'
+import { Toast }         from '../helpers/Toast';
 
 
 export default class ContactPage extends React.Component {
@@ -19,15 +20,27 @@ export default class ContactPage extends React.Component {
   }
 
   acceptInvite(userSelectedId) {
-    Meteor.call('repertory.acceptInvite', userSelectedId);
+    Meteor.call('repertory.acceptInvite', userSelectedId, (err, res) => {
+      if (err) {
+        Toast(err.reason, "danger");
+      }
+    });
   }
 
   refuseInvite(userSelectedId) {
-    Meteor.call('repertory.refuseInvite', userSelectedId);
+    Meteor.call('repertory.refuseInvite', userSelectedId, (err, res) => {
+      if (err) {
+        Toast(err.reason, "danger");
+      }
+    });
   }
 
   removeContact(userSelectedId) {
-    Meteor.call('repertory.removeContact', userSelectedId);
+    Meteor.call('repertory.removeContact', userSelectedId, (err, res) => {
+      if (err) {
+        Toast(err.reason, "danger");
+      }
+    });
   }
 
   handleSubmit(e) {
@@ -35,7 +48,11 @@ export default class ContactPage extends React.Component {
     const userInvited = this.refs.userInvited.value;
 
     if (userInvited) {
-      Meteor.call('repertory.sendInvite', userInvited);
+      Meteor.call('repertory.sendInvite', userInvited, (err, res) => {
+        if (err) {
+          Toast(err.reason, "danger");
+        }
+      });
       this.refs.userInvited.value = '';
     }
   }

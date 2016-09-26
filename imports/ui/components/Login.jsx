@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Meteor } from 'meteor/meteor';
 import classNames                       from 'classnames';
 
+import { Toast }         from '../helpers/Toast';
+
 export default class Login extends Component {
 
   constructor(props) {
@@ -22,7 +24,11 @@ export default class Login extends Component {
           const password = this.refs.password.value;
 
           if (username && password) {
-            Meteor.loginWithPassword(username, password);
+            Meteor.loginWithPassword(username, password, err => {
+              if (err) {
+                Toast(err.reason, "danger");
+              }
+            });
           }
       }, 500);
 

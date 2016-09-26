@@ -5,6 +5,7 @@ import Breadcrumb from '../components/Breadcrumb.jsx';
 import Loader from '../components/Loader.jsx';
 import MessageList from '../components/chat/MessageList.jsx';
 import MessageInput from '../components/chat/MessageInput.jsx';
+import { Toast }         from '../helpers/Toast';
 
 export default class ConversationPage extends React.Component {
 
@@ -26,7 +27,11 @@ export default class ConversationPage extends React.Component {
     } = this.state;
 
     if (channel && messageCount !== messages.length) {
-      Meteor.call('users.updateLastRead', channel._id);
+      Meteor.call('users.updateLastRead', channel._id, (err, res) => {
+        if (err) {
+          Toast(err.reason, "danger");
+        }
+      });
       this.setState({
         messageCount: messages.length
       });

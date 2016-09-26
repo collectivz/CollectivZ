@@ -29,7 +29,7 @@ export default class CoinItem extends React.Component {
 
   render() {
 
-    const { coin } = this.props;
+    const { coin, user } = this.props;
 
     return (
       <div className="chat-special-bubble chat-special-bubble-coin">
@@ -41,6 +41,8 @@ export default class CoinItem extends React.Component {
               </div>
               <h3>{coin.purpose}</h3>
               <h4>{coin.totalEarned} / {coin.goal} reçu</h4>
+              <br />
+              <h4>Vous disposez de {user.coinz} euros.</h4>
               <form className="merged" onSubmit={this.handleSubmit}>
                 <input
                   className="small"

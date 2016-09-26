@@ -5,6 +5,7 @@ import { Router, Route, Link, browserHistory }  from 'react-router';
 import classNames                               from 'classnames';
 import { _ }                                    from 'meteor/underscore';
 
+import { Toast }         from '../helpers/Toast';
 
 export default class TeamItem extends React.Component {
 
@@ -32,7 +33,11 @@ export default class TeamItem extends React.Component {
       data
     } = this.props;
 
-    Meteor.call('channels.conversationCreate', data.members, data._id);
+    Meteor.call('channels.conversationCreate', data.members, data._id, (err, res) => {
+      if (err) {
+        Toast(err.reason, "danger");
+      }
+    });
   }
 
   removeTeam(e) {
@@ -41,7 +46,11 @@ export default class TeamItem extends React.Component {
       data
     } = this.props;
 
-    Meteor.call('teams.remove', data._id);
+    Meteor.call('teams.remove', data._id, (err, res) => {
+      if (err) {
+        Toast(err.reason, "danger");
+      }
+    });
   }
 
   toggleButton() {

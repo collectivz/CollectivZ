@@ -7,22 +7,6 @@ import ChannelItemContainer          from '../containers/ChannelItemContainer.js
 
 export default class ChannelList extends React.Component {
 
-  constructor(props) {
-    super(props);
-
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  handleSubmit(e) {
-    e.preventDefault();
-    const userInvited = this.refs.userInvited.value;
-
-    if (userInvited) {
-      Meteor.call('channels.conversationCreate', userInvited);
-      this.refs.userInvited.value = '';
-    }
-  }
-
   render() {
     const {
       channels,

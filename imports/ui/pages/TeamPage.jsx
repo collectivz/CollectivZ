@@ -58,7 +58,11 @@ export default class TeamPage extends React.Component {
 
   changeGroupMembers(e) {
     e.preventDefault();
-    Meteor.call('teams.changeMembers', this.props.team._id, this.state.newGroup);
+    Meteor.call('teams.changeMembers', this.props.team._id, this.state.newGroup, (err, res) => {
+      if (err) {
+        Toast(err.reason, "danger");
+      }
+    });
     this.setState({
       edit: 0
     });

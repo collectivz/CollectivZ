@@ -2,7 +2,7 @@ import React from 'react'
 
 import AppNav from '../components/AppNav.jsx';
 import Breadcrumb from '../components/Breadcrumb.jsx';
-
+import { Toast }         from '../helpers/Toast';
 import List from '../components/List.jsx'
 import UserItem from '../components/UserItem.jsx'
 
@@ -45,7 +45,11 @@ export default class CreateGroupPage extends React.Component {
 
   createNewGroup(e) {
     e.preventDefault();
-    Meteor.call('teams.insert', this.state.newGroup);
+    Meteor.call('teams.insert', this.state.newGroup, (err, res) => {
+      if (err) {
+        Toast(err.reason, "danger");
+      }
+    });
     this.setState({
       newGroup: [],
     });

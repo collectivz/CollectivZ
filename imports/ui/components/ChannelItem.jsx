@@ -6,6 +6,7 @@ import TouchEvent                               from './TouchEvent';
 import classNames                               from 'classnames';
 
 import ActionList                               from './ActionList.jsx';
+import { Toast }         from '../helpers/Toast';
 
 export default class ChannelItem extends React.Component {
 
@@ -27,7 +28,11 @@ export default class ChannelItem extends React.Component {
 
     setTimeout( () => {
       browserHistory.push(dest);
-      Meteor.call('users.updateLastRead', data._id);
+      Meteor.call('users.updateLastRead', data._id, (err, res) => {
+        if (err) {
+          Toast(err.reason, "danger");
+        }
+      });
     }, 350 );
 
   }

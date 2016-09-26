@@ -1,5 +1,7 @@
 import React            from 'react';
 
+import { Toast }         from '../../helpers/Toast';
+
 export default class PollItem extends React.Component {
 
   constructor(props) {
@@ -7,7 +9,11 @@ export default class PollItem extends React.Component {
   }
 
   voteForAPoll(propositionId) {
-    Meteor.call('polls.vote', this.props.poll._id, propositionId);
+    Meteor.call('polls.vote', this.props.poll._id, propositionId, (err, res) => {
+      if (err) {
+        Toast(err.reason, "danger");
+      }
+    });
   }
 
   render() {

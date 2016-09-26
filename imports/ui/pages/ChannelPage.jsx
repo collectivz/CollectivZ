@@ -6,6 +6,7 @@ import DropDown                         from '../components/DropDown';
 import Loader                           from '../components/Loader.jsx';
 import ChatContainer                    from '../containers/ChatContainer.jsx';
 import NotFound                         from '../pages/NotFound.jsx';
+import { Toast }         from '../helpers/Toast';
 
 
 export default class ChannelPage extends React.Component {
@@ -22,7 +23,10 @@ export default class ChannelPage extends React.Component {
 
     Meteor.call('channels.delete', channel._id, (err, res) => {
       if (!err) {
+        Toast(`Groupe supprimé.`, "success");
         this.context.router.push('/my-groups');
+      } else {
+        Toast(err.reason, "danger");
       }
     });
   }
@@ -32,7 +36,10 @@ export default class ChannelPage extends React.Component {
 
     Meteor.call('channels.leave', channel._id, (err, res) => {
       if (!err) {
+        Toast(`Vous avez quitté le groupe ${channel.name}.`, "success");
         this.context.router.push('/my-groups');
+      } else {
+        Toast(err.reason, 'danger');
       }
     });
   }

@@ -5,6 +5,7 @@ import AppNav                             from '../components/AppNav.jsx';
 import List                             from '../components/List.jsx';
 import Breadcrumb                             from '../components/Breadcrumb.jsx';
 import UserItem                             from '../components/UserItem.jsx';
+import { Toast }         from '../helpers/Toast';
 
 export default class AdminPage extends Component {
 
@@ -38,7 +39,10 @@ export default class AdminPage extends Component {
     if (adminName.length > 0) {
       Meteor.call('admin.addAdmin', adminName, (err, res) => {
         if (!err) {
+          Toast(`${adminName} ajouté aux coordinateurs.`, "success");
           this.refs.adminName.value = '';
+        } else {
+          Toast(err.reason, "danger");
         }
       });
     }
@@ -47,7 +51,13 @@ export default class AdminPage extends Component {
   removeAdmin(userId, e) {
     e.preventDefault();
 
-    Meteor.call('admin.removeAdmin', userId);
+    Meteor.call('admin.removeAdmin', userId, (err, res) => {
+      if (!err) {
+        Toast(`Utilisateur supprimé des coordinateurs.`, "success");
+      } else {
+        Toast(err.reason, "danger");
+      }
+    });
   }
 
   getTotal() {
@@ -69,7 +79,10 @@ export default class AdminPage extends Component {
     if (amount > 0) {
       Meteor.call('admin.addMoney', amount, (err, res) => {
         if (!err) {
+          Toast(`Vous avez ajouté ${amount} euros à chaque utilisateur.`, "success");
           this.refs.amount.value = '';
+        } else {
+          Toast(err.reason, "danger");
         }
       });
     }
@@ -80,7 +93,13 @@ export default class AdminPage extends Component {
     const guildName = this.refs.guildName.value;
 
     if (guildName) {
-      Meteor.call('groups.insert', {name: guildName});
+      Meteor.call('groups.insert', {name: guildName}, (err, res) => {
+        if (!err) {
+          Toast(`Groupe ${guildName} créé.`, "success");
+        } else {
+          Toast(err.reason, "danger");
+        }
+      });
       this.refs.guildName.value = '';
     }
   }

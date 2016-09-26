@@ -27,7 +27,11 @@ export default class TeamPageHeader extends React.Component {
     const { team } = this.props;
     const newName = this.refs.teamName.value;
 
-    Meteor.call('teams.editName', team._id, newName);
+    Meteor.call('teams.editName', team._id, newName, (err, res) => {
+      if (err) {
+        Toast(err.reason, "danger");
+      }
+    });
     this.setState({
       editing: false
     });
