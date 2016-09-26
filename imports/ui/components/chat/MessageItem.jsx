@@ -4,6 +4,7 @@ import { Meteor }                         from 'meteor/meteor';
 import moment                             from 'moment';
 
 import DropDownBottom from '../DropDownBottom';
+import { Toast }         from '../../helpers/Toast';
 
 
 export default class MessageItem extends Component {
@@ -32,7 +33,11 @@ export default class MessageItem extends Component {
 
     const newText = this.refs.textInput.value;
 
-    Meteor.call('messages.edit', newText, message._id);
+    Meteor.call('messages.edit', newText, message._id, (err, res) => {
+      if (err) {
+        Toast(err.reason, "danger");
+      }
+    });
     this.setState({
       editing: false
     });
@@ -45,7 +50,11 @@ export default class MessageItem extends Component {
   }
 
   deleteMessage() {
-    Meteor.call('messages.delete', this.props.message._id);
+    Meteor.call('messages.delete', this.props.message._id, (err, res) => {
+      if (err) {
+        Toast(err.reason, "danger");
+      }
+    });
   }
 
   isMine () {
@@ -80,7 +89,11 @@ export default class MessageItem extends Component {
       message
     } = this.props;
 
-    Meteor.call('repertory.sendInvite', message.authorName);
+    Meteor.call('repertory.sendInvite', message.authorName, (err, res) => {
+      if (err) {
+        Toast(err.reason, "danger");
+      }
+    });
   }
 
   chatWithAuthor() {
@@ -91,6 +104,8 @@ export default class MessageItem extends Component {
     Meteor.call('channels.conversationCreate', message.authorName, (err, res) => {
       if (!err) {
         this.context.router.push(`/conversation/${res}`);
+      } else {
+        Toast(err.reason, "danger");
       }
     });
   }

@@ -3,7 +3,7 @@ import React, {Component, PropTypes} from 'react';
 import { browserHistory }     from 'react-router';
 import classNames             from 'classnames';
 
-export default class Modal extends Component {
+export default class Toastr extends Component {
 
     constructor( props ) {
         super( props );
@@ -25,8 +25,8 @@ export default class Modal extends Component {
         setTimeout( () => {
           this.setState( { isOpen : false, isClosing : false } );
         }, 350);
-      }, 5000);
-        
+      }, 4500);
+
     }
 
     handleClose() {
@@ -40,7 +40,7 @@ export default class Modal extends Component {
 
     componentDidMount() {
       if (this.props.displayCall)
-        this.handleDisplay(); 
+        this.handleDisplay();
     }
 
   render() {
@@ -49,7 +49,6 @@ export default class Modal extends Component {
       children,
       color,
       displayCall,
-      title,
       content
     } = this.props;
 
@@ -64,7 +63,6 @@ export default class Modal extends Component {
         <div className="toastr--close-button" onClick={ () => {this.handleClose()} }>
           <i className="icon icon-2x icon-cross"/>
         </div>
-        <h4>{title}</h4>
         <p>{content}</p>
       </div>
     );
@@ -72,8 +70,7 @@ export default class Modal extends Component {
 }
 
 
-Modal.propTypes = {
-  title: PropTypes.string.isRequired,
+Toastr.propTypes = {
   content: PropTypes.string.isRequired,
   color: PropTypes.string
 }

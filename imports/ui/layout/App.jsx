@@ -33,6 +33,7 @@ export default class App extends React.Component {
           clonedChildren
           : <Login />
         }
+        <div id="notifications-container"></div>
       </div>
     );
   }

@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { Toast }         from '../../helpers/Toast';
+
 export default class JoinActionButton extends React.Component {
 
   constructor(props) {
@@ -11,7 +13,11 @@ export default class JoinActionButton extends React.Component {
   joinChannel() {
     const { channel } = this.props;
 
-    Meteor.call('channels.join', channel._id);
+    Meteor.call('channels.join', channel._id, (err, res) => {
+      if (err) {
+        Toast(err.reason, "danger");
+      }
+    });
   }
 
   render() {

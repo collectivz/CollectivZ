@@ -2,6 +2,8 @@ import React            from 'react';
 import { Meteor }       from 'meteor/meteor';
 import { check }        from 'meteor/check';
 
+import { Toast }         from '../../helpers/Toast';
+
 export default class CoinItem extends React.Component {
 
   constructor(props) {
@@ -16,7 +18,11 @@ export default class CoinItem extends React.Component {
     const { number } = this.refs;
     let numberInt = parseInt(number.value);
     if (Number.isInteger(numberInt)) {
-      Meteor.call('coins.donate', this.props.coin._id, numberInt);
+      Meteor.call('coins.donate', this.props.coin._id, numberInt, (err, res) => {
+        if (err) {
+          Toast(err.reason, "danger");
+        }
+      });
       this.refs.number.value = '';
     }
   }

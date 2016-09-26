@@ -3,6 +3,7 @@ import React, { Component, PropTypes }    from 'react';
 import { Meteor }                         from 'meteor/meteor';
 
 import ActionPicker                       from './ActionPicker.jsx';
+import { Toast }         from '../../helpers/Toast';
 
 
 export default class MessageInput extends Component {
@@ -57,7 +58,7 @@ export default class MessageInput extends Component {
       }
       Meteor.call('messages.insert', message, (err, res) => {
         if(err) {
-          console.log(err);
+          Toast(err.reason, "danger");
         }
         this.refs.textInput.value = '';
         this.setState({

@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom';
 import { Meteor } from 'meteor/meteor';
 import { _ } from 'meteor/underscore';
 
+import { Toast }         from '../../helpers/Toast';
+
 export default class BeerItem extends React.Component {
 
   constructor(props) {
@@ -12,7 +14,11 @@ export default class BeerItem extends React.Component {
   }
 
   joinBeer() {
-    Meteor.call('beers.join', this.props.beer._id);
+    Meteor.call('beers.join', this.props.beer._id, (err, res) => {
+      if (err) {
+        Toast(err.reason, "danger")
+      }
+    });
   }
 
   showMembers() {
