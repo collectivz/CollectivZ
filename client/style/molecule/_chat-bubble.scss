@@ -73,7 +73,7 @@ $bubble-2n-color: #fbfbfb;
 				position:absolute;
 				top:16px;
 				right:0px;
-				display:none;
+				display:block;
 				i {
 					cursor:pointer;
 					padding:5px;
@@ -98,22 +98,6 @@ $bubble-2n-color: #fbfbfb;
 		  border-color: transparent white;
 		}
 	}
-	&:nth-child(2n) {
-		img {
-			float:right;
-		}
-		.bubble-content {
-			float:right;
-			background-color: $bubble-2n-color; /* to subbtle to set with color */
-			margin-right:20px;
-			&::after {
-			  right: -8px;
-			  left:initial;
-			  border-width: 7px 0px 7px 8px;
-			  border-color: transparent $bubble-2n-color;
-			}
-		}
-	}
 	&::after {
 		content: "";
 		display: table;
@@ -125,14 +109,17 @@ $bubble-2n-color: #fbfbfb;
 		}
 	}
 	&.chat-bubble-mine {
+		img {
+			float:right;
+		}
 		.bubble-content {
+			float:right;
 			background-color:#edfff6;
-			.bubble-content-header {
-				.bubble-content-admin {
-					display:block;
-				}
-			}
+			margin-right: 20px;
 			&::after {
+				right: -8px;
+				left:initial;
+			  border-width: 7px 0px 7px 8px;
 				border-color: transparent #edfff6;
 			}
 		}

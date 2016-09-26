@@ -8,9 +8,29 @@ import MessageInput from '../components/chat/MessageInput.jsx';
 
 export default class ConversationPage extends React.Component {
 
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      messageCount: this.props.messages.length
+    };
+  }
+
   componentDidUpdate() {
-    const { channel } = this.props;
-    Meteor.call('users.updateLastRead', channel._id);
+    const {
+      channel,
+      messages
+    } = this.props;
+    const {
+      messageCount
+    } = this.state;
+
+    if (channel && messageCount !== messages.length) {
+      Meteor.call('users.updateLastRead', channel._id);
+      this.setState({
+        messageCount: messages.length
+      });
+    }
   }
 
   render() {
@@ -27,7 +47,7 @@ export default class ConversationPage extends React.Component {
             <div ref='scroll'>
               <div className="chat">
                 <div className="message-list">
-                  <MessageList messages={messages}/>
+                  <MessageList messages={messages} user={user}/>
                 </div>
               </div>
             </div>

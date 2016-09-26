@@ -6,25 +6,49 @@ import TouchEvent             from './TouchEvent';
 
 export default class DropDown extends React.Component {
 
-    constructor( props ) {
-        super( props );
-        this.state = { isOpen : false, isClicked: false };
-        this.handleOpen = this.handleOpen.bind(this);
-    }
+  constructor( props ) {
+    super( props );
 
-    handleOpen() {
+    this.state = {
+      isOpen : false,
+      isClicked: false
+    };
 
-        if (this.state.isOpen == true)
-          this.setState( { isOpen : false } );
-        else
-          this.setState( { isOpen : true } );
+    this.handleOpen = this.handleOpen.bind(this);
+    this.closeMenu = this.closeMenu.bind(this);
+  }
 
-        this.setState( { isClicked : true } );
-        setTimeout( () => {
-            this.setState( { isClicked : false } );
-        }, 300);
+  componentDidMount() {
+    document.addEventListener('click', this.closeMenu);
+  }
 
-    }
+  componentWillUnmount() {
+    document.removeEventListener('click', this.closeMenu);
+  }
+
+  closeMenu() {
+    this.setState({
+      isOpen: false
+    });
+  }
+
+  handleOpen(e) {
+    e.nativeEvent.stopImmediatePropagation();
+
+    const {
+      isOpen
+    } = this.state;
+
+    this.setState({
+      isOpen: !isOpen
+    });
+
+    this.setState( { isClicked : true } );
+    setTimeout( () => {
+        this.setState( { isClicked : false } );
+    }, 300);
+
+  }
 
   render() {
 

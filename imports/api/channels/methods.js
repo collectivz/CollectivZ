@@ -188,8 +188,8 @@ Meteor.methods({
       parentId: "",
       rootId: "",
       messageId: "",
-      type: 'conversation'
-    }
+      type: 'conversation',
+    };
 
     const channelId = Channels.insert(newConversationChannel);
 
@@ -198,11 +198,13 @@ Meteor.methods({
         $set: {channel: channelId}
       });
     }
-    const lastReadField = `lastReadAt.${channelId}`;
-    Meteor.users.update({_id: {$in: members}}, {
-      $push: { subscribedConversations: channelId },
+    const lastReadField = `lastReadAt.${newConversationChannelId}`;
+    Meteor.users.update({_id: {$in: [user._id, participant._id]}}, {
+      $push: { subscribedConversations: newConversationChannelId },
       $set: { [lastReadField]: Date.now() }
     }, {multi: true});
+
+    return newConversationChannelId;
   },
 
   'channels.edit'(channelId, newChannel) {

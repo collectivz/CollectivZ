@@ -16,18 +16,18 @@ export default class ChannelItem extends React.Component {
   }
 
   onClick() {
-    const { channel } = this.props;
+    const { data } = this.props;
     let dest = '';
 
-    if (channel.type === 'conversation') {
-      dest = `/conversation/${channel._id}`;
+    if (data.type === 'conversation') {
+      dest = `/conversation/${data._id}`;
     } else {
-      dest = `/group/${channel._id}`;
+      dest = `/group/${data._id}`;
     }
 
     setTimeout( () => {
       browserHistory.push(dest);
-      Meteor.call('users.updateLastRead', channel._id);
+      Meteor.call('users.updateLastRead', data._id);
     }, 350 );
 
   }
@@ -41,28 +41,28 @@ export default class ChannelItem extends React.Component {
 
   render() {
 
-    const { channel, unreadCount, renderUnread } = this.props;
+    const { data, renderUnread, count } = this.props;
 
     return (
       <TouchEvent class="list-item touch-event" onClick={this.onClick}>
-        <img src={channel.imageUrl} alt="" />
+        <img src={data.imageUrl} alt="" />
         <div className="list-item-content">
-          <p className="title">{channel.name}</p>
+          <p className="title">{data.name}</p>
           <p className="text">
-            {channel.lastMessage ?
-              channel.lastMessage.author ?
-                `${channel.lastMessage.author} : ${this.renderLastMessage(channel.lastMessage.text)}`
-                : `${this.renderLastMessage(channel.lastMessage.text)}`
+            {data.lastMessage ?
+              data.lastMessage.author ?
+                `${data.lastMessage.author} : ${this.renderLastMessage(data.lastMessage.text)}`
+                : `${this.renderLastMessage(data.lastMessage.text)}`
               : ''
             }
           </p>
-          {channel.connections ?
-            <ActionList actions={channel.connections} />
+          {data.connections ?
+            <ActionList actions={data.connections} />
             : ''
           }
           {
-            renderUnread && unreadCount ?
-              <div className="list-item-notif">{unreadCount}</div>
+            renderUnread && count ?
+              <div className="list-item-notif">{count}</div>
               : ''
           }
         </div>
@@ -71,6 +71,6 @@ export default class ChannelItem extends React.Component {
   }
 }
 
-ChannelItem.propTypes = {
-  channel: PropTypes.object.isRequired,
-};
+// ChannelItem.propTypes = {
+//   data: PropTypes.object.isRequired,
+// };

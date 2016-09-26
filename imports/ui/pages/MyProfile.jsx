@@ -2,6 +2,8 @@ import React, { Component, PropTypes }  from 'react';
 import { Meteor }                       from 'meteor/meteor';
 
 import UserHeader                       from '../components/UserHeader.jsx';
+import ChannelItem                       from '../components/ChannelItem.jsx';
+import HistoryItem                       from '../components/HistoryItem.jsx';
 import AppNav                           from '../components/AppNav.jsx';
 import Breadcrumb                       from '../components/Breadcrumb.jsx';
 import List                             from '../components/List';
@@ -32,17 +34,36 @@ export default class MyProfile extends Component {
               <i className="big-icon icon icon-temple"/>
               <h5>Groupes dont vous faites partie</h5>
             </div>
-            <List data={guilds} type="guild" user={user} />
+            <List
+              data={guilds}
+              type="guild"
+              user={user}
+              emptyListString="Vous ne faites partie d'aucun groupe. Rejoignez-en un et commencez à coopérer !"
+            >
+              <ChannelItem />
+            </List>
             <div className="list-sub-menu">
               <i className="big-icon icon icon-bubble"/>
-              <h5>Discussions dont vous faites partie</h5>
+              <h5>Actions dont vous faites partie</h5>
             </div>
-            <List data={channels} type="channel" />
+            <List
+              data={channels}
+              type="channel"
+              emptyListString="Vous ne faites partie d'aucune action. Rejoignez-en une et passez à l'action !"
+            >
+              <ChannelItem />
+            </List>
             <div className="list-sub-menu">
               <i className="big-icon icon icon-history"/>
               <h5>Historique des évaluations</h5>
             </div>
-            <List data={actionHistory} type="history" />
+            <List
+              data={actionHistory}
+              type="history"
+              emptyListString="Aucune évaluation. Finissez des actions et gagnez en réputation !"
+            >
+              <HistoryItem />
+            </List>
           </div>
 
         </div>

@@ -5,7 +5,7 @@ import TouchEvent                               from './TouchEvent';
 import classNames                               from 'classnames';
 import { _ }                                    from 'meteor/underscore';
 
-export default class UserItem extends React.Component {
+export default class dataItem extends React.Component {
 
   constructor(props) {
     super(props);
@@ -22,55 +22,58 @@ export default class UserItem extends React.Component {
   }
 
   toggleButton() {
-    const { type, user } = this.props;
+    const { type, data } = this.props;
 
     switch (type) {
       case 'invitation':
         return (
           <div>
-            <button onClick={this.props.acceptInvite.bind(this, user._id)}>Accepter</button>
-            <button onClick={this.props.refuseInvite.bind(this, user._id)}>Refuser</button>
+            <button onClick={this.props.acceptInvite.bind(this, data._id)}>Accepter</button>
+            <button onClick={this.props.refuseInvite.bind(this, data._id)}>Refdata</button>
           </div>
       )
       case 'createGroup':
         return (
           <div>
-            <button onClick={this.props.addToNewGroup.bind(this, user._id)}>Ajouter</button>
-            <button onClick={this.props.removeFromNewGroup.bind(this, user._id)}>Enlever</button>
+            <button onClick={this.props.addToNewGroup.bind(this, data._id)}>Ajouter</button>
+            <button onClick={this.props.removeFromNewGroup.bind(this, data._id)}>Enlever</button>
           </div>
       )
       case 'manageGroup':
-        if (_.contains(this.props.currentState.newGroup, user._id)) {
+        if (_.contains(this.props.currentState.newGroup, data._id)) {
           return (
-            <button onClick={this.props.removeFromGroup.bind(this, user._id)}>Enlever</button>
+            <button onClick={this.props.removeFromGroup.bind(this, data._id)}>Enlever</button>
           )
         } else {
           return (
-              <button onClick={this.props.addToGroup.bind(this, user._id)}>Ajouter</button>
+              <button onClick={this.props.addToGroup.bind(this, data._id)}>Ajouter</button>
           )
         }
       case 'contact':
         return (
-          <button onClick={this.props.removeContact.bind(this, user._id)}>Supprimer</button>
+          <button onClick={this.props.removeContact.bind(this, data._id)}>Supprimer</button>
         )
+      case 'admin':
+        return (
+          <button onClick={this.props.removeAdmin.bind(this, data._id)}>Rétrograder</button>
+        );
       default:
         return ;
     }
   }
 
   render() {
-    const { user } = this.props;
+    const { data } = this.props;
 
     return (
       <div className="list-item touch-event">
-      <TouchEvent onClick={ () => { this.onClick(`/user/${user._id}`) } }>
-          <img src={user.profile.avatar} alt="" />
+      <TouchEvent onClick={ () => { this.onClick(`/data/${data._id}`) } }>
+          <img src={data.profile.avatar} alt="" />
       </TouchEvent>
           <div className="list-item-content">
-              <p className="title">{user.username}</p>
+              <p className="title">{data.username}</p>
           </div>
           {this.toggleButton()}
-          <i className="icon icon-3x icon-chevron-right"/>
         </div>
     );
   }

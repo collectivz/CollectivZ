@@ -28,19 +28,30 @@ export default class TeamItem extends React.Component {
 
   createConversation(e) {
     e.preventDefault();
-    Meteor.call('channels.conversationCreate', this.props.teamSelected.members, this.props.teamSelected._id);
+    const {
+      data
+    } = this.props;
+
+    Meteor.call('channels.conversationCreate', data.members, data._id);
   }
 
   removeTeam(e) {
     e.preventDefault();
-    teamId = this.props.teamSelected._id;
-    Meteor.call('teams.remove', teamId);
+    const {
+      data
+    } = this.props;
+
+    Meteor.call('teams.remove', data._id);
   }
 
   toggleButton() {
-    if (this.props.teamSelected.channel) {
+    const {
+      data
+    } = this.props;
+
+    if (data.channel) {
       return (
-        <TouchEvent class="list-item touch-event" onClick={ () => { this.onClick(`/conversation/${this.props.teamSelected.channel}`) } }>
+        <TouchEvent class="list-item touch-event" onClick={ () => { this.onClick(`/conversation/${data.channel}`) } }>
           <button>Voir conversation</button>
         </TouchEvent>
       )
@@ -51,15 +62,15 @@ export default class TeamItem extends React.Component {
 
   render() {
     const {
-      teamSelected
+      data
     } = this.props;
 
     return (
       <div>
-        <TouchEvent class="list-item touch-event" onClick={ () => { this.onClick(`/team/${teamSelected._id}`) } }>
+        <TouchEvent class="list-item touch-event" onClick={ () => { this.onClick(`/team/${data._id}`) } }>
         {
-          teamSelected.name ?
-            <h3>{teamSelected.name}</h3>
+          data.name ?
+            <h3>{data.name}</h3>
             :
             <h3>Sans nom</h3>
         }
@@ -71,6 +82,6 @@ export default class TeamItem extends React.Component {
   }
 }
 
-TeamItem.propTypes = {
-  teamSelected: PropTypes.object.isRequired,
-};
+// TeamItem.propTypes = {
+//   data: PropTypes.object.isRequired,
+// };

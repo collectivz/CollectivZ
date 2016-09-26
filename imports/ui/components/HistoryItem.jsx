@@ -6,17 +6,17 @@ export default class HistoryItem extends React.Component {
 
   render() {
 
-    const { historyItem } = this.props;
-    
+    const { data } = this.props;
+
     return (
       <div>
-        <h2>Nom de mission: {historyItem.name} évaluation: {historyItem.actionRating}/5, commentaire : {historyItem.actionComment}</h2>
-        <h2>Evaluation personnelle: {historyItem.userRating}/5, commentaire : {historyItem.userComment}</h2>
+        <h2>Nom de mission: {data.name} évaluation: {data.actionRating}/5, commentaire : {data.actionComment}</h2>
+        <h2>Evaluation personnelle: {data.userRating}/5, commentaire : {data.userComment}</h2>
       </div>
     );
   }
 }
 
 HistoryItem.propTypes = {
-  historyItem: PropTypes.object.isRequired,
+  data: PropTypes.object,
 };

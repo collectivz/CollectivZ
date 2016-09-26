@@ -25,7 +25,14 @@ export default class GuildList extends Component {
           </DropDown>
         </Breadcrumb>
           <div className="sub-container">
-            <List data={guilds} user={user} type="guild"/>
+            <List
+              data={guilds}
+              user={user}
+              type="guild"
+              emptyListString="Il n'y a pas de groupe de discussion. Créez le votre !"
+            >
+              <GuildItem />
+            </List>
           </div>
         <AppNav user={user}/>
       </div>

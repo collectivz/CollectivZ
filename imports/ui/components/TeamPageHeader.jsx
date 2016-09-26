@@ -2,9 +2,6 @@ import React                      from 'react';
 import { Link }                   from 'react-router';
 import { _ }                      from 'meteor/underscore';
 
-import TeamUpdatePicture         from './TeamUpdatePicture.jsx';
-
-
 export default class TeamPageHeader extends React.Component {
 
   constructor(props) {

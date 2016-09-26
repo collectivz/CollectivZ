@@ -4,8 +4,9 @@ import { Link } from 'react-router';
 import AppNav from '../components/AppNav.jsx';
 import Breadcrumb from '../components/Breadcrumb.jsx';
 import List from '../components/List.jsx';
-
 import TeamItem from '../components/TeamItem.jsx'
+import UserItem from '../components/UserItem.jsx'
+
 
 export default class ContactPage extends React.Component {
 
@@ -77,7 +78,9 @@ export default class ContactPage extends React.Component {
                         type="invitation"
                         acceptInvite={this.acceptInvite}
                         refuseInvite={this.refuseInvite}
-                      />
+                      >
+                        <UserItem />
+                      </List>
                     </div>
                     : ''
                 }
@@ -87,13 +90,19 @@ export default class ContactPage extends React.Component {
                   data={usersContact}
                   type="contact"
                   removeContact={this.removeContact}
-                />
+                  emptyListString="Vous n'avez aucun contact. Ajouter vos amis !"
+                >
+                  <UserItem />
+                </List>
                 <div>Groupe(s) : </div>
                 <Link to={'/contact/createGroup'}>Creer un groupe</Link>
                 <List
                   data={teams}
                   type="team"
-                />
+                  emptyListString="Aucun cercle créé."
+                >
+                  <TeamItem />
+                </List>
               </div>
             </div>
           </div>
