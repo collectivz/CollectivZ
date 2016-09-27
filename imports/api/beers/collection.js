@@ -1,6 +1,8 @@
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 
+import { Messages } from '../messages/collection';
+
 class BeerCollection extends Mongo.Collection {
   insert(beer, callback) {
     const user = Meteor.user();
@@ -11,6 +13,16 @@ class BeerCollection extends Mongo.Collection {
     beer.members = [user._d];
 
     return super.insert(beer);
+  }
+
+  remove(selector) {
+    const beers = Beers.find(selector, { fields: { _id: 1 } }).fetch();
+
+    beers.forEach(beer => {
+      Messages.remove({beerId: beer._id});
+    });
+
+    return super.remove(selector);
   }
 }
 

@@ -52,7 +52,7 @@ Meteor.methods({
     // corresponding prop
 
     Messages.update(messageId, {
-      $set: { pollId: pollId }
+      $set: { pollId }
     });
 
     if (choice.length) {
@@ -125,10 +125,10 @@ Meteor.methods({
     check(pollId, String);
     check(newQuestion, String);
 
-    const poll = Polls.findOne(pollId, { fields: { author: 1 } });
+    const poll = Polls.findOne(pollId);
 
     if (poll && poll.author === this.userId) {
-      Polls.update(pollId, { $set: { question: newQuestion } })
+      Polls.update(pollId, { $set: { question: newQuestion } });
     }
 
   },

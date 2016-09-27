@@ -19,6 +19,7 @@ export default class MessageInput extends Component {
     this.toggleAction = this.toggleAction.bind(this);
     this.textareaHeightTweak = this.textareaHeightTweak.bind(this);
     this.keyboardEvent = this.keyboardEvent.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
   }
 
   componentDidUpdate() {
@@ -73,6 +74,12 @@ export default class MessageInput extends Component {
     }
   }
 
+  handleInputChange(inputMode) {
+    this.toggleAction();
+
+    this.props.changeInputMode(inputMode);
+  }
+
   toggleAction() {
     this.setState({
       showActions: !this.state.showActions
@@ -120,7 +127,7 @@ export default class MessageInput extends Component {
         </div>
         {
           hasActionPicker ?
-            <ActionPicker changeInputMode={this.props.changeInputMode}/>
+            <ActionPicker changeInputMode={this.handleInputChange}/>
           : ''
         }
       </div>

@@ -15,6 +15,7 @@ export default class BeerItem extends React.Component {
 
     this.joinBeer = this.joinBeer.bind(this);
     this.openEdit = this.openEdit.bind(this);
+    this.deleteBeer = this.deleteBeer.bind(this);
   }
 
   joinBeer() {
@@ -33,6 +34,14 @@ export default class BeerItem extends React.Component {
     } = this.props;
     const component = <BeerEdit beer={beer}/>;
     openModal(component, "Modifier l'événement.");
+  }
+
+  deleteBeer() {
+    const {
+      beer
+    } = this.props;
+
+    Meteor.call('beers.delete', beer._id);
   }
 
   showMembers() {
@@ -89,16 +98,16 @@ export default class BeerItem extends React.Component {
               <div className="bubble-header">
                   <i className="icon icon-beer"/>
                   <span>Nouvelle beerZ !</span>
-                  <DropDownBottom>
-                    {
-                      (beer.author === user._id || user.isAdmin) ?
+                  {
+                    (beer.author === user._id || user.isAdmin) ?
+                      <DropDownBottom>
                         <ul>
                           <li><a className="drop-down-menu-link" onClick={this.deleteBeer}> Supprimer l'événement </a></li>
                           <li><a className="drop-down-menu-link" onClick={this.openEdit}> Modifier l'événement </a></li>
                         </ul>
-                      : ''
-                    }
-                  </DropDownBottom>
+                      </DropDownBottom>
+                    : ''
+                  }
               </div>
               <h3>{beer.occasion}</h3>
               <p><i className="icon icon-calendar-full"/>  {beer.date}</p>
