@@ -74,7 +74,7 @@ Meteor.methods({
       throw new Meteor.Error('not-enough-donated',
         "Vous ne pouvez pas donner de montant négatif.");
     }
-    
+
     const coin = Coins.findOne(coinId);
     let found = 0;
     if (coin.givers) {
@@ -113,7 +113,7 @@ Meteor.methods({
 
     const coin = Coins.findOne(coinId, { fields: { author: 1 } });
 
-    if (coin && coin.author === this.userId) {
+    if (coin && coin.author === this.userId || Meteor.user().isAdmin) {
       Coins.update(coinId, {
         $set : { goal: newCoin.goal, purpose: newCoin.purpose }
       });
@@ -129,7 +129,7 @@ Meteor.methods({
 
     const coin = Coins.findOne(coinId);
 
-    if (coin && coin.author === this.userId) {
+    if (coin && coin.author === this.userId || Meteor.user().isAdmin) {
       Coins.remove(coinId);
     }
   }

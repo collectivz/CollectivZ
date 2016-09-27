@@ -72,7 +72,7 @@ Meteor.methods({
 
     const beer = Beers.findOne(newBeer._id);
 
-    if (beer && beer.author === this.userId) {
+    if (beer && beer.author === this.userId || Meteor.user().isAdmin) {
       Beers.update(beer._id, {
         $set: {
           occasion: newBeer.occasion,
@@ -92,7 +92,7 @@ Meteor.methods({
 
     const beer = Beers.findOne(beerId);
 
-    if (beer && beer.author === this.userId) {
+    if (beer && beer.author === this.userId || Meteor.user().isAdmin) {
       Beers.remove(beerId);
     }
 

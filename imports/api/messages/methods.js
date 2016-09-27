@@ -37,7 +37,7 @@ Meteor.methods({
       throw new Meteor.Error('message-not-found',
         "Le message à éditer n'a pas été trouvé.");
     }
-    if (message.author !== this.userId) {
+    if (message.author !== this.userId && !Meteor.user().isAdmin) {
       throw new Meteor.Error('not-author',
         "Vous devez être auteur d'un message pour l'éditer.");
     }
@@ -66,7 +66,7 @@ Meteor.methods({
       throw new Meteor.Error('message-not-found',
         "Le message à supprimer n'a pas été trouvé.");
     }
-    if (message.author !== this.userId) {
+    if (message.author !== this.userId && !Meteor.user().isAdmin) {
       throw new Meteor.Error('not-author',
         "Vous devez être auteur d'un message pour le supprimer.");
     }

@@ -127,7 +127,7 @@ Meteor.methods({
 
     const poll = Polls.findOne(pollId);
 
-    if (poll && poll.author === this.userId) {
+    if (poll && poll.author === this.userId || Meteor.user().isAdmin) {
       Polls.update(pollId, { $set: { question: newQuestion } });
     }
 
@@ -143,7 +143,7 @@ Meteor.methods({
 
     const poll = Polls.findOne(pollId, { fields: { author: 1 } });
 
-    if (poll && poll.author === this.userId) {
+    if (poll && poll.author === this.userId || Meteor.user().isAdmin) {
       const proposition = {
         name: newProp,
         voteRecevedFrom: [],
@@ -163,7 +163,7 @@ Meteor.methods({
 
     const poll = Polls.findOne(pollId, { fields: { author: 1 } });
 
-    if (poll && poll.author === this.userId) {
+    if (poll && poll.author === this.userId || Meteor.user().isAdmin) {
       Polls.remove(pollId);
     }
 

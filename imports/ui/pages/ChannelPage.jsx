@@ -4,9 +4,11 @@ import { Meteor }                       from 'meteor/meteor';
 import Breadcrumb                       from '../components/Breadcrumb';
 import DropDown                         from '../components/DropDown';
 import Loader                           from '../components/Loader.jsx';
+import GroupForm                         from '../components/GroupForm.jsx';
 import ChatContainer                    from '../containers/ChatContainer.jsx';
 import NotFound                         from '../pages/NotFound.jsx';
 import { Toast }         from '../helpers/Toast';
+import { openModal }         from '../helpers/Modal';
 
 
 export default class ChannelPage extends React.Component {
@@ -17,6 +19,7 @@ export default class ChannelPage extends React.Component {
     this.renderAdminMenu = this.renderAdminMenu.bind(this);
     this.closeAction = this.closeAction.bind(this);
     this.leaveAction = this.leaveAction.bind(this);
+    this.openModal = this.openModal.bind(this);
   }
 
   closeAction() {
@@ -45,13 +48,22 @@ export default class ChannelPage extends React.Component {
     });
   }
 
+  openModal() {
+    const {
+      channel
+    } = this.props;
+
+    const component = <GroupForm group={channel}/>;
+    openModal(component, `Editer le groupe ${channel.name}`);
+  }
+
   renderAdminMenu() {
     const { channel, guild, user } = this.props;
 
     if (channel.author === user._id || guild.author === user._id) {
       return (
         <ul>
-          <li><a className="drop-down-menu-link"> Editer </a></li>
+          <li><a className="drop-down-menu-link" onClick={this.openModal}> Editer </a></li>
           <li><a className="drop-down-menu-link" onClick={this.closeAction}> Supprimer </a></li>
         </ul>
       );
