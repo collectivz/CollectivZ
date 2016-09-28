@@ -29,7 +29,7 @@ export default class dataItem extends React.Component {
         return (
           <div>
             <button onClick={this.props.acceptInvite.bind(this, data._id)}>Accepter</button>
-            <button onClick={this.props.refuseInvite.bind(this, data._id)}>Refdata</button>
+            <button onClick={this.props.refuseInvite.bind(this, data._id)}>Refuser</button>
           </div>
       )
       case 'createGroup':
@@ -67,7 +67,7 @@ export default class dataItem extends React.Component {
 
     return (
       <div className="list-item touch-event">
-      <TouchEvent onClick={ () => { this.onClick(`/data/${data._id}`) } }>
+      <TouchEvent onClick={ () => { this.onClick(`/data/${user._id}`) } }>
           <img src={data.profile.avatar} alt="" />
       </TouchEvent>
           <div className="list-item-content">

@@ -22,27 +22,27 @@ export default class ActionPicker extends Component {
       <div className="chat-input-action-picker">
           <TouchEvent onClick={this.handleClick.bind(this, 'newPoll')} class="chat-input-action-picker-item touch-event">
               <i className="icon icon-2x icon-pie-chart"/>
-              <span>PollZ</span>
+              <span>Poll</span>
           </TouchEvent>
           <TouchEvent onClick={this.handleClick.bind(this, 'newBuddie')} class="chat-input-action-picker-item touch-event">
               <i className="icon icon-2x icon-user"/>
-              <span>BuddieZ</span>
+              <span>People</span>
           </TouchEvent>
           <TouchEvent onClick={this.handleClick.bind(this, 'newChannel')} class="chat-input-action-picker-item touch-event">
               <i className="icon icon-2x icon-cog"/>
-              <span>ActionZ</span>
+              <span>Action</span>
           </TouchEvent>
           <TouchEvent onClick={this.handleClick.bind(this, 'newBeer')} class="chat-input-action-picker-item touch-event">
               <i className="icon icon-2x icon-beer"/>
-              <span>BeerZ</span>
+              <span>Event</span>
           </TouchEvent>
           <TouchEvent onClick={this.handleClick.bind(this, 'newFeedback')} class="chat-input-action-picker-item touch-event">
               <i className="icon icon-2x icon-star"/>
-              <span>FeedbackZ</span>
+              <span>Feedback</span>
           </TouchEvent>
           <TouchEvent onClick={this.handleClick.bind(this, 'newCoin')} class="chat-input-action-picker-item touch-event">
               <i className="icon icon-2x icon-euro"/>
-              <span>CoinZ</span>
+              <span>Money</span>
           </TouchEvent>
       </div>
     );

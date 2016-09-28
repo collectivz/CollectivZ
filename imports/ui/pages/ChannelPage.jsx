@@ -58,9 +58,9 @@ export default class ChannelPage extends React.Component {
   }
 
   renderAdminMenu() {
-    const { channel, guild, user } = this.props;
+    const { channel, user } = this.props;
 
-    if (channel.author === user._id || guild.author === user._id) {
+    if (channel.author === user._id) {
       return (
         <ul>
           <li><a className="drop-down-menu-link" onClick={this.openModal}> Editer </a></li>
