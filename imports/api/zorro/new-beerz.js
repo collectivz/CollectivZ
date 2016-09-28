@@ -66,9 +66,14 @@ export default class Beer {
       dialog.push(zorroMsg);
       this.expectedAnswer = 'confirm';
       this.state.choices.push('oui');
-    } else if (this.expectedAnswer === 'confirm' && (answer === 'oui' || answer === 'Oui')) {
-      Meteor.call('beers.insert', this.result);
-      this.resetState();
+    } else if (this.expectedAnswer === 'confirm') {
+      if (answer === 'oui' || answer === 'Oui') {
+        Meteor.call('beers.insert', this.result);
+        this.resetState();
+      } else {
+        zorroMsg.text = `Je n'ai pas compris.`;
+        dialog.push(zorroMsg);
+      }
     }
   }
 }

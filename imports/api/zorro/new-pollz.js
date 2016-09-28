@@ -55,9 +55,14 @@ export default class Poll {
       this.state.choices.push('@fini');
     } else if (this.expectedAnswer === 'props') {
       if (answer !== "@fini") {
-        this.result.props.push(answer);
-        zorroMsg.text = `J'ai bien ajouté le choix "${answer}".`;
-        dialog.push(zorroMsg);
+        if (_.contains(this.result.props, answer)) {
+          zorroMsg.text = `J'ai déjà ajouté "${answer}".`
+          dialog.push(zorroMsg);
+        } else {
+          this.result.props.push(answer);
+          zorroMsg.text = `J'ai bien ajouté le choix "${answer}".`;
+          dialog.push(zorroMsg);
+        }
       } else {
         if (this.result.props.length > 1 || !this.result.props.length) {
           let question = `Vous allez créer un sondage avec pour question : "${this.result.question}", et comme choix : `;
@@ -81,14 +86,19 @@ export default class Poll {
           dialog.push(zorroMsg);
         }
       }
-    } else if (this.expectedAnswer === 'confirm' && (answer === 'oui' || answer === 'Oui')) {
-      const pollMsg = {
-        text: this.result.question,
-        channelId: this.channelId,
-        type: "poll",
-      };
-      Meteor.call('polls.insert', pollMsg, this.result.props);
-      this.resetState();
+    } else if (this.expectedAnswer === 'confirm') {
+      if (answer === 'oui' || answer === 'Oui') {
+        const pollMsg = {
+          text: this.result.question,
+          channelId: this.channelId,
+          type: "poll",
+        };
+        Meteor.call('polls.insert', pollMsg, this.result.props);
+        this.resetState();
+      } else {
+        zorroMsg.text = `Je n'ai pas compris.`;
+        dialog.push(zorroMsg);
+      }
     }
   }
 }

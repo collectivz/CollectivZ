@@ -22,15 +22,6 @@ export default class MessageInput extends Component {
     this.handleInputChange = this.handleInputChange.bind(this);
   }
 
-  componentDidUpdate() {
-    const { inputMode, hasActionPicker } = this.props;
-    const { showActions } = this.state;
-
-    if (!showActions && inputMode !== 'message' && hasActionPicker === true) {
-      this.props.changeInputMode('message');
-    }
-  }
-
   componentDidMount() {
     this.setState({
       barHeight: { height: this.refs.bar.scrollHeight + 10 }
@@ -48,29 +39,31 @@ export default class MessageInput extends Component {
     const { inputMode, hasActionPicker, channel, user } = this.props;
     const text = this.refs.textInput.value.trim();
 
-    if (inputMode === 'message' || hasActionPicker === false) {
-      let message = {
-        text,
-        channelId: channel._id,
-      };
+    if (text.length) {
+      if (inputMode === 'message' || hasActionPicker === false) {
+        let message = {
+          text,
+          channelId: channel._id,
+        };
 
-      if (channel.type === 'group' && !_.contains(user.subscribedChannels, channel._id)) {
-        Meteor.call('channels.join', channel._id);
-      }
-      Meteor.call('messages.insert', message, (err, res) => {
-        if(err) {
-          Toast(err.reason, "danger");
+        if (channel.type === 'group' && !_.contains(user.subscribedChannels, channel._id)) {
+          Meteor.call('channels.join', channel._id);
         }
-        this.refs.textInput.value = '';
-        this.setState({
-          barHeight: { height: 46 },
-          formHeight: { height: 36 }
-        });
+        Meteor.call('messages.insert', message, (err, res) => {
+          if(err) {
+            Toast(err.reason, "danger");
+          }
+          this.refs.textInput.value = '';
+          this.setState({
+            barHeight: { height: 46 },
+            formHeight: { height: 36 }
+          });
 
-      });
-    } else {
-      this.props.answerToZorro(text);
-      this.refs.textInput.value = '';
+        });
+      } else {
+        this.props.answerToZorro(text);
+        this.refs.textInput.value = '';
+      }
     }
   }
 
@@ -81,8 +74,14 @@ export default class MessageInput extends Component {
   }
 
   toggleAction() {
+    const { inputMode, hasActionPicker } = this.props;
+    const { showActions } = this.state;
+
+    if (!showActions && inputMode !== 'message' && hasActionPicker === true) {
+      this.props.changeInputMode('message');
+    }
     this.setState({
-      showActions: !this.state.showActions
+      showActions: !showActions
     });
     $(".chat-input-wrapper").toggleClass("open");
     $(".chat-sub-container").toggleClass("open");

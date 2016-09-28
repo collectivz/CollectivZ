@@ -64,14 +64,19 @@ export default class Coin {
         dialog.push(zorroMsg);
         this.state.choices.push('oui');
       }
-    } else if (this.expectedAnswer === 'confirm' && (answer === 'oui' || answer === 'Oui')) {
-      const message = {
-        text: this.result.purpose,
-        channelId: this.channel,
-        type: "coin",
-      };
-      Meteor.call('coins.insert', message, this.result);
-      this.resetState();
+    } else if (this.expectedAnswer === 'confirm') {
+      if (answer === 'oui' || answer === 'Oui') {
+        const message = {
+          text: this.result.purpose,
+          channelId: this.channel,
+          type: "coin",
+        };
+        Meteor.call('coins.insert', message, this.result);
+        this.resetState();
+      } else {
+        zorroMsg.text = `Je n'ai pas compris.`;
+        dialog.push(zorroMsg);
+      }
     }
   }
 }

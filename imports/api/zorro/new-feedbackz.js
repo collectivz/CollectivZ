@@ -141,10 +141,15 @@ export default class Feedback {
         this.expectedAnswer = 'username';
         zorroMsg.text = `Vous avez évalué un contributeur. Entrez le nom du suivant pour en évaluer un nouveau, ou écrivez @fini pour finaliser l'évalutation.`;
         dialog.push(zorroMsg);
-      } else if (this.expectedAnswer === 'confirm' && (answer === 'oui' || answer === 'Oui')) {
-        Meteor.call('feedbacks.giveFeedback', this.channelId, this.result);
-        this.resetState();
+      } else if (this.expectedAnswer === 'confirm') {
+        if (answer === 'oui' || answer === 'Oui') {
+          Meteor.call('feedbacks.giveFeedback', this.channelId, this.result);
+          this.resetState();
+        } else {
+          zorroMsg.text = `Je n'ai pas compris.`;
+          dialog.push(zorroMsg);
+        }
       }
-    } 
+    }
   }
 }

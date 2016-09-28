@@ -52,9 +52,14 @@ export default class Channel {
       dialog.push(zorroMsg);
       this.expectedAnswer = 'confirm';
       this.state.choices.push('oui');
-    } else if (this.expectedAnswer === 'confirm' && (answer === 'oui' || answer === 'Oui')) {
-      Meteor.call('channels.insert', this.result, this.channelId);
-      this.resetState();
+    } else if (this.expectedAnswer === 'confirm') {
+      if (answer === 'oui' || answer === 'Oui') {
+        Meteor.call('channels.insert', this.result, this.channelId);
+        this.resetState();
+      } else {
+        zorroMsg.text = `Je n'ai pas compris.`;
+        dialog.push(zorroMsg);
+      }
     }
   }
 }

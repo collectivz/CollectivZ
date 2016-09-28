@@ -53,9 +53,14 @@ export default class Buddie {
       dialog.push(zorroMsg);
       this.expectedAnswer = 'confirm';
       this.state.choices.push('oui');
-    } else if (this.expectedAnswer === 'confirm' && (answer === 'oui' || answer === 'Oui')) {
-      Meteor.call('buddies.inviteToChannel', this.result.username, this.channelId);
-      this.resetState();
+    } else if (this.expectedAnswer === 'confirm') {
+      if (answer === 'oui' || answer === 'Oui') {
+        Meteor.call('buddies.inviteToChannel', this.result.username, this.channelId);
+        this.resetState();
+      } else {
+        zorroMsg.text = `Je n'ai pas compris.`;
+        dialog.push(zorroMsg);
+      }
     }
   }
 }
