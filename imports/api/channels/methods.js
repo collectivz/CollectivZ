@@ -101,6 +101,8 @@ Meteor.methods({
       $push: { subscribedChannels: channelId },
       $set: { [lastReadField]: Date.now() }
     });
+
+    return channelId;
   },
 
   'channels.join'(channelId) {

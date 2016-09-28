@@ -31,8 +31,7 @@ export default class Chat extends React.Component {
       ongoingAction: false,
       expectedAnswer: '',
       choices: [],
-      messageCount: this.props.messages.length,
-      displayModal: false
+      messageCount: this.props.messages.length
     };
 
     this.setFilterOption = this.setFilterOption.bind(this);
@@ -51,7 +50,7 @@ export default class Chat extends React.Component {
     const { channel, messages } = this.props;
     const { inputMode, ongoingAction, messageCount } = this.state;
     if (inputMode !== 'message' && !ongoingAction) {
-      const zorro = zorroForm(inputMode, channel._id);
+      const zorro = zorroForm(inputMode, channel._id, this.context.router);
       const newState = zorro.getState();
 
       this.setState({
@@ -139,8 +138,7 @@ export default class Chat extends React.Component {
       dialogWithZorro,
       ongoingAction,
       filter,
-      choices,
-      displayModal
+      choices
     } = this.state;
 
     const filteredMessages = this.filterMessage();
@@ -202,3 +200,7 @@ export default class Chat extends React.Component {
     );
   }
 }
+
+Chat.contextTypes = {
+  router: React.PropTypes.object
+};
