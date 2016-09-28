@@ -63,6 +63,7 @@ Meteor.methods({
     check(parentId, String);
     check(channel, {
       name: String,
+      description: Match.Maybe(String)
     });
 
     const parent = Channels.findOne(parentId);

@@ -23,6 +23,7 @@ export default class SubChannelItem extends React.Component {
                   <span>Nouvelle Actionz : {channel.name}</span>
               </div>
                 <p><a href={'/group/' + channel._id}><button>Rejoindre</button></a></p>
+                <span>{channel.description}</span>
           </div>
       </div>
       : null
