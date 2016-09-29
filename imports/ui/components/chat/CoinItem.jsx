@@ -55,10 +55,8 @@ export default class CoinItem extends React.Component {
     return (
       <div className="chat-special-bubble chat-special-bubble-coin">
           <div className="bubble-content">
-              <i className="big-icon icon icon-euro"/>
               <div className="bubble-header">
-                  <i className="icon icon-euro"/>
-                  <span>Nouveau CoinZ !</span>
+                  <h4><i className="icon icon-cog"/>{coin.purpose}</h4>
                   {
                     (coin.author === user._id || user.isAdmin) ?
                       <DropDownBottom>
@@ -70,21 +68,19 @@ export default class CoinItem extends React.Component {
                     : ''
                   }
               </div>
-              <h3>{coin.purpose}</h3>
-              <h4>{coin.totalEarned} / {coin.goal} reçu</h4>
-              <br />
-              <h4>Vous disposez de {user.coinz} euros.</h4>
-              <form className="merged" onSubmit={this.handleSubmit}>
-                <input
-                  className="small"
-                  type="number"
-                  ref="number"
-                />
-                <button className="small primary button"onClick={this.handleSubmit}>
+              <div className="bubble-content-text">
+                <h4 className="success-text">{coin.totalEarned} / {coin.goal} reçu</h4>
+                <h4>Je donne &nbsp; 
+                  <input
+                    className="small"
+                    type="number"
+                    ref="number"
+                  /> € de mes <span className="success-text">{user.coinz} €</span>
+                </h4>
+                <button className="success button" onClick={this.handleSubmit}>
                   Financer
                 </button>
-              </form>
-
+              </div>
 
           </div>
       </div>
