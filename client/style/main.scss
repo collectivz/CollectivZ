@@ -30,6 +30,7 @@ $background-color: color("grey", "lighten-3");
 @import "atom/checkbox";
 @import "atom/preloader";
 @import "atom/toastr";
+@import "atom/progress-bar";
 
 @import "molecule/form";
 @import "molecule/fieldset";
@@ -103,4 +104,29 @@ $chat-open-with-filter-sub-container-offset: $breadcrumb-height + $chat-filter-h
 	&.open {
 		height: calc(100% - #{$chat-open-with-filter-sub-container-offset});
 	}
+}
+
+
+.pollz-color {
+	background-color:#2e9fd6;
+}
+
+.action-color {
+	background-color:#e55148;
+}
+
+.people-color {
+	background-color:#b177ef;
+}
+
+.event-color {
+	background-color:#e9b51a;
+}
+
+.feedback-color {
+	background-color:#f690d8;
+}
+
+.money-color {
+	background-color:#6cc13d;
 }

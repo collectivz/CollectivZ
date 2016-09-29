@@ -48,15 +48,14 @@ export default class PollItem extends React.Component {
     const propositionNodes = propositions.map(function(proposition, i) {
       return (
         <div key={proposition._id}>
+          <input type="radio" name="choice" className="primary" onClick={this.voteForAPoll.bind(this, proposition._id)}/>
           <p>
-            {proposition.name}
+            <b>{proposition.name}</b>
           </p>
-          <p>
-            {proposition.voteRecevedFrom.length} votes reçus
-          </p>
-          <button className="primary button" onClick={this.voteForAPoll.bind(this, proposition._id)}>
-            Vote pour ce choix
-          </button>
+          <div className="progress-bar-wrapper">
+            <div className="progress-bar success" style={{width: '37%'}}></div>
+            <span>{proposition.voteRecevedFrom.length} votes reçus </span>
+          </div>
         </div>
       );
     }, this);
@@ -64,10 +63,8 @@ export default class PollItem extends React.Component {
     return (
       <div className="chat-special-bubble chat-special-bubble-poll">
           <div className="bubble-content">
-              <i className="big-icon icon icon-pie-chart"/>
               <div className="bubble-header">
-                  <i className="icon icon-pie-chart"/>
-                  <span>Nouveau Pollz !</span>
+                  <h4><i className="icon icon-pie-chart"/> {poll.question}</h4>
                   {
                     (poll.author === user._id || user.isAdmin) ?
                       <DropDownBottom>
@@ -79,8 +76,10 @@ export default class PollItem extends React.Component {
                     : ''
                   }
               </div>
-              <h3>{poll.question}</h3>
               <div className="poll-choice">{propositionNodes}</div>
+              <button className="success button">
+                Voter
+              </button>
           </div>
       </div>
     );

@@ -37,40 +37,40 @@ export default class ChatFilter extends React.Component {
 
         {channel.connections.pollCount ?
           <TouchEvent onClick={ () => { this.onClick('poll') } } class={classNames("filter-item touch-event", {active: this.state.activeFilter == 'poll'})}>
+              <i className="icon icon-pie-chart pollz-color"/>
               <span>{channel.connections.pollCount}</span>
-              <i className="icon icon-pie-chart"/>
           </TouchEvent>
           :
           ''
         }
         {channel.connections.chanCount ?
           <TouchEvent onClick={ () => { this.onClick('channel') } } class={classNames("filter-item touch-event", {active: this.state.activeFilter == 'channel'})}>
+              <i className="icon icon-cog action-color"/>
               <span>{channel.connections.chanCount}</span>
-              <i className="icon icon-cog"/>
           </TouchEvent>
           :
           ''
         }
         {channel.connections.beerCount ?
           <TouchEvent onClick={ () => { this.onClick('beer') } } class={classNames("filter-item touch-event", {active: this.state.activeFilter == 'beer'})}>
+              <i className="icon icon-calendar-full  event-color"/>
               <span>{channel.connections.beerCount}</span>
-              <i className="icon icon-calendar-full"/>
           </TouchEvent>
           :
           ''
         }
         {channel.connections.feedbackCount ?
           <TouchEvent onClick={ () => { this.onClick('feedback') } } class={classNames("filter-item touch-event", {active: this.state.activeFilter == 'feedback'})}>
+              <i className="icon icon-star  feedback-color"/>
               <span>{channel.connections.feedbackCount}</span>
-              <i className="icon icon-star"/>
           </TouchEvent>
           :
           ''
         }
         {channel.connections.coinCount ?
           <TouchEvent  onClick={ () => { this.onClick('coin') } } class={classNames("filter-item touch-event", {active: this.state.activeFilter == 'coin'})}>
+              <i className="icon icon-euro money-color"/>
               <span>{channel.connections.coinCount}</span>
-              <i className="icon icon-euro"/>
           </TouchEvent>
           :
           ''

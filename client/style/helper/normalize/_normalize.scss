@@ -330,7 +330,7 @@ button {
 }
 
 /* awkward default styles on some inputs for iOS */
-input,
+input:not([type="radio"]),
 textarea {
   -webkit-appearance: none;
      -moz-appearance: none;

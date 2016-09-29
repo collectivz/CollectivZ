@@ -79,6 +79,11 @@ $chat-input-open-height: 140px;
 		border-bottom-right-radius: 0px;
 		border-top-right-radius: 0px;
 	}
+	.chat-input-button-right {
+		border-left: none;
+		border-bottom-left-radius: 0px;
+		border-top-left-radius: 0px;
+	}
 	.chat-input-form {
 		display: flex;
 		flex: 1 0;
@@ -93,7 +98,5 @@ $chat-input-open-height: 140px;
 		padding: 10px;
 		border:none;
 		border-radius:0px;
-		border-bottom-right-radius: 3px;
-		border-top-right-radius: 3px;
 	}
 }

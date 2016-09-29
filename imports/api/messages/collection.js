@@ -20,7 +20,7 @@ class messageCollection extends Mongo.Collection {
     Channels.update(message.channelId, {
       $set: { lastActivity: message.createdAt, lastMessage: lastMessage },
     });
-    // message.text = replaceParams(message.text);
+    message.text = replaceParams(message.text);
     return super.insert(message);
   }
 
