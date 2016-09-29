@@ -144,9 +144,12 @@
 		font-family: $nav-font;
 	}
 	h4 {
-		opacity:0.6;
-		margin-bottom:$text-size * 3;
 	}
+	
+	.bubble-content-text {
+		text-align: center;
+	}
+
 	i.big-icon {
 		font-size:70px;
 		position:absolute;
