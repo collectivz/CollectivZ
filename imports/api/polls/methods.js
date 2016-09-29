@@ -85,7 +85,7 @@ Meteor.methods({
     if(!poll) {
       throw new Meteor.Error('no-poll',
       'The poll does not exist');
-    } else if (poll.finished == 1) {
+    } else if (poll.finished === 1) {
       throw new Meteor.Error('poll already finished',
       'The poll is finished');
     }

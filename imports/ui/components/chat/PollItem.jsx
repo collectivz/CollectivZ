@@ -10,8 +10,13 @@ export default class PollItem extends React.Component {
   constructor(props) {
     super(props);
 
+    this.state = {
+      selectedProposition: ''
+    };
+
     this.openEdit = this.openEdit.bind(this);
     this.deletePoll = this.deletePoll.bind(this);
+    this.voteForAPoll = this.voteForAPoll.bind(this);
   }
 
   openEdit() {
@@ -22,6 +27,19 @@ export default class PollItem extends React.Component {
     openModal(component, "Modifier la question du sondage.");
   }
 
+  hasVoted() {
+    const {
+      user,
+      propositions
+    } = this.props;
+
+    return propositions.some(proposition => {
+      return proposition.voteRecevedFrom.some(id => {
+        return id === user._id;
+      });
+    });
+  }
+
   deletePoll() {
     const {
       poll
@@ -30,8 +48,29 @@ export default class PollItem extends React.Component {
     Meteor.call('polls.delete', poll._id);
   }
 
-  voteForAPoll(propositionId) {
-    Meteor.call('polls.vote', this.props.poll._id, propositionId, (err, res) => {
+  selectProposition(propositionId) {
+    this.setState({
+      selectedProposition: propositionId
+    });
+  }
+
+  getVotePercent(proposition) {
+    const {
+      poll
+    } = this.props;
+    const percent = (poll.totalVote * 100) / proposition.voteRecevedFrom.length;
+
+    return {
+      width: percent
+    };
+  }
+
+  voteForAPoll() {
+    const {
+      selectedProposition
+    } = this.state;
+
+    Meteor.call('polls.vote', this.props.poll._id, selectedProposition, (err, res) => {
       if (err) {
         Toast(err.reason, "danger");
       }
@@ -48,14 +87,19 @@ export default class PollItem extends React.Component {
     const propositionNodes = propositions.map(function(proposition, i) {
       return (
         <div key={proposition._id}>
-          <input type="radio" name="choice" className="primary" onClick={this.voteForAPoll.bind(this, proposition._id)}/>
+          <input type="radio" name="choice" className="primary" onClick={this.selectProposition.bind(this, proposition._id)}/>
           <p>
             <b>{proposition.name}</b>
           </p>
-          <div className="progress-bar-wrapper">
-            <div className="progress-bar success" style={{width: '37%'}}></div>
-            <span>{proposition.voteRecevedFrom.length} votes reçus </span>
-          </div>
+          {
+            this.hasVoted() ?
+              <div className="progress-bar-wrapper">
+                <div className="progress-bar success" style={this.getVotePercent(proposition)}></div>
+                <span>{proposition.voteRecevedFrom.length} votes reçus </span>
+              </div>
+            :
+              ''
+          }
         </div>
       );
     }, this);
@@ -77,9 +121,14 @@ export default class PollItem extends React.Component {
                   }
               </div>
               <div className="poll-choice">{propositionNodes}</div>
-              <button className="success button">
-                Voter
-              </button>
+              {
+                this.hasVoted() ?
+                  <span>Vous avez déjà voté.</span>
+                :
+                  <button className="success button" onClick={this.voteForAPoll}>
+                    Voter
+                  </button>
+              }
           </div>
       </div>
     );
