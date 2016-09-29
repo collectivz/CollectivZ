@@ -123,6 +123,9 @@ export default class MessageInput extends Component {
               ref="textInput">
             </textarea>
           </form>
+          <button onClick={this.handleSubmit} className="chat-input-button-right button">
+            <i className="icon icon-envelope"></i>
+          </button>
         </div>
         {
           hasActionPicker ?
