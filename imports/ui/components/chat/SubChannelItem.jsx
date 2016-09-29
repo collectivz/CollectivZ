@@ -17,13 +17,15 @@ export default class SubChannelItem extends React.Component {
       channel ?
       <div className="chat-special-bubble chat-special-bubble-mission">
           <div className="bubble-content">
-              <i className="big-icon icon icon-thumbs-up"/>
               <div className="bubble-header">
-                  <i className="icon icon-cog"/>
-                  <span>Nouvelle Actionz : {channel.name}</span>
+                  <h4><i className="icon icon-cog"/>{channel.name}</h4>
               </div>
-                <p><a href={'/group/' + channel._id}><button>Rejoindre</button></a></p>
-                <span>{channel.description}</span>
+              <div className="bubble-content-text">
+                <p>
+                  <span>{channel.description}</span>
+                </p>
+                <button className="button success">Rejoindre</button>
+              </div>
           </div>
       </div>
       : null
