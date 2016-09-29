@@ -33,12 +33,15 @@ export default class dataItem extends React.Component {
           </div>
       )
       case 'createGroup':
-        return (
-          <div>
-            <button onClick={this.props.addToNewGroup.bind(this, data._id)}>Ajouter</button>
+        if (_.contains(this.props.currentState.newGroup, data._id)) {
+          return (
             <button onClick={this.props.removeFromNewGroup.bind(this, data._id)}>Enlever</button>
-          </div>
-      )
+          )
+        } else {
+          return (
+            <button onClick={this.props.addToNewGroup.bind(this, data._id)}>Ajouter</button>
+          )
+        }
       case 'manageGroup':
         if (_.contains(this.props.currentState.newGroup, data._id)) {
           return (

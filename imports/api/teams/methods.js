@@ -7,7 +7,7 @@ import { Repertory } from '../repertory/collection.js';
 import { Teams } from './collection.js';
 
 Meteor.methods({
-  'teams.insert'(usersId) {
+  'teams.insert'(usersId, name) {
     const user = Meteor.user();
 
     if (!user) {
@@ -29,6 +29,7 @@ Meteor.methods({
 
     const newTeam = {
       members: usersId,
+      name: name,
     };
 
     const teamId = Teams.insert(newTeam);

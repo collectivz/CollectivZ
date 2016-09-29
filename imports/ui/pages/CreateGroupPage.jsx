@@ -45,7 +45,9 @@ export default class CreateGroupPage extends React.Component {
 
   createNewGroup(e) {
     e.preventDefault();
-    Meteor.call('teams.insert', this.state.newGroup, (err, res) => {
+    const teamName = this.refs.teamName.value;
+
+    Meteor.call('teams.insert', this.state.newGroup, teamName, (err, res) => {
       if (err) {
         Toast(err.reason, "danger");
       } else {
@@ -69,7 +71,17 @@ export default class CreateGroupPage extends React.Component {
     if (state.length > 0) {
       return (
         <div>
-          <button onClick={this.createNewGroup}>Créer un nouveau groupe</button>
+          <div>Donner un nom à votre cercle</div>
+          <div>
+            <form onSubmit={this.createNewGroup}>
+              <input
+                type="text"
+                placeholder="nom du cercle"
+                ref="teamName"
+              />
+              <input type="submit" value="Créer le groupe" />
+            </form>
+          </div>
         </div>
       );
     } else {
@@ -93,13 +105,14 @@ export default class CreateGroupPage extends React.Component {
             <div className="scroll-content has-top-nav has-tabs-nav">
               <div className="disable-user-behavior">
                 </div>
-                <div>Contact(s) : </div>
                 {this.toggleCreateButton()}
+                <div>Contact(s) : </div>
                 <List
                   data={usersContact}
                   type="createGroup"
                   addToNewGroup={this.addToNewGroup}
                   removeFromNewGroup={this.removeFromNewGroup}
+                  currentState={this.state}
                   emptyListString="Vous n'avez aucun contact à ajouter dans ce cercle."
                 >
                   <UserItem />

@@ -8,7 +8,6 @@ class TeamCollection extends Mongo.Collection {
     team.author = userId;
     team.createdAt = Date.now();
     team.lastActivity = Date.now();
-    team.name = "";
     team.background = '/img/ugly.png';
     team.picture = '/img/no-user.png';
     team.channel = '';
