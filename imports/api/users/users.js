@@ -1,4 +1,5 @@
 import { Accounts } from 'meteor/accounts-base';
+
 import { Repertory } from '../repertory/collection.js';
 
 Accounts.onLogin(function() {

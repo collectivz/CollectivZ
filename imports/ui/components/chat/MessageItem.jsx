@@ -123,7 +123,6 @@ export default class MessageItem extends Component {
 
     const { editing } = this.state;
 
-    moment.locale('fr');
     let time = moment(message.createdAt).fromNow();
 
     return (

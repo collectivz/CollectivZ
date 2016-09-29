@@ -49,6 +49,16 @@ Meteor.methods({
     });
   },
 
+  'users.setUsername'(newUsername) {
+    if (!this.userId) {
+      throw new Meteor.Error('not-logged-in',
+        "Vous devez être connecté pour changer de nom d'utilisateur.");
+    }
+    check(newUsername, String);
+
+    Accounts.setUsername(this.userId, newUsername);
+  },
+
   'users.getUserNumber'() {
     return Meteor.users.find().count();
   }

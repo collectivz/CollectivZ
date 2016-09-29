@@ -2,6 +2,8 @@ import React, {Component, PropTypes} from 'react';
 import { browserHistory }     from 'react-router';
 import classNames             from 'classnames';
 
+import { closeModal } from '../helpers/Modal.js';
+
 export default class Modal extends React.Component {
 
     constructor( props ) {
@@ -26,6 +28,7 @@ export default class Modal extends React.Component {
       this.setState( { isClosing : true } );
       setTimeout( () => {
         // this.props.closeModal();
+        closeModal();
         this.setState( { isClosing: false, isOpen : false, isOpening: false } );
       }, 350);
 

@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { Meteor } from 'meteor/meteor';
-import ReactDOM from 'react-dom';
 import xhr from 'xhr';
+// import aws from 'aws-sdk';
 
 export default React.createClass({
   getInitialState () {
@@ -73,3 +73,28 @@ export default React.createClass({
       );
   }
 });
+
+// export default class UploadPicture extends React.Component {
+//
+//   constructor(props) {
+//     super(props);
+//
+//     this.uploadPicture = this.uploadPicture.bind(this);
+//   }
+//
+//   uploadPicture() {
+//     const s3 = new aws.S3();
+//
+//     const params = {
+//       Bucket: 'collectivz-bucketz',
+//       Key
+//     };
+//   }
+//
+//   render() {
+//     return (
+//       <div className="update-avatar-wrapper">
+//         <input type="file" onChange={this.uploadPicture}/>
+//       </div>);
+//   }
+// }
