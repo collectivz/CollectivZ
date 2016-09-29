@@ -134,7 +134,7 @@ export default class MessageItem extends Component {
 
               <div className="bubble-content-header">
 
-                <span className="name">
+                <span className="bubble-content-name">
                     {
                       message.type ?
                         'Zorro'
@@ -143,7 +143,7 @@ export default class MessageItem extends Component {
                     }
                 </span>
 
-                <span className="date">{time}</span>
+                <span className="bubble-content-date">{time}</span>
 
                 <DropDownBottom>
                   {

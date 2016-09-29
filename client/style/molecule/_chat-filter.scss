@@ -36,8 +36,11 @@ $chat-filter-open-height: 150px;
 			background-color: color("grey", "lighten-3");
 		}
 		i {
-			margin-left:5px;
+			padding:6px;
+			border-radius: 100%;
+			margin-right:5px;
 			opacity:0.5;
+			color:white;
 		}
 		/* override de .touch-event */
 		&::after {

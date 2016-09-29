@@ -48,6 +48,7 @@ $bubble-2n-color: #fbfbfb;
 		span {
 			font-family: $nav-font;
 		}
+
 		p {
 			margin: 0;
 			margin-top:10px;
@@ -61,23 +62,22 @@ $bubble-2n-color: #fbfbfb;
 			overflow: hidden;
 			position:relative;
 			padding: 15px 75px 5px 0px;
-			.name {
+			.bubble-content-name {
 				font-weight: bold;
+				display:block;
 			}
-			.date {
+			.bubble-content-date {
 				transition: all 200ms ease;
-				color:color("grey", "lighten-1");
-				margin-left:$text-size;
+				color:color("grey", "lighten-2");
 			}
 			.bubble-content-admin {
 				position:absolute;
-				top:16px;
-				right:0px;
+				top:13px;
+				right:-4px;
 				display:block;
 				i {
 					cursor:pointer;
-					padding:5px;
-					margin-left:5px;
+					font-size: 2rem;
 					color:color("grey", "lighten-1");
 					transition: color 200ms ease;
 					&:hover {
@@ -114,13 +114,17 @@ $bubble-2n-color: #fbfbfb;
 		}
 		.bubble-content {
 			float:right;
-			background-color:#edfff6;
+			background-color:#f8fdfa;
 			margin-right: 20px;
+			.bubble-content-date {
+				transition: all 200ms ease;
+				color:color("grey", "lighten-1");
+			}
 			&::after {
 				right: -8px;
 				left:initial;
 			  border-width: 7px 0px 7px 8px;
-				border-color: transparent #edfff6;
+				border-color: transparent #f8fdfa;
 			}
 		}
 	}

@@ -31,11 +31,12 @@
 	.list-item-notif {
 		position:absolute;
 		right: $text-size * 5;
-		top: calc(50% - 17.5px);
+		top: calc(50% - 25px);
+		height:50px;
 		padding: 10px 20px;
-		border-radius: 3px;
-		color: white;
-		background-color: color("danger", "base");
+		border-radius: 100%;
+		color: color("danger", "darken-4");
+		background-color: color("danger", "lighten-2");
 		border: 1px solid color("danger", "darken-1");
 	}
 	.icon-chevron-right {
