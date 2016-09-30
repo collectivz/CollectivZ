@@ -34,7 +34,7 @@ export default class SubChannelItem extends React.Component {
                   <span>{channel.description}</span>
                 </p>
                 <div className="button-box">
-                  <button className="button success" onClick={this.joinChannel}>Rejoindre</button>
+                  <button className="button success" onClick={this.joinChannel}>Voir</button>
                 </div>
               </div>
           </div>

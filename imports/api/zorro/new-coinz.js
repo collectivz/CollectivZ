@@ -2,7 +2,7 @@ export default class Coin {
 
   constructor(channelId) {
     this.question = {
-      text: `Hola, je vois que vous voulez créer un coinz ! Dans quel but voulez vous lever des fonds ? Vous pouvez à tout moment écrire @annuler pour annuler.`,
+      text: `Hola, je vois que vous voulez créer une levée de fond ! A quoi va servir cet argent ? Vous pouvez à tout moment écrire @annuler pour annuler.`,
       author: 'Zorro'
     };
     this.state = {
@@ -49,7 +49,7 @@ export default class Coin {
       this.resetState();
     } else if (this.expectedAnswer === 'purpose') {
       this.result.purpose = answer;
-      zorroMsg.text = `Et combien voulez vous lever?`;
+      zorroMsg.text = `Ok, de combien avez-vous besoin ?`;
       this.expectedAnswer = 'goal';
       dialog.push(zorroMsg);
     } else if (this.expectedAnswer === 'goal') {
@@ -59,7 +59,7 @@ export default class Coin {
         dialog.push(zorroMsg);
       } else {
         this.result.goal = goal;
-        zorroMsg.text = `Vous voulez lever des fonds : ${this.result.purpose} et vous avez besoin de ${this.result.goal} coinz, dites oui pour confirmer.`;
+        zorroMsg.text = `Vous voulez lever des fonds pour : "${this.result.purpose}" et vous avez besoin de ${this.result.goal} euros, dites oui pour confirmer.`;
         this.expectedAnswer = 'confirm';
         dialog.push(zorroMsg);
         this.state.choices.push('oui');
