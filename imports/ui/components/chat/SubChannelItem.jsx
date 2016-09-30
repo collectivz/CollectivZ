@@ -5,6 +5,15 @@ export default class SubChannelItem extends React.Component {
   constructor(props) {
     super(props);
 
+    this.joinChannel = this.joinChannel.bind(this);
+  }
+
+  joinChannel() {
+    const {
+      channel
+    } = this.props;
+
+    this.context.router.push(`/group/${channel._id}`);
   }
 
   render() {
@@ -25,7 +34,7 @@ export default class SubChannelItem extends React.Component {
                   <span>{channel.description}</span>
                 </p>
                 <div className="button-box">
-                  <button className="button success">Rejoindre</button>
+                  <button className="button success" onClick={this.joinChannel}>Rejoindre</button>
                 </div>
               </div>
           </div>
@@ -34,3 +43,7 @@ export default class SubChannelItem extends React.Component {
     );
   }
 }
+
+SubChannelItem.contextTypes = {
+  router: React.PropTypes.object
+};
