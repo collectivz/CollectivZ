@@ -39,7 +39,7 @@ export default class DropDownBottom extends React.Component {
 
     this.setState({
       isOpen: !isOpen
-    })
+    });
   }
 
   render() {
