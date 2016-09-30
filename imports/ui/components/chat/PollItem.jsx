@@ -87,7 +87,12 @@ export default class PollItem extends React.Component {
     const propositionNodes = propositions.map(function(proposition, i) {
       return (
         <div key={proposition._id}>
-          <input type="radio" name="choice" className="primary" onClick={this.selectProposition.bind(this, proposition._id)}/>
+          {
+            !this.hasVoted() ?
+              <input type="radio" name="choice" className="primary" onClick={this.selectProposition.bind(this, proposition._id)}/>
+            :
+              ''
+          }
           <p>
             <b>{proposition.name}</b>
           </p>
@@ -123,11 +128,15 @@ export default class PollItem extends React.Component {
               <div className="poll-choice">{propositionNodes}</div>
               {
                 this.hasVoted() ?
-                  <span>Vous avez déjà voté.</span>
+                  <div className="success-box">
+                    <h4><i className="icon icon-check"/>Vous avez déjà voté.</h4>
+                  </div>
                 :
-                  <button className="success button" onClick={this.voteForAPoll}>
-                    Voter
-                  </button>
+                  <div className="button-box">
+                    <button className="success button" onClick={this.voteForAPoll}>
+                      Voter
+                    </button>
+                  </div>
               }
           </div>
       </div>

@@ -42,8 +42,31 @@
 			margin-top:5px;
 		}
 	}
+	.success-box {
+		h4, h5 {
+			text-align: center;
+			color: color("success","base");
+			margin: 10px 0;
+			font-family: $nav-font;
+			i {
+				margin-right:10px;
+				font-size: 2rem;
+			}
+		}
+	}
 	.bubble-content-text {
 		padding:0px 20px;
+		h4, h3 {
+			margin-top:0;
+			font-family: $nav-font;
+			i {
+				margin-right:10px;
+			}
+			span {
+				margin-right:10px;
+				font-weight: 500;
+			}
+		}
 	}
 	.bubble-content-admin {
 		position:absolute;
@@ -84,6 +107,9 @@
 		margin: 0 auto;
 		opacity:0.1;
 	}
+	button {
+		text-align: center;
+	}	
 }
 
 
@@ -97,7 +123,7 @@
 		padding:10px;
 		text-align: left;
 		button {
-			margin-left:20px;
+			text-align: center;
 		}
 	}
 	.poll-choice {
@@ -160,6 +186,13 @@
 		margin: 0 auto;
 		opacity:0.025;
 	}
+	input {
+		padding: 5px;
+		width: 103px;
+	}
+	button {
+		text-align: center;
+	}
 }
 
 
@@ -170,13 +203,27 @@
 	}
 	h4 {
 		opacity:0.6;
-		margin-bottom:$text-size * 3;
 	}
 	.bubble-content {
 		padding:10px;
+		h4 {
+			margin-left:20px;
+		}
+		p {
+			i {
+				margin-right:10px;
+				opacity:0.5;
+			}
+		}
 	}
 	.beer-participate {
 		margin-top:20px;
+		.tag, button {
+			text-align: center;
+		}
+	}
+	.tag {
+		display:inline-block;
 	}
 	i.big-icon {
 		font-size:70px;
@@ -187,5 +234,8 @@
 		right:0;
 		margin: 0 auto;
 		opacity:0.025;
+	}
+	button {
+		text-align: center;
 	}
 }

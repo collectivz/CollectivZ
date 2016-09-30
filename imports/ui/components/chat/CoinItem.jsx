@@ -77,9 +77,11 @@ export default class CoinItem extends React.Component {
                     ref="number"
                   /> € de mes <span className="success-text">{user.coinz} €</span>
                 </h4>
-                <button className="success button" onClick={this.handleSubmit}>
-                  Financer
-                </button>
+                <div className="button-box">
+                  <button className="success button" onClick={this.handleSubmit}>
+                    Financer
+                  </button>
+                </div>
               </div>
 
           </div>
