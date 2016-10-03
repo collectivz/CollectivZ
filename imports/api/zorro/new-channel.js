@@ -1,6 +1,6 @@
 export default class Channel {
 
-  constructor(channelId, router) {
+  constructor(channelId) {
     this.question = {
       text: `Hola, je vois que vous voulez créer une nouvelle action ! Quel nom allez-vous lui donner ? Vous pouvez à tout moment écrire @annuler pour annuler.`,
       author: 'Zorro'
@@ -17,7 +17,6 @@ export default class Channel {
       name: '',
       description: ''
     };
-    this.router = router;
   }
 
   resetState() {
@@ -67,11 +66,7 @@ export default class Channel {
       this.state.choices = ["@annuler", "oui"];
     } else if (this.expectedAnswer === 'confirm') {
       if (answer === 'oui' || answer === 'Oui') {
-        Meteor.call('channels.insert', this.result, this.channelId, (err, res) => {
-          if (!err) {
-            this.router.push(`/group/${res}`);
-          }
-        });
+        Meteor.call('channels.insert', this.result, this.channelId);
         this.resetState();
       } else {
         zorroMsg.text = `Je n'ai pas compris.`;
