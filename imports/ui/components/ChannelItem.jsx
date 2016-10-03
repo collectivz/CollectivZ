@@ -14,6 +14,7 @@ export default class ChannelItem extends React.Component {
     super(props);
 
     this.onClick = this.onClick.bind(this);
+    this.getCss = this.getCss.bind(this);
   }
 
   onClick() {
@@ -37,6 +38,14 @@ export default class ChannelItem extends React.Component {
 
   }
 
+  getCss() {
+    const {
+      data
+    } = this.props;
+
+    return data.type === 'channel' ? 'list-item touch-event sub-list' : 'list-item touch-event';
+  }
+
   renderLastMessage(message) {
     if (message.length > 70) {
       return message.slice(0, 69) + '...';
@@ -49,7 +58,7 @@ export default class ChannelItem extends React.Component {
     const { data, renderUnread, count } = this.props;
 
     return (
-      <TouchEvent class="list-item touch-event" onClick={this.onClick}>
+      <TouchEvent class={this.getCss()} onClick={this.onClick}>
         <img src={data.imageUrl} alt="" />
         <div className="list-item-content">
           <p className="title">{data.name}</p>

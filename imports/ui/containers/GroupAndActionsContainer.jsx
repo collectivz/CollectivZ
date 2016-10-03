@@ -7,7 +7,7 @@ import GroupAndActions from '../components/GroupAndActions';
 export default createContainer(({ group, user }) => {
 
   const actions = Channels.find(
-    { rootId: group._id, _id: { $in: user.subscribedChannels } , _id : { $ne: group._id }},
+    { rootId: group._id, _id: { $in: user.subscribedChannels } , type: 'channel' },
     { sort: { lastActivity: -1 } }
   ).fetch();
 
