@@ -101,7 +101,7 @@ export default class MessageItem extends Component {
       message
     } = this.props;
 
-    Meteor.call('channels.conversationCreate', message.authorName, (err, res) => {
+    Meteor.call('channels.conversationCreate', [message.author], (err, res) => {
       if (!err) {
         this.context.router.push(`/conversation/${res}`);
       } else {

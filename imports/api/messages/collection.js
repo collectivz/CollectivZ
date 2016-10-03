@@ -12,6 +12,7 @@ class messageCollection extends Mongo.Collection {
       : Meteor.users.findOne({username: 'Zorro'})._id;
 
     const author = Meteor.users.findOne(message.author);
+    const channel = Channels.findOne(message.channelId);
     message.authorName = author.username;
     const lastMessage = {
       author: author.username,
@@ -20,6 +21,11 @@ class messageCollection extends Mongo.Collection {
     Channels.update(message.channelId, {
       $set: { lastActivity: message.createdAt, lastMessage: lastMessage },
     });
+    if (channel._id !== channel.rootId) {
+      Channels.update(channel.rootId, {
+        $set: { lastActivity: message.createdAt }
+      });
+    }
     message.text = replaceParams(message.text);
     return super.insert(message);
   }

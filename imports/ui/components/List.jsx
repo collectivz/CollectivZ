@@ -25,6 +25,7 @@ export default class List extends React.Component {
   render() {
     const {
       data,
+      user,
       emptyListString
     } = this.props;
 
