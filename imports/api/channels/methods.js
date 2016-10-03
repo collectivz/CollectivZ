@@ -301,5 +301,27 @@ Meteor.methods({
 
       Channels.remove(channelId);
     }
+  },
+
+  'channels.changePicture'(channelId, imageUrl) {
+    if (!this.userId) {
+      throw new Meteor.Error('not-logged-in',
+        "Vous devez vous connecter pour modifier une image.");
+    }
+
+    check(channelId, String);
+    check(imageUrl, String);
+
+    const channel = Channels.findOne(channelId);
+    const user = Meteor.user();
+
+    if (channel.author !== user._id && !user.isAdmin) {
+      throw new Meteor.Error('no-right',
+        "Vous n'avez pas les droits pour faire ça.");
+    }
+
+    Channels.update(channelId, {
+      $set: { imageUrl }
+    });
   }
 });

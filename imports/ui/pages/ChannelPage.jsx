@@ -7,6 +7,7 @@ import Loader                           from '../components/Loader.jsx';
 import GroupForm                         from '../components/GroupForm.jsx';
 import ChatContainer                    from '../containers/ChatContainer.jsx';
 import NotFound                         from '../pages/NotFound.jsx';
+import UploadPicture                    from '../components/UploadPicture';
 import { Toast }         from '../helpers/Toast';
 import { openModal }         from '../helpers/Modal';
 
@@ -19,7 +20,8 @@ export default class ChannelPage extends React.Component {
     this.renderAdminMenu = this.renderAdminMenu.bind(this);
     this.closeAction = this.closeAction.bind(this);
     this.leaveAction = this.leaveAction.bind(this);
-    this.openModal = this.openModal.bind(this);
+    this.openEditModal = this.openEditModal.bind(this);
+    this.openPictureModal = this.openPictureModal.bind(this);
   }
 
   closeAction() {
@@ -48,7 +50,7 @@ export default class ChannelPage extends React.Component {
     });
   }
 
-  openModal() {
+  openEditModal() {
     const {
       channel
     } = this.props;
@@ -57,13 +59,23 @@ export default class ChannelPage extends React.Component {
     openModal(component, `Editer le groupe ${channel.name}`);
   }
 
+  openPictureModal() {
+    const {
+      channel
+    } = this.props;
+
+    const component = <UploadPicture data={channel} method='channels.changePicture' />;
+    openModal(component, `Modifier l'image du groupe ${channel.name}`);
+  }
+
   renderAdminMenu() {
     const { channel, user } = this.props;
 
     if (channel.author === user._id) {
       return (
         <ul>
-          <li><a className="drop-down-menu-link" onClick={this.openModal}> Editer </a></li>
+          <li><a className="drop-down-menu-link" onClick={this.openEditModal}> Modifier </a></li>
+          <li><a className="drop-down-menu-link" onClick={this.openPictureModal}> Changer l'image </a></li>
           <li><a className="drop-down-menu-link" onClick={this.closeAction}> Supprimer </a></li>
         </ul>
       );
