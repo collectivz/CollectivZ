@@ -58,7 +58,7 @@ export default class ZorroItem extends Component {
               </p>
               {
                 message.author === 'Zorro' ?
-                <form className="merged">
+                <form>
                   {choices.map((choice, index) => {
                     return (<button className="button primary" onClick={answerToZorro.bind(this, choice)} key={index}>{choice}</button>);
                   })}
