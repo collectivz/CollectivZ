@@ -30,7 +30,8 @@ export default class MessageInput extends Component {
 
   keyboardEvent(e) {
     if (e.keyCode === 13) {
-      this.handleSubmit(e)
+      e.preventDefault();
+      this.handleSubmit(e);
     }
   }
 
@@ -119,6 +120,7 @@ export default class MessageInput extends Component {
               onKeyUp={this.keyboardEvent}
               onChange={this.textareaHeightTweak}
               name="name"
+              placeholder="Discuter..."
               className="chat-input-textarea"
               ref="textInput">
             </textarea>

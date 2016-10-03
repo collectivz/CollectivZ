@@ -74,59 +74,89 @@ export default class ContactPage extends React.Component {
     return (
       <div>
         <Breadcrumb title="Contact" hasBack={false} />
-        <div className="view-container">
-          <div className="page-wrapper">
-            <div className="scroll-content has-top-nav has-tabs-nav">
-              <div className="disable-user-behavior">
-                <div>Inviter un ami : </div>
-                <div>
-                  <form onSubmit={this.handleSubmit}>
-                    <input
-                      type="text"
-                      placeholder="Nom d'utilisateur ou mail'"
-                      ref="userInvited"
-                    />
-                    <input type="submit" value="Envoyer une invitation" />
-                  </form>
-                </div>
+        <div className="sub-container">
+                
+          <div className="list">
 
-                {
-                  usersInvitationReceved.length ?
-                    <div>
-                      <div>Invitation(s) reçue(s) : </div>
-                      <List
-                        data={usersInvitationReceved}
-                        type="invitation"
-                        acceptInvite={this.acceptInvite}
-                        refuseInvite={this.refuseInvite}
-                      >
-                        <UserItem />
-                      </List>
-                    </div>
-                    : ''
-                }
-
-                <div>Contact(s) : </div>
-                <List
-                  data={usersContact}
-                  type="contact"
-                  removeContact={this.removeContact}
-                  emptyListString="Vous n'avez aucun contact. Ajouter vos amis !"
-                >
-                  <UserItem />
-                </List>
-                <div>Groupe(s) : </div>
-                <Link to={'/contact/createGroup'}>Creer un groupe</Link>
-                <List
-                  data={teams}
-                  type="team"
-                  emptyListString="Aucun cercle créé."
-                >
-                  <TeamItem />
-                </List>
+            <div className="list-item touch-event">
+              <img alt="" />
+              <div className="list-item-content">
+                <p className="title">Inviter un ami</p>
+                <div></div>
               </div>
             </div>
+
+            {/*<Link to={'/contact/createGroup'}>Creer un groupe</Link>*/}
+
+            <div className="list-item touch-event">
+              <img alt="" />
+              <div className="list-item-content">
+                <p className="title">Gérer mes contacts</p>
+                <div></div>
+              </div>
+            </div>
+
           </div>
+          
+        {/*
+
+          // Rajouter une modal à la place
+
+          <div>
+            <form onSubmit={this.handleSubmit}>
+              <input
+                type="text"
+                placeholder="Nom d'utilisateur ou mail'"
+                ref="userInvited"
+              />
+              <input type="submit" value="Envoyer une invitation" />
+            </form>
+          </div>
+        
+        */}
+
+          <div className="list-sub-menu">
+              <i className="big-icon icon icon-bubble"/>
+              <h5>Invitations en attente</h5>
+          </div>
+
+          <List
+            data={usersInvitationReceved}
+            type="invitation"
+            acceptInvite={this.acceptInvite}
+            refuseInvite={this.refuseInvite}
+            emptyListString="Vous n'avez aucune invitation en cours."
+          >
+            <UserItem />
+          </List>
+
+          <div className="list-sub-menu">
+              <i className="big-icon icon icon-users"/>
+              <h5>Contact(s)</h5>
+          </div>
+          
+          <List
+            data={usersContact}
+            type="contact"
+            removeContact={this.removeContact}
+            emptyListString="Vous n'avez aucun contact. Ajouter vos amis !"
+          >
+            <UserItem />
+          </List>
+
+          <div className="list-sub-menu">
+              <i className="big-icon icon icon-bubble"/>
+              <h5>Cercle(s) </h5>
+          </div>
+
+          <List
+            data={teams}
+            type="team"
+            emptyListString="Aucun cercle créé."
+          >
+            <TeamItem />
+          </List>
+
         </div>
         <AppNav user={user}/>
       </div>

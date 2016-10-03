@@ -6,6 +6,9 @@
 	padding:$text-size * 1.5;
 	position:relative;
 	-webkit-user-select: none;
+	&.sub-list {
+		border-left:10px solid color("grey", "lighten-2");
+	}
 	&:nth-child(2n) {
 		background-color: #fbfbfb;
 	}
@@ -15,6 +18,16 @@
 		height:40px;
 		margin-right:$text-size;
 		border-radius:100%;
+	}
+	.icon-img {
+		position:absolute;
+		width:40px;
+		height:40px;
+		margin-right:$text-size;
+		border-radius:100%;
+		i {
+			padding:10px;
+		}
 	}
 	.list-item-content {
 		margin: 0 60px 0 60px;
@@ -30,15 +43,14 @@
 	}
 	.list-item-notif {
 		position:absolute;
-		right: $text-size * 5;
+		right: $text-size;
 		top: calc(50% - 25px);
-		height:55px;
-		width:55px;
 		padding: 10px 20px 10px 21px;
 		border-radius: 100%;
 		color: white;
 		background-color: color("danger", "lighten-2");
 		border: 1px solid color("danger", "darken-1");
+		box-shadow: inset 1px 1px 1px color("danger", "darken-1");
 		font-weight: bold;
 		font-size: 2rem;
 		border-radius: 100%;

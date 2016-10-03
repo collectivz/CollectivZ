@@ -57,3 +57,7 @@
     input[type="radio"] {
 
     }
+
+    textarea::-webkit-input-placeholder {
+		color: color("grey", "lighten-3");
+    }

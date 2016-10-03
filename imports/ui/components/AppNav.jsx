@@ -36,21 +36,18 @@ export default class AppNav extends Component {
         <TouchEvent
             onClick={ ()=>{this.onClick("/my-groups")} }
             class={ classNames( "navbar-item touch-event", { active: activeUrl == "/my-groups" } ) }>
-
             <i className="icon icon-3x icon-text-bubble"/>
             <span>Récent</span>
         </TouchEvent>
-        {/* <TouchEvent
+        <TouchEvent
             onClick={ ()=>{this.onClick("/contact/view")} }
             class={ classNames( "navbar-item touch-event", { active: activeUrl == "/contact/view" } ) }>
-
             <i className="icon icon-3x icon-big-user"/>
             <span>Contacts</span>
-        </TouchEvent> */}
+        </TouchEvent>
         <TouchEvent
             onClick={ ()=>{this.onClick("/guild-list")} }
             class={ classNames( "navbar-item touch-event", { active: activeUrl == "/guild-list" } ) }>
-
             <i className="icon icon-3x icon-temple"/>
             <span>Groupes</span>
         </TouchEvent>
@@ -58,7 +55,6 @@ export default class AppNav extends Component {
           <TouchEvent
               onClick={ ()=>{this.onClick("/admin")} }
               class={ classNames( "navbar-item touch-event", { active: activeUrl == "/admin" } ) }>
-
               <i className="icon icon-3x icon-star"/>
               <span>Admin</span>
           </TouchEvent>
@@ -66,7 +62,6 @@ export default class AppNav extends Component {
         <TouchEvent
             onClick={ ()=>{this.onClick("/profile")} }
             class={ classNames( "navbar-item touch-event", { active: activeUrl == "/profile" } ) }>
-
             <i className="icon icon-3x icon-big-user"/>
             <span>Profil</span>
         </TouchEvent>
