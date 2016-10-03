@@ -27,7 +27,7 @@ Meteor.methods({
     };
 
     s3.getSignedUrl('putObject', s3Params, (err, data) => {
-      if(err){
+      if (err) {
         return err;
       }
       returnData = {

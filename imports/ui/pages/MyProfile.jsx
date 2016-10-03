@@ -7,9 +7,9 @@ import HistoryItem                       from '../components/HistoryItem.jsx';
 import AppNav                           from '../components/AppNav.jsx';
 import Breadcrumb                       from '../components/Breadcrumb.jsx';
 import List                             from '../components/List';
-import UpdateAvatar                     from '../components/UpdateAvatar.jsx';
 import PasswordEdit                    from '../components/PasswordEdit.jsx';
 import UsernameEdit                    from '../components/UsernameEdit.jsx';
+import UploadPicture                    from '../components/UploadPicture.jsx';
 import { openModal }                    from '../helpers/Modal.js';
 
 export default class MyProfile extends Component {
@@ -34,6 +34,10 @@ export default class MyProfile extends Component {
     openModal(component, "Modifier votre nom d'utilisateur");
   }
 
+  logout() {
+    Meteor.logout();
+  }
+
   render() {
 
     const { user, guilds, channels, history } = this.props;
@@ -53,8 +57,10 @@ export default class MyProfile extends Component {
           <div className="button-box profile-button">
             <button className="button big primary" onClick={this.openUsernameModal}><i className="icon icon-user"/><span>Changer de nom d'utilisateur</span></button>
             <button className="button big primary" onClick={this.openPasswordModal}><i className="icon icon-lock"/><span>Changer de mot de passe</span></button>
+            <button className="button big primary" onClick={this.logout}><i className="icon icon-enter"/><span>Se déconnecter</span></button>
           </div>
-          {/*<UpdateAvatar />*/}
+          <UploadPicture data={user} method="users.changeAvatar"/>
+          {/*<UploadPicture />*/}
           <div className="list">
             <div className="list-sub-menu">
               <i className="big-icon icon icon-temple"/>

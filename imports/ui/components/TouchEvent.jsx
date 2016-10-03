@@ -15,7 +15,7 @@ export default class TouchEvent extends Component {
         this.setState( { isClicked : true } );
         setTimeout( () => {
             this.setState( { isClicked : false } );
-        }, 300);
+        }, 150);
     }
 
     componentDidMount() {
@@ -33,4 +33,3 @@ export default class TouchEvent extends Component {
         );
     }
 }
-

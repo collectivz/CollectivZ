@@ -1,7 +1,5 @@
 import React, { Component, PropTypes } from 'react';
 import { Meteor } from 'meteor/meteor';
-import UpdateAvatar                     from '../components/UpdateAvatar.jsx';
-import UpdateBg                         from '../components/UpdateBg.jsx';
 
 export default class UserHeader extends Component {
 
@@ -14,8 +12,6 @@ export default class UserHeader extends Component {
           <div className="profile-header">
               <img src={user.profile.avatar}/>
               <h3>{user.username}</h3>
-              {/*<UpdateAvatar />
-              <UpdateBg />*/}
           </div>
       </div>
     );
