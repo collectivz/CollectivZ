@@ -50,7 +50,7 @@ export default class Chat extends React.Component {
     const { channel, messages } = this.props;
     const { inputMode, ongoingAction, messageCount } = this.state;
     if (inputMode !== 'message' && !ongoingAction) {
-      const zorro = zorroForm(inputMode, channel._id, this.context.router);
+      const zorro = zorroForm(inputMode, channel._id);
       const newState = zorro.getState();
 
       this.setState({
