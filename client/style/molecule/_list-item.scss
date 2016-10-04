@@ -6,18 +6,12 @@
 	padding:$text-size * 1.5;
 	position:relative;
 	-webkit-user-select: none;
-	&.sub-list {
-		border-left:10px solid color("grey", "lighten-1");
-	}
-	&:nth-child(2n) {
-		background-color: #fbfbfb;
-	}
 	img {
 		position:absolute;
 		width:40px;
 		height:40px;
 		margin-right:$text-size;
-		border-radius:100%;
+		opacity:0.4;
 	}
 	.icon-img {
 		position:absolute;
@@ -34,7 +28,7 @@
 		max-width: 100%;
 		.title {
 			margin:0;
-			@include multi-line-ellipsis();
+			font-size: 1.8rem;
 		}
 		.text {
 			margin:0;
@@ -43,9 +37,20 @@
 				font-style: italic;
 				margin-right:$text-size / 2;
 			}
-			@include multi-line-ellipsis();
 			font-family: $nav-font;
 			color:color("grey", "lighten-1");
+		}
+	}
+	&.sub-list {
+		border-left:10px solid color("grey", "lighten-1");
+		.list-item-content .title, .list-item-content .name {
+			@include multi-line-ellipsis(1.6em, 2, white);
+		}
+	}
+	&:nth-child(2n) {
+		background-color: #fbfbfb;
+		.list-item-content .title, .list-item-content .name {
+			@include multi-line-ellipsis(1.6em, 2, #fbfbfb);
 		}
 	}
 	.list-item-action {
@@ -59,17 +64,14 @@
 	}
 	.list-item-notif {
 		position:absolute;
-		right: $text-size;
-		top: calc(50% - 25px);
+		right: 0;
+		top: 0;
+		height:100%;
 		padding: 10px 20px 10px 21px;
-		border-radius: 100%;
 		color: white;
 		background-color: color("danger", "lighten-2");
-		border: 1px solid color("danger", "darken-1");
-		box-shadow: inset 1px 1px 1px color("danger", "darken-1");
 		font-weight: bold;
 		font-size: 2rem;
-		border-radius: 100%;
 		line-height: 30px;
 		font-family: $nav-font;
 	}

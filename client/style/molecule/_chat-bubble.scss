@@ -38,7 +38,7 @@ $bubble-2n-color: #fbfbfb;
 		margin-left:20px;
 		padding:0px 15px 15px 15px;
 		float:left;
-		max-width:70%;
+		width:73%;
 		border-radius:5px;
 		background-color:white;
 		display:inline-block;
@@ -73,10 +73,12 @@ $bubble-2n-color: #fbfbfb;
 			.bubble-content-name {
 				font-weight: bold;
 				display:block;
+				user-select: unselectable;
 			}
 			.bubble-content-date {
 				transition: all 200ms ease;
 				color:color("grey", "lighten-2");
+				user-select: unselectable;
 			}
 			.bubble-content-admin {
 				position:absolute;

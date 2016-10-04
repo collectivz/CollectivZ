@@ -37,7 +37,7 @@ Meteor.methods({
     group.rootId = group._id;
     group.depth = 0;
     group.type = 'group';
-    group.imageUrl = group.imageUrl ? group.imageUrl : '/img/user-group.png';
+    group.imageUrl = group.imageUrl ? group.imageUrl : '/img/icons/users.svg';
 
     Channels.insert(group);
 
@@ -76,7 +76,7 @@ Meteor.methods({
     channel.depth = parent.depth + 1;
     channel.rootId = parent.rootId;
     channel.type = 'channel';
-    channel.imageUrl = '/img/action.png';
+    channel.imageUrl = '/img/icons/cog.svg';
 
 
     const channelId = Channels.insert(channel)
@@ -191,7 +191,8 @@ Meteor.methods({
       parentId: "",
       rootId: "",
       messageId: "",
-      type: 'conversation'
+      type: 'conversation',
+      imageUrl: '/img/icons/bubble.svg'
     }
 
     const channelId = Channels.insert(newConversationChannel);

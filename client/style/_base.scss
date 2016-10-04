@@ -108,10 +108,10 @@
 			font-family: $nav-font;
 		}
 
-		h1, .h1 { @include modular-scale(3, $title-size, $ratio); letter-spacing: -.1rem;}
-		h2, .h2 { @include modular-scale(2, $title-size, $ratio); letter-spacing: -.1rem;}
-		h3, .h3 { @include modular-scale(1, $title-size, $ratio); letter-spacing: -.1rem;}
-		h4, .h4 { @include modular-scale(0, $title-size, $ratio); letter-spacing: 0rem;}
+		h1, .h1 { @include modular-scale(3, $title-size, $ratio); }
+		h2, .h2 { @include modular-scale(2, $title-size, $ratio); }
+		h3, .h3 { @include modular-scale(1, $title-size, $ratio); }
+		h4, .h4 { @include modular-scale(0, $title-size, $ratio); }
 		h5, .h5 { @include modular-scale(0, $text-size, $ratio); }
 		h6, .h6 { @include modular-scale(0, $text-size, $ratio); }
 
