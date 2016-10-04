@@ -13,7 +13,8 @@ export default class MessageInput extends Component {
     super(props);
 
     this.state = {
-      showActions: false
+      showActions: false,
+      isTyping: false
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -21,6 +22,8 @@ export default class MessageInput extends Component {
     this.textareaHeightTweak = this.textareaHeightTweak.bind(this);
     this.keyboardEvent = this.keyboardEvent.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
+    this.toggleTyping = this.toggleTyping.bind(this);
+    this.getWhoIsTyping = this.getWhoIsTyping.bind(this);
   }
 
   componentDidMount() {
@@ -36,6 +39,28 @@ export default class MessageInput extends Component {
     }
   }
 
+  toggleTyping(e) {
+    e.preventDefault();
+    const {
+      channel
+    } = this.props;
+    const {
+      isTyping
+    } = this.state;
+
+    if (!isTyping) {
+      Meteor.call('channels.startTyping', channel._id);
+      this.setState({
+        isTyping: true
+      });
+    } else if (!this.refs.textInput.value) {
+      Meteor.call('channels.stopTyping', channel._id);
+      this.setState({
+        isTyping: false
+      });
+    }
+  }
+
   handleSubmit(event) {
     event.preventDefault();
     const { inputMode, hasActionPicker, channel, user } = this.props;
@@ -47,9 +72,10 @@ export default class MessageInput extends Component {
           text,
           channelId: channel._id,
         };
-        // console.log(ReactEmoji);
-        // message.text = ReactEmoji.emojify(message.text);
-        // console.log(message.text);
+        Meteor.call('channels.stopTyping', channel._id);
+        this.setState({
+          isTyping: false
+        });
         if (channel.type === 'group' && !_.contains(user.subscribedChannels, channel._id)) {
           Meteor.call('channels.join', channel._id);
         }
@@ -92,6 +118,26 @@ export default class MessageInput extends Component {
     $(".icon-plus-circle").toggleClass("icon-rotate-45");
   }
 
+  getWhoIsTyping() {
+    const {
+      channel
+    } = this.props;
+    if (!channel.isTyping.length) {
+      return '';
+    }
+    const users = Meteor.users.find({ _id: { $in: channel.isTyping } }).fetch();
+    let result = '';
+    if (channel.isTyping.length === 1) {
+      result = `${users[0].username} est en train d'écrire`;
+    } else if (channel.isTyping.length === 2) {
+      result = `${users[0].username} et ${users[1].username} sont en train d'écrire`;
+    } else if (channel.isTyping.length > 2) {
+      result = "Plusieurs personnes sont en train d'écrire";
+    }
+
+    return result;
+  }
+
   textareaHeightTweak(e) {
     this.setState({
       barHeight: { height: this.refs.textInput.scrollHeight + 10 },
@@ -101,7 +147,12 @@ export default class MessageInput extends Component {
 
   render() {
     const { hasActionPicker, channel } = this.props;
-
+    const {
+      isTyping
+    } = this.state;
+    const isTypingVisible = channel.isTyping.length
+      ? 'someone-is-typing visible'
+      : 'someone-is-typing';
     if ($(".chat-input-wrapper").hasClass('disabled'))
     {
       $(".chat-input-wrapper").toggleClass("open");
@@ -110,13 +161,13 @@ export default class MessageInput extends Component {
 
     return (
       <div ref="bar" className="chat-input-wrapper">
-        <div className="someone-is-typing">
+        <div className={isTypingVisible}>
           <div className="ball-pulse">
             <div></div>
             <div></div>
             <div></div>
           </div>
-          <div className="someone-is-typing-names">Phillippe est en train d'écrire</div>
+          <div className="someone-is-typing-names">{this.getWhoIsTyping()}</div>
         </div>
         <div className="chat-input">
           {
@@ -126,7 +177,7 @@ export default class MessageInput extends Component {
               </button>
             : ''
           }
-          <form className="chat-input-form">
+          <form className="chat-input-form" onChange={this.toggleTyping}>
             <textarea
               onKeyUp={this.keyboardEvent}
               onChange={this.textareaHeightTweak}

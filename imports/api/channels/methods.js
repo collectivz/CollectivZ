@@ -336,5 +336,27 @@ Meteor.methods({
     Channels.update(channelId, {
       $set: { imageUrl }
     });
+  },
+
+  'channels.startTyping'(channelId) {
+    if (!this.userId) {
+      throw new Meteor.Error('not-logged-in',
+        "Vous devez vous connecter pour commencer à taper.");
+    }
+
+    Channels.update(channelId, {
+      $push: { isTyping: this.userId }
+    });
+  },
+
+  'channels.stopTyping'(channelId) {
+    if (!this.userId) {
+      throw new Meteor.Error('not-logged-in',
+        "Vous devez vous connecter pour arrêter de taper.");
+    }
+
+    Channels.update(channelId, {
+      $pullAll: { isTyping: [this.userId] }
+    });
   }
 });
