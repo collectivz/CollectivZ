@@ -144,7 +144,7 @@ export default class Chat extends React.Component {
     const filteredMessages = this.filterMessage();
 
     return (
-      <div className={classNames("chat-sub-container", {"chat-with-filter-sub-container" : channel.connections})}>
+      <div className={classNames("chat-sub-container", {"chat-with-filter-sub-container" : !_.isEmpty(channel.connections)})}>
 
         {!_.isEmpty(channel.connections) ?
           <ChatFilter channel={channel} setFilterOption={this.setFilterOption} />
@@ -153,7 +153,7 @@ export default class Chat extends React.Component {
 
         <div className="chat">
           <div className="chat-separator">
-              <h5>Cette semaine</h5>
+              <h5>Aujourd'hui</h5>
           </div>
           <div ref='scroll'>
             <div className="scroll">
