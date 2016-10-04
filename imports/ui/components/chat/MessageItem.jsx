@@ -135,12 +135,7 @@ export default class MessageItem extends Component {
               <div className="bubble-content-header">
 
                 <span className="bubble-content-name">
-                    {
-                      message.type ?
-                        'Zorro'
-                      :
-                        message.authorName
-                    }
+                  {message.authorName}
                 </span>
 
                 <span className="bubble-content-date">{time}</span>
@@ -171,7 +166,7 @@ export default class MessageItem extends Component {
                 editing ?
                   <div>
                     <form className="merged" >
-                      <input className="small" type="text" name="name" ref="textInput" defaultValue={message.text} />
+                      <textarea className="small" type="text" name="name" ref="textInput" defaultValue={message.text} />
                       <button className="small primary button" type="button" name="button" onClick={this.editMessage}>
                         <i className="icon icon-pencil" aria-hidden="true"></i>
                       </button>

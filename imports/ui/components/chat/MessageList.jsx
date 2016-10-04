@@ -2,7 +2,7 @@ import React                          from 'react';
 
 import MessageItem                    from './MessageItem.jsx';
 import CoinItem                       from './CoinItem.jsx';
-import SubChannelItem                 from './SubChannelItem.jsx';
+import ActionItem                 from './ActionItem.jsx';
 import BeerItemContainer              from '../../containers/BeerItemContainer.jsx';
 import FeedbackItem                   from './FeedbackItem.jsx';
 import PollItemContainer              from '../../containers/PollItemContainer.jsx';
@@ -44,7 +44,7 @@ export default class MessageList extends React.Component {
                   return true;
                 return false;
               });
-              return (<SubChannelItem key={message._id} channel={channel} user={user} />);
+              return (<ActionItem key={message._id} channel={channel} user={user} />);
             case 'coin':
               const coin = coins.find((coin) => {
                 if (coin.messageId === message._id)

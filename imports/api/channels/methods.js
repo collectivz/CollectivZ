@@ -285,6 +285,11 @@ Meteor.methods({
         if (coinCount) {
           Coins.remove({channelId});
         }
+        if (channel.parentId) {
+          Channels.update(channel.parentId, {
+            $inc: { 'connections.chanCount': -1 }
+          });
+        }
 
         const lastReadField = `lastReadAt.${channelId}`;
         Meteor.users.update({ subscribedChannels: { $in: [channelId] } }, {

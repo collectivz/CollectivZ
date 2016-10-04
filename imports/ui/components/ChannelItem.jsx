@@ -46,13 +46,6 @@ export default class ChannelItem extends React.Component {
     return data.type === 'channel' ? 'list-item touch-event sub-list' : 'list-item touch-event';
   }
 
-  truncateText(message) {
-    if (message.length > 25) {
-      return message.slice(0, 22) + '...';
-    }
-    return message;
-  }
-
   render() {
 
     const { data, renderUnread, count } = this.props;
@@ -61,10 +54,10 @@ export default class ChannelItem extends React.Component {
       <TouchEvent class={this.getCss()} onClick={this.onClick}>
         <img src={data.imageUrl} alt="" />
         <div className="list-item-content">
-          <p className="title">{this.truncateText(data.name)}</p>
+          <p className="title">{data.name}</p>
           <p className="text">
             {data.lastMessage ?
-                this.truncateText(`${data.lastMessage.author}: ${data.lastMessage.text}`)
+                `${data.lastMessage.author}: ${data.lastMessage.text}`
               : ''
             }
           </p>

@@ -14,14 +14,18 @@ export default class GroupAndActions extends React.Component {
     return (
       <div>
         <ChannelItemContainer data={group} />
-        <List
-          data={actions}
-          type='channel'
-          emptyListString="Aucune action dans ce groupe"
-          renderUnread={true}
-        >
-          <ChannelItemContainer />
-        </List>
+        {
+          actions.length ?
+            <List
+              data={actions}
+              type='channel'
+              emptyListString="Aucune action dans ce groupe"
+              renderUnread={true}
+            >
+              <ChannelItemContainer />
+            </List>
+          : ''
+        }
       </div>
     );
   }
