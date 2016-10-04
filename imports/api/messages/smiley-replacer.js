@@ -1,20 +1,12 @@
 const smileys = {
-  "([:][']['][(])": "😟",
-  "[:]['][(]": "😢",
-  "[:][)]": "☺",
-  "[:][(]": "☹",
-  "[:][D]": "😁",
-  "[:][D]": "😃",
-  "[;][)]": "😉",
-  "[:][o]": "😮",
-  "[:][s]": "😖",
-  "[:][O]": "😚",
-  "[:][p]": "😜",
-  "[:][/]": "😕",
-  "[>][<]": "😣",
-  "[x][D]": "😆",
-  "[<][3]": "♡",
-  "[:][o]": "😮"
+  "[:]['][(]": "<img src='/img/smileys/pleure.svg' />",
+  "[:][)]": "<img src='/img/smileys/content.svg' />",
+  "[:][(]": "<img src='/img/smileys/pascontent.svg' />",
+  "[:][D]": "<img src='/img/smileys/supercontent.svg' />",
+  "[;][)]": "<img src='/img/smileys/clindoeil.svg' />",
+  "[:][o]": "<img src='/img/smileys/interloque.svg' />",
+  "[:][p]": "<img src='/img/smileys/tirelalangue.svg' />",
+  "[>][<]": "<img src='/img/smileys/supersupercontent.svg' />"
 };
 
 

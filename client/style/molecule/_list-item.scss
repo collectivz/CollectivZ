@@ -34,9 +34,16 @@
 		max-width: 100%;
 		.title {
 			margin:0;
+			@include multi-line-ellipsis();
 		}
 		.text {
 			margin:0;
+			span {
+				font-weight: bold;
+				font-style: italic;
+				margin-right:$text-size / 2;
+			}
+			@include multi-line-ellipsis();
 			font-family: $nav-font;
 			color:color("grey", "lighten-1");
 		}
