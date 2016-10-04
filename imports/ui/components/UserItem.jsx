@@ -71,7 +71,7 @@ export default class UserItem extends React.Component {
     return (
       <div className="list-item">
         <TouchEvent onClick={ () => { this.onClick(`/data/${user._id}`) } }>
-            <img src={data.profile.avatar} alt="" />
+            <img src={data.imageUrl} alt="" />
         </TouchEvent>
         <div className="list-item-content">
             <p className="title">{data.username}</p>

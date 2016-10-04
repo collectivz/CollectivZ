@@ -3,6 +3,7 @@ import { Meteor } from 'meteor/meteor';
 import xhr from 'xhr';
 
 import { Toast } from '../helpers/Toast.js';
+import { closeModal } from '../helpers/Modal.js';
 
 export default class UploadPicture extends React.Component {
 
@@ -10,15 +11,17 @@ export default class UploadPicture extends React.Component {
     super(props);
 
     this.state = {
+      preview: props.data ? props.data.imageUrl : null,
       file: null,
       signedRequest: null,
       url: ''
     };
 
     this.uploadPicture = this.uploadPicture.bind(this);
+    this.submitPicture = this.submitPicture.bind(this);
   }
 
-  componentDidUpdate() {
+  submitPicture() {
     const {
       data,
       method
@@ -45,6 +48,7 @@ export default class UploadPicture extends React.Component {
                   signedRequest: null,
                   url: ''
                 });
+                closeModal();
               }
             });
           } else {
@@ -62,6 +66,13 @@ export default class UploadPicture extends React.Component {
 
     if (file) {
       const reader = new FileReader();
+      reader.onload = ((self) => {
+        return function(e) {
+          self.setState({
+            preview: e.target.result
+          });
+        };
+      })(this);
 
       reader.readAsDataURL(file);
 
@@ -80,9 +91,19 @@ export default class UploadPicture extends React.Component {
   }
 
   render() {
+    const {
+      preview
+    } = this.state;
+
     return (
       <div className="update-avatar-wrapper">
-        <input className="button primary" type="file" onChange={this.uploadPicture}/>
+        <input type="file" onChange={this.uploadPicture}/>
+        {
+          preview ?
+            <img src={preview} />
+          : ''
+        }
+        <button className="button success" onClick={this.submitPicture}>Valider</button>
       </div>);
   }
 }

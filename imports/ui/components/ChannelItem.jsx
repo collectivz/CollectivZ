@@ -51,7 +51,11 @@ export default class ChannelItem extends React.Component {
 
   render() {
 
-    const { data, renderUnread, count } = this.props;
+    const {
+      data,
+      renderUnread,
+      count
+    } = this.props;
 
     return (
       <TouchEvent class={this.getCss()} onClick={this.onClick}>

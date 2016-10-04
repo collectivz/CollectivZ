@@ -21,6 +21,7 @@ export default class ContactInvite extends React.Component {
           Toast(err.reason, "danger");
         } else {
           Toast(`Une invitation a été envoyé.`, "success");
+          closeModal();
         }
       });
       this.refs.userInvited.value = '';

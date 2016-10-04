@@ -15,7 +15,7 @@ export default class UserHeader extends Component {
         // le changement
         <UploadPicture data={user} method="users.changeAvatar"/>*/}
           <div className="profile-header">
-              <img src={user.profile.avatar}/>
+              <img src={user.imageUrl}/>
               <h3>{user.username}</h3>
           </div>
       </div>

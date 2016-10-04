@@ -29,7 +29,8 @@ Meteor.publish('user', function() {
         repertory: 1,
         lastReadAt: 1,
         isAdmin: 1,
-        coinz: 1
+        coinz: 1,
+        imageUrl: 1
       }}),
       History.find({ userId: this.userId })
     ];

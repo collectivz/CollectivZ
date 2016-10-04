@@ -22,7 +22,7 @@ if (Meteor.isServer) {
     }
     user.profile = options.profile || {};
     user.profile.background = '/img/ugly.jpg';
-    user.profile.avatar = user.profile.avatar ? user.profile.avatar : '/img/no-user.png';
+    user.imageUrl = user.imageUrl ? user.imageUrl : '/img/no-user.png';
     user.lastLogin = Date.now();
     user.subscribedChannels = [];
     user.subscribedConversations = [];
