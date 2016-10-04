@@ -9,6 +9,7 @@ export default createContainer(({ params, user }) => {
   const id = params.groupId;
   const channelSub = Meteor.subscribe('chanPage', id);
   const channel = Channels.findOne(id);
+  const users = Meteor.users.find({ subscribedChannels: { $in: [id] } }).fetch();
   let group;
 
   if (channelSub.ready() && channel) {
@@ -18,6 +19,7 @@ export default createContainer(({ params, user }) => {
     loading: !channelSub.ready(),
     channel,
     group,
+    users,
     user
   };
 }, ChannelPage);

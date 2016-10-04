@@ -2,12 +2,14 @@ import React, { Component, PropTypes }  from 'react';
 import { Meteor }                       from 'meteor/meteor';
 
 import Breadcrumb                       from '../components/Breadcrumb';
+import TouchEvent                       from '../components/TouchEvent';
 import DropDown                         from '../components/DropDown';
 import Loader                           from '../components/Loader.jsx';
 import GroupForm                         from '../components/GroupForm.jsx';
 import ChatContainer                    from '../containers/ChatContainer.jsx';
 import NotFound                         from '../pages/NotFound.jsx';
 import UploadPicture                    from '../components/UploadPicture';
+import ChannelInfo                    from '../components/ChannelInfo';
 import { Toast }         from '../helpers/Toast';
 import { openModal }         from '../helpers/Modal';
 
@@ -22,6 +24,7 @@ export default class ChannelPage extends React.Component {
     this.leaveAction = this.leaveAction.bind(this);
     this.openEditModal = this.openEditModal.bind(this);
     this.openPictureModal = this.openPictureModal.bind(this);
+    this.openInfo = this.openInfo.bind(this);
   }
 
   closeAction() {
@@ -50,12 +53,22 @@ export default class ChannelPage extends React.Component {
     });
   }
 
+  openInfo() {
+    const {
+      channel,
+      group,
+      users
+    } = this.props;
+    const component = <ChannelInfo channel={channel} group={group} users={users} />;
+    openModal(component, "Informations");
+  }
+
   openEditModal() {
     const {
       channel
     } = this.props;
 
-    const component = <GroupForm group={channel}/>;
+    const component = <GroupForm group={channel} />;
     openModal(component, `Editer le groupe ${channel.name}`);
   }
 
@@ -86,7 +99,13 @@ export default class ChannelPage extends React.Component {
 
   render() {
 
-    const { loading, channel, group, user } = this.props;
+    const {
+      loading,
+      channel,
+      group,
+      users,
+      user
+    } = this.props;
 
     return (
 
@@ -98,6 +117,9 @@ export default class ChannelPage extends React.Component {
             channel ?
               <div>
                 <Breadcrumb title={channel.name} hasBack={true}>
+                  <TouchEvent class="right-button touch-event" onClick={this.openInfo}>
+                    <i className="icon icon-cross" />
+                  </TouchEvent>
                   <DropDown>
                     <ul>
                       {this.renderAdminMenu()}
