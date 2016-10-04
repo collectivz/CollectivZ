@@ -57,7 +57,11 @@ export default class ChannelItem extends React.Component {
           <p className="title">{data.name}</p>
           <p className="text">
             {data.lastMessage ?
-                `${data.lastMessage.author}: ${data.lastMessage.text}`
+                <span>{data.lastMessage.author}</span>
+              : ''
+            }
+            {data.lastMessage ?
+                `${data.lastMessage.text}`
               : ''
             }
           </p>

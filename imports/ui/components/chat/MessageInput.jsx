@@ -1,9 +1,10 @@
 import $                                  from 'jquery';
 import React, { Component, PropTypes }    from 'react';
 import { Meteor }                         from 'meteor/meteor';
+import ReactEmoji                         from 'react-emoji';
 
 import ActionPicker                       from './ActionPicker.jsx';
-import { Toast }         from '../../helpers/Toast';
+import { Toast }                          from '../../helpers/Toast';
 
 
 export default class MessageInput extends Component {
@@ -46,7 +47,9 @@ export default class MessageInput extends Component {
           text,
           channelId: channel._id,
         };
-
+        // console.log(ReactEmoji);
+        // message.text = ReactEmoji.emojify(message.text);
+        // console.log(message.text);
         if (channel.type === 'group' && !_.contains(user.subscribedChannels, channel._id)) {
           Meteor.call('channels.join', channel._id);
         }

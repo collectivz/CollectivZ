@@ -173,7 +173,7 @@ export default class MessageItem extends Component {
                     </form>
                   </div>
                 :
-                  <p>{message.text}</p>
+                  <p dangerouslySetInnerHTML={{__html: message.text}}></p>
               }
 
           </div>

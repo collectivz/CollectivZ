@@ -28,7 +28,7 @@ $bubble-2n-color: #fbfbfb;
 .chat-bubble {
 	width:100%;
 	margin-bottom:$text-size * 1.5;
-	img {
+	>img {
 		border-radius:100%;
 		width:40px;
 		height:40px;
@@ -57,6 +57,14 @@ $bubble-2n-color: #fbfbfb;
 			overflow: hidden;
 			text-overflow: ellipsis;
 			min-height: 30px;
+			img {
+				display:inline;
+				width:20px;
+				height:20px;
+				transform: translateY(3px);
+				margin-left: 3px;
+				margin-right: 3px;
+			}
 		}
 		.bubble-content-header {
 			overflow: hidden;
@@ -109,7 +117,7 @@ $bubble-2n-color: #fbfbfb;
 		}
 	}
 	&.chat-bubble-mine {
-		img {
+		>img {
 			float:right;
 		}
 		.bubble-content {
