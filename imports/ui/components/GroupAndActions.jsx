@@ -13,7 +13,7 @@ export default class GroupAndActions extends React.Component {
 
     return (
       <div>
-        <ChannelItemContainer data={group} />
+        <ChannelItemContainer data={group} renderUnread={true} />
         {
           actions.length ?
             <List

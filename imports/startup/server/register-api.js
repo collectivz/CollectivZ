@@ -28,4 +28,7 @@ import '../../api/circles/server/publish.js';
 
 import '../../api/admin/methods.js';
 
+import '../../api/archives/methods.js';
+
 import '../../api/methods.js';
+import '../../api/collection-handler.js';
