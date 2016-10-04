@@ -6,7 +6,6 @@ const smileys = {
   "[;][)]": "<img src='/img/smileys/clindoeil.svg' />",
   "[:][o]": "<img src='/img/smileys/interloque.svg' />",
   "[:][p]": "<img src='/img/smileys/tirelalangue.svg' />",
-  "[>][<]": "<img src='/img/smileys/supersupercontent.svg' />"
 };
 
 
