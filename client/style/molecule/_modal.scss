@@ -76,6 +76,7 @@ $modal-easing-duration: 250ms;
 	&.modal--open {
 		opacity:1;
 		display:flex;
+		overflow-y: auto;
 		.modal--content {
 			transform: translateY(0px);
 		}
