@@ -1,19 +1,24 @@
 .admin {
-	position:relative;
-	i.big-icon {
-		position:absolute;
-		font-size:200px;
-		opacity:0.3;
-		color:white;
-		z-index:0;
-		margin:0 auto;
-		top:-50px;
-		left:50px;
-	}
-	h5 {
+	padding-top: $text-size;
+	>h5 {
 		font-family: $nav-font;
 		text-align: center;
 		text-transform: uppercase;
+	}
+	.button-box {
+		margin-bottom: $text-size * 1.5;
+	}
+	form {
+		margin: 0 auto;
+		label {
+			margin-top:$text-size / 2;
+			display:inline-block;
+			font-family: $nav-font;
+			color:color("grey", "base");
+		}
+	}
+	input {
+		width:60%;
 	}
 	.button {
 		padding: 12px 15px;

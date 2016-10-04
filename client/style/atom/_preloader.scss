@@ -15,7 +15,6 @@ $offset-angle: 52; // defines the separation angle between each buttons
 $radius: $circle-size * 0.85;
 
 .preloader {
-  background-color:color("grey", "lighten-1");
   &>div {
     -webkit-filter: url("#fancy-goo");
     margin:auto;

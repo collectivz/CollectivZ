@@ -19,7 +19,10 @@
 			padding:0;
 			margin:0;
 		}
-
+		hr.hidden {
+			border: none;
+			padding:0;
+		}
 		hr.threedots {
 			display: block;
 			border: 0;

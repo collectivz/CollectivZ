@@ -7,7 +7,7 @@
 	position:relative;
 	-webkit-user-select: none;
 	&.sub-list {
-		border-left:10px solid color("grey", "lighten-2");
+		border-left:10px solid color("grey", "lighten-1");
 	}
 	&:nth-child(2n) {
 		background-color: #fbfbfb;
@@ -39,6 +39,15 @@
 			margin:0;
 			font-family: $nav-font;
 			color:color("grey", "lighten-1");
+		}
+	}
+	.list-item-action {
+		position:absolute;
+		right: $text-size;
+		top: calc(50% - 25px);
+		button {
+			margin:0;
+			margin-top: 3%;
 		}
 	}
 	.list-item-notif {

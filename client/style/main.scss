@@ -31,6 +31,7 @@ $background-color: color("grey", "lighten-3");
 @import "atom/preloader";
 @import "atom/toastr";
 @import "atom/progress-bar";
+@import "atom/ball-pulse";
 
 @import "molecule/form";
 @import "molecule/fieldset";
@@ -49,6 +50,7 @@ $background-color: color("grey", "lighten-3");
 @import "molecule/profile";
 @import "molecule/drop-down";
 @import "molecule/modal";
+@import "molecule/someone-is-typing";
 
 @import "template/login";
 @import "template/chat";

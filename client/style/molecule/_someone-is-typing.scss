@@ -1,0 +1,31 @@
+$base-index: 0;
+$base-size: 26px;
+
+.someone-is-typing {
+	position: absolute;
+	top: -$base-size;
+	left: 11px;
+	transform:translateY($base-size);
+	transition: all 200ms ease;
+	&.visible {
+		transform:translateY(0px);
+	}
+	background-color: color("grey", "darken-3");
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+	min-width: 50px;
+	padding:5px 10px 5px 5px;
+	z-index: $base-index - 1;
+	.ball-pulse {
+		position:absolute;
+		top:5px;
+		left: 8px;
+		opacity: 0.5;
+	}
+	.someone-is-typing-names {
+		margin-left:40px;
+		color:white;
+		font-size: 1.2rem;
+		font-family: $nav-font;
+	}
+}
