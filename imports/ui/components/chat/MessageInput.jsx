@@ -107,6 +107,14 @@ export default class MessageInput extends Component {
 
     return (
       <div ref="bar" className="chat-input-wrapper">
+        <div className="someone-is-typing">
+          <div className="ball-pulse">
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+          <div className="someone-is-typing-names">Phillippe est en train d'écrire</div>
+        </div>
         <div className="chat-input">
           {
             hasActionPicker ?

@@ -19,6 +19,7 @@
 	</div>
 */
 
+$base-index: 99999999;
 $chat-input-height: 60px;
 $chat-input-open-height: 140px;
 
@@ -27,7 +28,7 @@ $chat-input-open-height: 140px;
 	width:100%;
 	height:$chat-input-open-height;
 	background-color: color("grey", "darken-4");
-	z-index: 99999999;
+	z-index: $base-index;
 	display:none;
 	p {
 		margin-top:35px;

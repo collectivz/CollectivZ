@@ -82,7 +82,7 @@ export default class UploadPicture extends React.Component {
   render() {
     return (
       <div className="update-avatar-wrapper">
-        <input type="file" onChange={this.uploadPicture}/>
+        <input className="button primary" type="file" onChange={this.uploadPicture}/>
       </div>);
   }
 }

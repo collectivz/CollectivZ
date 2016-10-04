@@ -114,50 +114,59 @@ export default class AdminPage extends Component {
     return (
       <div className="screen-box">
         <Breadcrumb title="Coordination" hasBack={false} />
-          <div className="sub-container center">
-            <div className="center-wrapper admin">
-              <i className="big-icon icon icon-2x icon-temple"/>
+          <div className="sub-container">
+            <div className="admin">
               <h5>Créer un nouveau groupe</h5>
-              <form className="merged">
-                <input
-                  type="text"
-                  className="small"
-                  placeholder="Nom du groupe"
-                  ref="guildName"
-                />
-                <button onClick={this.handleSubmit} className="small button primary">
-                  <span>Ajouter</span>
-                </button>
-              </form>
+              <div className="button-box">
+                <form className="merged">
+                  <input
+                    type="text"
+                    className="small"
+                    placeholder="Nom du groupe"
+                    ref="guildName"
+                  />
+                  <button onClick={this.handleSubmit} className="small button primary">
+                    <span>Ajouter</span>
+                  </button>
+                </form>
+              </div>
               <h5>Ajouter des points</h5>
-              <form className="merged">
-                <input
-                  type="number"
-                  className="small"
-                  min="0"
-                  placeholder="Montant par membre"
-                  ref="amount"
-                  onChange={this.getTotal}
-                />
-                <button onClick={this.addMoney} className="small button primary">
-                  <span>Ajouter</span>
-                </button>
-                <br />
-                <span>{coinTotal}</span>
-              </form>
+              <div className="button-box">
+                <form className="merged">
+                  <input
+                    type="number"
+                    className="small"
+                    min="0"
+                    placeholder="Montant par membre"
+                    ref="amount"
+                    onChange={this.getTotal}
+                  />
+                    <button onClick={this.addMoney} className="small button primary">
+                      <span>Ajouter</span>
+                    </button>
+                  <br />
+                  <label>{coinTotal}</label>
+                </form>
+              </div>
               <h5>Ajouter un coordinateur</h5>
-              <form className="merged">
-                <input
-                  type="text"
-                  className="small"
-                  placeholder="Nom du coordinateur"
-                  ref="adminName"
-                />
-                <button onClick={this.addAdmin} className="small button primary">
-                  <span>Ajouter</span>
-                </button>
-              </form>
-              <h5>Liste des coordinateurs</h5>
+              <div className="button-box">
+                <form className="merged">
+                  <input
+                    type="text"
+                    className="small"
+                    placeholder="Nom du coordinateur"
+                    ref="adminName"
+                  />
+                    <button onClick={this.addAdmin} className="small button primary">
+                      <span>Ajouter</span>
+                    </button>
+                </form>
+              </div>
+              <hr className="hidden"/>
+              <div className="list-sub-menu">
+                  <i className="big-icon icon icon-bubble"/>
+                  <h5>Liste des coordinateurs</h5>
+              </div>
               <List
                 data={admins}
                 type='admin'

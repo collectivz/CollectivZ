@@ -28,37 +28,37 @@ export default class dataItem extends React.Component {
       case 'invitation':
         return (
           <div>
-            <button onClick={this.props.acceptInvite.bind(this, data._id)}>Accepter</button>
-            <button onClick={this.props.refuseInvite.bind(this, data._id)}>Refuser</button>
+            <button className="button success" onClick={this.props.acceptInvite.bind(this, data._id)}>Accepter</button>
+            <button className="button danger" onClick={this.props.refuseInvite.bind(this, data._id)}>Refuser</button>
           </div>
       )
       case 'createGroup':
         if (_.contains(this.props.currentState.newGroup, data._id)) {
           return (
-            <button onClick={this.props.removeFromNewGroup.bind(this, data._id)}>Enlever</button>
+            <button className="button success" onClick={this.props.removeFromNewGroup.bind(this, data._id)}>Enlever</button>
           )
         } else {
           return (
-            <button onClick={this.props.addToNewGroup.bind(this, data._id)}>Ajouter</button>
+            <button className="button danger" onClick={this.props.addToNewGroup.bind(this, data._id)}>Ajouter</button>
           )
         }
       case 'manageGroup':
         if (_.contains(this.props.currentState.newGroup, data._id)) {
           return (
-            <button onClick={this.props.removeFromGroup.bind(this, data._id)}>Enlever</button>
+            <button className="button success" onClick={this.props.removeFromGroup.bind(this, data._id)}>Enlever</button>
           )
         } else {
           return (
-              <button onClick={this.props.addToGroup.bind(this, data._id)}>Ajouter</button>
+              <button className="button danger" onClick={this.props.addToGroup.bind(this, data._id)}>Ajouter</button>
           )
         }
       case 'contact':
         return (
-          <button onClick={this.props.removeContact.bind(this, data._id)}>Supprimer</button>
+          <button className="button danger" onClick={this.props.removeContact.bind(this, data._id)}>Supprimer</button>
         )
       case 'admin':
         return (
-          <button onClick={this.props.removeAdmin.bind(this, data._id)}>Rétrograder</button>
+          <button className="button danger" onClick={this.props.removeAdmin.bind(this, data._id)}>Rétrograder</button>
         );
       default:
         return ;
@@ -69,15 +69,17 @@ export default class dataItem extends React.Component {
     const { data } = this.props;
 
     return (
-      <div className="list-item touch-event">
-      <TouchEvent onClick={ () => { this.onClick(`/data/${user._id}`) } }>
-          <img src={data.profile.avatar} alt="" />
-      </TouchEvent>
-          <div className="list-item-content">
-              <p className="title">{data.username}</p>
-          </div>
-          {this.toggleButton()}
+      <div className="list-item">
+        <TouchEvent onClick={ () => { this.onClick(`/data/${user._id}`) } }>
+            <img src={data.profile.avatar} alt="" />
+        </TouchEvent>
+        <div className="list-item-content">
+            <p className="title">{data.username}</p>
         </div>
+        <div className="list-item-action">
+        {this.toggleButton()}
+        </div>
+      </div>
     );
   }
 }

@@ -58,6 +58,7 @@ export default class DropDownBottom extends React.Component {
           <i className="icon icon-3x icon-three-dot"/>
         </div>
         <div className= {classNames("drop-down-bottom", {"drop-down-bottom--open": isOpen})} >
+          <div className="drop-down-overlay"/>
           {children}
         </div>
       </div>

@@ -65,8 +65,15 @@ $base-index: 9999999;
 	z-index: $base-index;
     overflow: hidden;
 	transition: all 200ms ease;
-	box-shadow: 0 -4px 10px rgba(color("grey", "darken-2"), .15);
+	//box-shadow: 0 -4px 10px rgba(color("grey", "darken-2"), .15);
+	.drop-down-overlay {
+		width:100%;
+		min-height:400px;
+		z-index: $base-index - 1;
+		background: linear-gradient(to bottom, rgba(255,255,255,0) 0%,rgba(0,0,0,0.2) 100%);
+	}
 	ul {
+		z-index: $base-index + 1;
 		margin:0;
 		li {
 			margin: 0;
