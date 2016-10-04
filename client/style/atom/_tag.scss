@@ -57,3 +57,19 @@
   }
 }
 
+.user-tag {
+    height:40px;
+    img {
+        width:40px!important;
+        height:40px;
+        border-radius: 100%;
+        float:left;
+        margin-right:5px;
+    }
+    p {
+        line-height: 40px;
+    }
+    &:after {
+        @include clearfix();
+    }
+}

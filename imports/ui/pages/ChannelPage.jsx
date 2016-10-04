@@ -134,6 +134,7 @@ export default class ChannelPage extends React.Component {
       </div>
     );
   }
+  
 }
 
 ChannelPage.propTypes = {
