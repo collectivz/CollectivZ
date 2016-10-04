@@ -36,6 +36,7 @@ Archives.addToArchive = (item) => {
       { _id: { $in: item.members } },
       { $pull: { subscribedChannels: item._id } }
     );
+    item.channelId = item.parentId;
   }
 
   Archives.insert(item);
