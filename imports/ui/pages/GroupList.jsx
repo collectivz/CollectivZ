@@ -3,7 +3,7 @@ import { Meteor } from 'meteor/meteor';
 
 import AppNav from '../components/AppNav.jsx';
 import Breadcrumb from '../components/Breadcrumb.jsx';
-import DropDown from '../components/DropDown.jsx';
+import TouchEvent from '../components/TouchEvent.jsx';
 import List   from '../components/List';
 import GroupItem from '../components/GroupItem.jsx';
 import GroupForm from '../components/GroupForm.jsx';
@@ -32,11 +32,9 @@ export default class GroupList extends Component {
     return (
       <div className="screen-box">
         <Breadcrumb title="Groupes" hasBack={false}>
-          <DropDown>
-            <ul>
-              <li><a className="drop-down-menu-link" onClick={this.openModal}> Créer un groupe </a></li>
-            </ul>
-          </DropDown>
+          <TouchEvent class="right-button touch-event" onClick={this.openModal}>
+            <i className="icon icon-cross" />
+          </TouchEvent>
         </Breadcrumb>
           <div className="sub-container">
             <List

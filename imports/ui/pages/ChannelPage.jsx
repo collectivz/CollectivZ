@@ -118,7 +118,7 @@ export default class ChannelPage extends React.Component {
               <div>
                 <Breadcrumb title={channel.name} hasBack={true}>
                   <TouchEvent class="right-button touch-event" onClick={this.openInfo}>
-                    <i className="icon icon-cross" />
+                    <i className="icon icon-question-circle" />
                   </TouchEvent>
                   <DropDown>
                     <ul>
