@@ -90,7 +90,7 @@ Meteor.methods({
     const messageId = Messages.insert(msg);
 
     Channels.update(parentId, {
-      $inc: {'connections.chanCount' : 1}
+      $inc: {'connections.channelCount' : 1}
     });
     Channels.update(channelId, {
       $set: { messageId: messageId }
@@ -287,7 +287,7 @@ Meteor.methods({
         }
         if (channel.parentId) {
           Channels.update(channel.parentId, {
-            $inc: { 'connections.chanCount': -1 }
+            $inc: { 'connections.channelCount': -1 }
           });
         }
 

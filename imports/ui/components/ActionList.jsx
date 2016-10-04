@@ -16,10 +16,10 @@ export default class ActionList extends React.Component {
           </div>
           : ''
         }
-        {actions.chanCount ?
+        {actions.channelCount ?
           <div className="tag">
               <i className="icon icon-cog"/>
-              <span>{actions.chanCount}</span>
+              <span>{actions.channelCount}</span>
           </div>
           : ''
         }

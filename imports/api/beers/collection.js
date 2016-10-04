@@ -10,7 +10,8 @@ class BeerCollection extends Mongo.Collection {
     beer.createdAt = Date.now();
     beer.author = user._id;
     beer.authorName = user.username;
-    beer.members = [user._d];
+    beer.members = [user._id];
+    beer.type = 'beer';
 
     return super.insert(beer);
   }

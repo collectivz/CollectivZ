@@ -16,7 +16,7 @@ user = {
                                       // et l'écriture ?
   subscribedChannels: [String]
   connections: Object : {
-    chanCount: Number,
+    channelCount: Number,
   }  
 }
 
@@ -31,7 +31,7 @@ channels = {
   members: [String],
   depth: Number
   connections: Object : {
-    chanCount: Number
+    channelCount: Number
   }
 }
 

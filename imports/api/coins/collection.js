@@ -11,6 +11,7 @@ class CoinCollection extends Mongo.Collection {
     coin.totalEarned = 0;
     coin.givers = [];
     coin.createdAt = Date.now();
+    coin.type = 'coin';
 
     return super.insert(coin);
   }

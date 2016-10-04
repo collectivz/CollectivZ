@@ -3,6 +3,7 @@ import { check } from 'meteor/check';
 
 import { Channels } from '../collection.js';
 import { Messages } from '../../messages/collection.js';
+import { Archives } from '../../archives/archives.js';
 import { Beers } from '../../beers/collection.js';
 import { Coins } from '../../coins/collection.js';
 import { Feedbacks } from '../../feedbacks/collection.js';
@@ -31,7 +32,8 @@ Meteor.publish('chanPage', function(id) {
         Beers.find({channelId: id}),
         Polls.find({channelId: id}),
         Coins.find({channelId: id}),
-        Meteor.users.find({subscribedChannels: {$in: [id]}})
+        Meteor.users.find({subscribedChannels: {$in: [id]}}),
+        Archives.find({ channelId: id })
       ];
     } else {
       this.ready();

@@ -27,7 +27,6 @@ export default class ChannelList extends React.Component {
             <List
               data={sortedChannels}
               type="channel"
-              renderUnread={true}
               emptyListString={emptyListString}
               user={user}
             >
