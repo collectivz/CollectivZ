@@ -8,7 +8,10 @@ $modal-easing-duration: 250ms;
 	top: 0;
 	left: 0;
 	display:none;
-
+	img {
+		width:auto;
+		display:block;
+	}
 	.modal--content {
 		margin:auto;
 		position:relative;

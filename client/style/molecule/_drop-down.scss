@@ -3,7 +3,7 @@ $base-index: 9999999;
 .drop-down {
 	position:relative;
 	width: 300px;
-    height: 200px;
+    height: 500px;
     overflow: hidden;
     float:right;
 	.touch-event {
@@ -59,11 +59,11 @@ $base-index: 9999999;
 .drop-down-bottom {
 	position:fixed;
 	width: 100%;
-  text-align: center;
+	text-align: center;
 	bottom:-100%;
 	left: 0;
 	z-index: $base-index;
-    overflow: hidden;
+	overflow: hidden;
 	transition: all 200ms ease;
 	//box-shadow: 0 -4px 10px rgba(color("grey", "darken-2"), .15);
 	.drop-down-overlay {
