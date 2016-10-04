@@ -14,7 +14,10 @@ export default class MessageInput extends Component {
 
     this.state = {
       showActions: false,
-      isTyping: false
+      isTyping: false,
+      isTypingMessage: '',
+      isTypingVisible: false,
+      typerCount: props.channel.isTyping.length
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -30,6 +33,22 @@ export default class MessageInput extends Component {
     this.setState({
       barHeight: { height: this.refs.bar.scrollHeight + 10 }
     });
+    this.getWhoIsTyping();
+  }
+
+  componentDidUpdate() {
+    const {
+      channel
+    } = this.props;
+    const {
+      typerCount
+    } = this.state;
+    if (typerCount !== channel.isTyping.length) {
+      this.getWhoIsTyping();
+      this.setState({
+        typerCount: channel.isTyping.length
+      });
+    }
   }
 
   keyboardEvent(e) {
@@ -123,19 +142,39 @@ export default class MessageInput extends Component {
       channel
     } = this.props;
     if (!channel.isTyping.length) {
-      return '';
+      this.setState({
+        isTypingVisible: false
+      });
+      return;
     }
     const users = Meteor.users.find({ _id: { $in: channel.isTyping } }).fetch();
+    const index = users.findIndex(user => {
+      if (user._id === Meteor.userId()) {
+        return true;
+      }
+      return false;
+    });
+    if (index >= 0) {
+      users.splice(index, 1);
+    }
     let result = '';
-    if (channel.isTyping.length === 1) {
+    if (!users.length) {
+      this.setState({
+        isTypingVisible: false
+      });
+      return;
+    } else if (users.length === 1) {
       result = `${users[0].username} est en train d'écrire`;
-    } else if (channel.isTyping.length === 2) {
+    } else if (users.length === 2) {
       result = `${users[0].username} et ${users[1].username} sont en train d'écrire`;
-    } else if (channel.isTyping.length > 2) {
+    } else if (users.length > 2) {
       result = "Plusieurs personnes sont en train d'écrire";
     }
 
-    return result;
+    this.setState({
+      isTypingVisible: true,
+      isTypingMessage: result
+    });
   }
 
   textareaHeightTweak(e) {
@@ -148,9 +187,10 @@ export default class MessageInput extends Component {
   render() {
     const { hasActionPicker, channel } = this.props;
     const {
-      isTyping
+      isTypingVisible,
+      isTypingMessage
     } = this.state;
-    const isTypingVisible = channel.isTyping.length
+    const showWhoIsTyping = isTypingVisible
       ? 'someone-is-typing visible'
       : 'someone-is-typing';
     if ($(".chat-input-wrapper").hasClass('disabled'))
@@ -158,16 +198,17 @@ export default class MessageInput extends Component {
       $(".chat-input-wrapper").toggleClass("open");
       $(".chat-sub-container").toggleClass("open");
     }
+    console.log(showWhoIsTyping);
 
     return (
       <div ref="bar" className="chat-input-wrapper">
-        <div className={isTypingVisible}>
+        <div className={showWhoIsTyping}>
           <div className="ball-pulse">
             <div></div>
             <div></div>
             <div></div>
           </div>
-          <div className="someone-is-typing-names">{this.getWhoIsTyping()}</div>
+          <div className="someone-is-typing-names">{isTypingMessage}</div>
         </div>
         <div className="chat-input">
           {
