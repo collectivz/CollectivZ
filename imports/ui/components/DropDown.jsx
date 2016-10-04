@@ -63,12 +63,14 @@ export default class DropDown extends React.Component {
 
 
     return (
-      <div className= {classNames("drop-down", {"drop-down--open": isOpen})} >
-        <div className={classNames("touch-event", {"touch-active": isClicked})}  onClick={this.handleOpen.bind(this)}>
+      <div>
+        <div className={classNames("right-button touch-event", {"touch-active": isClicked})}  onClick={this.handleOpen.bind(this)}>
           <i className="icon icon-3x icon-three-dot"/>
         </div>
-        <div className="drop-down-menu">
-          {children}
+        <div className= {classNames("drop-down", {"drop-down--open": isOpen})} >
+          <div className="drop-down-menu">
+            {children}
+          </div>
         </div>
       </div>
     );

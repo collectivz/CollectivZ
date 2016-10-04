@@ -1,7 +1,9 @@
 $base-index: 9999999;
 
 .drop-down {
-	position:relative;
+	position: absolute;
+	right: 0;
+	top: 60px;
 	width: 300px;
     height: 500px;
     overflow: hidden;
@@ -30,7 +32,7 @@ $base-index: 9999999;
 		position:absolute;
 		right:-300px;
 		width:300px;
-		top:60px;
+		top:0px;
 		z-index: $base-index;
 		transition: all 200ms ease;
 	}
