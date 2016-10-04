@@ -14,7 +14,7 @@ export default class ChannelParser extends React.Component {
       data.type === 'group' ?
         <GroupAndActionsContainer group={data} user={user} />
       :
-        <ChannelItemContainer data={data} user={user} renderUnread={true} />
+        <ChannelItemContainer data={data} user={user} renderUnread={true} renderMargin={false} />
     );
   }
 }

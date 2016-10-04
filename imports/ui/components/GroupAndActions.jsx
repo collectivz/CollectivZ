@@ -21,6 +21,7 @@ export default class GroupAndActions extends React.Component {
               type='channel'
               emptyListString="Aucune action dans ce groupe"
               renderUnread={true}
+              renderMargin={true}
             >
               <ChannelItemContainer />
             </List>

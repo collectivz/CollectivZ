@@ -151,9 +151,16 @@ Meteor.methods({
       Channels.update(channelId, {
         $pullAll: { members: [userId] }
       });
-      Meteor.users.update(userId, {
-        $pullAll: { subscribedChannels: [channelId] }
-      });
+
+      if (channel.type === 'conversation') {
+        Meteor.users.update(userId, {
+          $pullAll: { subscribedConversations: [channelId] }
+        });
+      } else {
+        Meteor.users.update(userId, {
+          $pullAll: { subscribedChannels: [channelId] }
+        });
+      }
 
       const username = Meteor.users.findOne(userId).username;
       const msg = {

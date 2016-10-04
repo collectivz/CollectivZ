@@ -44,7 +44,7 @@ export default class ContactPage extends React.Component {
       if (err) {
         Toast(err.reason, "danger");
       } else {
-        Toast(`Le contact a été supprimé.`);
+        Toast(`Le contact a été supprimé.`, "success");
       }
     });
   }

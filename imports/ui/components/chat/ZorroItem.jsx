@@ -60,7 +60,7 @@ export default class ZorroItem extends Component {
                 message.author === 'Zorro' ?
                 <form>
                   {choices.map((choice, index) => {
-                    return (<button className="button primary" onClick={answerToZorro.bind(this, choice)} key={index}>{choice}</button>);
+                    return (<button className="button info" onClick={answerToZorro.bind(this, choice)} key={index}>{choice}</button>);
                   })}
                 </form>
                 :

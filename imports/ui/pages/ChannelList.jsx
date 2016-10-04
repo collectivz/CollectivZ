@@ -9,13 +9,13 @@ export default class ChannelList extends React.Component {
 
   render() {
     const {
-      channelRoots,
+      channels,
       conversations,
       user,
       unreadCounts
     } = this.props;
 
-    const sortedChannels = channelRoots.sort((a, b) => {
+    const sortedChannels = channels.sort((a, b) => {
       return b.lastActivity - a.lastActivity;
     });
     const emptyListString = 'Aucune discussion en cours.'

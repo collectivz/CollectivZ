@@ -3,9 +3,11 @@ import { Meteor } from 'meteor/meteor';
 
 import Breadcrumb from '../components/Breadcrumb.jsx';
 import Loader from '../components/Loader.jsx';
+import DropDown from '../components/DropDown.jsx';
 import MessageList from '../components/chat/MessageList.jsx';
 import MessageInput from '../components/chat/MessageInput.jsx';
 import { Toast }         from '../helpers/Toast';
+import { openModal }         from '../helpers/Modal';
 
 export default class ConversationPage extends React.Component {
 
@@ -15,6 +17,21 @@ export default class ConversationPage extends React.Component {
     this.state = {
       messageCount: this.props.messages.length
     };
+
+    this.leaveAction = this.leaveAction.bind(this);
+  }
+
+  leaveAction() {
+    const { channel } = this.props;
+
+    Meteor.call('channels.leave', channel._id, (err, res) => {
+      if (!err) {
+        Toast(`Vous avez quitté le groupe ${channel.name}.`, "success");
+        this.context.router.push('/my-groups');
+      } else {
+        Toast(err.reason, 'danger');
+      }
+    });
   }
 
   componentDidUpdate() {
@@ -47,7 +64,13 @@ export default class ConversationPage extends React.Component {
         <Loader />
       :
         <div>
-          <Breadcrumb title="Conversation" hasBack={true} />
+          <Breadcrumb title="Conversation" hasBack={true}>
+            <DropDown>
+              <ul>
+                <li><a className="drop-down-menu-link" onClick={this.leaveAction}> Quitter </a></li>
+              </ul>
+            </DropDown>
+          </Breadcrumb>
           <div className="chat-sub-container">
             <div ref='scroll'>
               <div className="chat">
@@ -65,4 +88,8 @@ export default class ConversationPage extends React.Component {
 
 ConversationPage.propTypes = {
   channel: PropTypes.object,
+};
+
+ConversationPage.contextTypes = {
+  router: PropTypes.object
 };

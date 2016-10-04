@@ -38,6 +38,7 @@ export default class CircleItem extends React.Component {
       if (err) {
         Toast(err.reason, "danger");
       } else {
+        Toast('Conversation créée', "success");
         this.context.router.push(`/conversation/${res}`);
       }
     });

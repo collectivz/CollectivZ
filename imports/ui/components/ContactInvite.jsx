@@ -20,7 +20,7 @@ export default class ContactInvite extends React.Component {
         if (err) {
           Toast(err.reason, "danger");
         } else {
-          Toast(`Une invitation a été envoyé.`);
+          Toast(`Une invitation a été envoyé.`, "success");
         }
       });
       this.refs.userInvited.value = '';
