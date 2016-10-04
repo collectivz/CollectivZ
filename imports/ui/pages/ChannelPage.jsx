@@ -124,7 +124,7 @@ export default class ChannelPage extends React.Component {
                     </ul>
                   </DropDown>
                   <TouchEvent class="right-button touch-event" onClick={this.openInfo}>
-                    <i className="icon icon-rotate-45 icon-cross" />
+                    <i className="icon icon-question-circle" />
                   </TouchEvent>
                 </Breadcrumb>
                 <ChatContainer channel={channel} user={user}/>
