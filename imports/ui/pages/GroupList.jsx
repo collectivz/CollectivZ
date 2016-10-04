@@ -33,7 +33,7 @@ export default class GroupList extends Component {
       <div className="screen-box">
         <Breadcrumb title="Groupes" hasBack={false}>
           <TouchEvent class="right-button touch-event" onClick={this.openModal}>
-            <i className="icon icon-cross" />
+            <i className="icon icon-rotate-45 icon-cross" />
           </TouchEvent>
         </Breadcrumb>
           <div className="sub-container">

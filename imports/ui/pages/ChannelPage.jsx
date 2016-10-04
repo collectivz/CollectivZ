@@ -117,15 +117,15 @@ export default class ChannelPage extends React.Component {
             channel ?
               <div>
                 <Breadcrumb title={channel.name} hasBack={true}>
-                  <TouchEvent class="right-button touch-event" onClick={this.openInfo}>
-                    <i className="icon icon-question-circle" />
-                  </TouchEvent>
                   <DropDown>
                     <ul>
                       {this.renderAdminMenu()}
                       <li><a className="drop-down-menu-link" onClick={this.leaveAction}> Quitter </a></li>
                     </ul>
                   </DropDown>
+                  <TouchEvent class="right-button touch-event" onClick={this.openInfo}>
+                    <i className="icon icon-question-circle" />
+                  </TouchEvent>
                 </Breadcrumb>
                 <ChatContainer channel={channel} user={user}/>
               </div>
@@ -134,6 +134,7 @@ export default class ChannelPage extends React.Component {
       </div>
     );
   }
+  
 }
 
 ChannelPage.propTypes = {

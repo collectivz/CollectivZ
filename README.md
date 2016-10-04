@@ -132,4 +132,4 @@ Pour une maintenance plus aisée du code, toujours ajouter ce helper à même le
 ICONES
 ======
 
-Si vous chercher une icone en particulier, le dossier public/raw_icons est à votre disposition. Il contient la totalité des icones présentes en svg. Le nom du fichier corresponds au nom de la classe à utiliser pour l'appeler depuis le css.
+Si vous chercher une icone en particulier, le dossier public/img/icons est à votre disposition. Il contient la totalité des icones présentes en svg. Le nom du fichier corresponds au nom de la classe à utiliser pour l'appeler depuis le css.

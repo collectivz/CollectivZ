@@ -7,7 +7,7 @@ export default class SmallUserItem extends React.Component {
     } = this.props;
 
     return (
-      <div>
+      <div className="user-tag">
         <img src={data.imageUrl} />
         <p>{data.username}</p>
       </div>
