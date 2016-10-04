@@ -9,7 +9,7 @@ import { Polls } from '../polls/collection.js';
 import { Feedbacks } from '../feedbacks/collection.js';
 import { Beers } from '../beers/collection.js';
 import { Coins } from '../coins/collection.js';
-import { Teams } from '../teams/collection.js';
+import { Circles } from '../circles/collection.js';
 import historyUserAction from '../history/functions.js';
 
 Meteor.methods({
@@ -164,16 +164,16 @@ Meteor.methods({
     }
   },
 
-  'channels.conversationCreate'(members, teamId) {
+  'channels.conversationCreate'(members, circleId) {
     if (!this.userId) {
       throw new Meteor.Error('not-logged-in',
         "Vous devez être connecté pour créer un groupe de discussion.");
     }
     members.push(this.userId);
 
-    if (teamId) {
-      const team = Teams.findOne(teamId);
-      if (team.channel) {
+    if (circleId) {
+      const circle = Circles.findOne(circleId);
+      if (circle.channel) {
         throw new Meteor.Error('already-exist',
         "Cette conversation existe deja.");
       }
@@ -196,8 +196,8 @@ Meteor.methods({
 
     const channelId = Channels.insert(newConversationChannel);
 
-    if (teamId) {
-      Teams.update(teamId, {
+    if (circleId) {
+      Circles.update(circleId, {
         $set: {channel: channelId}
       });
     }

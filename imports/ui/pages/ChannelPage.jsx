@@ -86,7 +86,7 @@ export default class ChannelPage extends React.Component {
 
   render() {
 
-    const { loading, channel, guild, user } = this.props;
+    const { loading, channel, group, user } = this.props;
 
     return (
 
@@ -116,7 +116,7 @@ export default class ChannelPage extends React.Component {
 
 ChannelPage.propTypes = {
   channel: PropTypes.object,
-  guild: PropTypes.object,
+  group: PropTypes.object,
 };
 
 ChannelPage.contextTypes = {

@@ -5,11 +5,11 @@ import AppNav from '../components/AppNav.jsx';
 import Breadcrumb from '../components/Breadcrumb.jsx';
 import DropDown from '../components/DropDown.jsx';
 import List   from '../components/List';
-import GuildItem from '../components/GuildItem.jsx';
+import GroupItem from '../components/GroupItem.jsx';
 import GroupForm from '../components/GroupForm.jsx';
 import { openModal } from '../helpers/Modal.js';
 
-export default class GuildList extends Component {
+export default class GroupList extends Component {
 
   constructor(props) {
     super(props);
@@ -25,7 +25,7 @@ export default class GuildList extends Component {
 
   render() {
     const {
-      guilds,
+      groups,
       user
     } = this.props;
 
@@ -40,12 +40,12 @@ export default class GuildList extends Component {
         </Breadcrumb>
           <div className="sub-container">
             <List
-              data={guilds}
+              data={groups}
               user={user}
-              type="guild"
+              type="group"
               emptyListString="Il n'y a pas de groupe de discussion. Créez le votre !"
             >
-              <GuildItem />
+              <GroupItem />
             </List>
           </div>
         <AppNav user={user}/>
@@ -54,6 +54,6 @@ export default class GuildList extends Component {
   }
 }
 
-GuildList.propTypes = {
-  guilds: PropTypes.array.isRequired,
+GroupList.propTypes = {
+  groups: PropTypes.array.isRequired,
 }

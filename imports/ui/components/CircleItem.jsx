@@ -6,15 +6,16 @@ import classNames                               from 'classnames';
 import { _ }                                    from 'meteor/underscore';
 
 import { Toast }         from '../helpers/Toast';
+import { openModal }         from '../helpers/Modal';
 
-export default class TeamItem extends React.Component {
+export default class CircleItem extends React.Component {
 
   constructor(props) {
       super(props);
 
-      this.removeTeam = this.removeTeam.bind(this);
+      this.removeCircle = this.removeCircle.bind(this);
       this.createConversation = this.createConversation.bind(this);
-      this.toggleButton = this.toggleButton.bind(this);
+      this.toggleConversationButton = this.toggleConversationButton.bind(this);
   }
 
   onClick(dest) {
@@ -42,22 +43,22 @@ export default class TeamItem extends React.Component {
     });
   }
 
-  removeTeam(e) {
+  removeCircle(e) {
     e.preventDefault();
     const {
       data
     } = this.props;
 
-    Meteor.call('teams.remove', data._id, (err, res) => {
+    Meteor.call('circles.remove', data._id, (err, res) => {
       if (err) {
         Toast(err.reason, "danger");
       } else {
-        Toast(`Le cercle a bien été supprimé.`);
+        Toast(`Le cercle a bien été supprimé.`, "success");
       }
     });
   }
 
-  toggleButton() {
+  toggleConversationButton() {
     const {
       data
     } = this.props;
@@ -75,30 +76,27 @@ export default class TeamItem extends React.Component {
 
   render() {
     const {
-      data
+      data,
+      editCircle
     } = this.props;
 
     return (
       <div>
-        <TouchEvent class="list-item touch-event" onClick={ () => { this.onClick(`/team/${data._id}`) } }>
-        {
-          data.name ?
-            <h3>{data.name}</h3>
-            :
-            <h3>Sans nom</h3>
-        }
+        <TouchEvent class="list-item touch-event" onClick={ () => { this.onClick(`/circle/${data._id}`) } }>
+          <h3>{data.name}</h3>
         </TouchEvent>
-        <button onClick={this.removeTeam}>Supprimer</button>
-        {this.toggleButton()}
+        <button onClick={this.removeCircle}>Supprimer</button>
+        <button onClick={editCircle.bind(this, data)}>Modifier</button>
+        {this.toggleConversationButton()}
       </div>
     );
   }
 }
 
-TeamItem.contextTypes = {
+CircleItem.contextTypes = {
   router: PropTypes.object
 };
 
-// TeamItem.propTypes = {
+// CircleItem.propTypes = {
 //   data: PropTypes.object.isRequired,
 // };

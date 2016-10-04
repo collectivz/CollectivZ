@@ -1,16 +1,16 @@
 import { Meteor } from 'meteor/meteor';
 
 import { Repertory } from '../../repertory/collection.js';
-import { Teams } from '../../teams/collection.js';
+import { Circles } from '../../circles/collection.js';
 
-Meteor.publish('teamPage', function(repertoryId, teamId) {
+Meteor.publish('circlePage', function(repertoryId, circleId) {
   const repertory = Repertory.findOne(repertoryId);
-  const team = Teams.findOne(teamId);
+  const circle = Circles.findOne(circleId);
   let userToSubscribe = [];
 
   return [
     Repertory.find({_id: repertoryId}),
     Meteor.users.find({_id: {$in: repertory.contacts}}),
-    Teams.find({_id: teamId}),
+    Circles.find({_id: circleId}),
   ];
 });

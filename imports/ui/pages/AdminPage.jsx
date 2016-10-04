@@ -90,17 +90,17 @@ export default class AdminPage extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    const guildName = this.refs.guildName.value;
+    const groupName = this.refs.groupName.value;
 
-    if (guildName) {
-      Meteor.call('groups.insert', {name: guildName}, (err, res) => {
+    if (groupName) {
+      Meteor.call('groups.insert', {name: groupName}, (err, res) => {
         if (!err) {
-          Toast(`Groupe ${guildName} créé.`, "success");
+          Toast(`Groupe ${groupName} créé.`, "success");
         } else {
           Toast(err.reason, "danger");
         }
       });
-      this.refs.guildName.value = '';
+      this.refs.groupName.value = '';
     }
   }
 
@@ -123,7 +123,7 @@ export default class AdminPage extends Component {
                     type="text"
                     className="small"
                     placeholder="Nom du groupe"
-                    ref="guildName"
+                    ref="groupName"
                   />
                   <button onClick={this.handleSubmit} className="small button primary">
                     <span>Ajouter</span>

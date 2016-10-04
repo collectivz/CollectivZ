@@ -5,7 +5,7 @@ import TouchEvent                               from './TouchEvent';
 import classNames                               from 'classnames';
 import { _ }                                    from 'meteor/underscore';
 
-export default class dataItem extends React.Component {
+export default class UserItem extends React.Component {
 
   constructor(props) {
     super(props);
@@ -22,43 +22,43 @@ export default class dataItem extends React.Component {
   }
 
   toggleButton() {
-    const { type, data } = this.props;
+    const {
+      type,
+      data,
+      circle,
+      acceptInvite,
+      refuseInvite,
+      removeFromCircle,
+      addToCircle,
+      removeContact,
+      removeAdmin
+    } = this.props;
 
     switch (type) {
       case 'invitation':
         return (
           <div>
-            <button className="button success" onClick={this.props.acceptInvite.bind(this, data._id)}>Accepter</button>
-            <button className="button danger" onClick={this.props.refuseInvite.bind(this, data._id)}>Refuser</button>
+            <button className="button success" onClick={acceptInvite.bind(this, data._id)}>Accepter</button>
+            <button className="button danger" onClick={refuseInvite.bind(this, data._id)}>Refuser</button>
           </div>
       )
-      case 'createGroup':
-        if (_.contains(this.props.currentState.newGroup, data._id)) {
+      case 'createCircle':
+        if (_.contains(circle, data._id)) {
           return (
-            <button className="button success" onClick={this.props.removeFromNewGroup.bind(this, data._id)}>Enlever</button>
+            <button className="button danger" onClick={removeFromCircle.bind(this, data._id)}>Enlever</button>
           )
         } else {
           return (
-            <button className="button danger" onClick={this.props.addToNewGroup.bind(this, data._id)}>Ajouter</button>
-          )
-        }
-      case 'manageGroup':
-        if (_.contains(this.props.currentState.newGroup, data._id)) {
-          return (
-            <button className="button success" onClick={this.props.removeFromGroup.bind(this, data._id)}>Enlever</button>
-          )
-        } else {
-          return (
-              <button className="button danger" onClick={this.props.addToGroup.bind(this, data._id)}>Ajouter</button>
+            <button className="button success" onClick={addToCircle.bind(this, data._id)}>Ajouter</button>
           )
         }
       case 'contact':
         return (
-          <button className="button danger" onClick={this.props.removeContact.bind(this, data._id)}>Supprimer</button>
+          <button className="button danger" onClick={removeContact.bind(this, data._id)}>Supprimer</button>
         )
       case 'admin':
         return (
-          <button className="button danger" onClick={this.props.removeAdmin.bind(this, data._id)}>Rétrograder</button>
+          <button className="button danger" onClick={removeAdmin.bind(this, data._id)}>Rétrograder</button>
         );
       default:
         return ;

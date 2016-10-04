@@ -4,7 +4,7 @@ import { Mongo } from 'meteor/mongo';
 class RepertoryCollection extends Mongo.Collection {
   insert(repertory, callback) {
     repertory.contacts = [];
-    repertory.teams = [];
+    repertory.circles = [];
     repertory.invitationReceved = [];
     repertory.invitationSend = [];
     repertory.blackList = [];

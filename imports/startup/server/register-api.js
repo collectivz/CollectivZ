@@ -23,8 +23,8 @@ import '../../api/history/functions.js';
 import '../../api/repertory/methods.js';
 import '../../api/repertory/server/publish.js';
 
-import '../../api/teams/methods.js';
-import '../../api/teams/server/publish.js';
+import '../../api/circles/methods.js';
+import '../../api/circles/server/publish.js';
 
 import '../../api/admin/methods.js';
 

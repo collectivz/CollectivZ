@@ -9,15 +9,15 @@ export default createContainer(({ params, user }) => {
   const id = params.groupId;
   const channelSub = Meteor.subscribe('chanPage', id);
   const channel = Channels.findOne(id);
-  let guild;
+  let group;
 
   if (channelSub.ready() && channel) {
-    guild = Channels.findOne({_id: channel.rootId});
+    group = Channels.findOne({_id: channel.rootId});
   }
   return {
     loading: !channelSub.ready(),
     channel,
-    guild,
+    group,
     user
   };
 }, ChannelPage);

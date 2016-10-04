@@ -46,8 +46,8 @@ export default class AppNav extends Component {
             <span>Contacts</span>
         </TouchEvent>
         <TouchEvent
-            onClick={ ()=>{this.onClick("/guild-list")} }
-            class={ classNames( "navbar-item touch-event", { active: activeUrl == "/guild-list" } ) }>
+            onClick={ ()=>{this.onClick("/group-list")} }
+            class={ classNames( "navbar-item touch-event", { active: activeUrl == "/group-list" } ) }>
             <i className="icon icon-3x icon-temple"/>
             <span>Groupes</span>
         </TouchEvent>

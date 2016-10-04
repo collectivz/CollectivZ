@@ -148,9 +148,9 @@ Meteor.methods({
       {multi: true}
     );
 
-    const teamList = repertories[0].teams.concat(repertories[1].teams);
+    const circleList = repertories[0].circles.concat(repertories[1].circles);
 
-    Teams.update({_id: {$in: teamList}}, {
+    Circles.update({_id: {$in: circleList}}, {
       $pull: { members: { $in: [ user._id, userToRemoveId ]}}},
       {multi: true}
     );

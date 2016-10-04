@@ -4,9 +4,13 @@ import { Link } from 'react-router';
 import AppNav from '../components/AppNav.jsx';
 import Breadcrumb from '../components/Breadcrumb.jsx';
 import List from '../components/List.jsx';
-import TeamItem from '../components/TeamItem.jsx'
+import CircleItem from '../components/CircleItem.jsx'
 import UserItem from '../components/UserItem.jsx'
+import CircleForm from '../components/CircleForm';
+import ContactInvite from '../components/ContactInvite';
+import DropDown from '../components/DropDown';
 import { Toast }         from '../helpers/Toast';
+import { openModal }         from '../helpers/Modal';
 
 
 export default class ContactPage extends React.Component {
@@ -14,9 +18,9 @@ export default class ContactPage extends React.Component {
   constructor(props) {
     super(props);
 
-    this.handleSubmit = this.handleSubmit.bind(this);
     this.acceptInvite = this.acceptInvite.bind(this);
     this.refuseInvite = this.refuseInvite.bind(this);
+    this.openCircleModal = this.openCircleModal.bind(this);
   }
 
   acceptInvite(userSelectedId) {
@@ -45,27 +49,30 @@ export default class ContactPage extends React.Component {
     });
   }
 
-  handleSubmit(e) {
-    e.preventDefault();
-    const userInvited = this.refs.userInvited.value;
+  openInviteModal() {
+    const component = <ContactInvite />;
+    openModal(component, "Inviter un contact");
+  }
 
-    if (userInvited) {
-      Meteor.call('repertory.sendInvite', userInvited, (err, res) => {
-        if (err) {
-          Toast(err.reason, "danger");
-        } else {
-          Toast(`Une invitation a été envoyé.`);
-        }
-      });
-      this.refs.userInvited.value = '';
+  openCircleModal(circle, e) {
+    const {
+      usersContact
+    } = this.props;
+
+    if (!e) {
+      circle = null;
     }
+
+    const component = <CircleForm circle={circle} usersContact={usersContact} />;
+    const title = circle ? 'Modifier le cercle' : 'Créer un cercle';
+    openModal(component, title);
   }
 
   render() {
     const {
       repertory,
       usersContact,
-      teams,
+      circles,
       usersInvitationReceved,
       loading,
       user,
@@ -73,47 +80,15 @@ export default class ContactPage extends React.Component {
 
     return (
       <div>
-        <Breadcrumb title="Contact" hasBack={false} />
+        <Breadcrumb title="Contact" hasBack={false}>
+          <DropDown>
+            <ul>
+              <li><a className="drop-down-menu-link" onClick={this.openInviteModal}> Inviter un contact </a></li>
+              <li><a className="drop-down-menu-link" onClick={this.openCircleModal}> Créer un cercle </a></li>
+            </ul>
+          </DropDown>
+        </Breadcrumb>
         <div className="sub-container">
-                
-          <div className="list">
-
-            <div className="list-item touch-event">
-              <img alt="" />
-              <div className="list-item-content">
-                <p className="title">Inviter un ami</p>
-                <div></div>
-              </div>
-            </div>
-
-            {/*<Link to={'/contact/createGroup'}>Creer un groupe</Link>*/}
-
-            <div className="list-item touch-event">
-              <img alt="" />
-              <div className="list-item-content">
-                <p className="title">Gérer mes contacts</p>
-                <div></div>
-              </div>
-            </div>
-
-          </div>
-          
-        {/*
-
-          // Rajouter une modal à la place
-
-          <div>
-            <form onSubmit={this.handleSubmit}>
-              <input
-                type="text"
-                placeholder="Nom d'utilisateur ou mail'"
-                ref="userInvited"
-              />
-              <input type="submit" value="Envoyer une invitation" />
-            </form>
-          </div>
-        
-        */}
 
           <div className="list-sub-menu">
               <i className="big-icon icon icon-bubble"/>
@@ -134,7 +109,7 @@ export default class ContactPage extends React.Component {
               <i className="big-icon icon icon-users"/>
               <h5>Contact(s)</h5>
           </div>
-          
+
           <List
             data={usersContact}
             type="contact"
@@ -150,11 +125,12 @@ export default class ContactPage extends React.Component {
           </div>
 
           <List
-            data={teams}
-            type="team"
+            data={circles}
+            type="circle"
+            editCircle={this.openCircleModal}
             emptyListString="Aucun cercle créé."
           >
-            <TeamItem />
+            <CircleItem />
           </List>
 
         </div>

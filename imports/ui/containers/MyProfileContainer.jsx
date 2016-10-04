@@ -9,7 +9,7 @@ import MyProfile from '../pages/MyProfile.jsx';
 
 export default createContainer(({ user }) => {
   const userSub = Meteor.subscribe('userProfile', user._id);
-  const guilds = Channels.find({
+  const groups = Channels.find({
     _id: { $in: user.subscribedChannels },
     type: 'group'
   }).fetch();
@@ -20,7 +20,7 @@ export default createContainer(({ user }) => {
   const history = History.findOne({userId: user._id});
 
   return {
-    guilds,
+    groups,
     channels,
     history
   };

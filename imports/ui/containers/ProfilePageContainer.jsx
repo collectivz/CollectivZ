@@ -11,7 +11,7 @@ export default createContainer(({ params, user }) => {
   const userSub = Meteor.subscribe('userProfile', params.userId);
   const _user = Meteor.users.findOne(params.userId);
   if (_user) {
-    var guilds = Channels.find({
+    var groups = Channels.find({
       _id: { $in: _user.subscribedChannels },
       type: 'group'
     }).fetch();
@@ -25,7 +25,7 @@ export default createContainer(({ params, user }) => {
   return {
     user: _user,
     currentUser: user,
-    guilds,
+    groups,
     channels,
     history
   };

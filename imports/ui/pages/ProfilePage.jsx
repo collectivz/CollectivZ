@@ -6,7 +6,7 @@ import Breadcrumb from '../components/Breadcrumb';
 import AppNav from '../components/AppNav.jsx';
 import Loader from '../components/Loader.jsx';
 import List from '../components/List.jsx';
-import GuildItem from '../components/GuildItem.jsx';
+import GroupItem from '../components/GroupItem.jsx';
 import ChannelItem from '../components/ChannelItem.jsx';
 import HistoryItem from '../components/HistoryItem.jsx';
 
@@ -15,7 +15,7 @@ export default class ProfilePage extends Component {
 
   render() {
 
-    const { user, guilds, channels, currentUser, history } = this.props;
+    const { user, groups, channels, currentUser, history } = this.props;
     let actionHistory = [];
 
     if (history) {
@@ -40,8 +40,8 @@ export default class ProfilePage extends Component {
                       <h5>Groupes dont {user.username} fait partie</h5>
                   </div>
                   <List
-                    data={guilds}
-                    type="guild"
+                    data={groups}
+                    type="group"
                     user={user}
                     emptyListString={`${user.username} ne fait partie d'aucun groupe. Inviter le à coopérer !`}
                   >

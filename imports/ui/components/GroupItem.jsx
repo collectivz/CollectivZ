@@ -5,7 +5,7 @@ import { _ }                                    from 'meteor/underscore';
 import TouchEvent                               from './TouchEvent';
 import classNames                               from 'classnames';
 
-export default class GuildItem extends Component {
+export default class GroupItem extends Component {
 
   getMemberCount(data) {
     if (data.members.length === 1) {
@@ -46,6 +46,6 @@ export default class GuildItem extends Component {
   }
 }
 
-GuildItem.propTypes = {
+GroupItem.propTypes = {
   data: PropTypes.object,
 };

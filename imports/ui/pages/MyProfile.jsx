@@ -39,7 +39,7 @@ export default class MyProfile extends Component {
 
   render() {
 
-    const { user, guilds, channels, history } = this.props;
+    const { user, groups, channels, history } = this.props;
     let actionHistory = [];
 
     if (history) {
@@ -64,8 +64,8 @@ export default class MyProfile extends Component {
               <h5>Groupes dont vous faites partie</h5>
             </div>
             <List
-              data={guilds}
-              type="guild"
+              data={groups}
+              type="group"
               user={user}
               emptyListString="Vous ne faites partie d'aucun groupe. Rejoignez-en un et commencez à coopérer !"
             >
