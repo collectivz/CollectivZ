@@ -49,14 +49,14 @@
 	}
 	&.sub-list {
 		border-left:10px solid color("grey", "lighten-1");
-		.list-item-content .title, .list-item-content .name {
-			@include multi-line-ellipsis(1.6em, 2, white);
-		}
+	}
+	.list-item-content .title, .list-item-content .text {
+		@include multi-line-ellipsis(1.6em, 1, white);
 	}
 	&:nth-child(2n) {
 		background-color: #fbfbfb;
-		.list-item-content .title, .list-item-content .name {
-			@include multi-line-ellipsis(1.6em, 2, #fbfbfb);
+		.list-item-content .title, .list-item-content .text {
+			@include multi-line-ellipsis(1.6em, 1, #fbfbfb);
 		}
 	}
 	.list-item-action {
@@ -70,11 +70,11 @@
 	}
 	.list-item-notif {
 		position:absolute;
-		right: 0;
-		top: 0;
-		height:100%;
+		right: 20px;
+		top: 20px;
 		padding: 10px 20px 10px 21px;
 		color: white;
+		border-radius: 3px;
 		background-color: color("danger", "lighten-2");
 		font-weight: bold;
 		font-size: 2rem;
