@@ -94,6 +94,7 @@ export default class Poll {
           type: "poll",
         };
         Meteor.call('polls.insert', pollMsg, this.result.props);
+        Meteor.call('channels.stopTyping', this.channelId);
         this.resetState();
       } else {
         zorroMsg.text = `Je n'ai pas compris.`;

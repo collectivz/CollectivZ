@@ -72,6 +72,7 @@ export default class Coin {
           type: "coin",
         };
         Meteor.call('coins.insert', message, this.result);
+        Meteor.call('channels.stopTyping', this.channelId);
         this.resetState();
       } else {
         zorroMsg.text = `Je n'ai pas compris.`;

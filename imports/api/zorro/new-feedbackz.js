@@ -144,6 +144,7 @@ export default class Feedback {
       } else if (this.expectedAnswer === 'confirm') {
         if (answer === 'oui' || answer === 'Oui') {
           Meteor.call('feedbacks.giveFeedback', this.channelId, this.result);
+          Meteor.call('channels.stopTyping', this.channelId);
           this.resetState();
         } else {
           zorroMsg.text = `Je n'ai pas compris.`;

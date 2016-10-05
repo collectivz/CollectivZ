@@ -66,7 +66,7 @@ export default class BeerItem extends React.Component {
           <div className="button-box">
             <div className="tag">
               <i className="icon icon-users"/>
-              <span>{beer.members.length - 1} participants</span>
+              <span>{beer.members.length} participants</span>
             </div>
           </div>
           <br/>

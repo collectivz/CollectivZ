@@ -56,6 +56,7 @@ export default class Buddie {
     } else if (this.expectedAnswer === 'confirm') {
       if (answer === 'oui' || answer === 'Oui') {
         Meteor.call('buddies.inviteToChannel', this.result.username, this.channelId);
+        Meteor.call('channels.stopTyping', this.channelId);
         this.resetState();
       } else {
         zorroMsg.text = `Je n'ai pas compris.`;

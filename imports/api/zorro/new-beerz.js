@@ -69,6 +69,7 @@ export default class Beer {
     } else if (this.expectedAnswer === 'confirm') {
       if (answer === 'oui' || answer === 'Oui') {
         Meteor.call('beers.insert', this.result);
+        Meteor.call('channels.stopTyping', this.result.channelId);
         this.resetState();
       } else {
         zorroMsg.text = `Je n'ai pas compris.`;
