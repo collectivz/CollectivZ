@@ -155,7 +155,7 @@ export default class MessageInput extends Component {
     const {
       channel
     } = this.props;
-    if (!channel.isTyping.length) {
+    if (channel && channel.isTyping && !channel.isTyping.length) {
       this.setState({
         isTypingVisible: false
       });
