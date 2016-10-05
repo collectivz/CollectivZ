@@ -24,7 +24,7 @@ export default class ZorroItem extends Component {
   userAvatar() {
     if (this.props.message.author === 'self') {
       const user = Meteor.user();
-      return user.profile.avatar;
+      return user.imageUrl;
     } else {
       return '/img/zorro.jpg'
     }

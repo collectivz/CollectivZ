@@ -76,8 +76,8 @@ export default class MessageItem extends Component {
     } else {
       user = Meteor.users.findOne(userId);
     }
-    if (user && user.profile && user.profile.avatar)
-      return user.profile.avatar;
+    if (user)
+      return user.imageUrl;
     else {
       return '/img/no-user.png'
     }

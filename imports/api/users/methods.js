@@ -19,7 +19,7 @@ Meteor.methods({
     }
 
     Meteor.users.update(userId, {
-      $set: { 'profile.avatar' : url }
+      $set: { 'imageUrl' : url }
     });
   },
 
