@@ -10,6 +10,7 @@ $modal-easing-duration: 250ms;
 	display:none;
 	img {
 		width:auto;
+    	max-width: 350px;
 		display:block;
 	}
 	.modal--content {
