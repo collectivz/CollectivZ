@@ -31,6 +31,9 @@
 	}
 	.list-item-content {
 		max-width: 100%;
+		>div {
+			margin-left:85px;
+		}
 		.title {
 			margin:0;
 			font-size: 1.8rem;
