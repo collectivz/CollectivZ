@@ -62,7 +62,7 @@ export default class GroupForm extends React.Component {
       <div>
         <form id="box" onSubmit={this.handleSubmit}>
 
-          <fieldset className="large has-icon">
+          <fieldset className="large">
             <input
               className="large"
               type="text"
@@ -70,7 +70,7 @@ export default class GroupForm extends React.Component {
               { ...nameAttributes }
             />
           </fieldset>
-          <fieldset className="large has-icon">
+          <fieldset className="large">
             <input
               className="large"
               type="text"
@@ -78,7 +78,7 @@ export default class GroupForm extends React.Component {
               { ...descriptionAttributes }
             />
           </fieldset>
-          <fieldset className="large has-icon">
+          <fieldset className="large">
             <input type="submit" value="Valider" className="large big primary button"/>
           </fieldset>
 

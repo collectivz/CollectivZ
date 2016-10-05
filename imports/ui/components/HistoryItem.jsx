@@ -9,9 +9,9 @@ export default class HistoryItem extends React.Component {
     const { data } = this.props;
 
     return (
-      <div>
-        <p><b>Nom de mission</b> {data.name} évaluation: {data.actionRating}/5, commentaire : {data.actionComment}</p>
-        <p><b>Evaluation personnelle</b> {data.userRating}/5, commentaire : {data.userComment}</p>
+      <div className="list-item">
+        <p><b>Nom de mission:</b> {data.name} évaluation: {data.actionRating}/5, commentaire : {data.actionComment}</p>
+        <p><b>Evaluation personnelle:</b> {data.userRating}/5, commentaire : {data.userComment}</p>
       </div>
     );
   }

@@ -28,6 +28,9 @@ fieldset {
     &.large {
     	width:100%;
     }
+	input[type="submit"] {
+		margin-top:$text-size;
+	}
 	&.has-icon {
 		input {
 			z-index: $base-index;
