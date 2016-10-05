@@ -18,7 +18,7 @@ export default class MessageInput extends Component {
       isTyping: false,
       isTypingMessage: '',
       isTypingVisible: false,
-      typerCount: props.channel.isTyping.length
+      typerCount: 0
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -34,7 +34,9 @@ export default class MessageInput extends Component {
     this.setState({
       barHeight: { height: this.refs.bar.scrollHeight + 10 }
     });
-    this.getWhoIsTyping();
+    if (channel) {
+      this.getWhoIsTyping();
+    }
   }
 
   componentDidUpdate() {
@@ -44,7 +46,7 @@ export default class MessageInput extends Component {
     const {
       typerCount
     } = this.state;
-    if (typerCount !== channel.isTyping.length) {
+    if (channel && typerCount !== channel.isTyping.length) {
       this.getWhoIsTyping();
       this.setState({
         typerCount: channel.isTyping.length
