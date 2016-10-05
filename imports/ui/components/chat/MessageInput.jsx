@@ -31,6 +31,9 @@ export default class MessageInput extends Component {
   }
 
   componentDidMount() {
+    const {
+      channel
+    } = this.props;
     this.setState({
       barHeight: { height: this.refs.bar.scrollHeight + 10 }
     });
