@@ -41,12 +41,15 @@ export default class ChannelItem extends React.Component {
   getCss() {
     const {
       data,
-      renderMargin
+      renderMargin,
+      count
     } = this.props;
 
-    return (data.type === 'channel' && renderMargin)
-      ? 'list-item touch-event sub-list'
-      : 'list-item touch-event';
+
+    if(data.type === 'channel' && renderMargin)
+      return count ? 'list-item touch-event sub-list has-notif' : 'list-item touch-event sub-list';
+    else
+      return count ? 'list-item touch-event has-notif' : 'list-item touch-event';
   }
 
   render() {

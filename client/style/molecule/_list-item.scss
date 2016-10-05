@@ -32,7 +32,7 @@
 	.list-item-content {
 		max-width: 100%;
 		>div {
-			margin-left:85px;
+			margin-left:65px;
 		}
 		.title {
 			margin:0;
@@ -41,8 +41,8 @@
 			white-space: nowrap;
 			overflow: hidden;
 			height:21px;
-			width:calc(80% - 60px);
-			margin-left:85px;
+			width: 80%;
+			margin-left:65px;
 		}
 		.text {
 			margin:0;
@@ -50,8 +50,8 @@
 			white-space: nowrap;
 			overflow: hidden;
 			height:20px;
-			width:calc(80% - 60px);
-			margin-left:85px;
+			width: 80%;
+			margin-left:65px;
 			span {
 				font-weight: bold;
 				font-style: italic;
@@ -61,11 +61,13 @@
 			color:color("grey", "lighten-1");
 		}
 	}
+	&.has-notif {
+		.list-item-content .title, .list-item-content .text {
+			width: calc(80% - 60px);
+		}
+	}
 	&.sub-list {
 		border-left:10px solid color("grey", "lighten-1");
-	}
-	.list-item-content .title, .list-item-content .text {
-		
 	}
 	&:nth-child(2n) {
 		background-color: #fbfbfb;
@@ -81,8 +83,8 @@
 	}
 	.list-item-notif {
 		position:absolute;
-		right: 20px;
-		top: 20px;
+		right: 18px;
+		top: 18px;
 		padding: 10px 20px 10px 21px;
 		color: white;
 		border-radius: 3px;
@@ -92,6 +94,7 @@
 		line-height: 30px;
 		font-family: $nav-font;
 	}
+
 	.icon-chevron-right {
 		position:absolute;
 		right:$text-size * 1.5;
