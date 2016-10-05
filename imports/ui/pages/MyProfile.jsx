@@ -65,10 +65,10 @@ export default class MyProfile extends Component {
 
           <UserHeader user={user}/>
           <div className="button-box profile-button">
-            <button className="button big info" onClick={this.openUsernameModal}><i className="icon icon-user"/><span>Changer de nom d'utilisateur</span></button>
-            <button className="button big info" onClick={this.openPasswordModal}><i className="icon icon-lock"/><span>Changer de mot de passe</span></button>
-            <button className="button big info" onClick={this.openPictureModal}><i className="icon icon-camera"/><span>Changer d'avatar</span></button>
-            <button className="button big info" onClick={this.logout}><i className="icon icon-enter"/><span>Se déconnecter</span></button>
+            <button className="button full big info" onClick={this.openUsernameModal}><i className="icon icon-user"/><span>Changer de nom d'utilisateur</span></button>
+            <button className="button full big info" onClick={this.openPasswordModal}><i className="icon icon-lock"/><span>Changer de mot de passe</span></button>
+            <button className="button full big info" onClick={this.openPictureModal}><i className="icon icon-camera"/><span>Changer d'avatar</span></button>
+            <button className="button full big info" onClick={this.logout}><i className="icon icon-enter"/><span>Se déconnecter</span></button>
           </div>
           <div className="list">
             <div className="list-sub-menu">

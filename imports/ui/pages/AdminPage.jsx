@@ -125,7 +125,7 @@ export default class AdminPage extends Component {
                     placeholder="Nom du groupe"
                     ref="groupName"
                   />
-                  <button onClick={this.handleSubmit} className="small button primary">
+                  <button onClick={this.handleSubmit} className="small button info">
                     <span>Ajouter</span>
                   </button>
                 </form>
@@ -141,7 +141,7 @@ export default class AdminPage extends Component {
                     ref="amount"
                     onChange={this.getTotal}
                   />
-                    <button onClick={this.addMoney} className="small button primary">
+                    <button onClick={this.addMoney} className="small button info">
                       <span>Ajouter</span>
                     </button>
                   <br />
@@ -157,7 +157,7 @@ export default class AdminPage extends Component {
                     placeholder="Nom du coordinateur"
                     ref="adminName"
                   />
-                    <button onClick={this.addAdmin} className="small button primary">
+                    <button onClick={this.addAdmin} className="small button info">
                       <span>Ajouter</span>
                     </button>
                 </form>
