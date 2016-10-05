@@ -24,7 +24,7 @@ Meteor.publish('chanPage', function(id) {
     if (channel) {
       return [
         Channels.find({$or :[
-          {_id: id},
+          {_id: { $in: [id, channel.rootId] }},
           {parentId: id},
         ]}),
         Messages.find({channelId: id}),

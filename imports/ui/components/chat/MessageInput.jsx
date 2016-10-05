@@ -1,5 +1,6 @@
 import $                                  from 'jquery';
 import React, { Component, PropTypes }    from 'react';
+import { Router }                         from 'react-router';
 import { Meteor }                         from 'meteor/meteor';
 import ReactEmoji                         from 'react-emoji';
 
@@ -17,7 +18,7 @@ export default class MessageInput extends Component {
       isTyping: false,
       isTypingMessage: '',
       isTypingVisible: false,
-      typerCount: props.channel.isTyping.length
+      typerCount: 0
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -30,10 +31,15 @@ export default class MessageInput extends Component {
   }
 
   componentDidMount() {
+    const {
+      channel
+    } = this.props;
     this.setState({
       barHeight: { height: this.refs.bar.scrollHeight + 10 }
     });
-    this.getWhoIsTyping();
+    if (channel) {
+      this.getWhoIsTyping();
+    }
   }
 
   componentDidUpdate() {
@@ -43,12 +49,20 @@ export default class MessageInput extends Component {
     const {
       typerCount
     } = this.state;
-    if (typerCount !== channel.isTyping.length) {
+    if (channel && typerCount !== channel.isTyping.length) {
       this.getWhoIsTyping();
       this.setState({
         typerCount: channel.isTyping.length
       });
     }
+  }
+
+  componentWillUnmount() {
+    const {
+      channel
+    } = this.props;
+
+    Meteor.call('channels.stopTyping', channel._id);
   }
 
   keyboardEvent(e) {
@@ -198,7 +212,6 @@ export default class MessageInput extends Component {
       $(".chat-input-wrapper").toggleClass("open");
       $(".chat-sub-container").toggleClass("open");
     }
-    console.log(showWhoIsTyping);
 
     return (
       <div ref="bar" className="chat-input-wrapper">
@@ -241,4 +254,12 @@ export default class MessageInput extends Component {
     );
   }
 
+}
+
+window.onbeforeunload = () => {
+  const channels = Channels.find().fetch();
+
+  channels.forEach(channel => {
+    Meteor.call('channels.stopTyping', channel._id);
+  });
 }
