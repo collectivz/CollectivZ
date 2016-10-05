@@ -1,5 +1,6 @@
 import $                                  from 'jquery';
 import React, { Component, PropTypes }    from 'react';
+import { Router }                         from 'react-router';
 import { Meteor }                         from 'meteor/meteor';
 import ReactEmoji                         from 'react-emoji';
 
@@ -49,6 +50,14 @@ export default class MessageInput extends Component {
         typerCount: channel.isTyping.length
       });
     }
+  }
+
+  componentWillUnmount() {
+    const {
+      channel
+    } = this.props;
+
+    Meteor.call('channels.stopTyping', channel._id);
   }
 
   keyboardEvent(e) {
@@ -198,7 +207,6 @@ export default class MessageInput extends Component {
       $(".chat-input-wrapper").toggleClass("open");
       $(".chat-sub-container").toggleClass("open");
     }
-    console.log(showWhoIsTyping);
 
     return (
       <div ref="bar" className="chat-input-wrapper">
@@ -241,4 +249,12 @@ export default class MessageInput extends Component {
     );
   }
 
+}
+
+window.onbeforeunload = () => {
+  const channels = Channels.find().fetch();
+
+  channels.forEach(channel => {
+    Meteor.call('channels.stopTyping', channel._id);
+  });
 }
