@@ -96,7 +96,14 @@ export default class MessageInput extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    const { inputMode, hasActionPicker, channel, user } = this.props;
+    const {
+      inputMode,
+      hasActionPicker,
+      channel,
+      user,
+      answeringTo,
+      changeInputMode
+    } = this.props;
     const text = this.refs.textInput.value.trim();
 
     if (text.length) {
@@ -123,6 +130,25 @@ export default class MessageInput extends Component {
           });
 
         });
+      } else if (inputMode === 'answer') {
+        Meteor.call('channels.stopTyping', channel._id);
+        this.setState({
+          isTyping: false
+        });
+        if (channel.type === 'group' && !_.contains(user.subscribedChannels, channel._id)) {
+          Meteor.call('channels.join', channel._id);
+        }
+        Meteor.call('messages.answerMessage', answeringTo, text, (err, res) => {
+          if(err) {
+            Toast(err.reason, "danger");
+          }
+          this.refs.textInput.value = '';
+          this.setState({
+            barHeight: { height: 46 },
+            formHeight: { height: 36 }
+          });
+        });
+        changeInputMode('message');
       } else {
         this.props.answerToZorro(text);
         this.refs.textInput.value = '';

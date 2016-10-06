@@ -25,6 +25,7 @@ export default class MessageItem extends Component {
     this.goToProfile = this.goToProfile.bind(this);
     this.isChannelAuthor = this.isChannelAuthor.bind(this);
     this.transformIntoAction = this.transformIntoAction.bind(this);
+    this.answerMessage = this.answerMessage.bind(this);
   }
 
   editMessage(e) {
@@ -107,7 +108,15 @@ export default class MessageItem extends Component {
     else {
       return '/img/no-user.png'
     }
+  }
 
+  answerMessage() {
+    const {
+      message,
+      answerToMessage
+    } = this.props;
+
+    answerToMessage(message._id);
   }
 
   inviteToContacts() {
@@ -145,7 +154,10 @@ export default class MessageItem extends Component {
   }
 
   render() {
-    const { message, user } = this.props;
+    const {
+      message,
+      user
+    } = this.props;
 
     const { editing } = this.state;
 
@@ -181,6 +193,7 @@ export default class MessageItem extends Component {
                       <ul>
                         <li><a className="drop-down-menu-link" onClick={this.inviteToContacts}> Ajouter l'auteur à mes contacts </a></li>
                         <li><a className="drop-down-menu-link" onClick={this.chatWithAuthor}> Lancer une conversation avec l'auteur </a></li>
+                        <li><a className="drop-down-menu-link" onClick={this.answerMessage}> Répondre </a></li>
                         <li><a className="drop-down-menu-link" onClick={this.goToProfile}> Voir le profil </a></li>
                       </ul>
                     : ''
@@ -199,8 +212,14 @@ export default class MessageItem extends Component {
                       </button>
                     </form>
                   </div>
-                :
-                  <p dangerouslySetInnerHTML={{__html: message.text}}></p>
+                : message.quoted ?
+                    <div>
+                      <p>Réponse à <b>{message.quoted.authorName}</b>: <i>"{message.quoted.text}"</i></p>
+                      <br />
+                      <p dangerouslySetInnerHTML={{__html: message.text}}></p>
+                    </div>
+                  :
+                    <p dangerouslySetInnerHTML={{__html: message.text}}></p>
               }
 
           </div>

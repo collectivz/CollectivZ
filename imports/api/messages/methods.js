@@ -127,7 +127,32 @@ Meteor.methods({
       $push: { subscribedChannels: newChannelId },
       $set: { [lastReadField]: Date.now() }
     }, {multi: true});
+  },
 
+  'messages.answerMessage'(messageId, text) {
+    if (!this.userId) {
+      throw new Meteor.Error('not-logged-in',
+        "Vous devez être connecté pour poster un message.");
+    }
+    check(messageId, String);
+    check(text, String);
+    const message = Messages.findOne(messageId);
 
+    if (!message) {
+      throw new Meteor.Error('not-found',
+        "Le message auquel vous voulez répondre n'a pas été trouvé.");
+    }
+    const newMessage = {
+      quoted: {
+        text: message.text,
+        author: message.author,
+        authorName: message.authorName
+      },
+      text,
+      channelId: message.channelId,
+      author: this.userId,
+    };
+
+    Messages.insert(newMessage);
   }
 });

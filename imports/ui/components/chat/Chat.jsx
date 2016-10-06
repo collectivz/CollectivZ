@@ -31,13 +31,15 @@ export default class Chat extends React.Component {
       ongoingAction: false,
       expectedAnswer: '',
       choices: [],
-      messageCount: this.props.messages.length
+      messageCount: this.props.messages.length,
+      answeringTo: ''
     };
 
     this.setFilterOption = this.setFilterOption.bind(this);
     this.changeInputMode = this.changeInputMode.bind(this);
     this.answerToZorro = this.answerToZorro.bind(this);
     this.filterMessage = this.filterMessage.bind(this);
+    this.answerToMessage = this.answerToMessage.bind(this);
   }
 
   componentDidMount() {
@@ -49,7 +51,7 @@ export default class Chat extends React.Component {
   componentDidUpdate() {
     const { channel, messages } = this.props;
     const { inputMode, ongoingAction, messageCount } = this.state;
-    if (inputMode !== 'message' && !ongoingAction) {
+    if (inputMode !== 'message' && inputMode !== 'answer' && !ongoingAction) {
       const zorro = zorroForm(inputMode, channel._id);
       const newState = zorro.getState();
 
@@ -81,6 +83,13 @@ export default class Chat extends React.Component {
   changeInputMode(inputMode) {
     this.setState({
       inputMode
+    });
+  }
+
+  answerToMessage(messageId) {
+    this.setState({
+      inputMode: 'answer',
+      answeringTo: messageId
     });
   }
 
@@ -138,7 +147,9 @@ export default class Chat extends React.Component {
       dialogWithZorro,
       ongoingAction,
       filter,
-      choices
+      choices,
+      answeringTo,
+      inputMode
     } = this.state;
 
     const filteredMessages = this.filterMessage();
@@ -166,6 +177,7 @@ export default class Chat extends React.Component {
                   feedbacks={feedbacks}
                   coins={coins}
                   user={user}
+                  answerToMessage={this.answerToMessage}
                 />
               </div>
             </div>
@@ -185,13 +197,14 @@ export default class Chat extends React.Component {
         {
           this.hasJoined() ?
             <MessageInput
-              inputMode={this.state.inputMode}
+              inputMode={inputMode}
               changeInputMode={this.changeInputMode}
               answerToZorro={this.answerToZorro}
               channel={channel}
               toggleMarginBottom={this.toggleMarginBottom}
               hasActionPicker={true}
               user={user}
+              answeringTo={answeringTo}
             />
           :
             <JoinActionButton channel={channel} />
