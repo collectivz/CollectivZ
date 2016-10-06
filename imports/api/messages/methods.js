@@ -72,5 +72,62 @@ Meteor.methods({
     }
 
     Messages.remove(messageId);
+  },
+
+  'messages.transformIntoAction'(messageId) {
+    if (!this.userId) {
+      throw new Meteor.Error('not-logged-in',
+        "Vous devez être connecté pour transformer un message.");
+    }
+
+    check(messageId, String);
+
+    const message = Messages.findOne(messageId);
+
+    if (!message) {
+      throw new Meteor.Error('message-not-found',
+        "Le message à transformer n'a pas été trouvé.");
+    }
+
+    const channel = Channels.findOne(message.channelId);
+
+    if (message.author !== this.userId && !Meteor.user().isAdmin && channel.author !== this.userId) {
+      throw new Meteor.Error('not-author',
+        "Vous devez être auteur d'un message pour le transformer.");
+    }
+
+    Messages.update(message._id, {
+      $set: { type: 'channel' }
+    });
+    const newChannel = {
+      name: message.text,
+      parentId: message.channelId,
+      depth: channel.depth + 1,
+      rootId: channel.rootId,
+      type: 'channel',
+      imageUrl: '/img/icons/cog.svg',
+      messageId: message._id
+    };
+    const newChannelId = Channels.insert(newChannel);
+    Channels.update(message.channelId, {
+      $inc: {'connections.channelCount' : 1}
+    });
+    let selector;
+    if (message.author !== this.userId) {
+      selector = { _id: { $in: [message.author, this.userId] } };
+      Channels.update(newChannelId, {
+        $push: { members: message.author }
+      });
+    } else {
+      selector = this.userId;
+    }
+
+    const lastReadField = `lastReadAt.${newChannelId}`;
+    Meteor.users.update(selector, {
+      $push: { subscribedChannels: newChannelId },
+      $set: { [lastReadField]: Date.now() }
+    }, {multi: true});
+
+
   }
 });

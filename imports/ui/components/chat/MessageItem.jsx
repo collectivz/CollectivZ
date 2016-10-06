@@ -23,6 +23,8 @@ export default class MessageItem extends Component {
     this.chatWithAuthor = this.chatWithAuthor.bind(this);
     this.inviteToContacts = this.inviteToContacts.bind(this);
     this.goToProfile = this.goToProfile.bind(this);
+    this.isChannelAuthor = this.isChannelAuthor.bind(this);
+    this.transformIntoAction = this.transformIntoAction.bind(this);
   }
 
   editMessage(e) {
@@ -53,6 +55,30 @@ export default class MessageItem extends Component {
     Meteor.call('messages.delete', this.props.message._id, (err, res) => {
       if (err) {
         Toast(err.reason, "danger");
+      }
+    });
+  }
+
+  isChannelAuthor() {
+    const {
+      message,
+      user
+    } = this.props;
+    const channel = Channels.findOne(message.channelId);
+
+    return channel.author === user._id;
+  }
+
+  transformIntoAction() {
+    const {
+      message
+    } = this.props;
+
+    Meteor.call('messages.transformIntoAction', message._id, (err, res) => {
+      if (err) {
+        Toast(err.reason, "danger");
+      } else {
+        Toast("Message transformé avec succès.", 'success');
       }
     });
   }
@@ -142,10 +168,11 @@ export default class MessageItem extends Component {
 
                 <DropDownBottom>
                   {
-                    (message.author === user._id || user.isAdmin) ?
+                    (message.author === user._id || user.isAdmin || this.isChannelAuthor()) ?
                       <ul>
                         <li><a className="drop-down-menu-link" onClick={this.toggleEdit}> Editer le message </a></li>
                         <li><a className="drop-down-menu-link" onClick={this.deleteMessage}> Supprimer le message </a></li>
+                        <li><a className="drop-down-menu-link" onClick={this.transformIntoAction}> Transformer en action </a></li>
                       </ul>
                     : ''
                   }
