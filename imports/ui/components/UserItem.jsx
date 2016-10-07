@@ -60,6 +60,10 @@ export default class UserItem extends React.Component {
         return (
           <button className="button danger" onClick={removeAdmin.bind(this, data._id)}>Rétrograder</button>
         );
+      case 'invitationSent':
+        return (
+          <p>Invitation en attente...</p>
+        );
       default:
         return ;
     }

@@ -7,7 +7,7 @@ Meteor.publish('contactPage', function(repertoryId) {
   const repertory = Repertory.findOne(repertoryId);
   let userToSubscribe = [];
   if (repertory) {
-    userToSubscribe = repertory.contacts.concat(repertory.invitationReceved, repertory.invitationSend, repertory.blackList);
+    userToSubscribe = repertory.contacts.concat(repertory.invitationReceived, repertory.invitationSent, repertory.blackList);
   }
 
   return [

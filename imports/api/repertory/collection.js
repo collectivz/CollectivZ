@@ -5,8 +5,8 @@ class RepertoryCollection extends Mongo.Collection {
   insert(repertory, callback) {
     repertory.contacts = [];
     repertory.circles = [];
-    repertory.invitationReceved = [];
-    repertory.invitationSend = [];
+    repertory.invitationReceived = [];
+    repertory.invitationSent = [];
     repertory.blackList = [];
 
     return super.insert(repertory);

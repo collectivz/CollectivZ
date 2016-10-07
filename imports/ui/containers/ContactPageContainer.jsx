@@ -11,8 +11,8 @@ export default createContainer(({ user }) => {
   const repertory = Repertory.findOne(user.repertory);
   let usersContact = [];
   let circles = [];
-  let usersInvitationReceved = [];
-  let usersInvitationSend = [];
+  let usersInvitationReceived = [];
+  let usersInvitationSent = [];
   if (repertory) {
     usersContact = Meteor.users.find(
       {_id: {$in: repertory.contacts}},
@@ -20,8 +20,11 @@ export default createContainer(({ user }) => {
     circles = Circles.find(
       {_id: {$in: repertory.circles}},
       { sort: { lastActivity:  -1 } }).fetch();
-    usersInvitationReceved = Meteor.users.find(
-      {_id: {$in: repertory.invitationReceved}},
+    usersInvitationReceived = Meteor.users.find(
+      {_id: {$in: repertory.invitationReceived}},
+      { sort: { username: 1 } }).fetch();
+    usersInvitationSent = Meteor.users.find(
+      { _id: { $in: repertory.invitationSent } },
       { sort: { username: 1 } }).fetch();
   }
 
@@ -29,7 +32,8 @@ export default createContainer(({ user }) => {
     repertory,
     usersContact,
     circles,
-    usersInvitationReceved,
+    usersInvitationReceived,
+    usersInvitationSent,
     loading: !contactSub.ready(),
   };
 }, ContactPage);

@@ -56,14 +56,14 @@ polls = {
 
 props = {
   name: String,
-  voteRecevedFrom: [String],
+  voteReceivedFrom: [String],
   pollId: String,
   }
 
 args = {
   text: String,
   author: String,
-  voteRecevedFrom: [String],
+  voteReceivedFrom: [String],
   timestamp: Date(),
   propsId: String,
 }
