@@ -58,10 +58,10 @@ export default class PollItem extends React.Component {
     const {
       poll
     } = this.props;
-    const percent = (poll.totalVote * 100) / proposition.voteReceivedFrom.length || 0;
+    const percent = (proposition.voteRecevedFrom.length * 100) / poll.totalVote || 0;
 
     return {
-      width: percent
+      width: percent + '%'
     };
   }
 
