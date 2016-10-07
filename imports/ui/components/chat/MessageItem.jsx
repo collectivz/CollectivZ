@@ -4,7 +4,9 @@ import { Meteor }                         from 'meteor/meteor';
 import moment                             from 'moment';
 
 import DropDownBottom from '../DropDownBottom';
+import UserDetails from './UserDetails';
 import { Toast }         from '../../helpers/Toast';
+import { openModal }         from '../../helpers/Modal';
 
 
 export default class MessageItem extends Component {
@@ -26,6 +28,7 @@ export default class MessageItem extends Component {
     this.isChannelAuthor = this.isChannelAuthor.bind(this);
     this.transformIntoAction = this.transformIntoAction.bind(this);
     this.answerMessage = this.answerMessage.bind(this);
+    this.openUserModal = this.openUserModal.bind(this);
   }
 
   editMessage(e) {
@@ -96,20 +99,6 @@ export default class MessageItem extends Component {
     }
   }
 
-  userAvatar(userId) {
-    let user;
-    if (userId === Meteor.userId) {
-      user = Meteor.user();
-    } else {
-      user = Meteor.users.findOne(userId);
-    }
-    if (user)
-      return user.imageUrl;
-    else {
-      return '/img/no-user.png'
-    }
-  }
-
   answerMessage() {
     const {
       message,
@@ -153,10 +142,20 @@ export default class MessageItem extends Component {
     this.context.router.push(`/profile/${message.author}`)
   }
 
+  openUserModal() {
+    const {
+      author
+    } = this.props;
+
+    const component = <UserDetails author={author} />;
+    openModal(component, `Détails sur ${author.username}`);
+  }
+
   render() {
     const {
       message,
-      user
+      user,
+      author
     } = this.props;
 
     const { editing } = this.state;
@@ -166,7 +165,7 @@ export default class MessageItem extends Component {
     return (
       <div className={this.isMine()} >
 
-          <img src={this.userAvatar(message.author)} />
+          <img src={author.imageUrl} onClick={this.openUserModal} />
 
           <div className="bubble-content">
 
