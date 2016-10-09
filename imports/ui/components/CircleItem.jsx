@@ -63,13 +63,14 @@ export default class CircleItem extends React.Component {
     const {
       data
     } = this.props;
+    const {
+      router
+    } = this.context;
 
     if (data.channel) {
       return (
-        <TouchEvent class="list-item touch-event" onClick={ () => { this.onClick(`/conversation/${data.channel}`) } }>
-          <button>Voir conversation</button>
-        </TouchEvent>
-      )
+        <button onClick={() => { router.push(`/conversation/${data.channel}`) }}>Voir conversation</button>
+      );
     } else {
       return  <button onClick={this.createConversation}>Creer conversation</button>;
     }
@@ -83,7 +84,7 @@ export default class CircleItem extends React.Component {
 
     return (
       <div>
-        <TouchEvent class="list-item touch-event" onClick={ () => { this.onClick(`/circle/${data._id}`) } }>
+        <TouchEvent class="list-item touch-event">
           <h3>{data.name}</h3>
         </TouchEvent>
         <button onClick={this.removeCircle}>Supprimer</button>
