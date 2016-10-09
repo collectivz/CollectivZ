@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 
 import { Channels } from '../../api/channels/collection';
+import { Messages } from '../../api/messages/collection';
 import { Repertory } from '../../api/repertory/collection';
 
 Meteor.startup(() => {
@@ -45,7 +46,7 @@ Meteor.startup(() => {
 
   messages.forEach(message => {
     if (!message.authorImage) {
-      const user = Meteor.user.findOne(message.author);
+      const user = Meteor.users.findOne(message.author);
       message.authorImage = user.imageUrl;
       Messages.update(message._id, message);
     }
