@@ -40,11 +40,18 @@ export default class Chat extends React.Component {
     this.answerToZorro = this.answerToZorro.bind(this);
     this.filterMessage = this.filterMessage.bind(this);
     this.answerToMessage = this.answerToMessage.bind(this);
+    this.scrollDown = this.scrollDown.bind(this);
   }
 
   componentDidMount() {
+    this.scrollDown();
+  }
+
+  scrollDown() {
+    const elem = $('.chat-sub-container');
+    const maxScrollTop = elem[0].scrollHeight - elem.outerHeight();
     $(".chat-sub-container").stop().animate({
-      scrollTop: 10000
+      scrollTop: maxScrollTop
     }, 500);
   }
 
@@ -65,19 +72,15 @@ export default class Chat extends React.Component {
       this.setState({
         messageCount: messages.length
       });
+      this.scrollDown();
     }
-    $(".chat-sub-container").stop().animate({
-      scrollTop: 10000
-    }, 500);
   }
 
   setFilterOption(filter) {
     this.setState({
       filter
     });
-    $(".chat-sub-container").stop().animate({
-      scrollTop: 10000
-    }, 500);
+    this.scrollDown();
   }
 
   changeInputMode(inputMode) {
