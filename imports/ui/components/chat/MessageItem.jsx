@@ -144,8 +144,13 @@ export default class MessageItem extends Component {
 
   openUserModal() {
     const {
-      author
+      message
     } = this.props;
+    const author = {
+      username: message.authorName,
+      _id: message.author,
+      imageUrl: message.authorImage
+    };
 
     const component = <UserDetails author={author} />;
     openModal(component, `Détails sur ${author.username}`);
@@ -165,7 +170,7 @@ export default class MessageItem extends Component {
     return (
       <div className={this.isMine()} >
 
-          <img src={author.imageUrl} onClick={this.openUserModal} />
+          <img src={message.authorImage} onClick={this.openUserModal} />
 
           <div className="bubble-content">
 

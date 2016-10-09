@@ -40,4 +40,14 @@ Meteor.startup(() => {
     }
     Repertory.update(repertory._id, repertory);
   });
+
+  const messages = Messages.find().fetch();
+
+  messages.forEach(message => {
+    if (!message.authorImage) {
+      const user = Meteor.user.findOne(message.author);
+      message.authorImage = user.imageUrl;
+      Messages.update(message._id, message);
+    }
+  });
 });

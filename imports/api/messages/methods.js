@@ -18,7 +18,9 @@ Meteor.methods({
     });
 
     if (message.text.length > 0) {
+      const author = Meteor.users.findOne(this.userId);
       message.author = this.userId;
+      message.authorImage = author.imageUrl;
       Messages.insert(message);
     }
   },
