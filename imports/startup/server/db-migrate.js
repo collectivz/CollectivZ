@@ -3,6 +3,7 @@ import { Meteor } from 'meteor/meteor';
 import { Channels } from '../../api/channels/collection';
 import { Messages } from '../../api/messages/collection';
 import { Repertory } from '../../api/repertory/collection';
+import { Propositions } from '../../api/polls/collection';
 
 Meteor.startup(() => {
   const users = Meteor.users.find().fetch();
