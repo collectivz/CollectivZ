@@ -42,6 +42,15 @@ Meteor.startup(() => {
     Repertory.update(repertory._id, repertory);
   });
 
+  const propositions = Propositions.find().fetch();
+  propositions.forEach(proposition => {
+    if (proposition.voteRecevedFrom) {
+      proposition.voteReceivedFrom = proposition.voteRecevedFrom;
+      delete proposition.voteRecevedFrom;
+      Propositions.update(proposition._id, proposition);
+    }
+  });
+
   const messages = Messages.find().fetch();
 
   messages.forEach(message => {
