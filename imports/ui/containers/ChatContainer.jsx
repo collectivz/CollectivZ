@@ -13,7 +13,9 @@ import Chat                     from '../components/chat/Chat.jsx';
 
 export default createContainer(({ channel, user }) => {
 
-  const messages = Messages.find({channelId: channel._id}).fetch();
+  const messages = Messages.find({channelId: channel._id},
+    { sort: { createdAt: -1 } }
+  ).fetch();
   const polls = Polls.find({channelId: channel._id}).fetch();
   const beers = Beers.find({channelId: channel._id}).fetch();
   const subChannels = Channels.find({parentId: channel._id}).fetch();
@@ -29,5 +31,5 @@ export default createContainer(({ channel, user }) => {
     feedbacks,
     user
   };
-  
+
 }, Chat);
