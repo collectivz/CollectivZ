@@ -99,10 +99,12 @@ export default class Chat extends React.Component {
   hasJoined() {
     const { user, channel } = this.props;
     console.log(channel);
-
+    console.log(user);
     if (!_.contains(user.subscribedChannels, channel._id)) {
+      console.log('false');
       return false;
     }
+    console.log('true');
     return true;
   }
 

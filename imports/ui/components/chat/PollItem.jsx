@@ -33,11 +33,13 @@ export default class PollItem extends React.Component {
       propositions
     } = this.props;
 
-    return propositions.some(proposition => {
-      return proposition.voteReceivedFrom.some(id => {
-        return id === user._id;
+    if (propositionId) {
+      return propositions.some(proposition => {
+        return proposition.voteReceivedFrom.some(id => {
+          return id === user._id;
+        });
       });
-    });
+    }
   }
 
   deletePoll() {
