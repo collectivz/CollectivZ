@@ -33,8 +33,7 @@ export default class PollItem extends React.Component {
       propositions
     } = this.props;
 
-    console.log(propositions);
-    if (propositions) {
+    if (propositions.length) {
       return propositions.some(proposition => {
         return proposition.voteReceivedFrom.some(id => {
           return id === user._id;
