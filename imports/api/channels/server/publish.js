@@ -3,6 +3,7 @@ import { check } from 'meteor/check';
 
 import { Channels } from '../collection.js';
 import { Messages } from '../../messages/collection.js';
+import { Tasks } from '../../tasks/tasks.js';
 import { Archives } from '../../archives/archives.js';
 import { Beers } from '../../beers/collection.js';
 import { Coins } from '../../coins/collection.js';
@@ -27,6 +28,7 @@ Meteor.publish('chanPage', function(id) {
           {_id: { $in: [id, channel.rootId] }},
           {parentId: id},
         ]}),
+        Tasks.find({ channelId: id }),
         Messages.find({channelId: id}),
         Feedbacks.find({channelId: id}),
         Beers.find({channelId: id}),

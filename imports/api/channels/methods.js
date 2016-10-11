@@ -77,7 +77,7 @@ Meteor.methods({
     channel.rootId = parent.rootId;
     channel.type = 'channel';
     channel.imageUrl = '/img/icons/cog.svg';
-
+    channel.incompleteTasks = 0;
 
     const channelId = Channels.insert(channel)
 
