@@ -9,7 +9,9 @@ export default createContainer(({ params, user }) => {
   const id = params.conversationId;
   const channelSub = Meteor.subscribe('conversationPage', id);
   const channel = Channels.findOne(id);
-  const messages = Messages.find({channelId: id}).fetch();
+  const messages = Messages.find({channelId: id}, {
+    sort: { createdAt: 1 }
+  }).fetch();
 
   return {
     loading: !channelSub.ready(),
