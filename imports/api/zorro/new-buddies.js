@@ -2,7 +2,7 @@ export default class Buddie {
 
   constructor(channelId) {
     this.question = {
-      text: `Vous voulez ajouter un nouveau justicier dans le groupe, quel est son nom d'utilisateur ou son mail ? Vous pouvez à tout moment écrire @annuler pour annuler.`,
+      text: `Vous voulez ajouter un nouveau membre dans le groupe, quel est son nom d'utilisateur ou son mail ? Vous pouvez à tout moment écrire @annuler pour annuler.`,
       author: 'Zorro'
     };
     this.state = {

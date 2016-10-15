@@ -34,3 +34,5 @@ import '../../api/archives/methods.js';
 
 import '../../api/methods.js';
 import '../../api/collection-handler.js';
+
+import '../../api/emails/emails';

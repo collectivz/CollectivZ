@@ -21,15 +21,6 @@ Meteor.startup(function() {
       }
     });
     Accounts.createUser({
-      email : 'tdurand@student.42.fr',
-      username: 'tommy',
-      password : 'collectivz',
-      profile: {
-        firstName: 'tommy',
-        lastName: 'durand'
-      }
-    });
-    Accounts.createUser({
       email : 'tfrere@student.42.fr',
       username: 'thibaud',
       password : 'collectivz',
@@ -38,16 +29,6 @@ Meteor.startup(function() {
         lastName: 'frere'
       }
     });
-    Accounts.createUser({
-      email : 'cfriot@student.42.fr',
-      username: 'charles',
-      password : 'collectivz',
-      profile: {
-        firstName: 'charles',
-        lastName: 'friot'
-      }
-    });
-
     Accounts.createUser({
       email : 'boris@collectivz.info',
       username: 'boris',
@@ -68,15 +49,6 @@ Meteor.startup(function() {
       }
     });
 
-    Accounts.createUser({
-      email : 'christinemarsan13@gmail.com',
-      username: 'christine',
-      password : 'collectivz',
-      profile: {
-        firstName: 'Christine',
-        lastName: 'Marsan'
-      }
-    });
     Accounts.createUser({
       email : 'plop@zorro.com',
       username: 'mathias',
