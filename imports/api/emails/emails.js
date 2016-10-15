@@ -9,7 +9,7 @@ import { Messages } from '../messages/collection';
 SyncedCron.add({
   name: 'Send mail to keep people in touch with CollectivZ',
   schedule(parser) {
-    return parser.text('every 10 minutes');
+    return parser.text('at 11:59 pm');
   },
   job() {
     const yesterday = moment().add(-2, 'days').valueOf();
@@ -31,10 +31,10 @@ SyncedCron.add({
       ).count();
       if (messageCount > 0) {
         Email.send({
-          to: 'philippe.decrat@gmail.com',
+          to: user.emails[0],
           from: 'postmaster@www.collectivz.com',
           subject: 'Le Collectif avance sans vous !',
-          text: `Bonjour, vous ne vous êtes pas connecté depuis plus de 2 jours... ${messageCount} ont été postés dans ${channels.length} groupes différents depuis votre dernier passage !`
+          text: `Bonjour, vous ne vous êtes pas connecté depuis plus de 2 jours... ${messageCount} messages ont été postés dans ${channels.length} groupes différents depuis votre dernier passage !`
         });
       }
 
