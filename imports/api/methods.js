@@ -20,7 +20,7 @@ Meteor.methods({
     let returnData;
     const s3Params = {
       Bucket: S3_BUCKET,
-      Key: fileName,
+      Key: `${Meteor.user().username}Avatar`,
       Expires: 60,
       ContentType: fileType,
       ACL: 'public-read'
@@ -32,7 +32,7 @@ Meteor.methods({
       }
       returnData = {
         signedRequest: data,
-        url: `https://${S3_BUCKET}.s3.eu-central-1.amazonaws.com/${fileName}`
+        url: `https://${S3_BUCKET}.s3.eu-central-1.amazonaws.com/${Meteor.user().username}Avatar`
       };
       return returnData;
     });
