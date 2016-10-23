@@ -123,12 +123,11 @@ export default class MessageInput extends Component {
           if(err) {
             Toast(err.reason, "danger");
           }
-          this.refs.textInput.value = '';
-          this.setState({
-            barHeight: { height: 46 },
-            formHeight: { height: 36 }
-          });
-
+        });
+        this.refs.textInput.value = '';
+        this.setState({
+          barHeight: { height: 46 },
+          formHeight: { height: 36 }
         });
       } else if (inputMode === 'answer') {
         Meteor.call('channels.stopTyping', channel._id);

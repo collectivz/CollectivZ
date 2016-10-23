@@ -12,6 +12,7 @@
     "jquery": "^3.1.0",
     "meteor-node-stubs": "^0.2.3",
     "moment": "^2.15.0",
+    "promises": "^0.2.5",
     "react": "^15.3.1",
     "react-addons-pure-render-mixin": "^15.3.1",
     "react-dom": "^15.3.1",
@@ -19,6 +20,7 @@
     "react-router": "^2.8.1",
     "react-timer-mixin": "^0.13.3",
     "react-toastr": "^2.8.1",
+    "smartcrop": "^1.1.1",
     "xhr": "^2.2.2"
   }
 }

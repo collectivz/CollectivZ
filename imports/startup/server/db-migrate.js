@@ -55,8 +55,9 @@ Meteor.startup(() => {
   const messages = Messages.find().fetch();
 
   messages.forEach(message => {
-    if (!message.authorImage) {
-      const user = Meteor.users.findOne(message.author);
+    const user = Meteor.users.findOne(message.author);
+
+    if (user && (!message.authorImage || message.authorImage !== user.imageUrl)) {
       message.authorImage = user.imageUrl;
       Messages.update(message._id, message);
     }

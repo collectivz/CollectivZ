@@ -31,7 +31,7 @@ SyncedCron.add({
       ).count();
       if (messageCount > 0) {
         Email.send({
-          to: user.emails[0],
+          to: user.emails[0].adress,
           from: 'postmaster@www.collectivz.com',
           subject: 'Le Collectif avance sans vous !',
           text: `Bonjour, vous ne vous êtes pas connecté depuis plus de 2 jours... ${messageCount} messages ont été postés dans ${channels.length} groupes différents depuis votre dernier passage !`

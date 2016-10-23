@@ -21,6 +21,9 @@ Meteor.methods({
     Meteor.users.update(userId, {
       $set: { 'imageUrl' : url }
     });
+    Messages.update({ author: userId }, {
+      $set: { 'authorImage': url }
+    });
   },
 
   'users.changeBackground'(url) {
