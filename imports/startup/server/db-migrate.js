@@ -19,6 +19,16 @@ Meteor.startup(() => {
   const channels = Channels.find().fetch();
 
   channels.forEach(channel => {
+    if (channel.imageUrl === "/img/user-group.png") {
+      channel.imageUrl = "/img/icons/users.svg";
+      Channels.update(channel._id, channel);
+    }
+
+    if (channel.imageUrl === "/img/action.png") {
+      channel.imageUrl = "/img/icons/cog.svg";
+      Channels.update(channel._id, channel);
+    }
+
     if (!channel.isTyping) {
       channel.isTyping = [];
       Channels.update(channel._id, channel);
