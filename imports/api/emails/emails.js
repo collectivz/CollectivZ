@@ -9,7 +9,7 @@ import { Messages } from '../messages/collection';
 SyncedCron.add({
   name: 'Send mail to keep people in touch with CollectivZ',
   schedule(parser) {
-    return parser.text('at 11:59 pm');
+    return parser.text('at 00:10 am');
   },
   job() {
     const yesterday = moment().add(-2, 'days').valueOf();
