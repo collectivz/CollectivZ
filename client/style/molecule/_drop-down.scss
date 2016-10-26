@@ -2,12 +2,12 @@ $base-index: 9999999;
 
 .drop-down {
 	position: absolute;
-	right: 0;
+	right: -300px;
 	top: 60px;
 	width: 300px;
-    height: 500px;
-    overflow: hidden;
-    float:right;
+  overflow: hidden;
+  float:right;
+	transition: all 200ms ease;
 	.touch-event {
 		width:$breadcrumb-height;
 		height:$breadcrumb-height;
@@ -29,12 +29,10 @@ $base-index: 9999999;
 		}
 	}
 	.drop-down-menu {
-		position:absolute;
-		right:-300px;
+		position:relative;
 		width:300px;
-		top:0px;
 		z-index: $base-index;
-		transition: all 200ms ease;
+
 	}
 	ul {
 		margin:0;
@@ -51,9 +49,7 @@ $base-index: 9999999;
 		color: color("grey","base");
 	}
 	&.drop-down--open {
-		.drop-down-menu {
 			right:0;
-		}
 	}
 }
 
@@ -70,7 +66,7 @@ $base-index: 9999999;
 	//box-shadow: 0 -4px 10px rgba(color("grey", "darken-2"), .15);
 	.drop-down-overlay {
 		width:100%;
-		min-height:400px;
+		min-height:100px;
 		z-index: $base-index - 1;
 		background: linear-gradient(to bottom, rgba(255,255,255,0) 0%,rgba(0,0,0,0.2) 100%);
 	}

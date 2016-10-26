@@ -157,47 +157,47 @@ export default class Chat extends React.Component {
     const filteredMessages = this.filterMessage();
 
     return (
-      <div className={classNames("chat-sub-container", {"chat-with-filter-sub-container" : !_.isEmpty(channel.connections)})}>
-
+      <div>
         {!_.isEmpty(channel.connections) ?
           <ChatFilter channel={channel} setFilterOption={this.setFilterOption} />
           : ''
         }
+        <div className={classNames("chat-sub-container", {"chat-with-filter-sub-container" : !_.isEmpty(channel.connections)})}>
 
-        <div className="chat">
-          <div className="chat-separator">
+          <div className="chat">
+            <div className="chat-separator">
               <h5>Aujourd'hui</h5>
-          </div>
-          <div ref='scroll'>
-            <div className="scroll">
-              <div className="message-list">
-                <MessageList
-                  messages={filteredMessages}
-                  beers={beers}
-                  polls={polls}
-                  subChannels={subChannels}
-                  feedbacks={feedbacks}
-                  coins={coins}
-                  user={user}
-                  answerToMessage={this.answerToMessage}
-                />
-              </div>
             </div>
-            {ongoingAction ?
+            <div ref='scroll'>
               <div className="scroll">
                 <div className="message-list">
-                  {dialogWithZorro.map((message, index) => {
-                    const _choices = ((index + 1) === dialogWithZorro.length) ? choices : [];
-                    return (<ZorroItem message={message} key={index} answerToZorro={this.answerToZorro} choices={_choices}/>);
-                  })}
+                  <MessageList
+                    messages={filteredMessages}
+                    beers={beers}
+                    polls={polls}
+                    subChannels={subChannels}
+                    feedbacks={feedbacks}
+                    coins={coins}
+                    user={user}
+                    answerToMessage={this.answerToMessage}
+                    />
                 </div>
               </div>
-              : ''
-            }
+              {ongoingAction ?
+                <div className="scroll">
+                  <div className="message-list">
+                    {dialogWithZorro.map((message, index) => {
+                      const _choices = ((index + 1) === dialogWithZorro.length) ? choices : [];
+                      return (<ZorroItem message={message} key={index} answerToZorro={this.answerToZorro} choices={_choices}/>);
+                    })}
+                  </div>
+                </div>
+                : ''
+              }
+            </div>
           </div>
-        </div>
-        {
-          this.hasJoined() ?
+          {
+            this.hasJoined() ?
             <MessageInput
               inputMode={inputMode}
               changeInputMode={this.changeInputMode}
@@ -207,10 +207,11 @@ export default class Chat extends React.Component {
               hasActionPicker={true}
               user={user}
               answeringTo={answeringTo}
-            />
-          :
+              />
+            :
             <JoinActionButton channel={channel} />
-        }
+          }
+        </div>
       </div>
     );
   }

@@ -66,6 +66,7 @@ html, body, #app-container, #render-target {
 	height:100%;
 	position:relative;
 	background-color: $background-color;
+	overflow: hidden;
 }
 
 svg {
