@@ -103,7 +103,7 @@ export default class BeerItem extends React.Component {
       <div className="chat-special-bubble chat-special-bubble-beer">
           <div className="bubble-content">
               <div className="bubble-header">
-                  <h4><i className="icon icon-beer"/> {beer.occasion}</h4>
+                  <h4><i className="icon icon-event2"/> {beer.occasion}</h4>
                   {
                     (beer.author === user._id || user.isAdmin) ?
                       <DropDownBottom>

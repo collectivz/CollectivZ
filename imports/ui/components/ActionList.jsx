@@ -11,14 +11,14 @@ export default class ActionList extends React.Component {
       <div>
         {actions.channelCount ?
           <div className="tag action-color">
-            <i className="icon icon-cog"/>
+            <i className="icon icon-action"/>
             <span>{actions.channelCount}</span>
           </div>
           : ''
         }
         {actions.beerCount ?
           <div alt="evenements" className="tag event-color">
-            <i className="icon icon-beer"/>
+            <i className="icon icon-event2"/>
             <span>{actions.beerCount}</span>
           </div>
           : ''

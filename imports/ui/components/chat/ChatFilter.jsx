@@ -37,7 +37,7 @@ export default class ChatFilter extends React.Component {
 
         {channel.connections.channelCount ?
           <TouchEvent onClick={ () => { this.onClick('channel') } } class={classNames("filter-item touch-event", {active: this.state.activeFilter == 'channel'})}>
-              <i className="icon icon-cog action-color"/>
+              <i className="icon icon-action action-color"/>
               <span className="action-color">{channel.connections.channelCount}</span>
           </TouchEvent>
           :
@@ -45,7 +45,7 @@ export default class ChatFilter extends React.Component {
         }
         {channel.connections.beerCount ?
           <TouchEvent onClick={ () => { this.onClick('beer') } } class={classNames("filter-item touch-event", {active: this.state.activeFilter == 'beer'})}>
-              <i className="icon icon-beer  event-color"/>
+              <i className="icon icon-event2  event-color"/>
               <span className="event-color">{channel.connections.beerCount}</span>
           </TouchEvent>
           :

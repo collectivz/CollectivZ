@@ -13,7 +13,7 @@
     </div>
 */
 
-$chat-filter-height: 50px;
+$chat-filter-height: 60px;
 $chat-filter-open-height: 150px;
 
 .chat-filter {
@@ -36,10 +36,12 @@ $chat-filter-open-height: 150px;
 			background-color: color("grey", "lighten-3");
 		}
 		i {
-			padding:6px;
-			border-radius: 100%;
-			//opacity:0.5;
-			color:white;
+			padding: 6px;
+	    width: 27px;
+	    height: 27px;
+	    border-radius: 100%;
+	    color: white;
+	    display: inline-block;
 		}
 		span {
 			font-family: $nav-font;
