@@ -67,8 +67,11 @@ export default class RegisterPage extends React.Component {
       <div className="login screen-box center">
         <div className="center-wrapper">
           <form id="box" onSubmit={this.handleSubmit}>
-            <img src="/img/logo.svg" width="64" height="64" />
+            {/*
+              <img src="/img/logo.svg" width="64" height="64" />
+            */}
             <fieldset className="large has-icon">
+              <i className="icon icon-user"></i>
               <input
                 className="large"
                 type="text"
@@ -77,6 +80,7 @@ export default class RegisterPage extends React.Component {
               />
             </fieldset>
             <fieldset className="large has-icon">
+              <i className="icon icon-envelope"></i>
               <input
                 className="large"
                 type="text"
@@ -85,6 +89,7 @@ export default class RegisterPage extends React.Component {
               />
             </fieldset>
             <fieldset className="large has-icon">
+              <i className="icon icon-lock"></i>
               <input
                 className="large"
                 type="password"
@@ -93,13 +98,14 @@ export default class RegisterPage extends React.Component {
               />
             </fieldset>
             <fieldset className="large has-icon">
+              <i className="icon icon-lock"></i>
               <input
                 className="large"
                 type="password"
                 placeholder="Confirmation mot de passe"
                 ref="passwordAgain"
               />
-              <input type="submit" value="S'enregister" className="large big primary button"/>
+            <input type="submit" value="S'enregister" className="large big success button"/>
             </fieldset>
 
           </form>

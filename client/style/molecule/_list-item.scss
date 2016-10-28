@@ -84,15 +84,23 @@
 	.list-item-notif {
 		position:absolute;
 		right: 18px;
-		top: 18px;
+		top: calc(50% - 25px);
 		padding: 10px 20px 10px 21px;
 		color: white;
-		border-radius: 3px;
+		border-radius: 100%;
 		background-color: color("danger", "lighten-2");
 		font-weight: bold;
 		font-size: 2rem;
 		line-height: 30px;
 		font-family: $nav-font;
+		i {
+			position: absolute;
+	    font-size: 4rem;
+	    opacity: 0.3;
+	    color: white;
+	    left: 15%;
+	    top: 4%;
+		}
 	}
 
 	.icon-chevron-right {

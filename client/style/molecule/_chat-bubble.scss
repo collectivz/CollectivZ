@@ -88,10 +88,10 @@ $bubble-2n-color: #fbfbfb;
 				i {
 					cursor:pointer;
 					font-size: 2rem;
-					color:color("grey", "lighten-1");
+					color:color("grey", "base");
 					transition: color 200ms ease;
 					&:hover {
-						color:color("grey", "base");
+						color:color("grey", "darken-1");
 					}
 				}
 			}

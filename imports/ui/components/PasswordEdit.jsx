@@ -54,7 +54,7 @@ export default class PasswordEdit extends React.Component {
             />
           </fieldset>
           <fieldset className="large has-icon">
-            <input type="submit" value="Modifier" className="large big primary button"/>
+            <input type="submit" value="Modifier" className="large big success button"/>
           </fieldset>
 
         </form>

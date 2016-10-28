@@ -31,18 +31,10 @@ export default class ChatFilter extends React.Component {
       <div className="chat-filter">
 
         <TouchEvent onClick={ () => { this.onClick('all') } } class={classNames("filter-item touch-event", {active: this.state.activeFilter == 'all'})}>
-            
+
             <i className="icon icon-undo grey"/>
         </TouchEvent>
 
-        {channel.connections.pollCount ?
-          <TouchEvent onClick={ () => { this.onClick('poll') } } class={classNames("filter-item touch-event", {active: this.state.activeFilter == 'poll'})}>
-              <i className="icon icon-pie-chart pollz-color"/>
-              <span className="pollz-color">{channel.connections.pollCount}</span>
-          </TouchEvent>
-          :
-          ''
-        }
         {channel.connections.channelCount ?
           <TouchEvent onClick={ () => { this.onClick('channel') } } class={classNames("filter-item touch-event", {active: this.state.activeFilter == 'channel'})}>
               <i className="icon icon-cog action-color"/>
@@ -53,8 +45,16 @@ export default class ChatFilter extends React.Component {
         }
         {channel.connections.beerCount ?
           <TouchEvent onClick={ () => { this.onClick('beer') } } class={classNames("filter-item touch-event", {active: this.state.activeFilter == 'beer'})}>
-              <i className="icon icon-calendar-full  event-color"/>
+              <i className="icon icon-beer  event-color"/>
               <span className="event-color">{channel.connections.beerCount}</span>
+          </TouchEvent>
+          :
+          ''
+        }
+        {channel.connections.coinCount ?
+          <TouchEvent  onClick={ () => { this.onClick('coin') } } class={classNames("filter-item touch-event", {active: this.state.activeFilter == 'coin'})}>
+              <i className="icon icon-euro money-color"/>
+              <span className="money-color">{channel.connections.coinCount}</span>
           </TouchEvent>
           :
           ''
@@ -67,10 +67,10 @@ export default class ChatFilter extends React.Component {
           :
           ''
         }
-        {channel.connections.coinCount ?
-          <TouchEvent  onClick={ () => { this.onClick('coin') } } class={classNames("filter-item touch-event", {active: this.state.activeFilter == 'coin'})}>
-              <i className="icon icon-euro money-color"/>
-              <span className="money-color">{channel.connections.coinCount}</span>
+        {channel.connections.pollCount ?
+          <TouchEvent onClick={ () => { this.onClick('poll') } } class={classNames("filter-item touch-event", {active: this.state.activeFilter == 'poll'})}>
+              <i className="icon icon-pie-chart pollz-color"/>
+              <span className="pollz-color">{channel.connections.pollCount}</span>
           </TouchEvent>
           :
           ''

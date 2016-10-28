@@ -9,31 +9,38 @@ export default class ActionList extends React.Component {
 
     return (
       <div>
-        {actions.pollCount ?
-          <div className="tag">
-              <i className="icon icon-pie-chart"/>
-              <span>{actions.pollCount}</span>
-          </div>
-          : ''
-        }
         {actions.channelCount ?
-          <div className="tag">
-              <i className="icon icon-cog"/>
-              <span>{actions.channelCount}</span>
+          <div className="tag action-color">
+            <i className="icon icon-cog"/>
+            <span>{actions.channelCount}</span>
           </div>
           : ''
         }
         {actions.beerCount ?
-          <div className="tag">
-              <i className="icon icon-calendar-full"/>
-              <span>{actions.beerCount}</span>
+          <div alt="evenements" className="tag event-color">
+            <i className="icon icon-beer"/>
+            <span>{actions.beerCount}</span>
           </div>
           : ''
         }
         {actions.feedbackCount ?
-          <div className="tag">
+          <div className="tag money-color">
+              <i className="icon icon-euro"/>
+              <span>{actions.coinCount}</span>
+          </div>
+          : ''
+        }
+        {actions.feedbackCount ?
+          <div className="tag feedback-color">
               <i className="icon icon-star"/>
               <span>{actions.feedbackCount}</span>
+          </div>
+          : ''
+        }
+        {actions.pollCount ?
+          <div className="tag pollz-color">
+              <i className="icon icon-pie-chart"/>
+              <span>{actions.pollCount}</span>
           </div>
           : ''
         }

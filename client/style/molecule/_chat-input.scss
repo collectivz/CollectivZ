@@ -84,6 +84,9 @@ $chat-input-open-height: 140px;
 		border-left: none;
 		border-bottom-left-radius: 0px;
 		border-top-left-radius: 0px;
+		i {
+			font-size: 2rem;
+		}
 	}
 	.chat-input-form {
 		display: flex;
