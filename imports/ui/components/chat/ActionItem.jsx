@@ -50,7 +50,7 @@ export default class ActionItem extends React.Component {
       <div className="chat-special-bubble chat-special-bubble-mission">
           <div className="bubble-content">
               <div className="bubble-header">
-                  <h4><i className="icon icon-action"/>{channel.name}</h4>
+                  <h4><i className="icon icon-action-color icon-action"/>{channel.name}</h4>
                   {
                     (channel.author === user._id || user.isAdmin) ?
                       <DropDownBottom>

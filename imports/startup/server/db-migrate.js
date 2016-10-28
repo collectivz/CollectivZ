@@ -25,7 +25,7 @@ Meteor.startup(() => {
     }
 
     if (channel.imageUrl === "/img/action.png") {
-      channel.imageUrl = "/img/icons/cog.svg";
+      channel.imageUrl = "/img/red_action.png";
       Channels.update(channel._id, channel);
     }
 

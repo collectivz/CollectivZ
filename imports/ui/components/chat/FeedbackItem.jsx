@@ -11,7 +11,7 @@ export default class FeedbackItem extends React.Component {
       <div className="chat-special-bubble chat-special-bubble-poll">
         <div className="bubble-content">
           <div className="bubble-header">
-            <h4><i className="icon icon-star"/>Nouveau FeedbackZ !</h4>
+            <h4><i className="icon icon-feedback-color icon-star"/>Nouveau FeedbackZ !</h4>
           </div>
           <div className="bubble-content-text">
             <h4>

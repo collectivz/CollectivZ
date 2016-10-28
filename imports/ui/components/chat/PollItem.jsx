@@ -115,7 +115,7 @@ export default class PollItem extends React.Component {
       <div className="chat-special-bubble chat-special-bubble-poll">
           <div className="bubble-content">
               <div className="bubble-header">
-                  <h4><i className="icon icon-pie-chart"/> {poll.question}</h4>
+                  <h4><i className="icon icon-pie-chart icon-pollz-color"/> {poll.question}</h4>
                   {
                     (poll.author === user._id || user.isAdmin) ?
                       <DropDownBottom>

@@ -76,7 +76,7 @@ Meteor.methods({
     channel.depth = parent.depth + 1;
     channel.rootId = parent.rootId;
     channel.type = 'channel';
-    channel.imageUrl = '/img/icons/cog.svg';
+    channel.imageUrl = '/img/red_action.png';
     channel.incompleteTasks = 0;
 
     const channelId = Channels.insert(channel)

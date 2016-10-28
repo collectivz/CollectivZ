@@ -56,7 +56,7 @@ export default class CoinItem extends React.Component {
       <div className="chat-special-bubble chat-special-bubble-coin">
           <div className="bubble-content">
               <div className="bubble-header">
-                  <h4><i className="icon icon-euro"/>{coin.purpose}</h4>
+                  <h4><i className="icon icon-money-color icon-euro"/>{coin.purpose}</h4>
                   {
                     (coin.author === user._id || user.isAdmin) ?
                       <DropDownBottom>

@@ -107,7 +107,7 @@ Meteor.methods({
       depth: channel.depth + 1,
       rootId: channel.rootId,
       type: 'channel',
-      imageUrl: '/img/icons/cog.svg',
+      imageUrl: '/img/red_action.png',
       messageId: message._id
     };
     const newChannelId = Channels.insert(newChannel);
