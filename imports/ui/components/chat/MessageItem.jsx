@@ -4,7 +4,9 @@ import { Meteor }                         from 'meteor/meteor';
 import moment                             from 'moment';
 
 import DropDownBottom from '../DropDownBottom';
+import UserDetails from './UserDetails';
 import { Toast }         from '../../helpers/Toast';
+import { openModal }         from '../../helpers/Modal';
 
 
 export default class MessageItem extends Component {
@@ -23,6 +25,10 @@ export default class MessageItem extends Component {
     this.chatWithAuthor = this.chatWithAuthor.bind(this);
     this.inviteToContacts = this.inviteToContacts.bind(this);
     this.goToProfile = this.goToProfile.bind(this);
+    this.isChannelAuthor = this.isChannelAuthor.bind(this);
+    this.transformIntoAction = this.transformIntoAction.bind(this);
+    this.answerMessage = this.answerMessage.bind(this);
+    this.openUserModal = this.openUserModal.bind(this);
   }
 
   editMessage(e) {
@@ -57,6 +63,30 @@ export default class MessageItem extends Component {
     });
   }
 
+  isChannelAuthor() {
+    const {
+      message,
+      user
+    } = this.props;
+    const channel = Channels.findOne(message.channelId);
+
+    return channel.author === user._id;
+  }
+
+  transformIntoAction() {
+    const {
+      message
+    } = this.props;
+
+    Meteor.call('messages.transformIntoAction', message._id, (err, res) => {
+      if (err) {
+        Toast(err.reason, "danger");
+      } else {
+        Toast("Message transformé avec succès.", 'success');
+      }
+    });
+  }
+
   isMine () {
     const {
       message
@@ -69,19 +99,13 @@ export default class MessageItem extends Component {
     }
   }
 
-  userAvatar(userId) {
-    let user;
-    if (userId === Meteor.userId) {
-      user = Meteor.user();
-    } else {
-      user = Meteor.users.findOne(userId);
-    }
-    if (user && user.profile && user.profile.avatar)
-      return user.profile.avatar;
-    else {
-      return '/img/no-user.png'
-    }
+  answerMessage() {
+    const {
+      message,
+      answerToMessage
+    } = this.props;
 
+    answerToMessage(message._id);
   }
 
   inviteToContacts() {
@@ -118,8 +142,26 @@ export default class MessageItem extends Component {
     this.context.router.push(`/profile/${message.author}`)
   }
 
+  openUserModal() {
+    const {
+      message
+    } = this.props;
+    const author = {
+      username: message.authorName,
+      _id: message.author,
+      imageUrl: message.authorImage
+    };
+
+    const component = <UserDetails author={author} />;
+    openModal(component, `Détails sur ${author.username}`);
+  }
+
   render() {
-    const { message, user } = this.props;
+    const {
+      message,
+      user,
+      author
+    } = this.props;
 
     const { editing } = this.state;
 
@@ -128,7 +170,7 @@ export default class MessageItem extends Component {
     return (
       <div className={this.isMine()} >
 
-          <img src={this.userAvatar(message.author)} />
+          <img src={message.authorImage} onClick={this.openUserModal} />
 
           <div className="bubble-content">
 
@@ -142,10 +184,11 @@ export default class MessageItem extends Component {
 
                 <DropDownBottom>
                   {
-                    (message.author === user._id || user.isAdmin) ?
+                    (message.author === user._id || user.isAdmin || this.isChannelAuthor()) ?
                       <ul>
                         <li><a className="drop-down-menu-link" onClick={this.toggleEdit}> Editer le message </a></li>
                         <li><a className="drop-down-menu-link" onClick={this.deleteMessage}> Supprimer le message </a></li>
+                        <li><a className="drop-down-menu-link" onClick={this.transformIntoAction}> Transformer en action </a></li>
                       </ul>
                     : ''
                   }
@@ -154,6 +197,7 @@ export default class MessageItem extends Component {
                       <ul>
                         <li><a className="drop-down-menu-link" onClick={this.inviteToContacts}> Ajouter l'auteur à mes contacts </a></li>
                         <li><a className="drop-down-menu-link" onClick={this.chatWithAuthor}> Lancer une conversation avec l'auteur </a></li>
+                        <li><a className="drop-down-menu-link" onClick={this.answerMessage}> Répondre </a></li>
                         <li><a className="drop-down-menu-link" onClick={this.goToProfile}> Voir le profil </a></li>
                       </ul>
                     : ''
@@ -172,8 +216,14 @@ export default class MessageItem extends Component {
                       </button>
                     </form>
                   </div>
-                :
-                  <p dangerouslySetInnerHTML={{__html: message.text}}></p>
+                : message.quoted ?
+                    <div>
+                      <p>Réponse à <b>{message.quoted.authorName}</b>: <i>"{message.quoted.text}"</i></p>
+                      <br />
+                      <p dangerouslySetInnerHTML={{__html: message.text}}></p>
+                    </div>
+                  :
+                    <p dangerouslySetInnerHTML={{__html: message.text}}></p>
               }
 
           </div>

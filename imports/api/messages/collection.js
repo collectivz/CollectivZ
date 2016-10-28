@@ -11,6 +11,8 @@ class messageCollection extends Mongo.Collection {
     message.author = message.author ? message.author
       : Meteor.users.findOne({username: 'Zorro'})._id;
 
+    message.authorImage = message.authorImage ? message.authorImage
+      : Meteor.users.findOne({ username: 'Zorro' }).imageUrl;
     const author = Meteor.users.findOne(message.author);
     const channel = Channels.findOne(message.channelId);
     message.authorName = author.username;

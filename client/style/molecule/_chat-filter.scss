@@ -19,7 +19,7 @@ $chat-filter-open-height: 150px;
 .chat-filter {
 	background-color: color("grey", "lighten-4");
 	width:100%;
-	position:fixed;
+	position:absolute;
 	top: $breadcrumb-height;
 	height: $chat-filter-height;
 	text-align: center;
@@ -38,7 +38,7 @@ $chat-filter-open-height: 150px;
 		i {
 			padding:6px;
 			border-radius: 100%;
-			opacity:0.5;
+			//opacity:0.5;
 			color:white;
 		}
 		span {

@@ -66,6 +66,7 @@ html, body, #app-container, #render-target {
 	height:100%;
 	position:relative;
 	background-color: $background-color;
+	overflow: hidden;
 }
 
 svg {
@@ -112,24 +113,36 @@ $chat-open-with-filter-sub-container-offset: $breadcrumb-height + $chat-filter-h
 
 .pollz-color {
 	background-color:#2e9fd6;
+	color:white;
+	border:none;
 }
 
 .action-color {
 	background-color:#e55148;
+	color:white;
+	border:none;
 }
 
 .people-color {
 	background-color:#b177ef;
+	color:white;
+	border:none;
 }
 
 .event-color {
 	background-color:#e9b51a;
+	color:white;
+	border:none;
 }
 
 .feedback-color {
 	background-color:#f690d8;
+	color:white;
+	border:none;
 }
 
 .money-color {
 	background-color:#6cc13d;
+	color:white;
+	border:none;
 }

@@ -67,6 +67,7 @@ export default class Channel {
     } else if (this.expectedAnswer === 'confirm') {
       if (answer === 'oui' || answer === 'Oui') {
         Meteor.call('channels.insert', this.result, this.channelId);
+        Meteor.call('channels.stopTyping', this.channelId);
         this.resetState();
       } else {
         zorroMsg.text = `Je n'ai pas compris.`;

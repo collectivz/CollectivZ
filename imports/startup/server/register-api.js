@@ -26,9 +26,13 @@ import '../../api/repertory/server/publish.js';
 import '../../api/circles/methods.js';
 import '../../api/circles/server/publish.js';
 
+import '../../api/tasks/methods';
+
 import '../../api/admin/methods.js';
 
 import '../../api/archives/methods.js';
 
 import '../../api/methods.js';
 import '../../api/collection-handler.js';
+
+import '../../api/emails/emails';

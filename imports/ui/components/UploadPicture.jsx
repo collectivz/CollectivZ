@@ -1,5 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { Meteor } from 'meteor/meteor';
+import { _ } from 'meteor/underscore';
+import smartcrop from 'smartcrop';
 import xhr from 'xhr';
 
 import { Toast } from '../helpers/Toast.js';
@@ -62,19 +64,27 @@ export default class UploadPicture extends React.Component {
 
   uploadPicture(e) {
     e.preventDefault();
-    const file = e.target.files[0];
+    let file = e.target.files[0];
 
     if (file) {
       const reader = new FileReader();
       reader.onload = ((self) => {
         return function(e) {
+          const img = new Image();
+          img.src = e.target.result;
+          console.log(img)
           self.setState({
             preview: e.target.result
           });
         };
       })(this);
 
+      if (file.type.split('/')[0] !== 'image') {
+        console.log('not an image');
+      }
+
       reader.readAsDataURL(file);
+
 
       Meteor.call('requestAwsSignature', file.name, file.type, (err, res) => {
         if (err) {

@@ -39,7 +39,9 @@ export default class Login extends Component {
       <div className="login screen-box center">
         <div className="center-wrapper">
           <form>
-            <img src="/img/logo.svg" width="64" height="64" />
+            {/*
+              <img src="/img/logo.svg" width="64" height="64" />
+            */}
             <fieldset className="large has-icon name">
               <i className="icon icon-user"></i>
               <input
@@ -58,7 +60,7 @@ export default class Login extends Component {
                 ref="password"
               />
             </fieldset>
-            <button onClick={ this.handleClick } className={classNames("large big primary button spinner touch-event", { "touch-active spinner-active": this.state.isClicked})}>
+            <button onClick={ this.handleClick } className={classNames("large big success button spinner touch-event", { "touch-active spinner-active": this.state.isClicked})}>
               <div className="icon-spin"/>
               <span>Se connecter</span>
             </button>
@@ -68,7 +70,7 @@ export default class Login extends Component {
               <i className="icon icon-error"/>
               <span>ErrorCode</span>
             </div>
-            <a href="#"> Mot de passe perdu ? </a>
+            <a href="/password"> Mot de passe perdu ? </a>
             <a href="/register"> Inscription </a>
           </div>
         </div>

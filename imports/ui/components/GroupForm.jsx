@@ -71,7 +71,7 @@ export default class GroupForm extends React.Component {
             />
           </fieldset>
           <fieldset className="large">
-            <input
+            <textarea
               className="large"
               type="text"
               ref="description"

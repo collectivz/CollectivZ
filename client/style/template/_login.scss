@@ -5,7 +5,7 @@ $login-width: 250px;
 	.center-wrapper {
 		width: $login-width;
 		border-radius:3px;
-		border: 1px solid color("primary", "base");
+		border: 1px solid color("grey", "base");
 		img {
 			position:absolute;
 			margin: 0 auto;
@@ -34,7 +34,7 @@ $login-width: 250px;
 			border:none;
 			overflow: hidden;
 			&::after {
-				background-color:rgba(color("primary","darken-2"), 0.2);
+				background-color:rgba(color("grey","darken-2"), 0.2);
 				position: absolute;
 				margin-top: -($login-width / 2);
 				margin-left: -($login-width / 2);

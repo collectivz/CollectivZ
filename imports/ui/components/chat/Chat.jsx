@@ -31,25 +31,34 @@ export default class Chat extends React.Component {
       ongoingAction: false,
       expectedAnswer: '',
       choices: [],
-      messageCount: this.props.messages.length
+      messageCount: this.props.messages.length,
+      answeringTo: ''
     };
 
     this.setFilterOption = this.setFilterOption.bind(this);
     this.changeInputMode = this.changeInputMode.bind(this);
     this.answerToZorro = this.answerToZorro.bind(this);
     this.filterMessage = this.filterMessage.bind(this);
+    this.answerToMessage = this.answerToMessage.bind(this);
+    this.scrollDown = this.scrollDown.bind(this);
   }
 
   componentDidMount() {
+    this.scrollDown();
+  }
+
+  scrollDown() {
+    const elem = $('.chat-sub-container');
+    const maxScrollTop = elem[0].scrollHeight - elem.outerHeight();
     $(".chat-sub-container").stop().animate({
-      scrollTop: 10000
+      scrollTop: maxScrollTop
     }, 500);
   }
 
   componentDidUpdate() {
     const { channel, messages } = this.props;
     const { inputMode, ongoingAction, messageCount } = this.state;
-    if (inputMode !== 'message' && !ongoingAction) {
+    if (inputMode !== 'message' && inputMode !== 'answer' && !ongoingAction) {
       const zorro = zorroForm(inputMode, channel._id);
       const newState = zorro.getState();
 
@@ -63,19 +72,15 @@ export default class Chat extends React.Component {
       this.setState({
         messageCount: messages.length
       });
+      this.scrollDown();
     }
-    $(".chat-sub-container").stop().animate({
-      scrollTop: 10000
-    }, 500);
   }
 
   setFilterOption(filter) {
     this.setState({
       filter
     });
-    $(".chat-sub-container").stop().animate({
-      scrollTop: 10000
-    }, 500);
+    this.scrollDown();
   }
 
   changeInputMode(inputMode) {
@@ -84,10 +89,16 @@ export default class Chat extends React.Component {
     });
   }
 
+  answerToMessage(messageId) {
+    this.setState({
+      inputMode: 'answer',
+      answeringTo: messageId
+    });
+  }
+
   hasJoined() {
     const { user, channel } = this.props;
-
-    if (channel.type === 'channel' && !_.contains(user.subscribedChannels, channel._id)) {
+    if (!_.contains(user.subscribedChannels, channel._id)) {
       return false;
     }
     return true;
@@ -138,64 +149,69 @@ export default class Chat extends React.Component {
       dialogWithZorro,
       ongoingAction,
       filter,
-      choices
+      choices,
+      answeringTo,
+      inputMode
     } = this.state;
 
     const filteredMessages = this.filterMessage();
 
     return (
-      <div className={classNames("chat-sub-container", {"chat-with-filter-sub-container" : !_.isEmpty(channel.connections)})}>
-
+      <div>
         {!_.isEmpty(channel.connections) ?
           <ChatFilter channel={channel} setFilterOption={this.setFilterOption} />
           : ''
         }
+        <div className={classNames("chat-sub-container", {"chat-with-filter-sub-container" : !_.isEmpty(channel.connections)})}>
 
-        <div className="chat">
-          <div className="chat-separator">
+          <div className="chat">
+            <div className="chat-separator">
               <h5>Aujourd'hui</h5>
-          </div>
-          <div ref='scroll'>
-            <div className="scroll">
-              <div className="message-list">
-                <MessageList
-                  messages={filteredMessages}
-                  beers={beers}
-                  polls={polls}
-                  subChannels={subChannels}
-                  feedbacks={feedbacks}
-                  coins={coins}
-                  user={user}
-                />
-              </div>
             </div>
-            {ongoingAction ?
+            <div ref='scroll'>
               <div className="scroll">
                 <div className="message-list">
-                  {dialogWithZorro.map((message, index) => {
-                    const _choices = ((index + 1) === dialogWithZorro.length) ? choices : [];
-                    return (<ZorroItem message={message} key={index} answerToZorro={this.answerToZorro} choices={_choices}/>);
-                  })}
+                  <MessageList
+                    messages={filteredMessages}
+                    beers={beers}
+                    polls={polls}
+                    subChannels={subChannels}
+                    feedbacks={feedbacks}
+                    coins={coins}
+                    user={user}
+                    answerToMessage={this.answerToMessage}
+                    />
                 </div>
               </div>
-              : ''
-            }
+              {ongoingAction ?
+                <div className="scroll">
+                  <div className="message-list">
+                    {dialogWithZorro.map((message, index) => {
+                      const _choices = ((index + 1) === dialogWithZorro.length) ? choices : [];
+                      return (<ZorroItem message={message} key={index} answerToZorro={this.answerToZorro} choices={_choices}/>);
+                    })}
+                  </div>
+                </div>
+                : ''
+              }
+            </div>
           </div>
-        </div>
-        {
-          this.hasJoined() ?
+          {
+            this.hasJoined() ?
             <MessageInput
-              inputMode={this.state.inputMode}
+              inputMode={inputMode}
               changeInputMode={this.changeInputMode}
               answerToZorro={this.answerToZorro}
               channel={channel}
               toggleMarginBottom={this.toggleMarginBottom}
               hasActionPicker={true}
               user={user}
-            />
-          :
+              answeringTo={answeringTo}
+              />
+            :
             <JoinActionButton channel={channel} />
-        }
+          }
+        </div>
       </div>
     );
   }

@@ -81,7 +81,7 @@ export default class ChannelItem extends React.Component {
           }
           {
             renderUnread && count ?
-              <div className="list-item-notif"><span>{count}</span></div>
+              <div className="list-item-notif"><span>{count}</span><i className="icon icon-envelope"></i></div>
               : ''
           }
         </div>

@@ -38,9 +38,11 @@ export default class List extends React.Component {
           })}
         </div>
       :
-        <div className="list-empty">
-          <p><i className="icon icon-sad"/>{emptyListString}</p>
-        </div>
+        emptyListString ?
+          <div className="list-empty">
+            <p><i className="icon icon-sad"/>{emptyListString}</p>
+          </div>
+        : <div></div>
     );
   }
 }

@@ -21,11 +21,11 @@ export default class ActionPicker extends Component {
     return (
       <div className="chat-input-action-picker">
           <TouchEvent onClick={this.handleClick.bind(this, 'newChannel')} class="chat-input-action-picker-item touch-event">
-            <i className="icon icon-2x icon-cog people-color"/>
+            <i className="icon icon-2x icon-cog action-color"/>
             <span>Action</span>
           </TouchEvent>
           <TouchEvent onClick={this.handleClick.bind(this, 'newBuddie')} class="chat-input-action-picker-item touch-event">
-            <i className="icon icon-2x icon-user action-color"/>
+            <i className="icon icon-2x icon-user people-color"/>
             <span>People</span>
           </TouchEvent>
           <TouchEvent onClick={this.handleClick.bind(this, 'newBeer')} class="chat-input-action-picker-item touch-event">

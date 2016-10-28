@@ -92,14 +92,14 @@ Meteor.methods({
 
     const props = Propositions.find({pollId}).fetch();
     props.forEach((proposition) => {
-      if (_.contains(proposition.voteRecevedFrom, this.userId)) {
+      if (_.contains(proposition.voteReceivedFrom, this.userId)) {
         throw new Meteor.Error('already voted',
         'You\'ve alreday voted for this poll');
       }
     });
 
     Propositions.update(propsId, {
-      $push: {voteRecevedFrom: this.userId},
+      $push: {voteReceivedFrom: this.userId},
     });
     Polls.update(pollId, {
       $inc: {totalVote: 1},
@@ -110,7 +110,7 @@ Meteor.methods({
 
     const prop = {
       name: proposition,
-      voteRecevedFrom: [],
+      voteReceivedFrom: [],
       pollId
     }
 
@@ -146,7 +146,7 @@ Meteor.methods({
     if (poll && poll.author === this.userId || Meteor.user().isAdmin) {
       const proposition = {
         name: newProp,
-        voteRecevedFrom: [],
+        voteReceivedFrom: [],
         pollId,
       };
       Propositions.insert(proposition);

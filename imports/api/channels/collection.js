@@ -12,6 +12,7 @@ class ChannelCollection extends Mongo.Collection {
     channel.lastActivity = Date.now();
     channel.receivedFeedback = false;
     channel.connections = {};
+    channel.isTyping = [];
 
 
     return super.insert(channel);

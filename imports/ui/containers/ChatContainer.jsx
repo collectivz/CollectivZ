@@ -7,13 +7,16 @@ import { Beers }                from '../../api/beers/collection.js';
 import { Coins }                from '../../api/coins/collection.js';
 import { Feedbacks }            from '../../api/feedbacks/collection.js';
 import { Channels }             from '../../api/channels/collection.js';
+import { Tasks }             from '../../api/tasks/tasks.js';
 
 import Chat                     from '../components/chat/Chat.jsx';
 
 
 export default createContainer(({ channel, user }) => {
 
-  const messages = Messages.find({channelId: channel._id}).fetch();
+  const messages = Messages.find({channelId: channel._id},
+    { sort: { createdAt: 1 } }
+  ).fetch();
   const polls = Polls.find({channelId: channel._id}).fetch();
   const beers = Beers.find({channelId: channel._id}).fetch();
   const subChannels = Channels.find({parentId: channel._id}).fetch();
@@ -29,5 +32,5 @@ export default createContainer(({ channel, user }) => {
     feedbacks,
     user
   };
-  
+
 }, Chat);

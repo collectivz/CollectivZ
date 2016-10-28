@@ -1,6 +1,6 @@
 import React                          from 'react';
 
-import MessageItem                    from './MessageItem.jsx';
+import MessageItemContainer                    from '../../containers/MessageItemContainer.jsx';
 import CoinItem                       from './CoinItem.jsx';
 import ActionItem                 from './ActionItem.jsx';
 import BeerItemContainer              from '../../containers/BeerItemContainer.jsx';
@@ -17,7 +17,8 @@ export default class MessageList extends React.Component {
       subChannels,
       feedbacks,
       coins,
-      user
+      user,
+      answerToMessage
     } = this.props;
 
     return (
@@ -60,7 +61,12 @@ export default class MessageList extends React.Component {
               });
               return (<FeedbackItem key={message._id} feedback={feedback} />);
             default:
-              return (<MessageItem key={message._id} message={message} user={user}/>);
+              return (<MessageItemContainer
+                        key={message._id}
+                        message={message}
+                        user={user}
+                        answerToMessage={answerToMessage}
+                      />);
           }
         })}
       </div>

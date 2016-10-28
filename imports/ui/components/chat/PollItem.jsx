@@ -33,11 +33,13 @@ export default class PollItem extends React.Component {
       propositions
     } = this.props;
 
-    return propositions.some(proposition => {
-      return proposition.voteRecevedFrom.some(id => {
-        return id === user._id;
+    if (propositions.length) {
+      return propositions.some(proposition => {
+        return proposition.voteReceivedFrom.some(id => {
+          return id === user._id;
+        });
       });
-    });
+    }
   }
 
   deletePoll() {
@@ -58,10 +60,10 @@ export default class PollItem extends React.Component {
     const {
       poll
     } = this.props;
-    const percent = (poll.totalVote * 100) / proposition.voteRecevedFrom.length || 0;
+    const percent = (proposition.voteReceivedFrom.length * 100) / poll.totalVote || 0;
 
     return {
-      width: percent
+      width: percent + '%'
     };
   }
 
@@ -100,7 +102,7 @@ export default class PollItem extends React.Component {
             this.hasVoted() ?
               <div className="progress-bar-wrapper">
                 <div className="progress-bar success" style={this.getVotePercent(proposition)}></div>
-                <span>{proposition.voteRecevedFrom.length} votes reçus </span>
+                <span>{proposition.voteReceivedFrom.length} votes reçus </span>
               </div>
             :
               ''

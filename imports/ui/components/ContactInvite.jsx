@@ -43,7 +43,7 @@ export default class ContactInvite extends React.Component {
                 />
               </fieldset>
               <fieldset className="large has-icon">
-                <input type="submit" value="Modifier" className="large big primary button"/>
+                <input type="submit" value="Inviter" className="large big primary button"/>
               </fieldset>
 
             </form>

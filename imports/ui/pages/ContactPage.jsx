@@ -73,7 +73,8 @@ export default class ContactPage extends React.Component {
       repertory,
       usersContact,
       circles,
-      usersInvitationReceved,
+      usersInvitationReceived,
+      usersInvitationSent,
       loading,
       user,
     } = this.props;
@@ -95,16 +96,30 @@ export default class ContactPage extends React.Component {
               <h5>Invitations en attente</h5>
           </div>
 
-          <List
-            data={usersInvitationReceved}
-            type="invitation"
-            acceptInvite={this.acceptInvite}
-            refuseInvite={this.refuseInvite}
-            emptyListString="Vous n'avez aucune invitation en cours."
-          >
-            <UserItem />
-          </List>
+          {
+            !usersInvitationReceived && !usersInvitationSent ?
+              <div className="list-empty">
+                <p><i className="icon icon-sad"/>Aucune invitation en cours.</p>
+              </div>
+            :
+              <div>
+                <List
+                  data={usersInvitationReceived}
+                  type="invitation"
+                  acceptInvite={this.acceptInvite}
+                  refuseInvite={this.refuseInvite}
+                >
+                  <UserItem />
+                </List>
 
+                <List
+                  data={usersInvitationSent}
+                  type="invitationSent"
+                >
+                  <UserItem />
+                </List>
+              </div>
+          }
           <div className="list-sub-menu">
               <i className="big-icon icon icon-users"/>
               <h5>Contact(s)</h5>

@@ -4,7 +4,7 @@
 	Markup :
 
 	Trop contextuelle pour préciser un markup
-    
+
 */
 
 .chat-special-bubble {
@@ -76,9 +76,9 @@
 			cursor:pointer;
 			float:right;
 			font-size: 2rem;
-			color: color("grey", "lighten-2");
+			color: color("grey", "base");
 			&:hover {
-				color: color("grey", "base");
+				color: color("grey", "darken-1");
 			}
 		}
 	}
@@ -109,7 +109,7 @@
 	}
 	button {
 		text-align: center;
-	}	
+	}
 }
 
 
@@ -132,7 +132,7 @@
 			position:relative;
 			input {
 				position:absolute;
-				display:inline-block; 
+				display:inline-block;
 				left:34px;
 				top:2px;
 				width:20px;
@@ -171,7 +171,7 @@
 	}
 	h4 {
 	}
-	
+
 	.bubble-content-text {
 		text-align: center;
 	}
