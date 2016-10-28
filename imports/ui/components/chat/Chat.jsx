@@ -49,7 +49,7 @@ export default class Chat extends React.Component {
 
   scrollDown() {
     const elem = $('.chat-sub-container');
-    const maxScrollTop = elem[0].scrollHeight - elem.outerHeight();
+    const maxScrollTop = elem[0].scrollHeight - elem.outerHeight() + 50;
     $(".chat-sub-container").stop().animate({
       scrollTop: maxScrollTop
     }, 500);
@@ -72,8 +72,8 @@ export default class Chat extends React.Component {
       this.setState({
         messageCount: messages.length
       });
-      this.scrollDown();
     }
+    this.scrollDown();
   }
 
   setFilterOption(filter) {
@@ -112,6 +112,7 @@ export default class Chat extends React.Component {
     const newState = zorro.getState();
 
     this.setState(newState);
+    this.scrollDown();
   }
 
   filterMessage() {
