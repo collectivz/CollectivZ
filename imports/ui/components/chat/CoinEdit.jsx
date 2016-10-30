@@ -24,7 +24,7 @@ export default class CoinEdit extends React.Component {
     };
 
     if (newCoin.goal > 0) {
-      Meteor.call('coins.edit', newCoin, (err, res) => {
+      Meteor.call('coins.edit', coin._id, newCoin, (err, res) => {
         if (err) {
           Toast(err.reason, "danger");
         } else {

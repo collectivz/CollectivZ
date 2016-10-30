@@ -2,7 +2,7 @@ export default class Beer {
 
   constructor(channelId) {
     this.question = {
-      text: 'Alors vous voulez créer un nouvel evènement à ce que je vois! C\'est à quel occasion ? Vous pouvez à tout moment écrire @annuler pour annuler.',
+      text: 'Alors vous voulez créer un nouvel evènement à ce que je vois! C\'est à quelle occasion ? Vous pouvez à tout moment écrire @annuler pour annuler.',
       author: 'Zorro'
     };
     this.state = {

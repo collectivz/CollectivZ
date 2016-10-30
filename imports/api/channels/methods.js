@@ -89,6 +89,12 @@ Meteor.methods({
     };
     const messageId = Messages.insert(msg);
 
+    const welcomeMessage = {
+      text: `Invitez des amis en cliquant sur + puis People.`,
+      channelId: channelId
+    };
+    Messages.insert(welcomeMessage);
+
     Channels.update(parentId, {
       $inc: {'connections.channelCount' : 1}
     });
@@ -128,7 +134,7 @@ Meteor.methods({
 
       const username = Meteor.users.findOne(this.userId).username;
       const msg = {
-        text: `L'utilisateur ${username} vient de rejoindre le groupe. Dites hola !`,
+        text: `Dites un petit mot d'accueil à ${username} qui vient de rejoindre le groupe.`,
         channelId: channel._id
       };
       Messages.insert(msg);
@@ -164,7 +170,7 @@ Meteor.methods({
 
       const username = Meteor.users.findOne(userId).username;
       const msg = {
-        text: `L'utilisateur ${username} vient de quitter le groupe.`,
+        text: `${username} vient de quitter le groupe.`,
         channelId: channel._id
       };
       Messages.insert(msg);
