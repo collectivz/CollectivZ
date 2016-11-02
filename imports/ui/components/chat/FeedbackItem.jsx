@@ -1,9 +1,11 @@
 import React from 'react';
+import Rating from 'react-rating';
 
 export default class FeedbackItem extends React.Component {
   render() {
     const {
-      feedback
+      feedback,
+      channel
     } = this.props;
 
     return (
@@ -11,11 +13,16 @@ export default class FeedbackItem extends React.Component {
       <div className="chat-special-bubble chat-special-bubble-poll">
         <div className="bubble-content">
           <div className="bubble-header">
-            <h4><i className="icon icon-feedback-color icon-star"/>Nouveau FeedbackZ !</h4>
+            <h4><i className="icon icon-feedback-color icon-star"/>Feedback sur <b>{channel.name}</b></h4>
           </div>
           <div className="bubble-content-text">
             <h4>
-              {`${feedback.username} a évalué le résultat de cette mission a ${feedback.rating}/5`}
+              <Rating
+                readonly={true}
+                initialRate={feedback.rating}
+                empty={<i className="icon icon-star"></i>}
+                full={<i className="icon icon-star"></i>}
+              />
             </h4>
             <p> {`${feedback.comment}`}</p>
             {feedback.userFeedbacks.length ?

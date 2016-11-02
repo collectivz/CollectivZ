@@ -181,6 +181,7 @@ export default class Chat extends React.Component {
                     coins={coins}
                     user={user}
                     answerToMessage={this.answerToMessage}
+                    channel={channel}
                     />
                 </div>
               </div>
