@@ -2,6 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 
 import { Messages } from '../messages/collection';
+import { Channels } from '../channels/collection';
 
 class PollCollection extends Mongo.Collection {
   insert(poll, callback) {
@@ -16,11 +17,14 @@ class PollCollection extends Mongo.Collection {
   }
 
   remove(selector) {
-    const polls = Polls.find(selector, { fields: { _id: 1 } }).fetch();
+    const polls = Polls.find(selector, { fields: { _id: 1, channelId: 1 } }).fetch();
 
     polls.forEach(poll => {
       Propositions.remove({pollId: poll._id});
       Messages.remove({pollId: poll._id});
+      Channels.update({ _id: poll.channelId }, {
+        $inc: { 'connections.pollCount': -1 }
+      });
     });
 
     return super.remove(selector);

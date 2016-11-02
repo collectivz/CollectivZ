@@ -2,7 +2,7 @@ export default class Channel {
 
   constructor(channelId) {
     this.question = {
-      text: `Hola, je vois que vous voulez créer une nouvelle action ! Quel nom allez-vous lui donner ? Vous pouvez à tout moment écrire @annuler pour annuler.`,
+      text: `Vous voulez créer une nouvelle action ! Quel nom allez-vous lui donner ?`,
       author: 'Zorro'
     };
     this.state = {
