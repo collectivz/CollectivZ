@@ -2,6 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 
 import { Messages } from '../messages/collection';
+import { Channels } from '../channels/collection';
 
 class BeerCollection extends Mongo.Collection {
   insert(beer, callback) {
@@ -17,10 +18,13 @@ class BeerCollection extends Mongo.Collection {
   }
 
   remove(selector) {
-    const beers = Beers.find(selector, { fields: { _id: 1 } }).fetch();
+    const beers = Beers.find(selector, { fields: { _id: 1, channelId: 1 } }).fetch();
 
     beers.forEach(beer => {
       Messages.remove({beerId: beer._id});
+      Channels.update({ _id: beer.channelId }, {
+        $inc: { 'connections.beerCount': -1 }
+      });
     });
 
     return super.remove(selector);

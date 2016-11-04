@@ -1,38 +1,28 @@
 import { Meteor } from 'meteor/meteor';
+import { _ } from 'meteor/underscore';
 
 import { Channels } from '../../api/channels/collection';
 import { Messages } from '../../api/messages/collection';
 import { Repertory } from '../../api/repertory/collection';
 import { Propositions } from '../../api/polls/collection';
+import { Collections } from '../../api/collection-handler';
 
 Meteor.startup(() => {
-  const users = Meteor.users.find().fetch();
-
-  users.forEach(user => {
-    if (user.profile.avatar) {
-      user.imageUrl = user.profile.avatar;
-      delete user.profile.avatar;
-      Meteor.users.update(user._id, user);
-    }
-  });
-
   const channels = Channels.find().fetch();
 
   channels.forEach(channel => {
-    if (channel.imageUrl === "/img/user-group.png") {
-      channel.imageUrl = "/img/icons/users.svg";
-      Channels.update(channel._id, channel);
-    }
-
-    if (channel.imageUrl === "/img/action.png") {
+    if (channel.imageUrl === "/img/icons/cog.svg") {
       channel.imageUrl = "/img/red_action.png";
-      Channels.update(channel._id, channel);
     }
+    const keys = _.keys(channel.connections);
+    keys.forEach(key => {
+      const type = key.slice(0, -5);
+      if (Collections[type]) {
+        channel.connections[key] = Collections[type].find({parentId: channel._id}).count();
+      }
+    });
 
-    if (!channel.isTyping) {
-      channel.isTyping = [];
-      Channels.update(channel._id, channel);
-    }
+    Channels.update(channel._id, channel);
   });
 
   const repertories = Repertory.find().fetch();
@@ -59,17 +49,6 @@ Meteor.startup(() => {
       proposition.voteReceivedFrom = proposition.voteRecevedFrom;
       delete proposition.voteRecevedFrom;
       Propositions.update(proposition._id, proposition);
-    }
-  });
-
-  const messages = Messages.find().fetch();
-
-  messages.forEach(message => {
-    const user = Meteor.users.findOne(message.author);
-
-    if (user && (!message.authorImage || message.authorImage !== user.imageUrl)) {
-      message.authorImage = user.imageUrl;
-      Messages.update(message._id, message);
     }
   });
 });

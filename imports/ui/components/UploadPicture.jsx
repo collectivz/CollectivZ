@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { Meteor } from 'meteor/meteor';
 import { _ } from 'meteor/underscore';
-import smartcrop from 'smartcrop';
+// import smartcrop from 'smartcrop';
 import xhr from 'xhr';
 
 import { Toast } from '../helpers/Toast.js';
