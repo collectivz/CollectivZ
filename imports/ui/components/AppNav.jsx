@@ -42,20 +42,20 @@ export default class AppNav extends Component {
         <TouchEvent
             onClick={ ()=>{this.onClick("/contact/view")} }
             class={ classNames( "navbar-item touch-event", { active: activeUrl == "/contact/view" } ) }>
-            <i className="icon icon-3x icon-big-user"/>
+            <i className="icon icon-3x icon-book"/>
             <span>Contacts</span>
         </TouchEvent>
         <TouchEvent
             onClick={ ()=>{this.onClick("/group-list")} }
             class={ classNames( "navbar-item touch-event", { active: activeUrl == "/group-list" } ) }>
-            <i className="icon icon-3x icon-temple"/>
+            <i className="icon icon-3x icon-users"/>
             <span>Groupes</span>
         </TouchEvent>
         {user.isAdmin ?
           <TouchEvent
               onClick={ ()=>{this.onClick("/admin")} }
               class={ classNames( "navbar-item touch-event", { active: activeUrl == "/admin" } ) }>
-              <i className="icon icon-3x icon-star"/>
+              <i className="icon icon-3x icon-cog"/>
               <span>Admin</span>
           </TouchEvent>
         : '' }

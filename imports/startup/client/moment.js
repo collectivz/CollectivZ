@@ -24,8 +24,8 @@ moment.locale('fr', {
   },
   relativeTime : {
     future : "dans %s",
-    past : "il y a %s",
-    s : "quelques secondes",
+    past : "%s",
+    s : "",
     m : "une minute",
     mm : "%d minutes",
     h : "une heure",

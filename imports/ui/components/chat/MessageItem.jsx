@@ -209,9 +209,9 @@ export default class MessageItem extends Component {
               {
                 editing ?
                   <div>
-                    <form className="merged" >
-                      <textarea className="small" type="text" name="name" ref="textInput" defaultValue={message.text} />
-                      <button className="small primary button" type="button" name="button" onClick={this.editMessage}>
+                    <form className="" >
+                      <textarea className="small large" type="text" name="name" ref="textInput" defaultValue={message.text} />
+                      <button className="small success button" type="button" name="button" onClick={this.editMessage}>
                         <i className="icon icon-pencil" aria-hidden="true"></i>
                       </button>
                     </form>

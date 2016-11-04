@@ -27,7 +27,7 @@ $bubble-2n-color: #fbfbfb;
 
 .chat-bubble {
 	width:100%;
-	margin-bottom:$text-size * 1.5;
+	margin-bottom:1rem;
 	>img {
 		border-radius:100%;
 		width:40px;
@@ -36,9 +36,9 @@ $bubble-2n-color: #fbfbfb;
 	}
 	.bubble-content {
 		margin-left:20px;
-		padding:0px 15px 15px 15px;
+		padding:0px 15px 1px 15px;
 		float:left;
-		width:73%;
+		width:65%;
 		border-radius:5px;
 		background-color:white;
 		display:inline-block;
@@ -51,12 +51,12 @@ $bubble-2n-color: #fbfbfb;
 
 		p {
 			margin: 0;
-			margin-top:10px;
+			margin-top:5px;
+			margin-bottom:5px;
 			max-width:100%;
 			word-wrap:break-word;
 			overflow: hidden;
 			text-overflow: ellipsis;
-			min-height: 30px;
 			img {
 				display:inline;
 				width:20px;
@@ -72,13 +72,14 @@ $bubble-2n-color: #fbfbfb;
 			padding: 15px 75px 5px 0px;
 			.bubble-content-name {
 				font-weight: bold;
-				display:block;
 				user-select: unselectable;
+				display:block;
 			}
 			.bubble-content-date {
 				transition: all 200ms ease;
 				color:color("grey", "lighten-2");
 				user-select: unselectable;
+				margin-left:4px;
 			}
 			.bubble-content-admin {
 				position:absolute;
@@ -138,4 +139,14 @@ $bubble-2n-color: #fbfbfb;
 			}
 		}
 	}
+}
+
+@include desktop() {
+
+	.chat-bubble {
+		.bubble-content {
+			width:90%;
+		}
+	}
+
 }
