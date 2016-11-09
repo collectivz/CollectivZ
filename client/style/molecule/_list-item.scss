@@ -3,7 +3,7 @@
 	min-height: 80px;
 	border-bottom:1px solid color("grey", "lighten-2");
 	background-color: white;
-	padding:$text-size * 1.5;
+	padding:$text-size;
 	position:relative;
 	-webkit-user-select: none;
 	&.list-user-item {
@@ -18,6 +18,9 @@
 		height:40px;
 		margin-right:$text-size;
 		opacity:0.8;
+		&.circle {
+			border-radius: 100%;
+		}
 	}
 	.icon-img {
 		position:absolute;
@@ -69,6 +72,16 @@
 	&.sub-list {
 		border-left:10px solid color("grey", "lighten-1");
 	}
+	// &.sub-list:before  {
+	// 	content: "";
+  //   height: 100%;
+  //   width: 70px;
+  //   background: -webkit-linear-gradient(left, rgba(173, 0, 0, 0.2) 0%, rgba(255, 255, 255, 0) 100%);
+  //   position: absolute;
+  //   top: 0;
+  //   left: 0;
+  //   z-index: 0;
+	// }
 	&:nth-child(2n) {
 		background-color: #fbfbfb;
 	}
@@ -84,8 +97,8 @@
 	.list-item-notif {
 		position:absolute;
 		right: 18px;
-		top: calc(50% - 25px);
-		padding: 10px 20px 10px 21px;
+		top: calc(50% - 20px);
+		padding: 5px 14px 5px 14px;
 		color: white;
 		border-radius: 100%;
 		background-color: color("danger", "lighten-2");
@@ -95,11 +108,11 @@
 		font-family: $nav-font;
 		i {
 			position: absolute;
-	    font-size: 4rem;
+	    font-size: 2.9rem;
 	    opacity: 0.3;
 	    color: white;
-	    left: 15%;
-	    top: 4%;
+	    left: 16%;
+	    top: 5%;
 		}
 	}
 

@@ -13,7 +13,7 @@
     </div>
 */
 
-$chat-filter-height: 60px;
+$chat-filter-height: 47px;
 $chat-filter-open-height: 150px;
 
 .chat-filter {
@@ -31,7 +31,7 @@ $chat-filter-open-height: 150px;
 		display:inline-block;
 		color:color("grey", "darken-3");
 		background-color: color("grey", "lighten-4");
-		padding:16px 12px;
+		padding:10px 12px;
 		&.active {
 			background-color: color("grey", "lighten-3");
 		}
@@ -55,6 +55,10 @@ $chat-filter-open-height: 150px;
 			line-height: 0.9;
 			border: 1px solid white;
 			color: #fff;
+		}
+		&.more span {
+			font-size: 1.1rem;
+			padding-top: 4px;
 		}
 		/* override de .touch-event */
 		&::after {

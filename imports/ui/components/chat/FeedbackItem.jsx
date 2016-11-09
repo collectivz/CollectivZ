@@ -1,9 +1,11 @@
 import React from 'react';
+import Rating from 'react-rating';
 
 export default class FeedbackItem extends React.Component {
   render() {
     const {
-      feedback
+      feedback,
+      channel
     } = this.props;
 
     return (
@@ -15,7 +17,12 @@ export default class FeedbackItem extends React.Component {
           </div>
           <div className="bubble-content-text">
             <h4>
-              {`${feedback.username} a évalué le résultat de cette mission a ${feedback.rating}/5`}
+              <Rating
+                readonly={true}
+                initialRate={feedback.rating}
+                empty={<i className="icon icon-star"></i>}
+                full={<i className="icon icon-star"></i>}
+              />
             </h4>
             <p> {`${feedback.comment}`}</p>
             {feedback.userFeedbacks.length ?

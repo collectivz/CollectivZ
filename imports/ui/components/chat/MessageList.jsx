@@ -18,6 +18,7 @@ export default class MessageList extends React.Component {
       feedbacks,
       coins,
       user,
+      channel,
       answerToMessage
     } = this.props;
 
@@ -40,12 +41,12 @@ export default class MessageList extends React.Component {
               });
               return (<PollItemContainer key={message._id} poll={poll} user={user} />);
             case 'channel':
-              const channel = subChannels.find((channel) => {
-                if (channel.messageId === message._id)
+              const _channel = subChannels.find((_channel) => {
+                if (_channel.messageId === message._id)
                   return true;
                 return false;
               });
-              return (<ActionItem key={message._id} channel={channel} user={user} />);
+              return (<ActionItem key={message._id} channel={_channel} user={user} />);
             case 'coin':
               const coin = coins.find((coin) => {
                 if (coin.messageId === message._id)
@@ -59,7 +60,7 @@ export default class MessageList extends React.Component {
                   return true;
                 return false;
               });
-              return (<FeedbackItem key={message._id} feedback={feedback} />);
+              return (<FeedbackItem key={message._id} feedback={feedback} channel={channel}/>);
             default:
               return (<MessageItemContainer
                         key={message._id}
