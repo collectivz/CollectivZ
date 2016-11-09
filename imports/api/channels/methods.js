@@ -76,6 +76,7 @@ Meteor.methods({
     channel.depth = parent.depth + 1;
     channel.rootId = parent.rootId;
     channel.type = 'channel';
+    channel.members = [this.userId];
     channel.imageUrl = '/img/red_action.png';
     channel.incompleteTasks = 0;
 
@@ -205,8 +206,9 @@ Meteor.methods({
       rootId: "",
       messageId: "",
       type: 'conversation',
-      imageUrl: '/img/icons/bubble.svg'
-    }
+      imageUrl: '/img/icons/bubble.svg',
+      members
+    };
 
     const channelId = Channels.insert(newConversationChannel);
 

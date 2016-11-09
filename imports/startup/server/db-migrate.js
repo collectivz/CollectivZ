@@ -4,7 +4,7 @@ import { _ } from 'meteor/underscore';
 import { Channels } from '../../api/channels/collection';
 import { Messages } from '../../api/messages/collection';
 import { Repertory } from '../../api/repertory/collection';
-import { Propositions } from '../../api/polls/collection';
+import { Polls, Propositions } from '../../api/polls/collection';
 import { Collections } from '../../api/collection-handler';
 
 Meteor.startup(() => {
@@ -18,7 +18,7 @@ Meteor.startup(() => {
     keys.forEach(key => {
       const type = key.slice(0, -5);
       if (Collections[type]) {
-        channel.connections[key] = Collections[type].find({parentId: channel._id}).count();
+        channel.connections[key] = Collections[type].find({$or: [{parentId: channel._id}, {channelId: channel._id}]}).count();
       }
     });
 
@@ -49,6 +49,22 @@ Meteor.startup(() => {
       proposition.voteReceivedFrom = proposition.voteRecevedFrom;
       delete proposition.voteRecevedFrom;
       Propositions.update(proposition._id, proposition);
+    }
+  });
+
+  const polls = Polls.find().fetch();
+
+  polls.forEach(poll => {
+    if (!poll.members) {
+      const propositions = Propositions.find({ pollId: poll._id }).fetch();
+      let users = [];
+
+      propositions.forEach(prop => {
+        users.push(propositions.voteReceivedFrom);
+      });
+      Polls.update(poll._id, {
+        $addToSet: { members: users }
+      });
     }
   });
 });

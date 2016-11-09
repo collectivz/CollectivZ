@@ -4,6 +4,7 @@ import { check }        from 'meteor/check';
 
 import DropDownBottom from '../DropDownBottom';
 import CoinEdit from './CoinEdit';
+import AvatarRowContainer from '../../containers/AvatarRowContainer';
 import { Toast }         from '../../helpers/Toast';
 import { openModal }         from '../../helpers/Modal';
 
@@ -56,17 +57,18 @@ export default class CoinItem extends React.Component {
       <div className="chat-special-bubble chat-special-bubble-coin">
           <div className="bubble-content">
               <div className="bubble-header">
-                  <h4><i className="icon icon-money-color icon-euro"/>{coin.purpose}</h4>
-                  {
-                    (coin.author === user._id || user.isAdmin) ?
-                      <DropDownBottom>
-                        <ul>
-                          <li><a className="drop-down-menu-link" onClick={this.deleteCoin}> Supprimer le financement </a></li>
-                          <li><a className="drop-down-menu-link" onClick={this.openEdit}> Modifier le financement </a></li>
-                        </ul>
-                      </DropDownBottom>
-                    : ''
-                  }
+                <p>{user.username} à lancé une collecte :</p>
+                <h4><i className="icon icon-money-color icon-euro"/>{coin.purpose}</h4>
+                {
+                  (coin.author === user._id || user.isAdmin) ?
+                    <DropDownBottom>
+                      <ul>
+                        <li><a className="drop-down-menu-link" onClick={this.deleteCoin}> Supprimer le financement </a></li>
+                        <li><a className="drop-down-menu-link" onClick={this.openEdit}> Modifier le financement </a></li>
+                      </ul>
+                    </DropDownBottom>
+                  : ''
+                }
               </div>
               <div className="bubble-content-text">
                 <h4 className="success-text">{coin.totalEarned} / {coin.goal} reçu</h4>
@@ -79,9 +81,10 @@ export default class CoinItem extends React.Component {
                 </h4>
                 <div className="button-box">
                   <button className="success button" onClick={this.handleSubmit}>
-                    Financer
+                    Financer {coin.givers.length}
                   </button>
                 </div>
+                <AvatarRowContainer userIds={coin.givers} />
               </div>
 
           </div>

@@ -3,6 +3,7 @@ import { check } from 'meteor/check';
 import { _ } from 'meteor/underscore';
 
 import { Channels } from '../channels/collection.js';
+import { Circles } from '../circles/collection.js';
 import { Repertory } from './collection.js';
 
 Meteor.methods({

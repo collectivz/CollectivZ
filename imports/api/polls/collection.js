@@ -10,6 +10,7 @@ class PollCollection extends Mongo.Collection {
 
     poll.createdAt = Date.now();
     poll.author = user._id;
+    poll.members = [user._id];
     poll.authorName = user.username;
     poll.type = 'poll';
 

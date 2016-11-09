@@ -2,6 +2,7 @@ import React            from 'react';
 
 import DropDownBottom from '../DropDownBottom';
 import PollEdit from './PollEdit';
+import AvatarRowContainer from '../../containers/AvatarRowContainer';
 import { Toast }         from '../../helpers/Toast';
 import { openModal }         from '../../helpers/Modal';
 
@@ -115,17 +116,18 @@ export default class PollItem extends React.Component {
       <div className="chat-special-bubble chat-special-bubble-poll">
           <div className="bubble-content">
               <div className="bubble-header">
-                  <h4><i className="icon icon-pie-chart icon-pollz-color"/> {poll.question}</h4>
-                  {
-                    (poll.author === user._id || user.isAdmin) ?
-                      <DropDownBottom>
-                        <ul>
-                          <li><a className="drop-down-menu-link" onClick={this.deletePoll}> Supprimer le sondage </a></li>
-                          <li><a className="drop-down-menu-link" onClick={this.openEdit}> Modifier la question </a></li>
-                        </ul>
-                      </DropDownBottom>
-                    : ''
-                  }
+                <p>{user.username} à lancé un sondage :</p>
+                <h4><i className="icon icon-pie-chart icon-pollz-color"/> {poll.question}</h4>
+                {
+                  (poll.author === user._id || user.isAdmin) ?
+                    <DropDownBottom>
+                      <ul>
+                        <li><a className="drop-down-menu-link" onClick={this.deletePoll}> Supprimer le sondage </a></li>
+                        <li><a className="drop-down-menu-link" onClick={this.openEdit}> Modifier la question </a></li>
+                      </ul>
+                    </DropDownBottom>
+                  : ''
+                }
               </div>
               <div className="poll-choice">{propositionNodes}</div>
               {
@@ -140,6 +142,7 @@ export default class PollItem extends React.Component {
                     </button>
                   </div>
               }
+              <AvatarRowContainer userIds={poll.members} />
           </div>
       </div>
     );

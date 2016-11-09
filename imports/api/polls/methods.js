@@ -103,6 +103,7 @@ Meteor.methods({
     });
     Polls.update(pollId, {
       $inc: {totalVote: 1},
+      $push: { members: this.userId }
     });
   },
 

@@ -154,3 +154,7 @@ export default class ContactPage extends React.Component {
     );
   }
 }
+
+ContactPage.contextTypes = {
+  router: React.PropTypes.object
+};

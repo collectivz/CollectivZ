@@ -3,12 +3,16 @@ import { createContainer } from 'meteor/react-meteor-data';
 
 import { Repertory } from '../../api/repertory/collection.js';
 import { Circles } from '../../api/circles/collection.js';
+import { Channels } from '../../api/channels/collection.js';
 
 import ContactPage from '../pages/ContactPage.jsx';
 
 export default createContainer(({ user }) => {
   const contactSub = Meteor.subscribe('contactPage', user.repertory);
   const repertory = Repertory.findOne(user.repertory);
+  const conversations = Channels.find({
+    type: "conversation", members: { $in: [Meteor.userId()] }
+  }).fetch();
   let usersContact = [];
   let circles = [];
   let usersInvitationReceived = [];
@@ -31,6 +35,7 @@ export default createContainer(({ user }) => {
   return {
     repertory,
     usersContact,
+    conversations,
     circles,
     usersInvitationReceived,
     usersInvitationSent,
