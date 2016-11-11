@@ -64,12 +64,12 @@ export default class RegisterPage extends React.Component {
 
   render() {
     return (
-      <div className="login screen-box center">
+      <div className="login screen-box center register">
         <div className="center-wrapper">
           <form id="box" onSubmit={this.handleSubmit}>
-            {/*
-              <img src="/img/logo.svg" width="64" height="64" />
-            */}
+            <img src="/img/login_logo.svg" width="64" height="64" />
+            <h2>Collectivz</h2>
+            <h5>Refaire le monde est donné à tout le monde</h5>
             <fieldset className="large has-icon">
               <i className="icon icon-user"></i>
               <input
@@ -86,6 +86,16 @@ export default class RegisterPage extends React.Component {
                 type="text"
                 placeholder="Email"
                 ref="email"
+              />
+            </fieldset>
+            <fieldset className="large has-icon">
+              <i className="icon icon-phone"></i>
+              <input
+                className="large"
+                type="tel"
+                placeholder="Téléhone (optionnel)"
+                ref="phone"
+                pattern="^((\+\d{1,3}(-| )?\(?\d\)?(-| )?\d{1,5})|(\(?\d{2,6}\)?))(-| )?(\d{3,4})(-| )?(\d{4})(( x| ext)\d{1,5}){0,1}$"
               />
             </fieldset>
             <fieldset className="large has-icon">
@@ -107,8 +117,10 @@ export default class RegisterPage extends React.Component {
               />
             <input type="submit" value="S'enregister" className="large big success button"/>
             </fieldset>
-
           </form>
+          <div className="extra-content">
+            <a className="lost-password" href="/login"> Déjà inscrit ? </a>
+          </div>
         </div>
 
       </div>

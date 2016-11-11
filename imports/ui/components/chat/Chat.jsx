@@ -49,10 +49,7 @@ export default class Chat extends React.Component {
 
   scrollDown() {
     const elem = $('.chat-sub-container');
-    const maxScrollTop = elem[0].scrollHeight - elem.outerHeight() + 50;
-    $(".chat-sub-container").stop().animate({
-      scrollTop: maxScrollTop
-    }, 500);
+    $(".chat-sub-container").scrollTop(1000000);
   }
 
   componentDidUpdate() {

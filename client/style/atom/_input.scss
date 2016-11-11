@@ -14,7 +14,7 @@
 	  display:inline-block;
 	  height: auto;
 	  padding: $text-size;
-	  margin-top:$text-size;
+	  margin-bottom:$text-size;
 	  background-color: #fff;
 	  border: 1px solid #D1D1D1;
 	  border-radius: 4px;
@@ -43,7 +43,7 @@
 	}
 
 	input[disabled='disabled'] {
-      background-color: color("grey", "lighten-1");	
+      background-color: color("grey", "lighten-1");
     }
 
     input.large, textarea.large, select.large {

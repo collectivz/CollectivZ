@@ -39,9 +39,9 @@ export default class Login extends Component {
       <div className="login screen-box center">
         <div className="center-wrapper">
           <form>
-            {/*
-              <img src="/img/logo.svg" width="64" height="64" />
-            */}
+            <img src="/img/login_logo.svg" width="64" height="64" />
+            <h2>Collectivz</h2>
+            <h5>Refaire le monde est donné à tout le monde</h5>
             <fieldset className="large has-icon name">
               <i className="icon icon-user"></i>
               <input
@@ -70,8 +70,8 @@ export default class Login extends Component {
               <i className="icon icon-error"/>
               <span>ErrorCode</span>
             </div>
-            <a href="/password"> Mot de passe perdu ? </a>
-            <a href="/register"> Inscription </a>
+            <a className="lost-password" href="/password"> Mot de passe perdu ? </a>
+            <a className="subscription" href="/register"><i className="icon icon-chevron-right"></i> Pas encore inscrit ?  </a>
           </div>
         </div>
       </div>

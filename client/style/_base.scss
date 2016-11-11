@@ -45,7 +45,9 @@
 
 		body {
 			font-family: 					$text-font;
-			text-rendering:             geometricPrecision;
+			text-rendering: optimizeLegibility;
+			-webkit-font-smoothing: antialiased;
+			-moz-osx-font-smoothing: grayscale;
 			@include modular-scale(0, $text-size, $ratio);
 			::selection {
 				background: color("complement", "base");

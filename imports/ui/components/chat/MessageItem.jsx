@@ -179,30 +179,30 @@ export default class MessageItem extends Component {
                 <span className="bubble-content-name">
                   {message.authorName}
                 </span>
-
                 <span className="bubble-content-date">{time}</span>
 
-                <DropDownBottom>
-                  {
-                    (message.author === user._id || user.isAdmin || this.isChannelAuthor()) ?
+                  <DropDownBottom>
+                    {
+                      (message.author === user._id || user.isAdmin || this.isChannelAuthor()) ?
                       <ul>
                         <li><a className="drop-down-menu-link" onClick={this.toggleEdit}> Editer le message </a></li>
                         <li><a className="drop-down-menu-link" onClick={this.deleteMessage}> Supprimer le message </a></li>
                         <li><a className="drop-down-menu-link" onClick={this.transformIntoAction}> Transformer en action </a></li>
                       </ul>
-                    : ''
-                  }
-                  {
-                    (message.author !== user._id) ?
+                      : ''
+                    }
+                    {
+                      (message.author !== user._id) ?
                       <ul>
                         <li><a className="drop-down-menu-link" onClick={this.inviteToContacts}> Ajouter l'auteur à mes contacts </a></li>
                         <li><a className="drop-down-menu-link" onClick={this.chatWithAuthor}> Lancer une conversation avec l'auteur </a></li>
                         <li><a className="drop-down-menu-link" onClick={this.answerMessage}> Répondre </a></li>
                         <li><a className="drop-down-menu-link" onClick={this.goToProfile}> Voir le profil </a></li>
                       </ul>
-                    : ''
-                  }
-                </DropDownBottom>
+                      : ''
+                    }
+                  </DropDownBottom>
+
 
               </div>
 

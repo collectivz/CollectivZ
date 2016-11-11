@@ -25,6 +25,22 @@
 
 $bubble-2n-color: #fbfbfb;
 
+@keyframes bounce {
+  0% { transform: matrix3d(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+  4.7% { transform: matrix3d(0.45, 0, 0, 0, 0, 0.45, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+  9.41% { transform: matrix3d(0.883, 0, 0, 0, 0, 0.883, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+  14.11% { transform: matrix3d(1.141, 0, 0, 0, 0, 1.141, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+  18.72% { transform: matrix3d(1.212, 0, 0, 0, 0, 1.212, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+  24.32% { transform: matrix3d(1.151, 0, 0, 0, 0, 1.151, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+  29.93% { transform: matrix3d(1.048, 0, 0, 0, 0, 1.048, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+  35.54% { transform: matrix3d(0.979, 0, 0, 0, 0, 0.979, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+  41.04% { transform: matrix3d(0.961, 0, 0, 0, 0, 0.961, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+  52.15% { transform: matrix3d(0.991, 0, 0, 0, 0, 0.991, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+  63.26% { transform: matrix3d(1.007, 0, 0, 0, 0, 1.007, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+  85.49% { transform: matrix3d(0.999, 0, 0, 0, 0, 0.999, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+  100% { transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+}
+
 .chat-bubble {
 	width:100%;
 	margin-bottom:1rem;
@@ -69,7 +85,7 @@ $bubble-2n-color: #fbfbfb;
 		.bubble-content-header {
 			overflow: hidden;
 			position:relative;
-			padding: 15px 75px 5px 0px;
+			padding: 15px 75px 0px 0px;
 			.bubble-content-name {
 				font-weight: bold;
 				user-select: unselectable;
@@ -79,7 +95,9 @@ $bubble-2n-color: #fbfbfb;
 				transition: all 200ms ease;
 				color:color("grey", "lighten-2");
 				user-select: unselectable;
-				margin-left:4px;
+				font-weight: normal;
+				margin-left:0px;
+				font-size: 1.1rem;
 			}
 			.bubble-content-admin {
 				position:absolute;
@@ -146,6 +164,12 @@ $bubble-2n-color: #fbfbfb;
 	.chat-bubble {
 		.bubble-content {
 			width:90%;
+			.bubble-content-header {
+				.bubble-content-name {
+					display:inline-block;
+					margin-left:10px;
+				}
+			}
 		}
 	}
 

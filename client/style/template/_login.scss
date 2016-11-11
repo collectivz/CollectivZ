@@ -2,35 +2,31 @@ $login-width: 250px;
 
 .login {
 	background-color: color("grey", "lighten-3");
+	background-image: url("img/splash.jpg");
+	background-size: cover;
+	background-position: center;
 	.center-wrapper {
 		width: $login-width;
 		border-radius:3px;
-		border: 1px solid color("grey", "base");
+		transform: translateY(-70px);
+		h1,h2,h3,h4,h5,h6 {
+			text-align: center;
+			color:white;
+		}
+		h1, h2, h3 {
+			margin-top:0;
+		}
 		img {
 			position:absolute;
 			margin: 0 auto;
 			left:0;
 			right:0;
-			top:-82px;
+			top:-70px;
 			width:auto;
-		}
-		fieldset {
-			input {
-				margin:0;
-				border-radius:0;
-				border-left:none;
-				border-right:none;
-			}
-			&.name input {
-				border-radius:3px;
-				border-top:none;
-				border-bottom:none;
-			}
 		}
 		button {
 			margin-top:0;
 			margin-bottom:0;
-			border-radius:0 0 3px 3px;
 			border:none;
 			overflow: hidden;
 			&::after {
@@ -46,16 +42,27 @@ $login-width: 250px;
 			width:$login-width;
 			text-align: center;
 			position:absolute;
-			bottom: -40px;
+			bottom: -70px;
 			.error {
 				display:none;
 				&.visible {
 					display:block;
 				}
 			}
-			a:last-child {
-				margin-left:10px;
+			a {
+				text-align: center;
+				color:white;
+				display:block;
+			}
+			a.lost-password {
+				margin-bottom:2.5rem;
+			}
+			a.subscription {
+				font-size: 1.7rem;
 			}
 		}
+	}
+	&.register .center-wrapper {
+		transform: none;
 	}
 }

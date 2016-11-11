@@ -36,7 +36,9 @@ export default class PasswordEdit extends React.Component {
     return (
       <div>
         <form id="box" onSubmit={this.editPassword}>
-
+          <img src="/img/login_logo.svg" width="64" height="64" />
+          <h2>Collectivz</h2>
+          <h5>Refaire le monde est donné à tout le monde</h5>
           <fieldset className="large has-icon">
             <input
               className="large"
@@ -56,8 +58,10 @@ export default class PasswordEdit extends React.Component {
           <fieldset className="large has-icon">
             <input type="submit" value="Modifier" className="large big success button"/>
           </fieldset>
-
         </form>
+        <div className="extra-content">
+          <a className="lost-password" href="/login"> Retour </a>
+        </div>
 
       </div>
     );

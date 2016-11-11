@@ -2,7 +2,7 @@
 /*
 
 	Markup :
-	
+
     <div className="navbar">
       <div class="navbar-item active touch-event">
         <i className="icon icon-3x icon-text-bubble"/>
@@ -52,12 +52,14 @@ $navbar-base-index: 999;
 		i {
 			color:white;
 			display:block;
-			padding: 12px 12px 8px 12px;
+			padding: 16px 12px 5px 12px;
 		}
 		span {
 			color:white;
 			font-family: $nav-font;
 			user-select: none;
+			font-size: 1.2rem;
+			opacity:0.4;
 		}
 		&.active {
 			background-color:color("grey", "base");

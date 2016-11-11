@@ -3,7 +3,7 @@ $base-index: 9999999;
 .drop-down {
 	position: absolute;
 	right: -300px;
-	top: 60px;
+	top: $breadcrumb-height;
 	width: 300px;
   overflow: hidden;
   float:right;
