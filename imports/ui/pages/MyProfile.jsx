@@ -71,7 +71,7 @@ export default class MyProfile extends Component {
             <button className="button full big info" onClick={this.logout}><i className="icon icon-enter"/><span>Se déconnecter</span></button>
           </div>
           <div className="list">
-            <div className="list-sub-menu">
+            <div className="list-sub-menu small">
               <i className="big-icon icon icon-temple"/>
               <h5>Groupes dont vous faites partie</h5>
             </div>
@@ -83,7 +83,7 @@ export default class MyProfile extends Component {
             >
               <ChannelItem />
             </List>
-            <div className="list-sub-menu">
+            <div className="list-sub-menu small">
               <i className="big-icon icon icon-bubble"/>
               <h5>Actions dont vous faites partie</h5>
             </div>
@@ -95,7 +95,7 @@ export default class MyProfile extends Component {
             >
               <ChannelItem />
             </List>
-            <div className="list-sub-menu">
+            <div className="list-sub-menu small">
               <i className="big-icon icon icon-history"/>
               <h5>Historique des évaluations</h5>
             </div>

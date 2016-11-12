@@ -9,6 +9,7 @@ import UserItem from '../components/UserItem.jsx'
 import CircleForm from '../components/CircleForm';
 import ContactInvite from '../components/ContactInvite';
 import DropDown from '../components/DropDown';
+import TouchEvent from '../components/TouchEvent.jsx';
 import { Toast }         from '../helpers/Toast';
 import { openModal }         from '../helpers/Modal';
 
@@ -82,49 +83,41 @@ export default class ContactPage extends React.Component {
     return (
       <div>
         <Breadcrumb title="Contact" hasBack={false}>
-          <DropDown>
-            <ul>
-              <li><a className="drop-down-menu-link" onClick={this.openInviteModal}> Inviter un contact </a></li>
-              <li><a className="drop-down-menu-link" onClick={this.openCircleModal}> Créer un cercle </a></li>
-            </ul>
-          </DropDown>
+          <TouchEvent class="right-button touch-event" onClick={this.openInviteModal}>
+            <i className="icon icon-rotate-45 icon-cross" />
+          </TouchEvent>
         </Breadcrumb>
         <div className="sub-container">
 
-          <div className="list-sub-menu">
-              <i className="big-icon icon icon-bubble"/>
-              <h5>Invitations en attente</h5>
-          </div>
-
-          {
-            !usersInvitationReceived && !usersInvitationSent ?
-              <div className="list-empty">
-                <p><i className="icon icon-sad"/>Aucune invitation en cours.</p>
-              </div>
-            :
-              <div>
-                <List
-                  data={usersInvitationReceived}
-                  type="invitation"
-                  acceptInvite={this.acceptInvite}
-                  refuseInvite={this.refuseInvite}
-                >
-                  <UserItem />
-                </List>
-
-                <List
-                  data={usersInvitationSent}
-                  type="invitationSent"
-                >
-                  <UserItem />
-                </List>
-              </div>
-          }
-          <div className="list-sub-menu">
+          <div className="list-sub-menu small">
               <i className="big-icon icon icon-users"/>
               <h5>Contact(s)</h5>
           </div>
 
+          {
+            !usersInvitationReceived && !usersInvitationSent ?
+            <div className="list-empty">
+              <p><i className="icon icon-sad"/>Aucune invitation en cours.</p>
+            </div>
+            :
+            <div>
+              <List
+                data={usersInvitationReceived}
+                type="invitation"
+                acceptInvite={this.acceptInvite}
+                refuseInvite={this.refuseInvite}
+                >
+                <UserItem />
+              </List>
+
+              <List
+                data={usersInvitationSent}
+                type="invitationSent"
+                >
+                <UserItem />
+              </List>
+            </div>
+          }
           <List
             data={usersContact}
             type="contact"
@@ -133,21 +126,22 @@ export default class ContactPage extends React.Component {
           >
             <UserItem />
           </List>
+          <a className="success self-center button" onClick={this.openInviteModal}> Inviter un contact </a>
+          {/*
+            <div className="list-sub-menu">
+                <i className="big-icon icon icon-bubble"/>
+                <h5>Cercle(s) </h5>
+            </div>
 
-          <div className="list-sub-menu">
-              <i className="big-icon icon icon-bubble"/>
-              <h5>Cercle(s) </h5>
-          </div>
-
-          <List
-            data={circles}
-            type="circle"
-            editCircle={this.openCircleModal}
-            emptyListString="Aucun cercle créé."
-          >
-            <CircleItem />
-          </List>
-
+            <List
+              data={circles}
+              type="circle"
+              editCircle={this.openCircleModal}
+              emptyListString="Aucun cercle créé."
+            >
+              <CircleItem />
+            </List>
+          */}
         </div>
         <AppNav user={user}/>
       </div>

@@ -35,7 +35,7 @@ export default class ProfilePage extends Component {
 
                 <div className='list'>
 
-                  <div className="list-sub-menu">
+                  <div className="list-sub-menu small">
                       <i className="big-icon icon icon-temple"/>
                       <h5>Groupes dont {user.username} fait partie</h5>
                   </div>
@@ -47,7 +47,7 @@ export default class ProfilePage extends Component {
                   >
                     <ChannelItem />
                   </List>
-                  <div className="list-sub-menu">
+                  <div className="list-sub-menu small">
                       <i className="big-icon icon icon-bubble"/>
                       <h5>Discussions dont {user.username} fait partie</h5>
                   </div>
@@ -58,7 +58,7 @@ export default class ProfilePage extends Component {
                   >
                     <ChannelItem />
                   </List>
-                  <div className="list-sub-menu">
+                  <div className="list-sub-menu small">
                       <i className="big-icon icon icon-history"/>
                       <h5>Historique des évaluations</h5>
                   </div>

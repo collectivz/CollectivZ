@@ -9,14 +9,19 @@ export default class UserHeader extends Component {
     const { user } = this.props;
 
     return (
-      <div style={{ backgroundImage: `url('${user.profile.background}')` }} className="profile">
+      <div className="profile">
+
         {/*
+          style={{ backgroundImage: `url('${user.profile.background}')` }}
         // Linker l'upload de picture au src de l'img du profil pour voir en direct
         // le changement
         <UploadPicture data={user} method="users.changeAvatar"/>*/}
           <div className="profile-header">
-              <img src={user.imageUrl}/>
-              <h3>{user.username}</h3>
+              <div className="circle">
+                <img className="photo" src={user.imageUrl}/>
+              </div>
+              <h3 className="name">{user.username}</h3>
+              <h5 className="attribute">PERFORMER</h5>
           </div>
       </div>
     );

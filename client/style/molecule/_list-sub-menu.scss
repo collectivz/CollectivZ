@@ -2,12 +2,12 @@
 /*
 
 	Markup :
-	
+
     <div className="list-sub-menu">
         <i className="big-icon icon icon-bubble"/>
         <h5>Liste de mes groupes de discussion</h5>
     </div>
-    
+
 */
 
 .list-sub-menu {
@@ -39,5 +39,13 @@
 		top:28px;
 		z-index: 2;
 		margin-top:-$text-size;
+	}
+	&.small {
+		padding: 1rem;
+		&>i {
+			left: 11px;
+			top: -1px;
+			opacity:0.2;
+		}
 	}
 }

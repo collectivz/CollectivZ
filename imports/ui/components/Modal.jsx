@@ -57,15 +57,17 @@ export default class Modal extends React.Component {
 
     return (
       <div className={classNames("modal", {"modal--opening": isOpening, "modal--open": isOpen, "modal--closing": isClosing})} >
-        <div className="modal--overlay"/>
+        <div className="modal--overlay" onClick={ () => {this.handleClose()} }></div>
         <div className="modal--content">
-          <div className="modal--header">
-            <h4>{title}</h4>
-            <div className="modal--close-button" onClick={ () => {this.handleClose()} }>
-              <i className="icon icon-2x icon-cross"/>
+          <div className="modal--content-wrapper">
+            <div className="modal--header">
+              <h4>{title}</h4>
+              <div className="modal--close-button" onClick={ () => {this.handleClose()} }>
+                <i className="icon icon-2x icon-cross"/>
+              </div>
             </div>
+            {children}
           </div>
-          {children}
         </div>
       </div>
     );

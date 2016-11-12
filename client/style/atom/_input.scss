@@ -22,6 +22,9 @@
 	  position:relative;
 	  transition:all 200ms ease-in-out;
 	  font-family: $nav-font;
+		&::-webkit-input-placeholder {
+			color: color("grey", "lighten-2");
+		}
 	}
 
 	input.small {
@@ -40,6 +43,10 @@
 	textarea:focus,
 	select:focus {
 	  outline: 0;
+		border: 1px solid color("grey","base");
+		&::-webkit-input-placeholder {
+			color: color("grey", "lighten-1");
+		}
 	}
 
 	input[disabled='disabled'] {
@@ -56,8 +63,4 @@
 
     input[type="radio"] {
 
-    }
-
-    textarea::-webkit-input-placeholder {
-		color: color("grey", "lighten-3");
     }

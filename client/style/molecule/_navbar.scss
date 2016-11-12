@@ -35,8 +35,8 @@ $navbar-base-index: 999;
 	width:100%;
 	height:$navbar-height;
 	z-index: $navbar-base-index;
-	box-shadow: 0 -4px 10px rgba(color("grey", "darken-2"), .25);
-	background-color:color("grey", "darken-2");
+	//box-shadow: 0 -4px 10px rgba(color("grey", "darken-2"), .25);
+	background-color:color("grey", "darken-3");
 
     display: flex;
     justify-content: center;
