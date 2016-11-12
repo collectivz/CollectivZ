@@ -37,6 +37,7 @@ Meteor.methods({
     group.rootId = group._id;
     group.depth = 0;
     group.type = 'group';
+    group.members = [this.userId];
     group.imageUrl = group.imageUrl ? group.imageUrl : '/img/icons/users.svg';
 
     Channels.insert(group);
