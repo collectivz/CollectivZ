@@ -163,7 +163,7 @@ export default class AdminPage extends Component {
                 </form>
               </div>
               <hr className="hidden"/>
-              <div className="list-sub-menu">
+              <div className="list-sub-menu small">
                   <i className="big-icon icon icon-bubble"/>
                   <h5>Liste des coordinateurs</h5>
               </div>

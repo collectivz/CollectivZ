@@ -44,17 +44,19 @@ $bubble-2n-color: #fbfbfb;
 .chat-bubble {
 	width:100%;
 	margin-bottom:1rem;
+  position:relative;
 	>img {
 		border-radius:100%;
 		width:40px;
 		height:40px;
-		float:left;
+    position:absolute;
+    left:0;
 	}
 	.bubble-content {
-		margin-left:20px;
+		margin-left:55px;
 		padding:0px 15px 1px 15px;
 		float:left;
-		width:65%;
+    width: calc(100% - 55px);
 		border-radius:5px;
 		background-color:white;
 		display:inline-block;
@@ -68,7 +70,7 @@ $bubble-2n-color: #fbfbfb;
 		p {
 			margin: 0;
 			margin-top:5px;
-			margin-bottom:5px;
+			margin-bottom:8px;
 			max-width:100%;
 			word-wrap:break-word;
 			overflow: hidden;
@@ -139,12 +141,14 @@ $bubble-2n-color: #fbfbfb;
 	}
 	&.chat-bubble-mine {
 		>img {
-			float:right;
+      right:0;
+      left:auto;
 		}
 		.bubble-content {
 			float:right;
 			background-color:#f8fdfa;
-			margin-right: 20px;
+			margin-right: 55px;
+      margin-left: 0px;
 			.bubble-content-date {
 				transition: all 200ms ease;
 				color:color("grey", "lighten-1");

@@ -50,7 +50,6 @@ export default class GroupItem extends Component {
                 <span>Vous êtes tout seul.</span>
               </div>
             }
-            <i className="icon icon-3x icon-chevron-right"/>
         </div>
       </TouchEvent>
     );
