@@ -8,11 +8,15 @@ import classNames                               from 'classnames';
 export default class GroupItem extends Component {
 
   getMemberCount(data) {
-    if (data.members.length === 1) {
-      return `${data.members.length} membre.`;
-    } else {
-      return `${data.members.length} membres.`;
+    if (data.members) {
+      if (data.members.length === 1) {
+        return `${data.members.length} membre.`;
+      } else {
+        return `${data.members.length} membres.`;
+      }
     }
+    else
+      return false;
   }
 
   onClick(dest) {
@@ -35,10 +39,17 @@ export default class GroupItem extends Component {
         <img src={data.imageUrl} alt="" />
         <div className="list-item-content">
             <p className="title">{data.name}</p>
-            <div className="tag">
-              <i className="icon icon-user"/>
-              <span>{this.getMemberCount(data)}</span>
-            </div>
+            {
+              (this.getMemberCount(data) != false) ?
+                <div className="tag">
+                  <i className="icon icon-user"/>
+                  <span>{this.getMemberCount(data)}</span>
+                </div>
+              :
+              <div className="tag">
+                <span>Vous êtes tout seul.</span>
+              </div>
+            }
             <i className="icon icon-3x icon-chevron-right"/>
         </div>
       </TouchEvent>

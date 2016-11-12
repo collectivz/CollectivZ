@@ -24,13 +24,13 @@ $chat-filter-open-height: 150px;
 	height: $chat-filter-height;
 	text-align: center;
 	.filter-item {
-
 		-webkit-user-select:none;
-
+    line-height: 2.6rem;
 		display:inline-block;
 		color:color("grey", "darken-3");
 		background-color: color("grey", "lighten-4");
 		padding:10px 12px;
+		font-family: $nav-font;
 		&.active {
 			background-color: color("grey", "lighten-3");
 		}

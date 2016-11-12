@@ -6,6 +6,7 @@
     <div className="list-sub-menu">
         <i className="big-icon icon icon-bubble"/>
         <h5>Liste de mes groupes de discussion</h5>
+				<a href="" className="list-sub-menu-toggle">Tout voir</a>
     </div>
 
 */
@@ -47,5 +48,8 @@
 			top: -1px;
 			opacity:0.2;
 		}
+	}
+	a {
+		float:right;
 	}
 }

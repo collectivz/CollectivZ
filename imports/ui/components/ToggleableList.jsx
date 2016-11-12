@@ -64,10 +64,17 @@ export default class ToggleableList extends React.Component {
       emptyListString
     } = this.props;
 
+    let length = 0;
+    if (data.length)
+      length = data.length;
+
     return (
       <div>
-        <p>{`${title} (${data.length})`}</p>
-        <a onClick={this.toggleList}>{this.actionName()}</a>
+        <div className="list-sub-menu small">
+            <i className="big-icon icon icon-users"/>
+            <h5>{`${title} (${length})`}</h5>
+            <a className="list-sub-menu-toggle" onClick={this.toggleList}>{this.actionName()}</a>
+        </div>
         <List
           data={this.getData()}
           type="channel"
