@@ -21,6 +21,9 @@ export default class Breadcrumb extends React.Component {
 
     return (
       <div className="breadcrumb">
+        <TouchEvent class="back-button touch-event" onClick={this.onClick.bind(this)}>
+          <img src="/img/small_logo.svg" />
+        </TouchEvent>
         {
           hasBack ?
             <TouchEvent class="back-button touch-event" onClick={this.onClick.bind(this)}>
@@ -41,7 +44,7 @@ export default class Breadcrumb extends React.Component {
             <li><a className="drop-down-menu-link" href="#"> Déplacer l'action </a></li>
           </ul>
         </DropDown> */}
-        
+
       </div>
     );
   }

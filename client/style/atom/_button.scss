@@ -28,8 +28,10 @@
         font-weight: bold;
 
         &.self-center {
-          margin: auto;
           text-align: center;
+          width: 196px;
+          margin: 0 auto;
+          display: block;
         }
 
         &:hover {

@@ -14,21 +14,29 @@ $modal-easing-duration: 250ms;
 		display:block;
 	}
 	.modal--content {
-		margin:auto;
+		margin:none;
 		position:relative;
+		display:flex;
 		border-radius:2px;
 		z-index: 999;
-		padding:20px;
+		padding:15px 20px 20px 20px;
 		min-width: 220px;
 		transition: all 350ms ease;
 		background-color: white;
 		transform: translateY(-750px);
 	}
+	.modal--content-wrapper {
+		z-index: 999;
+		margin:auto;
+	}
 	.modal--header {
 		position:relative;
+		border-bottom: 1px solid #fafafa;
+		margin-bottom:$text-size;
 		h4 {
 			margin-top: 0px;
-			margin-bottom: 22px;
+			margin-bottom: $text-size;
+			font-family: $nav-font;
 			i {
 				opacity:0.5;
 				margin-right:5px;
@@ -38,8 +46,8 @@ $modal-easing-duration: 250ms;
 	}
 	.modal--close-button {
 		position:absolute;
-		top: 0px;
-		right: 0px;
+		top: 4px;
+		right: -1px;
 		opacity: 0.6;
 		transition: opacity .2s ease;
 		padding: 0;
@@ -98,4 +106,10 @@ $modal-easing-duration: 250ms;
 		}
 	}
 
+}
+
+@include desktop {
+	.modal .modal--content {
+		margin: auto;
+	}
 }

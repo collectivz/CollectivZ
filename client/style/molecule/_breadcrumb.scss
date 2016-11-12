@@ -29,7 +29,7 @@ $breadcrumb-base-index: 999;
 	height:$breadcrumb-height;
 	background-color:color("grey", "darken-3");
 	z-index: $breadcrumb-base-index;
-	box-shadow: 0 4px 10px rgba(color("grey", "darken-2"), .25);
+	//box-shadow: 0 4px 10px rgba(color("grey", "darken-2"), .25);
 	.back-button {
 		width:$breadcrumb-height;
 		height:$breadcrumb-height;
@@ -50,15 +50,15 @@ $breadcrumb-base-index: 999;
 			margin-top:-($breadcrumb-touch-size / 2);
 		}
 	}
+	img {
+		margin: 5px;
+		width:40px;
+	}
 	.right-button {
 		@extend .back-button;
 		float:right;
 	}
 	.text {
-		text-align: center;
-		position:absolute;
-		width:50%;
-		left:25%;
 		white-space: nowrap;
 		overflow: hidden;
 		text-overflow: ellipsis;
@@ -67,5 +67,11 @@ $breadcrumb-base-index: 999;
 		font-family: $nav-font;
 		margin:0;
 		margin-top: 10px;
+		display:inline-block;
+		float:left;
+	}
+	&:after {
+		clear:both;
+		content:"";
 	}
 }

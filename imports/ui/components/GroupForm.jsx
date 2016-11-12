@@ -78,9 +78,7 @@ export default class GroupForm extends React.Component {
               { ...descriptionAttributes }
             />
           </fieldset>
-          <fieldset className="large">
-            <input type="submit" value="Valider" className="large big primary button"/>
-          </fieldset>
+          <input type="submit" value="Valider" className="large success button"/>
 
         </form>
 
