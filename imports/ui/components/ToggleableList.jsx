@@ -46,7 +46,13 @@ export default class ToggleableList extends React.Component {
     if (open) {
       return data;
     } else {
-      return [data[0], data[1]];
+      let result = [];
+      data.forEach((item, index) => {
+        if (index < 3) {
+          result.push(item);
+        }
+      });
+      return result;
     }
   }
 
