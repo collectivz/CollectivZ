@@ -153,6 +153,7 @@ Meteor.methods({
       text,
       channelId: message.channelId,
       author: this.userId,
+      authorImage: Meteor.user().imageUrl
     };
 
     Messages.insert(newMessage);

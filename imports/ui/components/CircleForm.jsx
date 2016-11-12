@@ -28,7 +28,7 @@ export default class CircleForm extends React.Component {
       newCircle
     } = this.state;
     if (_.contains(newCircle, userSelectedId)) {
-      console.log('Vous avez déjà ajouté cette personne.');
+      Toast('Vous avez déjà ajouté cette personne.', 'danger');
     } else {
       this.setState({
         newCircle: newCircle.concat(userSelectedId),
