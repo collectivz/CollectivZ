@@ -6,7 +6,9 @@ import { UnreadCount } from '../../api/users/client/unread-count';
 import ChannelItem from '../components/ChannelItem';
 
 export default createContainer(({ data }) => {
-  const unread = UnreadCount.findOne({channelId: data._id });
+  if (data) {
+    var unread = UnreadCount.findOne({channelId: data._id });
+  }
 
   return {
     count: unread ? unread.count : 0

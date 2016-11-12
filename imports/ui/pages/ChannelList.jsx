@@ -26,7 +26,7 @@ export default class ChannelList extends React.Component {
           <div className="sub-container">
             <div className="list-sub-menu small">
                 <i className="big-icon icon icon-users"/>
-                <h5>Groupes({channels.length})</h5>
+                <h5>Groupes ({channels.length})</h5>
             </div>
             <List
               data={sortedChannels}
