@@ -46,7 +46,7 @@ export default class ChannelItem extends React.Component {
     } = this.props;
 
 
-    if(data.type === 'channel' && renderMargin)
+    if (data && data.type === 'channel' && renderMargin)
       return count ? 'list-item touch-event sub-list has-notif' : 'list-item touch-event sub-list';
     else
       return count ? 'list-item touch-event has-notif' : 'list-item touch-event';
@@ -61,31 +61,33 @@ export default class ChannelItem extends React.Component {
     } = this.props;
 
     return (
-      <TouchEvent class={this.getCss()} onClick={this.onClick}>
-        <img src={data.imageUrl} alt="" />
-        <div className="list-item-content">
-          <p className="title">{data.name}</p>
-          <p className="text">
-            {data.lastMessage ?
-                <span>{data.lastMessage.author}</span>
+      data ?
+        <TouchEvent class={this.getCss()} onClick={this.onClick}>
+          <img src={data.imageUrl} alt="" />
+          <div className="list-item-content">
+            <p className="title">{data.name}</p>
+            <p className="text">
+              {data.lastMessage ?
+                  <span>{data.lastMessage.author}</span>
+                : ''
+              }
+              {data.lastMessage ?
+                  `${data.lastMessage.text}`
+                : ''
+              }
+            </p>
+            {data.connections ?
+              <ActionList actions={data.connections} />
               : ''
             }
-            {data.lastMessage ?
-                `${data.lastMessage.text}`
-              : ''
+            {
+              renderUnread && count ?
+                <div className="list-item-notif"><span>{count}</span><i className="icon icon-envelope"></i></div>
+                : ''
             }
-          </p>
-          {data.connections ?
-            <ActionList actions={data.connections} />
-            : ''
-          }
-          {
-            renderUnread && count ?
-              <div className="list-item-notif"><span>{count}</span><i className="icon icon-envelope"></i></div>
-              : ''
-          }
-        </div>
-      </TouchEvent>
+          </div>
+        </TouchEvent>
+      : null
     );
   }
 }

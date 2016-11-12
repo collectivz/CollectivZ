@@ -10,21 +10,21 @@ export default createContainer(({ user }) => {
   const channelSub = Meteor.subscribe('chanList', user.subscribedChannels, user.subscribedConversations);
   const unreadSub = Meteor.subscribe('unread-count');
   const userChannels = user.subscribedChannels.concat(user.subscribedConversations);
-  const channelRoots = Channels.find(
-    {_id: {$in: userChannels}, type: { $in: ['conversation', 'group'] } },
+  const groups = Channels.find(
+    {_id: {$in: userChannels}, type: 'group' },
+    { sort: { lastActivity: -1 } }).fetch();
+  const conversations = Channels.find(
+    {_id: {$in: userChannels}, type: 'conversation' },
+    { sort: { lastActivity: -1 } }).fetch();
+  const actions = Channels.find(
+    {_id: {$in: userChannels}, type: 'channel' },
     { sort: { lastActivity: -1 } }).fetch();
   const unreadCounts = UnreadCount.find().fetch();
-  const actions = Channels.find(
-    { _id: { $in: user.subscribedChannels }, type: 'channel' },
-  ).fetch().filter((action) => {
-    return !_.contains(user.subscribedChannels, action.rootId);
-  });
-  const channels = channelRoots.concat(actions).sort((a, b) => {
-    return a.lastActivity - b.lastActivity;
-  });
 
   return {
-    channels,
+    groups,
+    conversations,
+    actions,
     unreadCounts,
     loading: !channelSub.ready(),
   };
