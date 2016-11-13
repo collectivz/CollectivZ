@@ -8,10 +8,15 @@ import Loader from '../components/Loader.jsx';
 import List from '../components/List.jsx';
 import GroupItem from '../components/GroupItem.jsx';
 import ChannelItem from '../components/ChannelItem.jsx';
-import HistoryItem from '../components/HistoryItem.jsx';
-
+import TouchEvent from '../components/TouchEvent';
 
 export default class ProfilePage extends Component {
+
+  goTo(url) {
+    setTimeout(() => {
+      this.context.router.push(url);
+    }, 350)
+  }
 
   render() {
 
@@ -29,48 +34,19 @@ export default class ProfilePage extends Component {
 
               <Breadcrumb title={`Profil de ${user.username}`} hasBack={true} />
 
-              <div className="sub-container">
-
-                <UserHeader user={user}/>
-
-                <div className='list'>
-
-                  <div className="list-sub-menu small">
-                      <i className="big-icon icon icon-temple"/>
-                      <h5>Groupes dont {user.username} fait partie</h5>
+                {
+                  children ?
+                    children
+                  :
+                  <div className="sub-container">
+                    <UserHeader user={user}/>
+                    <div className='list'>
+                      <TouchEvent class="touch-event" onClick={this.goTo.bind(this, '/my-profile/history')}>
+                        <p>Mes informations personnelles</p>
+                      </TouchEvent>
+                    </div>
                   </div>
-                  <List
-                    data={groups}
-                    type="group"
-                    user={user}
-                    emptyListString={`${user.username} ne fait partie d'aucun groupe. Inviter le à coopérer !`}
-                  >
-                    <ChannelItem />
-                  </List>
-                  <div className="list-sub-menu small">
-                      <i className="big-icon icon icon-bubble"/>
-                      <h5>Discussions dont {user.username} fait partie</h5>
-                  </div>
-                  <List
-                    data={channels}
-                    type="channel"
-                    emptyListString={`${user.username} ne participe à aucune action.`}
-                  >
-                    <ChannelItem />
-                  </List>
-                  <div className="list-sub-menu small">
-                      <i className="big-icon icon icon-history"/>
-                      <h5>Historique des évaluations</h5>
-                  </div>
-                  <List
-                    data={actionHistory}
-                    type="history"
-                    emptyListString="Aucune évaluation."
-                  >
-                    <HistoryItem />
-                  </List>
-                </div>
-              </div>
+                }
               <AppNav user={currentUser} />
             </div>
           : <Loader />
@@ -79,3 +55,7 @@ export default class ProfilePage extends Component {
       );
   }
 }
+
+ProfilePage.contextTypes = {
+  router: React.PropTypes.object
+};

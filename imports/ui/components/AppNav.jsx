@@ -60,7 +60,7 @@ export default class AppNav extends Component {
           </TouchEvent>
         : '' }
         <TouchEvent
-            onClick={ ()=>{this.onClick("/profile")} }
+            onClick={ ()=>{this.onClick("/my-profile")} }
             class={ classNames( "navbar-item touch-event", { active: activeUrl == "/profile" } ) }>
             <i className="icon icon-3x icon-big-user"/>
             <span>Profil</span>

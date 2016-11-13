@@ -68,5 +68,29 @@ Meteor.methods({
 
   'users.getUserNumber'() {
     return Meteor.users.find().count();
+  },
+
+  'users.addSkill'(newSkill) {
+    if (!this.userId) {
+      throw new Meteor.Error('not-logged-in',
+        "Vous devez être connecté pour changer de nom d'utilisateur.");
+    }
+    check(newSkill, String);
+
+    Meteor.users.update(this.userId, {
+      $addToSet: { skills: newSkill }
+    });
+  },
+
+  'users.removeSkill'(skill) {
+    if (!this.userId) {
+      throw new Meteor.Error('not-logged-in',
+        "Vous devez être connecté pour changer de nom d'utilisateur.");
+    }
+    check(skill, String);
+
+    Meteor.users.update(this.userId, {
+      $pull: { skills: skill }
+    });
   }
 });

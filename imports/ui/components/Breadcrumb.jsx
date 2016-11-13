@@ -6,9 +6,15 @@ import DropDown               from './DropDown';
 
 export default class Breadcrumb extends React.Component {
 
-  onClick() {
+  goBack() {
     setTimeout( () => {
       browserHistory.goBack();
+    }, 350 );
+  }
+
+  goToMainPage() {
+    setTimeout( () => {
+      this.context.router.push('/my-groups');
     }, 350 );
   }
 
@@ -21,12 +27,12 @@ export default class Breadcrumb extends React.Component {
 
     return (
       <div className="breadcrumb">
-        <TouchEvent class="back-button touch-event" onClick={this.onClick.bind(this)}>
+        <TouchEvent class="back-button touch-event" onClick={this.goToMainPage.bind(this)}>
           <img src="/img/small_logo.svg" />
         </TouchEvent>
         {
           hasBack ?
-            <TouchEvent class="back-button touch-event" onClick={this.onClick.bind(this)}>
+            <TouchEvent class="back-button touch-event" onClick={this.goBack.bind(this)}>
               <i className="icon icon-3x icon-chevron-left"/>
             </TouchEvent>
           : ''
@@ -49,3 +55,7 @@ export default class Breadcrumb extends React.Component {
     );
   }
 }
+
+Breadcrumb.contextTypes = {
+  router: React.PropTypes.object
+};
