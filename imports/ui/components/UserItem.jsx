@@ -37,32 +37,32 @@ export default class UserItem extends React.Component {
     switch (type) {
       case 'invitation':
         return (
-          <div>
-            <button className="button success" onClick={acceptInvite.bind(this, data._id)}>Accepter</button>
-            <button className="button danger" onClick={refuseInvite.bind(this, data._id)}>Refuser</button>
+          <div className="merge">
+            <button className="button success" onClick={acceptInvite.bind(this, data._id)}><i className="icon icon-check"></i></button>
+            <button className="button danger" onClick={refuseInvite.bind(this, data._id)}><i className="icon icon-cross"></i></button>
           </div>
       )
       case 'createCircle':
         if (_.contains(circle, data._id)) {
           return (
-            <button className="button danger" onClick={removeFromCircle.bind(this, data._id)}>Enlever</button>
+            <button className="button only-icon danger" onClick={removeFromCircle.bind(this, data._id)}><i className="icon icon-cross"></i></button>
           )
         } else {
           return (
-            <button className="button success" onClick={addToCircle.bind(this, data._id)}>Ajouter</button>
+            <button className="button only-icon success" onClick={addToCircle.bind(this, data._id)}><i className="icon icon-check"></i></button>
           )
         }
       case 'contact':
         return (
-          <button className="button danger" onClick={removeContact.bind(this, data._id)}>Supprimer</button>
+          <button className="button only-icon danger" onClick={removeContact.bind(this, data._id)}><i className="icon icon-cross"></i></button>
         )
       case 'admin':
         return (
-          <button className="button danger" onClick={removeAdmin.bind(this, data._id)}>Rétrograder</button>
+          <button className="button only-icon danger" onClick={removeAdmin.bind(this, data._id)}>Rétrograder</button>
         );
       case 'invitationSent':
         return (
-          <p>Invitation en attente...</p>
+          <p>En attente...</p>
         );
       default:
         return ;
@@ -78,7 +78,8 @@ export default class UserItem extends React.Component {
             <img className="circle" src={data.imageUrl} alt="" />
         </TouchEvent>
         <div className="list-item-content">
-            <p className="title">{data.username}</p>
+          <p className="title">{data.username}</p>
+          <p className="text type">Performer</p>
         </div>
         <div className="list-item-action">
         {this.toggleButton()}

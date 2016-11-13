@@ -91,7 +91,7 @@ export default class ContactPage extends React.Component {
 
           <div className="list-sub-menu small">
               <i className="big-icon icon icon-users"/>
-              <h5>Contact(s)</h5>
+              <h5>Vos Contacts</h5>
           </div>
 
           {
@@ -126,7 +126,13 @@ export default class ContactPage extends React.Component {
           >
             <UserItem />
           </List>
-          <a className="success self-center button" onClick={this.openInviteModal}> Inviter un contact </a>
+          { 
+            (usersContact && usersContact.length > 0)
+            ?
+              ""
+            :
+              <a className="success self-center button" onClick={this.openInviteModal}> Inviter un contact </a>
+          }
           {/*
             <div className="list-sub-menu">
                 <i className="big-icon icon icon-bubble"/>

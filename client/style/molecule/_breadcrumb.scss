@@ -22,12 +22,14 @@ $breadcrumb-info-width: 200px;
 $breadcrumb-touch-size: $breadcrumb-height * 1.5;
 $breadcrumb-info-touch-size: $breadcrumb-info-width * 1.5;
 
-$breadcrumb-base-index: 999;
+$breadcrumb-base-index: 999999999;
 
 .breadcrumb {
 	width:100%;
+	position:fixed;
+	top:0;
 	height:$breadcrumb-height;
-	background-color:color("grey", "darken-3");
+	background-color:#16162b;
 	z-index: $breadcrumb-base-index;
 	//box-shadow: 0 4px 10px rgba(color("grey", "darken-2"), .25);
 	.back-button {
@@ -43,7 +45,7 @@ $breadcrumb-base-index: 999;
 			color:white;
 		}
 		&::after {
-			background-color:rgba(white, 0.5);
+			background-color:rgba(white, 0.3);
 			width:$breadcrumb-touch-size;
 			height:$breadcrumb-touch-size;
 			margin-left:-($breadcrumb-touch-size / 2);
@@ -69,6 +71,7 @@ $breadcrumb-base-index: 999;
 		margin-top: 10px;
 		display:inline-block;
 		float:left;
+		max-width: 37%;
 	}
 	&:after {
 		clear:both;

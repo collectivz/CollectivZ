@@ -35,6 +35,7 @@ export default class ContactInvite extends React.Component {
             <form id="box" onSubmit={this.handleSubmit}>
 
               <fieldset className="large has-icon">
+                <i className="icon icon-user"></i>
                 <input
                   className="large"
                   type="text"
@@ -43,7 +44,7 @@ export default class ContactInvite extends React.Component {
                 />
               </fieldset>
               <fieldset className="large has-icon">
-                <input type="submit" value="Inviter" className="large big primary button"/>
+                <input type="submit" value="Inviter" className="large success button"/>
               </fieldset>
 
             </form>

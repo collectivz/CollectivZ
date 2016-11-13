@@ -37,6 +37,10 @@ export default class GroupList extends Component {
           </TouchEvent>
         </Breadcrumb>
           <div className="sub-container">
+            <div className="list-sub-menu small">
+                <i className="big-icon icon icon-users"/>
+                <h5>Vos Groupes</h5>
+            </div>
             <List
               data={groups}
               user={user}
@@ -45,6 +49,12 @@ export default class GroupList extends Component {
             >
               <GroupItem />
             </List>
+            { (groups && groups.length > 0)
+              ?
+                ""
+              :
+                <a className="success self-center button" onClick={this.openModal}> En créer un </a>
+            }
           </div>
         <AppNav user={user}/>
       </div>

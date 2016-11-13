@@ -2,9 +2,9 @@ $base-index: 9999999;
 
 .drop-down {
 	position: absolute;
-	right: -300px;
+	right: -100%;
 	top: $breadcrumb-height;
-	width: 300px;
+	width: 100%;
   overflow: hidden;
   float:right;
 	transition: all 200ms ease;
@@ -30,7 +30,7 @@ $base-index: 9999999;
 	}
 	.drop-down-menu {
 		position:relative;
-		width:300px;
+		width:100%;
 		z-index: $base-index;
 
 	}

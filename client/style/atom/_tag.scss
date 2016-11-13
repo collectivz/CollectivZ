@@ -58,16 +58,27 @@
 }
 
 .user-tag {
-    height:40px;
+    display:inline-block;
+    border: 1px solid rgba(0,0,0,0.1);
+    position:relative;
+    overflow: hidden;
+    margin-right: 10px;
+    margin-bottom:10px;
+    border-radius: 3px;
     img {
-        width:40px!important;
-        height:40px;
-        border-radius: 100%;
-        float:left;
-        margin-right:5px;
+        width:25px!important;
+        height:25px;
+        left:0;
+        overflow: hidden;
+        position:absolute;
+        border-top-left-radius: 3px;
+        border-bottom-left-radius: 3px;
+        border-right: 1px solid rgba(0,0,0,0.1);
     }
     p {
-        line-height: 40px;
+        margin: 2px 7px 2px 35px;
+        font-family: $nav-font;
+        text-transform: capitalize;
     }
     &:after {
         @include clearfix();
