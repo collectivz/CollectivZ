@@ -31,9 +31,7 @@ export default class ChatFilter extends React.Component {
       <div className="chat-filter">
 
         <TouchEvent onClick={ () => { this.onClick('all') } } class={classNames("filter-item touch-event", {active: this.state.activeFilter == 'all'})}>
-
-            {/*}<i className="icon icon-undo grey"/>*/}
-            Tout
+            <i className="icon icon-undo grey"/>
         </TouchEvent>
 
         {channel.connections.channelCount ?

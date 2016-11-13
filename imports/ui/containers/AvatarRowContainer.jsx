@@ -7,6 +7,7 @@ export default createContainer(({ userIds }) => {
   let avatars = [];
   const users = Meteor.users.find({_id: { $in: userIds }}).fetch();
 
+
   users.forEach((user) => {
     if (user.imageUrl) {
       avatars.push(user.imageUrl);
@@ -14,6 +15,6 @@ export default createContainer(({ userIds }) => {
   });
 
   return {
-    avatars,
+    avatars
   };
 }, AvatarRow);

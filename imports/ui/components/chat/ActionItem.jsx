@@ -51,8 +51,9 @@ export default class ActionItem extends React.Component {
       <div className="chat-special-bubble chat-special-bubble-mission">
           <div className="bubble-content">
               <div className="bubble-header">
-                <p>{user.username} à ouvert une action :</p>
-                <h4><i className="icon icon-action-color icon-action"/>{channel.name}</h4>
+                <i className="icon icon-action-color icon-action"/>
+                <span><a href="">{user.username}</a> à ouvert une action</span>
+                <h5>{channel.name}</h5>
                 {
                   (channel.author === user._id || user.isAdmin) ?
                     <DropDownBottom>
@@ -68,9 +69,7 @@ export default class ActionItem extends React.Component {
                 <p>
                   <span>{channel.description}</span>
                 </p>
-                <div className="button-box">
-                  <button onClick={this.joinChannel}>Voir {channel.members.length}</button>
-                </div>
+                <button className="button only-icon" onClick={this.joinChannel}><span>Rejoindre</span><i className="icon icon-chevron-right"></i></button>
                 <AvatarRowContainer userIds={channel.members} />
               </div>
           </div>

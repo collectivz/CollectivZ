@@ -51,7 +51,7 @@ export default class ZorroItem extends Component {
           <img src={this.userAvatar(message.author)}/>
           <div className="bubble-content">
               <div className="bubble-content-header">
-                  <span className="name">{this.getName()}</span>
+                  <span className="bubble-content-name">{this.getName()}</span>
               </div>
               <p className="text">
                 {message.text}
@@ -60,7 +60,7 @@ export default class ZorroItem extends Component {
                 message.author === 'Zorro' ?
                 <form>
                   {choices.map((choice, index) => {
-                    return (<button className="button success" onClick={answerToZorro.bind(this, choice)} key={index}>{choice}</button>);
+                    return (<button className="button only-icon success" onClick={answerToZorro.bind(this, choice)} key={index}>{choice}</button>);
                   })}
                 </form>
                 :

@@ -83,4 +83,14 @@
     &:after {
         @include clearfix();
     }
+    &.only-circle {
+      border:none;
+      border-radius: 100%;
+      overflow: hidden;
+      position:relative;
+      img {
+        position:relative;
+        border-radius: 100%;
+      }
+    }
 }

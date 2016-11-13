@@ -66,7 +66,7 @@ export default class BeerItem extends React.Component {
         <div className="beer-participate">
           <div className="success-box">
             <h4><i className="icon icon-check"/>Vous participez !</h4>
-            <AvatarRowContainer userIds={beer.members} />
+            <AvatarRowContainer isLarge={true} userIds={beer.members} />
           </div>
         </div>
       );
@@ -76,8 +76,8 @@ export default class BeerItem extends React.Component {
         <div className="beer-participate">
           <div className="button-box">
             <button onClick={this.joinBeer}>Participer {beer.members.length}</button>
-            <AvatarRowContainer userIds={beer.members} />
           </div>
+          <AvatarRowContainer isLarge={true} userIds={beer.members} />
         </div>
       );
     }
@@ -94,8 +94,9 @@ export default class BeerItem extends React.Component {
       <div className="chat-special-bubble chat-special-bubble-beer">
           <div className="bubble-content">
               <div className="bubble-header">
-                <p>{user.username} à lancé un événement :</p>
-                <h4><i className="icon icon-event-color icon-event2"/> {beer.occasion}</h4>
+                <span><a href="">{user.username}</a> à lancé un événement</span>
+                <h5>{beer.occasion}</h5>
+                <i className="icon icon-event-color icon-event2"/>
                 {
                   (beer.author === user._id || user.isAdmin) ?
                     <DropDownBottom>
@@ -108,8 +109,8 @@ export default class BeerItem extends React.Component {
                 }
               </div>
               <div className="bubble-content-text">
-                <h4><i className="icon icon-earth"/><span>Lieu</span> {beer.place}</h4>
-                <h4><i className="icon icon-calendar-full"/><span>Date</span> {beer.date}</h4>
+                <h5><i className="icon icon-earth"/><span>Lieu</span> {beer.place}</h5>
+                <h5><i className="icon icon-calendar-full"/><span>Date</span> {beer.date}</h5>
                 {this.participate()}
               </div>
           </div>

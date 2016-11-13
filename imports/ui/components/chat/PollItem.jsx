@@ -92,21 +92,20 @@ export default class PollItem extends React.Component {
         <div key={proposition._id}>
           {
             !this.hasVoted() ?
-              <input type="radio" name="choice" className="primary" onClick={this.selectProposition.bind(this, proposition._id)}/>
+            <div className="radio">
+              <input id={i} type="radio" className="primary" name='radio-group' onClick={this.selectProposition.bind(this, proposition._id)}/>
+              <label htmlFor={i}>{proposition.name}</label>
+            </div>
             :
-              ''
-          }
-          <p>
-            <b>{proposition.name}</b>
-          </p>
-          {
-            this.hasVoted() ?
-              <div className="progress-bar-wrapper">
-                <div className="progress-bar success" style={this.getVotePercent(proposition)}></div>
-                <span>{proposition.voteReceivedFrom.length} votes reçus </span>
+              <div>
+                <p className="b">
+                  {proposition.name}
+                </p>
+                <div className="progress-bar-wrapper">
+                  <div className="progress-bar success" style={this.getVotePercent(proposition)}></div>
+                  <span>{proposition.voteReceivedFrom.length} votes reçus </span>
+                </div>
               </div>
-            :
-              ''
           }
         </div>
       );
@@ -116,8 +115,9 @@ export default class PollItem extends React.Component {
       <div className="chat-special-bubble chat-special-bubble-poll">
           <div className="bubble-content">
               <div className="bubble-header">
-                <p>{user.username} à lancé un sondage :</p>
-                <h4><i className="icon icon-pie-chart icon-pollz-color"/> {poll.question}</h4>
+                <i className="icon icon-pie-chart icon-pollz-color"/>
+                <span><a href="">{user.username}</a> à lancé un sondage</span>
+                <h5> {poll.question}</h5>
                 {
                   (poll.author === user._id || user.isAdmin) ?
                     <DropDownBottom>
@@ -142,7 +142,7 @@ export default class PollItem extends React.Component {
                     </button>
                   </div>
               }
-              <AvatarRowContainer userIds={poll.members} />
+              <AvatarRowContainer isLarge={true} userIds={poll.members} />
           </div>
       </div>
     );

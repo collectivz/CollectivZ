@@ -1,15 +1,18 @@
 import React from 'react';
+import classNames                       from 'classnames';
 
 export default class AvatarRow extends React.Component {
   render() {
+    console.log(this.props.isLarge)
+
     const {
       avatars
     } = this.props;
     return (
-      <div className="user-tag">
+      <div className={classNames("user-list", {"large": this.props.isLarge})}>
         {
           avatars.map((avatar, index) => {
-            return (<img src={avatar} key={index}/>);
+            return (<div className="user-tag only-circle" key={index}><img src={avatar}/></div>);
           })
         }
       </div>

@@ -57,8 +57,9 @@ export default class CoinItem extends React.Component {
       <div className="chat-special-bubble chat-special-bubble-coin">
           <div className="bubble-content">
               <div className="bubble-header">
-                <p>{user.username} à lancé une collecte :</p>
-                <h4><i className="icon icon-money-color icon-euro"/>{coin.purpose}</h4>
+                <i className="icon icon-money-color icon-euro"/>
+                <span>{user.username} à lancé une collecte</span>
+                <h5>{coin.purpose}</h5>
                 {
                   (coin.author === user._id || user.isAdmin) ?
                     <DropDownBottom>
@@ -72,18 +73,16 @@ export default class CoinItem extends React.Component {
               </div>
               <div className="bubble-content-text">
                 <h4 className="success-text">{coin.totalEarned} / {coin.goal} reçu</h4>
-                <h4>Je donne &nbsp;
-                  <input
-                    className="small"
-                    type="number"
-                    ref="number"
-                  /> € de mes <span className="success-text">{user.coinz} €</span>
-                </h4>
-                <div className="button-box">
-                  <button className="success button" onClick={this.handleSubmit}>
-                    Financer {coin.givers.length}
-                  </button>
-                </div>
+                <h5>Donner &nbsp;
+                    <input
+                      className="small"
+                      type="number"
+                      ref="number"
+                    /> € de mes <span className="success-text">{user.coinz} €</span>
+                </h5>
+                <button className="success button" onClick={this.handleSubmit}>
+                  Financer
+                </button>
                 <AvatarRowContainer userIds={coin.givers} />
               </div>
 
