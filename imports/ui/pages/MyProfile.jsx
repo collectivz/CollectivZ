@@ -73,11 +73,14 @@ export default class MyProfile extends Component {
                     <Breadcrumb title={`Profil`} hasBack={false} />
                     <UserHeader user={user}/>
                     <div className='list'>
-                      <TouchEvent class="touch-event" onClick={this.goTo.bind(this, '/my-profile/history')}>
+                      <TouchEvent class="touch-event" onClick={this.goTo.bind(this, '/my-profile/infos')}>
                         <p>Mes informations personnelles</p>
                       </TouchEvent>
                       <TouchEvent class="touch-event" onClick={this.goTo.bind(this, '/my-profile/skills')}>
                         <p>Mes compétences</p>
+                      </TouchEvent>
+                      <TouchEvent class="touch-event" onClick={this.goTo.bind(this, '/my-profile/history')}>
+                        <p>Mes accomplissements</p>
                       </TouchEvent>
                     </div>
                   </div>
