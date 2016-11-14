@@ -1,5 +1,6 @@
 import React from 'react';
 
+import Breadcrumb from './Breadcrumb';
 import { Toast } from '../helpers/Toast';
 
 export default class InformationsEdit extends React.Component {
@@ -33,20 +34,31 @@ export default class InformationsEdit extends React.Component {
           }
         });
       }
-
+      Meteor.call('users.changeInfos', user, (err, res) => {
+        if (err) {
+          Toast(err.reason, 'danger');
+        } else {
+          Toast('Modifications prises en compte', "success");
+        }
+      });
     }
   }
 
   render() {
+    const {
+      user
+    } = this.props;
+
     return (
       <div>
+        <Breadcrumb title="Mes informations personnelles" hasBack={true} />
         <form id="box" onSubmit={this.updateInfo}>
           <fieldset className="large">
             <input
               className="large"
               type="text"
               ref="username"
-              placeholder="Nom d'utilisateur"
+              defaultValue={user.username}
             />
           </fieldset>
           <fieldset className="large">

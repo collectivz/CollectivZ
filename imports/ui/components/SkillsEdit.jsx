@@ -2,6 +2,7 @@ import React from 'react';
 
 import List from './List';
 import SkillItem from './SkillItem';
+import Breadcrumb from './Breadcrumb';
 import { Toast } from '../helpers/Toast';
 
 export default class SkillsEdit extends React.Component {
@@ -37,6 +38,7 @@ export default class SkillsEdit extends React.Component {
 
     return (
       <div>
+        <Breadcrumb title="Mes compétences" hasBack={true} />
         <form>
           <i className="icon icon-cog"></i>
           <h2>Mes compétences</h2>

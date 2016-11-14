@@ -56,14 +56,66 @@ Meteor.methods({
     });
   },
 
-  'users.setUsername'(newUsername) {
+  'users.changeInfos'(userDoc) {
     if (!this.userId) {
       throw new Meteor.Error('not-logged-in',
         "Vous devez être connecté pour changer de nom d'utilisateur.");
     }
-    check(newUsername, String);
+    new SimpleSchema({
+      username: {
+        type: String,
+        optional: true
+      },
+      firstname: {
+        type: String,
+        optional: true
+      },
+      lastname: {
+        type: String,
+        optional: true
+      },
+      email: {
+        type: String,
+        optional: true
+      },
+      phone: {
+        type: String,
+        optional: true
+      }
+    }).validate(userDoc);
 
-    Accounts.setUsername(this.userId, newUsername);
+    const {
+      email,
+      username,
+      firstname,
+      lastname,
+      phone
+    } = userDoc;
+    let update = {
+      $set: {
+      }
+    };
+
+    if (email) {
+      Accounts.addEmail(this.userId, email);
+    }
+
+    if (username) {
+      Accounts.setUsername(this.userId, username);
+    }
+    if (firstname) {
+      update.$set['profile.firstName'] = firstname;
+    }
+    if (lastname) {
+      update.$set['profile.lastName'] = lastname;
+    }
+    if (phone) {
+      update.$set.phone = phone;
+    }
+
+    if (!_.isEmpty(update.$set)) {
+      Meteor.users.update(this.userId, update);
+    }
   },
 
   'users.getUserNumber'() {
