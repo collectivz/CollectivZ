@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import $ from 'jquery';
 import { Meteor } from 'meteor/meteor';
 
 import Breadcrumb from '../components/Breadcrumb.jsx';
@@ -32,6 +33,11 @@ export default class ConversationPage extends React.Component {
         Toast(err.reason, 'danger');
       }
     });
+  }
+
+  scrollDown() {
+    const elem = $('.chat-sub-container');
+    $(".chat-sub-container").scrollTop(1000000);
   }
 
   componentDidUpdate() {

@@ -59,6 +59,8 @@ export default class MyProfile extends Component {
       actionHistory = history.actionHistory;
     }
 
+    console.log(user);
+
     return (
       <div className="screen-box">
         {user ?
@@ -70,7 +72,11 @@ export default class MyProfile extends Component {
                     this.renderChild()
                   :
                   <div className="sub-container">
-                    <Breadcrumb title={`Profil`} hasBack={false} />
+                    <Breadcrumb title={`Profil`} hasBack={false}>
+                      <TouchEvent class="right-button touch-event" onClick={this.logout}>
+                        <i className="icon icon-exit" />
+                      </TouchEvent>
+                    </Breadcrumb>
                     <UserHeader user={user}/>
                     <div className='list'>
                       <TouchEvent class="touch-event" onClick={this.goTo.bind(this, '/my-profile/infos')}>

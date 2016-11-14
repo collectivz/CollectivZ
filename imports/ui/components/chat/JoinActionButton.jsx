@@ -21,8 +21,9 @@ export default class JoinActionButton extends React.Component {
   }
 
   render() {
+    $(".chat-sub-container").toggleClass("open");
     return (
-      <div ref="bar" className="chat-input-wrapper disabled">
+      <div ref="bar" className="chat-input-wrapper disabled open">
         <div className="chat-input-disabled">
           <button className="success button" onClick={this.joinChannel}>Rejoindre</button>
           <p>Vous devez rejoindre cette action avant de pouvoir envoyer un message</p>

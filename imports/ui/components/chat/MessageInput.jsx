@@ -232,11 +232,6 @@ export default class MessageInput extends Component {
     const showWhoIsTyping = isTypingVisible
       ? 'someone-is-typing visible'
       : 'someone-is-typing';
-    if ($(".chat-input-wrapper").hasClass('disabled'))
-    {
-      $(".chat-input-wrapper").toggleClass("open");
-      $(".chat-sub-container").toggleClass("open");
-    }
 
     return (
       <div ref="bar" className="chat-input-wrapper">

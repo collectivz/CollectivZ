@@ -111,6 +111,7 @@ export default class ContactPage extends React.Component {
               </List>
 
               <List
+                isLoadable={false}
                 data={usersInvitationSent}
                 type="invitationSent"
                 >
@@ -119,6 +120,7 @@ export default class ContactPage extends React.Component {
             </div>
           }
           <List
+            isLoadable={false}
             data={usersContact}
             type="contact"
             removeContact={this.removeContact}
@@ -126,7 +128,7 @@ export default class ContactPage extends React.Component {
           >
             <UserItem />
           </List>
-          { 
+          {
             (usersContact && usersContact.length > 0)
             ?
               ""

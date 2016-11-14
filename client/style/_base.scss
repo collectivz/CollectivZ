@@ -9,54 +9,8 @@
 		@include include-font("/fonts/icomoon/", "icomoon");
 
 		@font-face {
-		    font-family: 'eurofurence_lightregular';
-		    src: url('/fonts/eurofluence/eurof35-webfont.woff2') format('woff2'),
-		         url('/fonts/eurofluence/eurof35-webfont.woff') format('woff');
-		    font-weight: normal;
-		    font-style: normal;
-
-		}
-
-		@font-face {
-		    font-family: 'eurofurence_lightitalic';
-		    src: url('/fonts/eurofluence/eurof36-webfont.woff2') format('woff2'),
-		         url('/fonts/eurofluence/eurof36-webfont.woff') format('woff');
-		    font-weight: normal;
-		    font-style: normal;
-
-		}
-
-		@font-face {
 		    font-family: 'eurofurence_regular';
-		    src: url('/fonts/eurofluence/eurof55-webfont.woff2') format('woff2'),
-		         url('/fonts/eurofluence/eurof55-webfont.woff') format('woff');
-		    font-weight: normal;
-		    font-style: normal;
-
-		}
-
-		@font-face {
-		    font-family: 'eurofurence_italic';
-		    src: url('/fonts/eurofluence/eurof56-webfont.woff2') format('woff2'),
-		         url('/fonts/eurofluence/eurof56-webfont.woff') format('woff');
-		    font-weight: normal;
-		    font-style: normal;
-
-		}
-
-		@font-face {
-		    font-family: 'eurofurence_bold';
-		    src: url('/fonts/eurofluence/eurof75-webfont.woff2') format('woff2'),
-		         url('/fonts/eurofluence/eurof75-webfont.woff') format('woff');
-		    font-weight: normal;
-		    font-style: normal;
-
-		}
-
-		@font-face {
-		    font-family: 'eurofurence_bolditalic';
-		    src: url('/fonts/eurofluence/eurof76-webfont.woff2') format('woff2'),
-		         url('/fonts/eurofluence/eurof76-webfont.woff') format('woff');
+		    src: url('/fonts/eurofluence/EUROF55.ttf') format('ttf');
 		    font-weight: normal;
 		    font-style: normal;
 

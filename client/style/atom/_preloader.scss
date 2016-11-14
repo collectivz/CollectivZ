@@ -1,12 +1,24 @@
 /* include this only once */
 @-webkit-keyframes spin {
     0%   {
-        transform: rotate(0deg);  
+        transform: rotate(0deg);
     }
     100% {
         transform: rotate(360deg);
     }
 }
+
+@-webkit-keyframes pop {
+    0%   {
+        transform: scale(0);
+        opacity:0;
+    }
+    100% {
+        transform: scale(1);
+        opacity:0.7;
+    }
+}
+
 
 #preloader {
     display: block;
@@ -15,14 +27,25 @@
     width: 50px;
     height: 50px;
     margin: auto;
+    padding:20px 0;
 
     z-index: 1500;
-    border: 3px solid transparent;
-    border-top-color: #9E9E9E;
-
-    border-radius: 50%;
-    animation: spin  5s linear infinite;
-
+    animation: pop  1s ease;
+    opacity:0.7;
+    user-select: unselectable;
+   &>div {
+     width: 60px;
+     height: 60px;
+     margin: auto;
+     z-index: 1500;
+     position:absolute;
+     top:-5px;
+     left:-5px;
+     border: 3px solid transparent;
+     border-top-color: #9E9E9E;
+     border-radius: 100%;
+     animation: spin 3s linear infinite;
+   }
    &:before{
     content: "";
     position: absolute;
@@ -116,6 +139,6 @@
 //   100%{
 //   width:10px;
 //   height:10px;
-  
+
 //   }
 // }

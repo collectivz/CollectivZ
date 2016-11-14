@@ -1,11 +1,25 @@
 import React            from 'react';
+import Loader         from '../components/Loader';
 
 export default class List extends React.Component {
 
   constructor(props) {
     super(props);
-
+    this.state = {isLoaded: false, isLoadable: false};
     this.renderItem = this.renderItem.bind(this);
+    this.isLoaded = this.isLoaded.bind(this);
+    console.log(props);
+  }
+
+  isLoaded() {
+    setTimeout( () => {
+      this.setState({isLoaded: true});
+    }, 1350 );
+  }
+
+  componentDidMount() {
+    if (!this.props.isLoadable || (this.props.isLoadable && this.props.isLoadable == true) ) this.setState({isLoadable: true});
+    this.isLoaded();
   }
 
   renderItem(item, index) {
@@ -29,20 +43,28 @@ export default class List extends React.Component {
       emptyListString
     } = this.props;
 
-    return (
-      (data && data.length) ?
+    console.log(this.state.isLoadable)
 
-        <div className="list">
-          {data.map((item, index) => {
-            return this.renderItem(item, index);
-          })}
-        </div>
+    return (
+      !this.state.isLoaded && this.state.isLoadable ?
+        <Loader/>
       :
-        emptyListString ?
-          <div className="list-empty">
-            <p><i className="icon icon-sad"/>{emptyListString}</p>
+        (data && data.length) ?
+
+          <div className="list">
+            {data.map((item, index) => {
+              return this.renderItem(item, index);
+            })}
           </div>
-        : <div></div>
+        :
+          emptyListString ?
+            <div className="list-empty">
+              <p><i className="icon icon-sad"/>{emptyListString}</p>
+            </div>
+          :
+          <div></div>
+      :
+        ""
     );
   }
 }

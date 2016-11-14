@@ -31,12 +31,13 @@ $chat-input-open-height: 140px;
 	z-index: $base-index;
 	display:none;
 	p {
-		margin-top:35px;
+		margin-top:15px;
 		color:white;
 		text-align: center;
 	}
 	button {
 		margin: 0 auto;
+		margin-top:20px;
 		display:block;
 	}
 }
@@ -49,7 +50,7 @@ $chat-input-open-height: 140px;
 	height:$chat-input-height;
 	display: flex;
 	transition: height 200ms ease;
-	box-shadow: 0 -4px 10px rgba(color("grey", "darken-1"), .25);
+	//box-shadow: 0 -4px 10px rgba(color("grey", "darken-1"), .25);
 	&.open {
 		height:$chat-input-open-height;
 	}
