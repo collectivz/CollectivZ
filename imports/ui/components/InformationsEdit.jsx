@@ -50,7 +50,7 @@ export default class InformationsEdit extends React.Component {
     } = this.props;
 
     return (
-      <div>
+      <div className="sub-container">
         <Breadcrumb title="Mes informations personnelles" hasBack={true} />
         <form id="box" onSubmit={this.updateInfo}>
           <fieldset className="large">

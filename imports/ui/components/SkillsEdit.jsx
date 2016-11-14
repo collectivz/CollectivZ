@@ -37,7 +37,7 @@ export default class SkillsEdit extends React.Component {
     } = this.props;
 
     return (
-      <div>
+      <div className="sub-container">
         <Breadcrumb title="Mes compétences" hasBack={true} />
         <form>
           <i className="icon icon-cog"></i>
