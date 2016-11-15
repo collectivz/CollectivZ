@@ -84,7 +84,9 @@ export default class BeerItem extends React.Component {
   }
 
   getAuthorName(id) {
-    return Meteor.users.findOne(id).username;
+    const author = Meteor.users.findOne(id);
+
+    return author ? author.username : '';
   }
 
   render() {

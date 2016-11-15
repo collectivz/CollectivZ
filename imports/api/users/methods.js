@@ -1,5 +1,7 @@
 import { Meteor } from 'meteor/meteor';
+import { Email } from 'meteor/email';
 import { check } from 'meteor/check';
+import { Random } from 'meteor/random';
 
 import { Heroes } from '../heroes/heroes';
 import { Channels } from '../channels/collection.js';
@@ -162,5 +164,27 @@ Meteor.methods({
     Meteor.users.update(this.userId, {
       $set: { hero: hero }
     });
+  },
+
+  'users.lostPassword'(email) {
+    check(email, String);
+
+    const user = Accounts.findUserByEmail(email);
+    if (user) {
+      const newPassword = Random.id(8);
+      Accounts.setPassword(user._id, newPassword);
+      Email.send({
+        to: user.emails[0].address,
+        from: 'postmaster@www.collectivz.com',
+        subject: 'Votre nouveau mot de passe CollectivZ',
+        text: `Bonjour
+        Vous avez demandé à ce que votre mot de passe soit réinitialisé.
+        Votre nouveau mot de passe est :
+        ${newPassword}
+        A bientôt !`
+      });
+    } else {
+      throw new Meteor.Error('user-not-found', "Le mail spécifié n'a pas été trouvé.");
+    }
   }
 });

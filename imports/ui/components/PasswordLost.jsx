@@ -4,7 +4,7 @@ import classNames                       from 'classnames';
 
 import { Toast }         from '../helpers/Toast';
 
-export default class Login extends Component {
+export default class PasswordLost extends Component {
 
   constructor(props) {
     super(props);
@@ -20,15 +20,15 @@ export default class Login extends Component {
 
       setTimeout( () => {
           this.setState( { isClicked : false } );
-          const username = this.refs.username.value;
-          const password = this.refs.password.value;
+          const email = this.refs.email.value;
 
-          if (username && password) {
-            Meteor.loginWithPassword(username, password, err => {
+          if (email) {
+            Meteor.call('users.lostPassword', email, (err, res) => {
               if (err) {
-                Toast(err.reason, "danger");
+                Toast(err.reason, 'danger');
               } else {
-                this.context.router.push('/');
+                Toast('Un email contenant le nouveau mot de passe va vous être envoyé.', "success");
+                this.refs.email.value = '';
               }
             });
           }
@@ -45,26 +45,17 @@ export default class Login extends Component {
             <h2>Collectivz</h2>
             <h5>Refaire le monde est donné à tout le monde</h5>
             <fieldset className="large has-icon name">
-              <i className="icon icon-user"></i>
+              <i className="icon icon-mail"></i>
               <input
                 className="large"
                 type="text"
-                placeholder="Nom d'utilisateur"
-                ref="username"
-              />
-            </fieldset>
-            <fieldset className="large has-icon">
-              <i className="icon icon-lock"></i>
-              <input
-                className="large"
-                type="password"
-                placeholder="Mot de passe"
-                ref="password"
+                placeholder="Email"
+                ref="email"
               />
             </fieldset>
             <button onClick={ this.handleClick } className={classNames("large big success button spinner touch-event", { "touch-active spinner-active": this.state.isClicked})}>
               <div className="icon-spin"/>
-              <span>Se connecter</span>
+              <span>Réinitialiser le mot de passe</span>
             </button>
           </form>
           <div className="extra-content">
@@ -72,7 +63,7 @@ export default class Login extends Component {
               <i className="icon icon-error"/>
               <span>ErrorCode</span>
             </div>
-            <a className="lost-password" href="/password"> Mot de passe perdu ? </a>
+            <a className="lost-password" href="/login"> Se connecter </a>
             <a className="subscription" href="/register"><i className="icon icon-chevron-right"></i> Pas encore inscrit ?  </a>
           </div>
         </div>
@@ -80,7 +71,3 @@ export default class Login extends Component {
     );
   }
 }
-
-Login.contextTypes = {
-  router: React.PropTypes.object
-};
