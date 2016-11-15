@@ -41,7 +41,9 @@ export default class ActionItem extends React.Component {
   }
 
   getAuthorName(id) {
-    return Meteor.findOne(id).username;
+    const author = Meteor.users.findOne(id);
+    
+    return author ? author.username : '';
   }
 
   render() {
@@ -56,7 +58,7 @@ export default class ActionItem extends React.Component {
           <div className="bubble-content">
               <div className="bubble-header">
                 <i className="icon icon-action-color icon-action"/>
-                <span><a href="">{this.getAuthorName.bind(this, channel.author)}</a> à ouvert une action</span>
+                <span><a href="">{this.getAuthorName(channel.author)}</a> à ouvert une action</span>
                 <h5>{channel.name}</h5>
                 {
                   (channel.author === user._id || user.isAdmin) ?

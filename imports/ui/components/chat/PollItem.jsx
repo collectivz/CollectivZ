@@ -69,7 +69,9 @@ export default class PollItem extends React.Component {
   }
 
   getAuthorName(id) {
-    return Meteor.findOne(id).username;
+    const author = Meteor.users.findOne(id);
+
+    return author ? author.username : '';
   }
 
   voteForAPoll() {

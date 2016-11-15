@@ -50,7 +50,9 @@ export default class CoinItem extends React.Component {
   }
 
   getAuthorName(id) {
-    return Meteor.findOne(id).username;
+    const author = Meteor.users.findOne(id);
+
+    return author ? author.username : '';
   }
 
   render() {
