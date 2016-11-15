@@ -89,45 +89,48 @@ export default class ContactPage extends React.Component {
         </Breadcrumb>
         <div className="sub-container">
 
-          <div className="list-sub-menu small">
-              <i className="big-icon icon icon-users"/>
-              <h5>Vos Contacts</h5>
+          <div>
+            <div className="list-sub-menu small">
+                <i className="big-icon icon icon-users"/>
+                <h5>Vos invitations en attente</h5>
+            </div>
+            <List
+              isLoadable={true}
+              data={usersInvitationReceived}
+              type="invitation"
+              emptyListString="Aucune discussion en attente"
+              acceptInvite={this.acceptInvite}
+              refuseInvite={this.refuseInvite}
+              >
+              <UserItem />
+            </List>
+            <div className="list-sub-menu small">
+                <i className="big-icon icon icon-users"/>
+                <h5>Vos invitations envoyées</h5>
+            </div>
+            <List
+              isLoadable={false}
+              data={usersInvitationSent}
+              emptyListString="Aucune invitation en cours de validation"
+              type="invitationSent"
+              >
+              <UserItem />
+            </List>
+
+            <div className="list-sub-menu small">
+                <i className="big-icon icon icon-users"/>
+                <h5>Vos contacts</h5>
+            </div>
+            <List
+              isLoadable={false}
+              data={usersContact}
+              type="contact"
+              removeContact={this.removeContact}
+              emptyListString="Vous n'avez aucun contact. Ajouter vos amis !"
+              >
+              <UserItem />
+            </List>
           </div>
-
-          {
-            !usersInvitationReceived && !usersInvitationSent ?
-            <div className="list-empty">
-              <p><i className="icon icon-sad"/>Aucune invitation en cours.</p>
-            </div>
-            :
-            <div>
-              <List
-                data={usersInvitationReceived}
-                type="invitation"
-                acceptInvite={this.acceptInvite}
-                refuseInvite={this.refuseInvite}
-                >
-                <UserItem />
-              </List>
-
-              <List
-                isLoadable={false}
-                data={usersInvitationSent}
-                type="invitationSent"
-                >
-                <UserItem />
-              </List>
-            </div>
-          }
-          <List
-            isLoadable={false}
-            data={usersContact}
-            type="contact"
-            removeContact={this.removeContact}
-            emptyListString="Vous n'avez aucun contact. Ajouter vos amis !"
-          >
-            <UserItem />
-          </List>
           {
             (usersContact && usersContact.length > 0)
             ?

@@ -78,22 +78,65 @@ export default class MyProfile extends Component {
                       </TouchEvent>
                     </Breadcrumb>
                     <UserHeader user={user}/>
+
                     <div className='list'>
-                      <TouchEvent class="touch-event" onClick={this.goTo.bind(this, '/my-profile/infos')}>
-                        <p>Mes informations personnelles</p>
-                      </TouchEvent>
-                      <TouchEvent class="touch-event" onClick={this.goTo.bind(this, '/my-profile/skills')}>
-                        <p>Mes compétences</p>
-                      </TouchEvent>
-                      <TouchEvent class="touch-event" onClick={this.goTo.bind(this, '/my-profile/history')}>
-                        <p>Mes accomplissements</p>
-                      </TouchEvent>
-                      <TouchEvent class="touch-event" onClick={this.goTo.bind(this, '/my-profile/hero')}>
-                        <p>Mon héro</p>
-                      </TouchEvent>
-                      <TouchEvent class="touch-event" onClick={this.logout}>
-                        <p>Se déconnecter</p>
-                      </TouchEvent>
+
+                      <div className="list-item small touch-event">
+                        <img className="circle" src="/img/icons/cross.svg" alt="" />
+                        <div className="list-item-content">
+                          <p className="title">Ma réputation <span className="value">20</span></p>
+                        </div>
+                      </div>
+
+                      <div className="list-item small touch-event">
+                        <img className="circle" src="/img/icons/cross.svg" alt="" />
+                        <div className="list-item-content">
+                          <p className="title">Mon budget <span className="value">20</span></p>
+                        </div>
+                      </div>
+
+                      <div className="list-item small touch-event" onClick={this.goTo.bind(this, '/my-profile/infos')}>
+                        <img className="circle" src="/img/icons/cross.svg" alt="" />
+                        <div className="list-item-content">
+                          <p className="title">Mes informations personnelles</p>
+                        </div>
+                      </div>
+
+                      <div className="list-item small touch-event" onClick={this.goTo.bind(this, '/my-profile/hero')}>
+                        <img className="circle" src="/img/icons/cross.svg" alt="" />
+                        <div className="list-item-content">
+                          <p className="title">Mon héro</p>
+                        </div>
+                      </div>
+
+                      <div className="list-item small touch-event" onClick={this.goTo.bind(this, '/my-profile/skills')}>
+                        <img className="circle" src="/img/icons/cross.svg" alt="" />
+                        <div className="list-item-content">
+                          <p className="title">Mes compétences</p>
+                        </div>
+                      </div>
+
+                      <div className="list-item small touch-event" >
+                        <img className="circle" src="/img/icons/cross.svg" alt="" />
+                        <div className="list-item-content">
+                          <p className="title">Mes actions en cours</p>
+                        </div>
+                      </div>
+
+                      <div className="list-item small touch-event">
+                        <img className="circle" src="/img/icons/cross.svg" alt="" />
+                        <div className="list-item-content">
+                          <p className="title">Mes groupes</p>
+                        </div>
+                      </div>
+
+                      <div className="list-item small touch-event" onClick={this.goTo.bind(this, '/my-profile/history')}>
+                        <img className="circle" src="/img/icons/cross.svg" alt="" />
+                        <div className="list-item-content">
+                          <p className="title">Mes accomplissements</p>
+                        </div>
+                      </div>
+
                     </div>
                   </div>
                 }

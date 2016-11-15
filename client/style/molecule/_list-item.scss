@@ -74,16 +74,7 @@
 	&.sub-list {
 		border-left:10px solid color("grey", "lighten-1");
 	}
-	// &.sub-list:before  {
-	// 	content: "";
-  //   height: 100%;
-  //   width: 70px;
-  //   background: -webkit-linear-gradient(left, rgba(173, 0, 0, 0.2) 0%, rgba(255, 255, 255, 0) 100%);
-  //   position: absolute;
-  //   top: 0;
-  //   left: 0;
-  //   z-index: 0;
-	// }
+
 	&:nth-child(2n) {
 		background-color: #fbfbfb;
 	}
@@ -117,7 +108,20 @@
 	    top: 5%;
 		}
 	}
-
+	&.small {
+			min-height:50px;
+			.title {
+				margin-left: 35px;
+				.value {
+					margin-left:5px;
+					font-weight: bold;
+				}
+			}
+			img {
+				width:20px;
+				height:20px;
+			}
+	}
 	.list-item-action p {
 		color: color("grey", "lighten-1");
 		font-family: $nav-font;
