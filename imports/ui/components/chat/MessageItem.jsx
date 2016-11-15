@@ -197,7 +197,7 @@ export default class MessageItem extends Component {
                         <li><a className="drop-down-menu-link" onClick={this.inviteToContacts}> Ajouter l'auteur à mes contacts </a></li>
                         <li><a className="drop-down-menu-link" onClick={this.chatWithAuthor}> Lancer une conversation avec l'auteur </a></li>
                         <li><a className="drop-down-menu-link" onClick={this.answerMessage}> Répondre </a></li>
-                        <li><a className="drop-down-menu-link" onClick={this.goToProfile}> Voir le profil </a></li>
+                        {/* <li><a className="drop-down-menu-link" onClick={this.goToProfile}> Voir le profil </a></li> */}
                       </ul>
                       : ''
                     }

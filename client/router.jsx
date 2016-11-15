@@ -14,6 +14,7 @@ import MyProfileContainer from '../imports/ui/containers/MyProfileContainer.jsx'
 import AdminPageContainer from '../imports/ui/containers/AdminPageContainer.jsx';
 import CirclePageContainer from '../imports/ui/containers/CirclePageContainer.jsx';
 import RegisterPage from '../imports/ui/pages/RegisterPage.jsx';
+import PasswordLost from '../imports/ui/components/PasswordLost.jsx';
 import NotFound from '../imports/ui/pages/NotFound.jsx';
 import HeroPicker from '../imports/ui/components/HeroPicker';
 import InformationsEdit from '../imports/ui/components/InformationsEdit';
@@ -26,6 +27,7 @@ Meteor.startup(() => {
   render((
     <Router history={browserHistory}>
     <Route path='/register' component={RegisterPage} />
+    <Route path='/password' component={PasswordLost} />
       <Route path="/" component={AppContainer}>
         <Route path='/my-groups' component={ChannelListContainer} />
         <Route path='/group/:groupId' component={ChannelPageContainer} />
