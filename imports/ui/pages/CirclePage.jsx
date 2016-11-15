@@ -35,16 +35,15 @@ export default class CirclePage extends React.Component {
       circles
     } = this.props;
 
-    console.log(circles);
     return (
-      <div>
+      <div className="sub-container">
 
         <Breadcrumb title="Cercles" hasBack={true}>
           <TouchEvent class="right-button touch-event" onClick={this.openCircleModal}>
             <i className="icon icon-rotate-45 icon-cross" />
           </TouchEvent>
         </Breadcrumb>
-        <div className="list-sub-menu">
+        <div className="list-sub-menu small">
             <i className="big-icon icon icon-bubble"/>
             <h5>Cercle(s) </h5>
         </div>
