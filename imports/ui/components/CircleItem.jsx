@@ -82,10 +82,23 @@ export default class CircleItem extends React.Component {
       editCircle
     } = this.props;
 
+    console.log(data);
+
     return (
       <TouchEvent class="list-item no-image touch-event">
         <div className="list-item-content">
           <p className="title">{data.name}</p>
+            {
+              (data.members.length) ?
+                <div className="tag">
+                  <i className="icon icon-user"/>
+                  <span>{data.members.length}</span>
+                </div>
+              :
+              <div className="tag">
+                <span>Vous êtes tout seul.</span>
+              </div>
+            }
         </div>
         <div className="list-item-action">
           <div className="merge">
