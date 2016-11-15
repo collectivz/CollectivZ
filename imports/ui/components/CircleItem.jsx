@@ -69,10 +69,10 @@ export default class CircleItem extends React.Component {
 
     if (data.channel) {
       return (
-        <button onClick={() => { router.push(`/conversation/${data.channel}`) }}>Voir conversation</button>
+        <button className="button success" onClick={() => { router.push(`/conversation/${data.channel}`) }}><i className="icon icon-eye"></i></button>
       );
     } else {
-      return  <button onClick={this.createConversation}>Creer conversation</button>;
+      return  <button className="button success" onClick={this.createConversation}><i className="icon icon-plus"></i></button>;
     }
   }
 
@@ -83,14 +83,18 @@ export default class CircleItem extends React.Component {
     } = this.props;
 
     return (
-      <div>
-        <TouchEvent class="list-item touch-event">
-          <h3>{data.name}</h3>
-        </TouchEvent>
-        <button onClick={this.removeCircle}>Supprimer</button>
-        <button onClick={editCircle.bind(this, data)}>Modifier</button>
-        {this.toggleConversationButton()}
-      </div>
+      <TouchEvent class="list-item no-image touch-event">
+        <div className="list-item-content">
+          <p className="title">{data.name}</p>
+        </div>
+        <div className="list-item-action">
+          <div className="merge">
+            <button className="button danger" onClick={this.removeCircle}><i className="icon icon-cross"></i></button>
+            <button className="button info" onClick={editCircle.bind(this, data)}><i className="icon icon-pencil"></i></button>
+            {this.toggleConversationButton()}
+          </div>
+        </div>
+      </TouchEvent>
     );
   }
 }

@@ -47,15 +47,16 @@ export default class CirclePage extends React.Component {
             <i className="big-icon icon icon-bubble"/>
             <h5>Cercle(s) </h5>
         </div>
-
-        <List
-          data={circles}
-          type="circle"
-          editCircle={this.openCircleModal}
-          emptyListString="Aucun cercle créé."
-        >
-          <CircleItem />
-        </List>
+        <div>
+          <List
+            data={circles}
+            type="circle"
+            editCircle={this.openCircleModal}
+            emptyListString="Aucun cercle créé."
+            >
+            <CircleItem />
+          </List>
+        </div>
       </div>
     );
   }

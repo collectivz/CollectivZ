@@ -114,7 +114,7 @@ export default class CircleForm extends React.Component {
     return (
       <form onSubmit={method}>
 
-        <fieldset className="large has-icon">
+        <fieldset className="large">
           <input
             className="large"
             type="text"
@@ -132,8 +132,8 @@ export default class CircleForm extends React.Component {
         >
           <UserItem />
         </List>
-        <fieldset className="large has-icon">
-          <input type="submit" value={buttonValue} className="large big primary button"/>
+        <fieldset className="large">
+          <input type="submit" value={buttonValue} className="large success button"/>
         </fieldset>
 
       </form>

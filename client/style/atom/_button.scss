@@ -69,17 +69,18 @@
 .merge {
   .button {
     padding:8px;
+    border-radius:0px;
   }
   i {
     font-size: 1.9rem
   }
   .button:first-child {
-    border-top-right-radius: 0px;
-    border-bottom-right-radius: 0px;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
   }
   .button:last-child {
-    border-top-left-radius: 0px;
-    border-bottom-left-radius: 0px;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
   }
 }
 
