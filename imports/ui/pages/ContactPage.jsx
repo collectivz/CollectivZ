@@ -79,6 +79,15 @@ export default class ContactPage extends React.Component {
     }, 1350 );
   }
 
+  renderChild() {
+    const {
+      children,
+      ...props
+    } = this.props;
+
+    return children && React.cloneElement(children, props);
+  }
+
   render() {
     const {
       repertory,
@@ -88,80 +97,87 @@ export default class ContactPage extends React.Component {
       usersInvitationSent,
       loading,
       user,
+      children
     } = this.props;
 
     return (
       <div>
-        <Breadcrumb title="Contact" hasBack={false}>
-          <TouchEvent class="right-button touch-event" onClick={this.openInviteModal}>
-            <i className="icon icon-rotate-45 icon-cross" />
-          </TouchEvent>
-        </Breadcrumb>
-        <div className="sub-container">
-
+        { children ?
+          this.renderChild()
+          :
           <div>
-            <div className="list-sub-menu small">
-                <i className="big-icon icon icon-users"/>
-                <h5>Vos invitations en attente</h5>
-            </div>
-            <List
-              data={usersInvitationReceived}
-              type="invitation"
-              emptyListString="Aucune discussion en attente"
-              acceptInvite={this.acceptInvite}
-              refuseInvite={this.refuseInvite}
-              >
-              <UserItem />
-            </List>
-            <div className="list-sub-menu small">
-                <i className="big-icon icon icon-users"/>
-                <h5>Vos invitations envoyées</h5>
-            </div>
-            <List
-              data={usersInvitationSent}
-              emptyListString="Aucune invitation en cours de validation"
-              type="invitationSent"
-              >
-              <UserItem />
-            </List>
+            <Breadcrumb title="Contact" hasBack={false}>
+              <TouchEvent class="right-button touch-event" onClick={this.openInviteModal}>
+                <i className="icon icon-rotate-45 icon-cross" />
+              </TouchEvent>
+            </Breadcrumb>
+            <div className="sub-container">
 
-            <div className="list-sub-menu small">
-                <i className="big-icon icon icon-users"/>
-                <h5>Vos contacts</h5>
+              <div>
+                <div className="list-sub-menu small">
+                    <i className="big-icon icon icon-users"/>
+                    <h5>Vos invitations en attente</h5>
+                </div>
+                <List
+                  data={usersInvitationReceived}
+                  type="invitation"
+                  emptyListString="Aucune discussion en attente"
+                  acceptInvite={this.acceptInvite}
+                  refuseInvite={this.refuseInvite}
+                  >
+                  <UserItem />
+                </List>
+                <div className="list-sub-menu small">
+                    <i className="big-icon icon icon-users"/>
+                    <h5>Vos invitations envoyées</h5>
+                </div>
+                <List
+                  data={usersInvitationSent}
+                  emptyListString="Aucune invitation en cours de validation"
+                  type="invitationSent"
+                  >
+                  <UserItem />
+                </List>
+
+                <div className="list-sub-menu small">
+                    <i className="big-icon icon icon-users"/>
+                    <h5>Vos contacts</h5>
+                </div>
+                <List
+                  data={usersContact}
+                  type="contact"
+                  removeContact={this.removeContact}
+                  emptyListString="Vous n'avez aucun contact. Ajouter vos amis !"
+                  >
+                  <UserItem />
+                </List>
+              </div>
+              <div className="list-sub-menu">
+                <i className="big-icon icon icon-bubble"/>
+                <h5>Cercle(s) </h5>
+              </div>
+
+              <List
+                data={circles}
+                type="circle"
+                editCircle={this.openCircleModal}
+                emptyListString="Aucun cercle créé."
+                >
+                <CircleItem />
+              </List>
+
+              {/*
+              {
+                (!this.state.isLoaded && usersContact && usersContact.length > 0)
+                ?
+                  ""
+                :
+                  <a className="success self-center button" onClick={this.openInviteModal}> Inviter un contact </a>
+              }
+              */}
             </div>
-            <List
-              data={usersContact}
-              type="contact"
-              removeContact={this.removeContact}
-              emptyListString="Vous n'avez aucun contact. Ajouter vos amis !"
-              >
-              <UserItem />
-            </List>
           </div>
-          <div className="list-sub-menu">
-            <i className="big-icon icon icon-bubble"/>
-            <h5>Cercle(s) </h5>
-          </div>
-
-          <List
-            data={circles}
-            type="circle"
-            editCircle={this.openCircleModal}
-            emptyListString="Aucun cercle créé."
-            >
-            <CircleItem />
-          </List>
-
-          {/*
-          {
-            (!this.state.isLoaded && usersContact && usersContact.length > 0)
-            ?
-              ""
-            :
-              <a className="success self-center button" onClick={this.openInviteModal}> Inviter un contact </a>
-          }
-          */}
-        </div>
+        }
         <AppNav user={user}/>
       </div>
     );

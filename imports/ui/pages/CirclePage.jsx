@@ -35,7 +35,6 @@ export default class CirclePage extends React.Component {
       circles
     } = this.props;
 
-    console.log(circles);
     return (
       <div>
 
