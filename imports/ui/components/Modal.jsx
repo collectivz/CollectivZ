@@ -30,7 +30,7 @@ export default class Modal extends React.Component {
         // this.props.closeModal();
         closeModal();
         this.setState( { isClosing: false, isOpen : false, isOpening: false } );
-      }, 300050);
+      }, 350);
 
     }
 

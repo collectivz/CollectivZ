@@ -113,7 +113,9 @@ $chat-open-with-filter-sub-container-offset: $breadcrumb-height + $chat-filter-h
 }
 
 
-
+.circle-img {
+	border-radius: 100%;
+}
 .grade-color {
 	background-color: #b55dcb;
 	color: white;

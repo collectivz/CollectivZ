@@ -30,6 +30,7 @@ $modal-easing-duration: 250ms;
 	.modal--content-wrapper {
 		z-index: 999;
 		margin-top:55px;
+		max-width: 100%;
 	}
 	.modal--header {
 		position:relative;

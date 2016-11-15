@@ -107,13 +107,13 @@ export default class UploadPicture extends React.Component {
 
     return (
       <div className="update-avatar-wrapper">
-        <input type="file" onChange={this.uploadPicture}/>
         {
           preview ?
-            <img src={preview} />
+          <img className="big-img circle-img" src={preview} />
           : ''
         }
-        <button className="button success" onClick={this.submitPicture}>Valider</button>
+        <input type="file" onChange={this.uploadPicture}/>
+        <button className="button self-center success" onClick={this.submitPicture}>Valider</button>
       </div>);
   }
 }
