@@ -28,7 +28,7 @@ export default class MyProfile extends Component {
   goTo(url) {
     setTimeout(() => {
       this.context.router.push(url);
-    }, 350)
+    }, 350);
   }
 
   renderChild() {
@@ -59,6 +59,8 @@ export default class MyProfile extends Component {
       actionHistory = history.actionHistory;
     }
 
+    console.log(user);
+
     return (
       <div className="screen-box">
         {user ?
@@ -70,30 +72,77 @@ export default class MyProfile extends Component {
                     this.renderChild()
                   :
                   <div className="sub-container">
-                    <Breadcrumb title={`Profil`} hasBack={false} />
+                    <Breadcrumb title={`Profil`} hasBack={false}>
+                      <TouchEvent class="right-button touch-event" onClick={this.logout}>
+                        <i className="icon icon-exit" />
+                      </TouchEvent>
+                    </Breadcrumb>
                     <UserHeader user={user}/>
+
                     <div className='list'>
-                      <TouchEvent class="touch-event" onClick={this.goTo.bind(this, '/my-profile/infos')}>
-                        <p>Mes informations personnelles</p>
+
+                      <TouchEvent class="list-item small" onClick={this.goTo.bind(this, '/my-profile/infos')}>
+                        <div className="circle"><i className="icon icon-info info-color"></i></div>
+                        <div className="list-item-content">
+                          <p className="title">Mes informations personnelles</p>
+                        </div>
+                        <i className="icon icon-chevron-right"></i>
                       </TouchEvent>
-                      <TouchEvent class="touch-event" onClick={this.goTo.bind(this, '/my-profile/skills')}>
-                        <p>Mes compétences</p>
+
+                      <TouchEvent class="list-item small">
+                        <div className="circle"><i className="icon icon-grade grade-color"></i></div>
+                        <div className="list-item-content">
+                          <p className="title">Ma réputation <span className="value">20</span></p>
+                        </div>
                       </TouchEvent>
-                      <TouchEvent class="touch-event" onClick={this.goTo.bind(this, '/my-profile/history')}>
-                        <p>Mes accomplissements</p>
+
+                      <TouchEvent class="list-item small">
+                        <div className="circle"><i className="icon icon-euro money-color"></i></div>
+                        <div className="list-item-content">
+                          <p className="title">Mon budget <span className="value">{(user.coinz) ? user.coinz + " €" : "Non déclaré"}</span></p>
+                        </div>
                       </TouchEvent>
-                      <TouchEvent class="touch-event" onClick={this.goTo.bind(this, '/my-profile/hero')}>
-                        <p>Mon héro</p>
+
+                      <TouchEvent class="list-item small" onClick={this.goTo.bind(this, '/my-profile/hero')}>
+                        <div className="circle"><i className="icon icon-hero hero-color"></i></div>
+                        <div className="list-item-content">
+                          <p className="title">Mon héro <span className="value">{(user.hero && user.hero.title) ? user.hero.title : "Non déclaré"}</span></p>
+                        </div>
+                        <i className="icon icon-chevron-right"></i>
                       </TouchEvent>
-                      <TouchEvent class="touch-event" onClick={this.goTo.bind(this, '/my-profile/actions')}>
-                        <p>Mes actions</p>
+
+                      <TouchEvent class="list-item small" onClick={this.goTo.bind(this, '/my-profile/skills')}>
+                        <div className="circle"><i className="icon icon-tools tools-color"></i></div>
+                        <div className="list-item-content">
+                          <p className="title">Mes compétences <span className="value">{(user.skills) ? user.skills.length : "Non déclaré"}</span></p>
+                        </div>
+                        <i className="icon icon-chevron-right"></i>
                       </TouchEvent>
-                      <TouchEvent class="touch-event" onClick={this.goTo.bind(this, '/my-profile/groups')}>
-                        <p>Mes groupes</p>
+
+                      <TouchEvent class="list-item small" onClick={this.goTo.bind(this, '/my-groups')}>
+                        <div className="circle"><i className="icon icon-action action-color"></i></div>
+                        <div className="list-item-content">
+                          <p className="title">Mes actions en cours</p>
+                        </div>
+                        <i className="icon icon-chevron-right"></i>
                       </TouchEvent>
-                      <TouchEvent class="touch-event" onClick={this.logout}>
-                        <p>Se déconnecter</p>
+
+                      <TouchEvent class="list-item small" onClick={this.goTo.bind(this, '/group-list/')}>
+                        <div className="circle"><i className="icon icon-users group-color"></i></div>
+                        <div className="list-item-content">
+                          <p className="title">Mes groupes</p>
+                        </div>
+                        <i className="icon icon-chevron-right"></i>
                       </TouchEvent>
+
+                      <TouchEvent class="list-item small" onClick={this.goTo.bind(this, '/my-profile/history')}>
+                        <div className="circle"><i className="icon icon-badge badge-color"></i></div>
+                        <div className="list-item-content">
+                          <p className="title">Mes accomplissements</p>
+                        </div>
+                        <i className="icon icon-chevron-right"></i>
+                      </TouchEvent>
+
                     </div>
                   </div>
                 }

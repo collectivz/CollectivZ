@@ -1,0 +1,19 @@
+.hero-list .list{
+  display:flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+  margin:20px;
+  .item {
+    width:33%;
+    padding:10px;
+    p {
+      text-align: center;
+      font-size: 1.2rem;
+      font-family: $nav-font;
+      margin-top:.5rem;
+    }
+    img {
+      margin-bottom:0;
+    }
+  }
+}

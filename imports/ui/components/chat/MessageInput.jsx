@@ -42,6 +42,15 @@ export default class MessageInput extends Component {
     }
   }
 
+  scrollDown() {
+    console.log("scrollDownTriggered");
+    const elem = $('.chat-sub-container');
+    $(".chat-sub-container").scrollTop(1000000);
+    setTimeout( () => {
+      $(".chat-sub-container").scrollTop(1000000);
+    }, 350 );
+  }
+
   componentDidUpdate() {
     const {
       channel
@@ -153,6 +162,7 @@ export default class MessageInput extends Component {
         this.refs.textInput.value = '';
       }
     }
+    this.scrollDown();
   }
 
   handleInputChange(inputMode) {
@@ -232,11 +242,6 @@ export default class MessageInput extends Component {
     const showWhoIsTyping = isTypingVisible
       ? 'someone-is-typing visible'
       : 'someone-is-typing';
-    if ($(".chat-input-wrapper").hasClass('disabled'))
-    {
-      $(".chat-input-wrapper").toggleClass("open");
-      $(".chat-sub-container").toggleClass("open");
-    }
 
     return (
       <div ref="bar" className="chat-input-wrapper">

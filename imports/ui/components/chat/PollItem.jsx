@@ -136,11 +136,9 @@ export default class PollItem extends React.Component {
                     <h4><i className="icon icon-check"/>Vous avez déjà voté.</h4>
                   </div>
                 :
-                  <div className="button-box">
-                    <button className="success button" onClick={this.voteForAPoll}>
-                      Voter
-                    </button>
-                  </div>
+                  <button className="success button" onClick={this.voteForAPoll}>
+                    Voter
+                  </button>
               }
               <AvatarRowContainer isLarge={true} userIds={poll.members} />
           </div>

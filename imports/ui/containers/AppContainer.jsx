@@ -9,6 +9,5 @@ export default createContainer(() => {
 
   return {
     user: Meteor.user(),
-    loading: !userSub.ready(),
   };
 }, App);

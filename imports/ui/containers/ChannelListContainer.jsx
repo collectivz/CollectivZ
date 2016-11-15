@@ -25,7 +25,6 @@ export default createContainer(({ user }) => {
     groups,
     conversations,
     actions,
-    unreadCounts,
-    loading: !channelSub.ready(),
+    unreadCounts
   };
 }, ChannelList);

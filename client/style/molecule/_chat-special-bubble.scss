@@ -55,6 +55,9 @@
 			font-family: $nav-font;
 			opacity:0.8;
 			margin-bottom: $text-size;
+			span {
+				margin-right:5px;
+			}
 		}
 	}
 	.success-box {

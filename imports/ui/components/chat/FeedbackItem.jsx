@@ -13,25 +13,27 @@ export default class FeedbackItem extends React.Component {
       <div className="chat-special-bubble chat-special-bubble-poll">
         <div className="bubble-content">
           <div className="bubble-header">
-            <h4><i className="icon icon-feedback-color icon-star"/>{feedback.username} à laissé un feedback sur cette action :</h4>
+            <i className="icon icon-feedback-color icon-star"/>
+            <span><a href="">{feedback.username}</a> à laissé un feedback</span>
+            <h5>{`${feedback.comment}`}</h5>
           </div>
           <div className="bubble-content-text">
-            <h4>
+            <h5>
               <Rating
                 readonly={true}
                 initialRate={feedback.rating}
                 empty={<i className="icon icon-star"></i>}
                 full={<i className="icon icon-star"></i>}
               />
-            </h4>
-            <p> {`${feedback.comment}`}</p>
+            </h5>
             {feedback.userFeedbacks.length ?
               <div>
-              Les contributeurs suivants ont également été évalués :
+              <h5>Les contributeurs suivants ont également été évalués</h5>
               {feedback.userFeedbacks.map((feedback, index) => {
                 return (
                   <p key={index}>
-                  {`${feedback.username}: ${feedback.rating}/5, "${feedback.comment}"`}
+                    <span className="b">{`${feedback.username} ${feedback.rating}/5`}</span>
+                    {feedback.comment}
                   </p>
                 );
               })}

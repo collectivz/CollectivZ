@@ -24,6 +24,9 @@
 		margin-left:15px;
 		text-transform: uppercase;
 		display:inline;
+		span {
+			color:color("grey", "base");
+		}
 	}
 	&>i {
 		font-size: 47px;
@@ -62,5 +65,20 @@
 	}
 	a {
 		float:right;
+		color:color("grey", "base");
+		padding-right: 20px;
+		position:relative;
+		i {
+			font-size: 1.1rem;
+			position:absolute;
+			right:3px;
+			top:3px;
+			display:block;
+			transition: all 350ms ease;
+			transform:rotate(0deg);
+		}
+		&.active i {
+			transform:rotate(90deg);
+		}
 	}
 }

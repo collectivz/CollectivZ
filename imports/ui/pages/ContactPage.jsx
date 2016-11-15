@@ -15,9 +15,13 @@ export default class ContactPage extends React.Component {
 
   constructor(props) {
     super(props);
-
+    this.state = {isLoaded: false};
     this.acceptInvite = this.acceptInvite.bind(this);
     this.refuseInvite = this.refuseInvite.bind(this);
+  }
+
+  componentDidMount() {
+    this.isLoaded();
   }
 
   acceptInvite(userSelectedId) {
@@ -62,6 +66,12 @@ export default class ContactPage extends React.Component {
   openInviteModal() {
     const component = <ContactInvite />;
     openModal(component, "Inviter un contact");
+  }
+
+  isLoaded() {
+    setTimeout( () => {
+      this.setState({isLoaded: true});
+    }, 1350 );
   }
 
   render() {

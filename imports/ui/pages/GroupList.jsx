@@ -14,7 +14,12 @@ export default class GroupList extends Component {
   constructor(props) {
     super(props);
 
+    this.state = {isLoaded: false};
     this.openModal = this.openModal.bind(this);
+  }
+
+  componentDidMount() {
+    this.isLoaded();
   }
 
   openModal() {
@@ -23,11 +28,18 @@ export default class GroupList extends Component {
     openModal(component, "Créer un nouveau groupe");
   }
 
+  isLoaded() {
+    setTimeout( () => {
+      this.setState({isLoaded: true});
+    }, 1350 );
+  }
+
   render() {
     const {
       groups,
       user
     } = this.props;
+
 
     return (
       <div className="screen-box">
@@ -41,20 +53,22 @@ export default class GroupList extends Component {
                 <i className="big-icon icon icon-users"/>
                 <h5>Vos Groupes</h5>
             </div>
-            <List
-              data={groups}
-              user={user}
-              type="group"
-              emptyListString="Il n'y a pas de groupe de discussion. Créez le votre !"
-            >
-              <GroupItem />
-            </List>
-            { (groups && groups.length > 0)
-              ?
+            <div>
+              <List
+                data={groups}
+                user={user}
+                type="group"
+                emptyListString="Il n'y a pas de groupe de discussion. Créez le votre !"
+                >
+                <GroupItem />
+              </List>
+              {/* (!this.state.isLoaded && groups && groups.length > 0)
+                ?
                 ""
-              :
+                :
                 <a className="success self-center button" onClick={this.openModal}> En créer un </a>
-            }
+              */}
+            </div>
           </div>
         <AppNav user={user}/>
       </div>

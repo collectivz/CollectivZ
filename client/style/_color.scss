@@ -61,7 +61,7 @@
 	  "darken-3":   darken($color-danger, 30%),
 	  "darken-4":   darken($color-danger, 40%),
       "darken-5":   darken($color-danger, 50%)
-	);	
+	);
 	$info: (
 	  "base":       $color-info,
 	  "lighten-5":  lighten($color-info, 50%),
@@ -115,7 +115,7 @@
 	      .#{$color_name}.#{$color_type} {
 	        background-color: $color_value !important;
 	      }
-	      .#{$color_name}-text.text-#{$color_type} {
+	      .#{$color_name}-text.#{$color_type} {
 	        color: $color_value !important;
 	      }
 	    }

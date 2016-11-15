@@ -1,17 +1,27 @@
 $login-width: 250px;
 
 .login {
-	background-color: color("grey", "lighten-3");
+	background-color: black;
 	background-image: url("img/splash.jpg");
 	background-size: cover;
 	background-position: center;
+	z-index: 0;
+	&:after {
+		content:"";
+		position:absolute;
+		z-index: -1;
+		width:100%;
+		height:100%;
+		background-color: rgba(0,0,0,0.4);
+	}
 	.center-wrapper {
 		width: $login-width;
 		border-radius:3px;
-		transform: translateY(-70px);
+		transform: translateY(-10%);
 		h1,h2,h3,h4,h5,h6 {
 			text-align: center;
 			color:white;
+			font-family: "eurofurence_regular";
 		}
 		h1, h2, h3 {
 			margin-top:0;

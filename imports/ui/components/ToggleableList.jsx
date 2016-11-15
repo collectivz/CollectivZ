@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames                       from 'classnames';
 
 import List from './List';
 import ChannelItemContainer from '../containers/ChannelItemContainer';
@@ -72,8 +73,8 @@ export default class ToggleableList extends React.Component {
       <div>
         <div className="list-sub-menu small">
             <i className="big-icon icon icon-users"/>
-            <h5>{`${title} (${length})`}</h5>
-            <a className="list-sub-menu-toggle" onClick={this.toggleList}>{this.actionName()}</a>
+            <h5>{title} <span>({length})</span></h5>
+            <a className={classNames("list-sub-menu-toggle", {"active": this.state.open})} onClick={this.toggleList}>{this.actionName()}<i className="icon icon-chevron-right"></i></a>
         </div>
         <List
           data={this.getData()}

@@ -111,25 +111,23 @@ export default class ChannelPage extends React.Component {
 
       <div className="screen-box">
         {
-          loading ?
-           <Loader />
-          :
-            channel ?
-              <div>
-                <Breadcrumb title={channel.name} hasBack={true}>
-                  <DropDown>
-                    <ul>
-                      {this.renderAdminMenu()}
-                      <li><a className="drop-down-menu-link" onClick={this.leaveAction}> Quitter </a></li>
-                    </ul>
-                  </DropDown>
-                  <TouchEvent class="right-button touch-event" onClick={this.openInfo}>
-                    <i className="icon icon-info icon-reverse" />
-                  </TouchEvent>
-                </Breadcrumb>
-                <ChatContainer channel={channel} user={user}/>
-              </div>
-            : <NotFound />
+          channel ?
+            <div>
+              <Breadcrumb title={channel.name} hasBack={true}>
+                <DropDown>
+                  <ul>
+                    {this.renderAdminMenu()}
+                    <li><a className="drop-down-menu-link" onClick={this.leaveAction}> Quitter </a></li>
+                  </ul>
+                </DropDown>
+                <TouchEvent class="right-button touch-event" onClick={this.openInfo}>
+                  <i className="icon icon-info icon-reverse" />
+                </TouchEvent>
+              </Breadcrumb>
+              <ChatContainer channel={channel} user={user}/>
+            </div>
+            :
+              <NotFound/>
         }
       </div>
     );

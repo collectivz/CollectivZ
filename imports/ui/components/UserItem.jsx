@@ -79,7 +79,7 @@ export default class UserItem extends React.Component {
         </TouchEvent>
         <div className="list-item-content">
           <p className="title">{data.username}</p>
-          <p className="text type">Performer</p>
+          <p className="text type">{(data.hero && data.hero.title) ? data.hero.title : ""}</p>
         </div>
         <div className="list-item-action">
         {this.toggleButton()}

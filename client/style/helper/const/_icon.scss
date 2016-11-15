@@ -1,4 +1,19 @@
 
+.icon-action:before {
+  content: "\e9b4";
+}
+.icon-badge:before {
+  content: "\e9bb";
+}
+.icon-grade:before {
+  content: "\e9bd";
+}
+.icon-tools:before {
+  content: "\e9bc";
+}
+.icon-circle:before {
+  content: "\e9b5";
+}
 .icon-info:before {
   content: "\e9ba";
 }
@@ -14,7 +29,7 @@
 .icon-beer:before {
   content: "\e9ac";
 }
-.icon-action:before {
+.icon-hero:before {
   content: "\e9b3";
 }
 .icon-plus-circle:before {
@@ -22,9 +37,6 @@
 }
 .icon-euro:before {
   content: "\e9b7";
-}
-.icon-noun_617832:before {
-  content: "\e9b4";
 }
 .icon-check:before {
   content: "\e9b1";

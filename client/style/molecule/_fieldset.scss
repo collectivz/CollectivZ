@@ -5,7 +5,7 @@
 	       contenant un input avec icone
 
 	Markup :
-	
+
 	  <fieldset className="large has-icon">
 	    <i className="icon icon-lock"></i>
 	    <input
@@ -14,7 +14,7 @@
 	      placeholder="Password"
 	    />
 	  </fieldset>
-    
+
 */
 
 $base-index: 0;
@@ -24,12 +24,38 @@ fieldset {
 	margin:0;
 	padding:0;
 	position:relative;
+	font-family: $nav-font;
     display: inline-block;
     &.large {
     	width:100%;
     }
 	input[type="submit"] {
 		margin-top:$text-size;
+	}
+	label {
+		display: block;
+		margin-bottom: .5rem;
+		font-weight: 600;
+		i {
+			margin-right: 5px;
+			font-size: 1.3rem;
+		}
+	}
+	&.merge {
+		input {
+			margin:0;
+			display:block;
+			border-radius: 0px;
+		}
+		input:first-of-type {
+			border-top-right-radius: 3px;
+			border-top-left-radius: 3px;
+		}
+		input:nth-last-child(1) {
+			border-bottom-right-radius: 3px;
+			border-bottom-left-radius: 3px;
+			border-top: none;
+		}
 	}
 	&.has-icon {
 		input {
