@@ -85,6 +85,12 @@ export default class MyProfile extends Component {
                       <TouchEvent class="touch-event" onClick={this.goTo.bind(this, '/my-profile/hero')}>
                         <p>Mon héro</p>
                       </TouchEvent>
+                      <TouchEvent class="touch-event" onClick={this.goTo.bind(this, '/my-profile/actions')}>
+                        <p>Mes actions</p>
+                      </TouchEvent>
+                      <TouchEvent class="touch-event" onClick={this.goTo.bind(this, '/my-profile/groups')}>
+                        <p>Mes groupes</p>
+                      </TouchEvent>
                       <TouchEvent class="touch-event" onClick={this.logout}>
                         <p>Se déconnecter</p>
                       </TouchEvent>

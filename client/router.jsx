@@ -16,9 +16,9 @@ import RegisterPage from '../imports/ui/pages/RegisterPage.jsx';
 import NotFound from '../imports/ui/pages/NotFound.jsx';
 import HeroPicker from '../imports/ui/components/HeroPicker';
 import InformationsEdit from '../imports/ui/components/InformationsEdit';
-// import CurrentGroups from '../imports/ui/components/CurrentGroups';
+import CurrentGroupsContainer from '../imports/ui/containers/CurrentGroupsContainer';
+import CurrentActionsContainer from '../imports/ui/containers/CurrentActionsContainer';
 import SkillsEdit from '../imports/ui/components/SkillsEdit';
-// import CurrentActions from '../imports/ui/components/CurrentActions';
 import UserHistory from '../imports/ui/components/UserHistory';
 
 Meteor.startup(() => {
@@ -36,8 +36,8 @@ Meteor.startup(() => {
           <Route path='infos' component={InformationsEdit} />
           <Route path='hero' component={HeroPicker} />
           <Route path='skills' component={SkillsEdit} />
-          {/* <Route path='actions' component={CurrentActions} />
-          <Route path='groups' component={CurrentGroups} /> */}
+          <Route path='actions' component={CurrentActionsContainer} />
+          <Route path='groups' component={CurrentGroupsContainer} />
           <Route path='history' component={UserHistory} />
         </Route>
         <Route path='/profile/:userId' component={ProfilePageContainer} />

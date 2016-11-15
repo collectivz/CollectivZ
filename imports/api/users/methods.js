@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { check } from 'meteor/check';
 
+import { Heroes } from '../heroes/heroes';
 import { Channels } from '../channels/collection.js';
 
 Meteor.methods({
@@ -143,6 +144,23 @@ Meteor.methods({
 
     Meteor.users.update(this.userId, {
       $pull: { skills: skill }
+    });
+  },
+
+  'users.pickHero'(heroImg) {
+    if (!this.userId) {
+      throw new Meteor.Error('not-logged-in',
+        "Vous devez être connecté pour changer de nom d'utilisateur.");
+    }
+    check(heroImg, String);
+    const hero = Heroes.find(hero => {
+      if (hero.image === heroImg) {
+        return true;
+      }
+    });
+
+    Meteor.users.update(this.userId, {
+      $set: { hero: hero }
     });
   }
 });

@@ -15,7 +15,7 @@ export default class HeroItem extends React.Component {
     const { data } = this.props;
     const component = <HeroModal hero={data} />;
 
-    openModal(component, data.name);
+    openModal(component, data.title);
   }
 
   render() {
@@ -26,7 +26,7 @@ export default class HeroItem extends React.Component {
     return (
       <div>
         <img src={data.image} onClick={this.openHeroModal}/>
-        <p>{data.name}</p>
+        <p>{data.title}</p>
       </div>
     );
   }
