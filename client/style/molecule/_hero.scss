@@ -1,11 +1,10 @@
 .hero-list .list{
   display:flex;
   flex-flow: row wrap;
-  justify-content: space-around;
-  margin:20px;
   .item {
     width:33%;
     padding:10px;
+    cursor:pointer;
     p {
       text-align: center;
       font-size: 1.2rem;
@@ -15,5 +14,12 @@
     img {
       margin-bottom:0;
     }
+  }
+}
+
+.hero-modal {
+  text-align: center;
+  img {
+    margin: auto;
   }
 }
