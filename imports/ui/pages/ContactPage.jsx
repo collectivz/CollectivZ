@@ -4,11 +4,8 @@ import { Link } from 'react-router';
 import AppNav from '../components/AppNav.jsx';
 import Breadcrumb from '../components/Breadcrumb.jsx';
 import List from '../components/List.jsx';
-import CircleItem from '../components/CircleItem.jsx'
 import UserItem from '../components/UserItem.jsx'
-import CircleForm from '../components/CircleForm';
 import ContactInvite from '../components/ContactInvite';
-import DropDown from '../components/DropDown';
 import TouchEvent from '../components/TouchEvent.jsx';
 import { Toast }         from '../helpers/Toast';
 import { openModal }         from '../helpers/Modal';
@@ -21,7 +18,6 @@ export default class ContactPage extends React.Component {
 
     this.acceptInvite = this.acceptInvite.bind(this);
     this.refuseInvite = this.refuseInvite.bind(this);
-    this.openCircleModal = this.openCircleModal.bind(this);
   }
 
   acceptInvite(userSelectedId) {
@@ -50,23 +46,22 @@ export default class ContactPage extends React.Component {
     });
   }
 
+  goTo(url) {
+    this.context.router.push(url);
+  }
+
+  renderChild() {
+    const {
+      children,
+      ...props
+    } = this.props;
+
+    return children && React.cloneElement(children, props);
+  }
+
   openInviteModal() {
     const component = <ContactInvite />;
     openModal(component, "Inviter un contact");
-  }
-
-  openCircleModal(circle, e) {
-    const {
-      usersContact
-    } = this.props;
-
-    if (!e) {
-      circle = null;
-    }
-
-    const component = <CircleForm circle={circle} usersContact={usersContact} />;
-    const title = circle ? 'Modifier le cercle' : 'Créer un cercle';
-    openModal(component, title);
   }
 
   render() {
@@ -78,77 +73,73 @@ export default class ContactPage extends React.Component {
       usersInvitationSent,
       loading,
       user,
+      children
     } = this.props;
 
     return (
       <div>
-        <Breadcrumb title="Contact" hasBack={false}>
-          <TouchEvent class="right-button touch-event" onClick={this.openInviteModal}>
-            <i className="icon icon-rotate-45 icon-cross" />
-          </TouchEvent>
-        </Breadcrumb>
-        <div className="sub-container">
+      {
+        children ?
+          this.renderChild()
+        :
+          <div>
+            <Breadcrumb title="Contact" hasBack={false}>
+              <TouchEvent class="right-button touch-event" onClick={this.openInviteModal}>
+                <i className="icon icon-rotate-45 icon-cross" />
+              </TouchEvent>
+            </Breadcrumb>
+            <div className="sub-container">
 
-          <div className="list-sub-menu small">
-              <i className="big-icon icon icon-users"/>
-              <h5>Vos Contacts</h5>
+              <div className="list-sub-menu small">
+                  <i className="big-icon icon icon-users"/>
+                  <h5>Vos Contacts</h5>
+              </div>
+
+              {
+                !usersInvitationReceived && !usersInvitationSent ?
+                <div className="list-empty">
+                  <p><i className="icon icon-sad"/>Aucune invitation en cours.</p>
+                </div>
+                :
+                <div>
+                  <List
+                    data={usersInvitationReceived}
+                    type="invitation"
+                    acceptInvite={this.acceptInvite}
+                    refuseInvite={this.refuseInvite}
+                    >
+                    <UserItem />
+                  </List>
+
+                  <List
+                    data={usersInvitationSent}
+                    type="invitationSent"
+                    >
+                    <UserItem />
+                  </List>
+                </div>
+              }
+              <List
+                data={usersContact}
+                type="contact"
+                removeContact={this.removeContact}
+                emptyListString="Vous n'avez aucun contact. Ajouter vos amis !"
+              >
+                <UserItem />
+              </List>
+              {
+                (usersContact && usersContact.length > 0)
+                ?
+                  ""
+                :
+                  <a className="success self-center button" onClick={this.openInviteModal}> Inviter un contact </a>
+              }
+              <TouchEvent class="touch-event" onClick={this.goTo.bind(this, '/contact/circles')} >
+                <p>Gérer mes cercles</p>
+              </TouchEvent>
+            </div>
           </div>
-
-          {
-            !usersInvitationReceived && !usersInvitationSent ?
-            <div className="list-empty">
-              <p><i className="icon icon-sad"/>Aucune invitation en cours.</p>
-            </div>
-            :
-            <div>
-              <List
-                data={usersInvitationReceived}
-                type="invitation"
-                acceptInvite={this.acceptInvite}
-                refuseInvite={this.refuseInvite}
-                >
-                <UserItem />
-              </List>
-
-              <List
-                data={usersInvitationSent}
-                type="invitationSent"
-                >
-                <UserItem />
-              </List>
-            </div>
-          }
-          <List
-            data={usersContact}
-            type="contact"
-            removeContact={this.removeContact}
-            emptyListString="Vous n'avez aucun contact. Ajouter vos amis !"
-          >
-            <UserItem />
-          </List>
-          { 
-            (usersContact && usersContact.length > 0)
-            ?
-              ""
-            :
-              <a className="success self-center button" onClick={this.openInviteModal}> Inviter un contact </a>
-          }
-          {/*
-            <div className="list-sub-menu">
-                <i className="big-icon icon icon-bubble"/>
-                <h5>Cercle(s) </h5>
-            </div>
-
-            <List
-              data={circles}
-              type="circle"
-              editCircle={this.openCircleModal}
-              emptyListString="Aucun cercle créé."
-            >
-              <CircleItem />
-            </List>
-          */}
-        </div>
+      }
         <AppNav user={user}/>
       </div>
     );

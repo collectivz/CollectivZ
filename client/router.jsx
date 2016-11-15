@@ -12,6 +12,7 @@ import GroupListContainer from '../imports/ui/containers/GroupListContainer.jsx'
 import ProfilePageContainer from '../imports/ui/containers/ProfilePageContainer.jsx';
 import MyProfileContainer from '../imports/ui/containers/MyProfileContainer.jsx';
 import AdminPageContainer from '../imports/ui/containers/AdminPageContainer.jsx';
+import CirclePageContainer from '../imports/ui/containers/CirclePageContainer.jsx';
 import RegisterPage from '../imports/ui/pages/RegisterPage.jsx';
 import NotFound from '../imports/ui/pages/NotFound.jsx';
 import HeroPicker from '../imports/ui/components/HeroPicker';
@@ -31,7 +32,9 @@ Meteor.startup(() => {
         <Route path='/group-list' component={GroupListContainer} />
         <Route path='/conversation/:conversationId' component={ConversationPageContainer} />
         <Route path='/admin' component={AdminPageContainer} />
-        <Route path='/contact/view' component={ContactPageContainer} />
+        <Route path='/contact' component={ContactPageContainer}>
+          <Route path="circles" component={CirclePageContainer} />
+        </Route>
         <Route path='/my-profile' component={MyProfileContainer}>
           <Route path='infos' component={InformationsEdit} />
           <Route path='hero' component={HeroPicker} />
