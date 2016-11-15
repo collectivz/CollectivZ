@@ -49,6 +49,19 @@ export default class InformationsEdit extends React.Component {
       user
     } = this.props;
 
+    const firstnameAttribute = user.profile.firstName
+      ? { defaultValue: user.profile.firstName }
+      : { placeholder: 'Prénom' };
+    const lastnameAttribute = user.profile.lastName
+      ? { defaultValue: user.profile.lastName }
+      : { placeholder: 'Nom' };
+    const emailAttribute = user.emails[0].address
+      ? { defaultValue: user.emails[0].address }
+      : { placeholder: 'Email' };
+    const phoneAttribute = user.phone
+      ? { defaultValue: user.phone }
+      : { placeholder: 'Numéro de téléphone' };
+
     return (
       <div className="sub-container">
         <Breadcrumb title="Mes informations personnelles" hasBack={true} />
@@ -66,7 +79,7 @@ export default class InformationsEdit extends React.Component {
               className="large"
               type="text"
               ref="firstname"
-              placeholder="Prénom"
+              {...firstnameAttribute}
             />
           </fieldset>
           <fieldset className="large">
@@ -74,7 +87,7 @@ export default class InformationsEdit extends React.Component {
               className="large"
               type="text"
               ref="lastname"
-              placeholder="Nom"
+              {...lastnameAttribute}
             />
           </fieldset>
           <fieldset className="large">
@@ -82,7 +95,7 @@ export default class InformationsEdit extends React.Component {
               className="large"
               type="text"
               ref="email"
-              placeholder="Email"
+              {...emailAttribute}
             />
           </fieldset>
           <fieldset className="large">
@@ -90,13 +103,13 @@ export default class InformationsEdit extends React.Component {
               className="large"
               type="text"
               ref="phone"
-              placeholder="Numéro de téléphone"
+              {...phoneAttribute}
             />
           </fieldset>
           <fieldset className="large has-icon">
             <input
               className="large"
-              type="text"
+              type="password"
               ref="oldPassword"
               placeholder="Ancien mot de passe"
             />

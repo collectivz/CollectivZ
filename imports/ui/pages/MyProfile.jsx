@@ -89,9 +89,9 @@ export default class MyProfile extends Component {
                       </div>
 
                       <div className="list-item small touch-event">
-                        <img className="circle" src="/img/icons/cross.svg" alt="" />
+                        <img className="circle" src="/img/icons/euro.svg" alt="" />
                         <div className="list-item-content">
-                          <p className="title">Mon budget <span className="value">20</span></p>
+                          <p className="title">Mon budget <span className="value">20 €</span></p>
                         </div>
                       </div>
 
@@ -117,14 +117,14 @@ export default class MyProfile extends Component {
                       </div>
 
                       <div className="list-item small touch-event" >
-                        <img className="circle" src="/img/icons/cross.svg" alt="" />
+                        <img className="circle" src="/img/icons/action.svg" alt="" />
                         <div className="list-item-content">
                           <p className="title">Mes actions en cours</p>
                         </div>
                       </div>
 
                       <div className="list-item small touch-event">
-                        <img className="circle" src="/img/icons/cross.svg" alt="" />
+                        <img className="circle" src="/img/icons/users.svg" alt="" />
                         <div className="list-item-content">
                           <p className="title">Mes groupes</p>
                         </div>

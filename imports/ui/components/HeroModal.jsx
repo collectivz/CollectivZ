@@ -16,8 +16,14 @@ export default class HeroModal extends React.Component {
       hero
     } = this.props;
 
-    console.log(hero);
-    closeModal();
+    Meteor.call('users.pickHero', hero.image, (res, err) => {
+      if (err) {
+        Toast(err.reason, 'danger');
+      } else {
+        Toast('Choix enregistré', "success");
+        closeModal();
+      }
+    });
   }
 
   render() {
@@ -28,7 +34,6 @@ export default class HeroModal extends React.Component {
     return (
       <div>
         <img src={hero.image} />
-        <p>{hero.name}</p>
         <p>{hero.title}</p>
         <button onClick={this.pickHero}>Choisir ce personnage</button>
         <p>{hero.description}</p>
