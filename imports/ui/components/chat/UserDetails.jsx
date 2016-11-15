@@ -6,7 +6,7 @@ export default class UserDetails extends React.Component {
 
     return (
       <div>
-        <img src={author.imageUrl} />
+        <img className="big-img" src={author.imageUrl} />
       </div>
     );
   }

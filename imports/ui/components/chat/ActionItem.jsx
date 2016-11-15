@@ -42,7 +42,7 @@ export default class ActionItem extends React.Component {
 
   getAuthorName(id) {
     const author = Meteor.users.findOne(id);
-    
+
     return author ? author.username : '';
   }
 
@@ -72,9 +72,15 @@ export default class ActionItem extends React.Component {
                 }
               </div>
               <div className="bubble-content-text">
-                <p>
-                  <span>{channel.description}</span>
-                </p>
+                {
+                  (channel.description)
+                  ?
+                  <p>
+                    <span>{channel.description}</span>
+                  </p>
+                  :
+                  ""
+                }
                 <button className="button only-icon" onClick={this.joinChannel}><span>Rejoindre</span><i className="icon icon-chevron-right"></i></button>
                 <AvatarRowContainer userIds={channel.members} />
               </div>

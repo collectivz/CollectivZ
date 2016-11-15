@@ -88,9 +88,18 @@
       border-radius: 100%;
       overflow: hidden;
       position:relative;
+      background-color: color("grey", "lighten-2");
       img {
         position:relative;
         border-radius: 100%;
+        border:none;
+      }
+      span {
+        margin: 7px;
+        display: block;
+        width: 15px;
+        text-align: center;
+        font-family: $nav-font;
       }
     }
 }

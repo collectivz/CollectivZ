@@ -138,6 +138,19 @@ export default class ContactPage extends React.Component {
               <UserItem />
             </List>
           </div>
+          <div className="list-sub-menu">
+            <i className="big-icon icon icon-bubble"/>
+            <h5>Cercle(s) </h5>
+          </div>
+
+          <List
+            data={circles}
+            type="circle"
+            editCircle={this.openCircleModal}
+            emptyListString="Aucun cercle créé."
+            >
+            <CircleItem />
+          </List>
 
           {/*
           {
@@ -147,19 +160,6 @@ export default class ContactPage extends React.Component {
             :
               <a className="success self-center button" onClick={this.openInviteModal}> Inviter un contact </a>
           }
-            <div className="list-sub-menu">
-                <i className="big-icon icon icon-bubble"/>
-                <h5>Cercle(s) </h5>
-            </div>
-
-            <List
-              data={circles}
-              type="circle"
-              editCircle={this.openCircleModal}
-              emptyListString="Aucun cercle créé."
-            >
-              <CircleItem />
-            </List>
           */}
         </div>
         <AppNav user={user}/>
