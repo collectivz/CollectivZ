@@ -36,6 +36,12 @@ export default class ContactPage extends React.Component {
     });
   }
 
+  goTo(url) {
+    setTimeout(() => {
+      this.context.router.push(url);
+    }, 350);
+  }
+
   refuseInvite(userSelectedId) {
     Meteor.call('repertory.refuseInvite', userSelectedId, (err, res) => {
       if (err) {
@@ -138,20 +144,10 @@ export default class ContactPage extends React.Component {
               <UserItem />
             </List>
           </div>
-          <div className="list-sub-menu">
-            <i className="big-icon icon icon-bubble"/>
-            <h5>Cercle(s) </h5>
-          </div>
-
-          <List
-            data={circles}
-            type="circle"
-            editCircle={this.openCircleModal}
-            emptyListString="Aucun cercle créé."
-            >
-            <CircleItem />
-          </List>
-
+          <hr className="hidden"/>
+          <button className="button self-center success" onClick={this.goTo.bind(this, '/contact/circles')} >
+            Gérer mes cercles
+          </button>
           {/*
           {
             (!this.state.isLoaded && usersContact && usersContact.length > 0)

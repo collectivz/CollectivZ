@@ -27,10 +27,10 @@ $navbar-item-width: 150px;
 
 $navbar-touch-size: $navbar-height * 1.5;
 
-$navbar-base-index: 999999999;
+$navbar-base-index: 999;
 
 .navbar {
-	position:fixed;
+	position:absolute;
 	bottom:0;
 	width:100%;
 	height:$navbar-height;

@@ -1,5 +1,25 @@
 $toastr-easing-duration: 250ms;
 
+.toastr {
+
+  right: 12px;
+  bottom: 12px;
+  position: fixed;
+  z-index: 999999;
+  padding:10px;
+  border-radius:3px;
+
+  &.toast-success {
+    background-color: color("success", "base");
+  }
+  &.toast-error {
+    background-color: color("danger", "base");
+  }
+  &.toast-info {
+    background-color: color("info", "base");
+  }
+
+}
 
 .toastr {
 	position:fixed;
@@ -13,7 +33,7 @@ $toastr-easing-duration: 250ms;
 	display:none;
 	opacity:0;
 	transition: all $toastr-easing-duration ease-in;
-	min-width: 100%;
+	width: calc(100% - 8.4rem);
 	transform: translateX(30px);
 
 	h1,h2,h3,h4,h5,h6 {
@@ -22,12 +42,15 @@ $toastr-easing-duration: 250ms;
 
 	p {
 		margin-bottom:0;
+		margin-top:0;
+		width: 80%;
+		display:inline-block;
 	}
 
 	.toastr--close-button {
 		position:absolute;
-		top:10px;
-		right:10px;
+		top:13px;
+		right:13px;
 		cursor:pointer;
 		opacity:0.5;
 		transition: all $toastr-easing-duration ease-in;
@@ -35,7 +58,6 @@ $toastr-easing-duration: 250ms;
 			opacity:1;
 		}
 	}
-
 
 	&.toastr--opening {
 		display:block;

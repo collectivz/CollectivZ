@@ -32,10 +32,9 @@ export default class HeroModal extends React.Component {
     } = this.props;
 
     return (
-      <div>
+      <div className="hero-modal">
         <img src={hero.image} />
-        <p>{hero.title}</p>
-        <button onClick={this.pickHero}>Choisir ce personnage</button>
+        <button className="button success self-center" onClick={this.pickHero}>Choisir ce personnage</button>
         <p>{hero.description}</p>
       </div>
     );
