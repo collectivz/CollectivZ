@@ -11,7 +11,7 @@ export default class Feedback {
       inputMode: 'newFeedback',
       dialogWithZorro: [this.question],
       ongoingAction: true,
-      choices: ['@annuler', '0', '1', '2', '3', '4', '5']
+      choices: ['0', '1', '2', '3', '4', '5', '@annuler']
     };
     this.channelId = channelId;
     this.expectedAnswer = 'rating';

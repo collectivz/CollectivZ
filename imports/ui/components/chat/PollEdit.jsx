@@ -39,7 +39,7 @@ export default class PollEdit extends React.Component {
       <div>
         <form id="box" onSubmit={this.editPoll}>
 
-          <fieldset className="large has-icon">
+          <fieldset className="large">
             <input
               className="large"
               type="text"
@@ -47,8 +47,8 @@ export default class PollEdit extends React.Component {
               defaultValue={poll.question}
             />
           </fieldset>
-          <fieldset className="large has-icon">
-            <input type="submit" value="Modifier" className="large big primary button"/>
+          <fieldset className="large">
+            <input type="submit" value="Modifier" className="large success button"/>
           </fieldset>
 
         </form>

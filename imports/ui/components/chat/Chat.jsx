@@ -163,9 +163,11 @@ export default class Chat extends React.Component {
         <div className={classNames("chat-sub-container", {"chat-with-filter-sub-container" : !_.isEmpty(channel.connections)})}>
 
           <div className="chat">
-            <div className="chat-separator">
-              <h5>Aujourd'hui</h5>
-            </div>
+            {/*
+              <div className="chat-separator">
+                <h5>Aujourd'hui</h5>
+              </div>
+            */}
             <div ref='scroll'>
               <div className="scroll">
                 <div className="message-list">
