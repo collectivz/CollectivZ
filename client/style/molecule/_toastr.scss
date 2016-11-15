@@ -13,7 +13,7 @@ $toastr-easing-duration: 250ms;
 	display:none;
 	opacity:0;
 	transition: all $toastr-easing-duration ease-in;
-	min-width: 220px;
+	min-width: 100%;
 	transform: translateX(30px);
 
 	h1,h2,h3,h4,h5,h6 {
@@ -77,5 +77,11 @@ $toastr-easing-duration: 250ms;
 .chat {
 	.toastr {
 		bottom:$text-size * 2 + strip-unit($chat-input-height) * 0.1rem;
+	}
+}
+
+@include desktop {
+	.toastr {
+		min-width: 220px;
 	}
 }

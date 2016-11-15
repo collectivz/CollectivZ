@@ -42,7 +42,7 @@ export default class ActionEdit extends React.Component {
       <div>
         <form id="box" onSubmit={this.editAction}>
 
-          <fieldset className="large has-icon">
+          <fieldset className="large">
             <input
               className="large"
               type="text"
@@ -50,7 +50,7 @@ export default class ActionEdit extends React.Component {
               defaultValue={channel.name}
             />
           </fieldset>
-          <fieldset className="large has-icon">
+          <fieldset className="large">
             <input
               className="large"
               type="text"
@@ -58,8 +58,8 @@ export default class ActionEdit extends React.Component {
               defaultValue={channel.description}
             />
           </fieldset>
-          <fieldset className="large has-icon">
-            <input type="submit" value="Modifier" className="large big primary button"/>
+          <fieldset className="large">
+            <input type="submit" value="Modifier" className="large success button"/>
           </fieldset>
 
         </form>

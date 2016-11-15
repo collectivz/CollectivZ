@@ -44,7 +44,7 @@ export default class BeerEdit extends React.Component {
       <div>
         <form id="box" onSubmit={this.editBeer}>
 
-          <fieldset className="large has-icon">
+          <fieldset className="large">
             <input
               className="large"
               type="text"
@@ -52,7 +52,7 @@ export default class BeerEdit extends React.Component {
               defaultValue={beer.occasion}
             />
           </fieldset>
-          <fieldset className="large has-icon">
+          <fieldset className="large">
             <input
               className="large"
               type="text"
@@ -60,7 +60,7 @@ export default class BeerEdit extends React.Component {
               defaultValue={beer.place}
             />
           </fieldset>
-          <fieldset className="large has-icon">
+          <fieldset className="large">
             <input
               className="large"
               type="text"
@@ -68,8 +68,8 @@ export default class BeerEdit extends React.Component {
               defaultValue={beer.date}
             />
           </fieldset>
-          <fieldset className="large has-icon">
-            <input type="submit" value="Modifier" className="large big primary button"/>
+          <fieldset className="large">
+            <input type="submit" value="Modifier" className="large success button"/>
           </fieldset>
 
         </form>

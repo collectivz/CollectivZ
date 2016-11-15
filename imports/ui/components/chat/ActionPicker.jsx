@@ -32,10 +32,12 @@ export default class ActionPicker extends Component {
             <i className="icon icon-2x icon-event2 event-color"/>
             <span>Event</span>
           </TouchEvent>
-          <TouchEvent onClick={this.handleClick.bind(this, 'newCoin')} class="chat-input-action-picker-item touch-event">
+          {/*
+            <TouchEvent onClick={this.handleClick.bind(this, 'newCoin')} class="chat-input-action-picker-item touch-event">
             <i className="icon icon-2x icon-euro money-color"/>
             <span>Money</span>
-          </TouchEvent>
+            </TouchEvent>
+          */}
           <TouchEvent onClick={this.handleClick.bind(this, 'newFeedback')} class="chat-input-action-picker-item touch-event">
             <i className="icon icon-2x icon-star feedback-color"/>
             <span>Feedback</span>

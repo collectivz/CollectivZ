@@ -46,7 +46,7 @@ export default class CoinEdit extends React.Component {
       <div>
         <form id="box" onSubmit={this.editCoin}>
 
-          <fieldset className="large has-icon">
+          <fieldset className="large">
             <input
               className="large"
               type="text"
@@ -54,7 +54,7 @@ export default class CoinEdit extends React.Component {
               defaultValue={coin.purpose}
             />
           </fieldset>
-          <fieldset className="large has-icon">
+          <fieldset className="large">
             <input
               className="large"
               type="number"
@@ -62,8 +62,8 @@ export default class CoinEdit extends React.Component {
               defaultValue={coin.goal}
             />
           </fieldset>
-          <fieldset className="large has-icon">
-            <input type="submit" value="Modifier" className="large big primary button"/>
+          <fieldset className="large">
+            <input type="submit" value="Modifier" className="large success button"/>
           </fieldset>
 
         </form>
