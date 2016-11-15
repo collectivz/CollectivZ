@@ -2,6 +2,7 @@ import React from 'react';
 import Rating from 'react-rating';
 
 export default class FeedbackItem extends React.Component {
+
   render() {
     const {
       feedback,

@@ -16,13 +16,13 @@ export default class ChannelList extends React.Component {
       unreadCounts
     } = this.props;
 
-    const sortedGroups = groups.sort((a, b) => {
+    const sortedGroups = groups && groups.sort((a, b) => {
       return b.lastActivity - a.lastActivity;
     });
-    const sortedActions = actions.sort((a, b) => {
+    const sortedActions = actions && actions.sort((a, b) => {
       return b.lastActivity - a.lastActivity;
     });
-    const sortedConversations = conversations.sort((a, b) => {
+    const sortedConversations = conversations && conversations.sort((a, b) => {
       return b.lastActivity - a.lastActivity;
     });
 

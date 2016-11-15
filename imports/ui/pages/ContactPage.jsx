@@ -138,6 +138,7 @@ export default class ContactPage extends React.Component {
               <UserItem />
             </List>
           </div>
+
           {/*
           {
             (!this.state.isLoaded && usersContact && usersContact.length > 0)

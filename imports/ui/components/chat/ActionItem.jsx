@@ -40,6 +40,12 @@ export default class ActionItem extends React.Component {
     Meteor.call('channels.delete', channel._id);
   }
 
+  getAuthorName(id) {
+    const author = Meteor.users.findOne(id);
+    
+    return author ? author.username : '';
+  }
+
   render() {
     const {
       channel,
@@ -52,7 +58,7 @@ export default class ActionItem extends React.Component {
           <div className="bubble-content">
               <div className="bubble-header">
                 <i className="icon icon-action-color icon-action"/>
-                <span><a href="">{user.username}</a> à ouvert une action</span>
+                <span><a href="">{this.getAuthorName(channel.author)}</a> à ouvert une action</span>
                 <h5>{channel.name}</h5>
                 {
                   (channel.author === user._id || user.isAdmin) ?

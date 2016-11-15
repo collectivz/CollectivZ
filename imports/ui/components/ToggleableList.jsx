@@ -46,7 +46,7 @@ export default class ToggleableList extends React.Component {
 
     if (open) {
       return data;
-    } else {
+    } else if (data) {
       let result = [];
       data.forEach((item, index) => {
         if (index < 2) {
@@ -66,7 +66,7 @@ export default class ToggleableList extends React.Component {
     } = this.props;
 
     let length = 0;
-    if (data.length)
+    if (data && data.length)
       length = data.length;
 
     return (

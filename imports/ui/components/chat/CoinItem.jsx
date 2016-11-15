@@ -49,6 +49,12 @@ export default class CoinItem extends React.Component {
     }
   }
 
+  getAuthorName(id) {
+    const author = Meteor.users.findOne(id);
+
+    return author ? author.username : '';
+  }
+
   render() {
 
     const { coin, user } = this.props;
@@ -58,7 +64,7 @@ export default class CoinItem extends React.Component {
           <div className="bubble-content">
               <div className="bubble-header">
                 <i className="icon icon-money-color icon-euro"/>
-                <span>{user.username} à lancé une collecte</span>
+                <span>{this.getAuthorName.bind(this, coin.author)} à lancé une collecte</span>
                 <h5>{coin.purpose}</h5>
                 {
                   (coin.author === user._id || user.isAdmin) ?
