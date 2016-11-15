@@ -59,8 +59,6 @@ export default class MyProfile extends Component {
       actionHistory = history.actionHistory;
     }
 
-    console.log(user);
-
     return (
       <div className="screen-box">
         {user ?

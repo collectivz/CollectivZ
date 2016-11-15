@@ -83,6 +83,10 @@ export default class BeerItem extends React.Component {
     }
   }
 
+  getAuthorName(id) {
+    return Meteor.findOne(id).username;
+  }
+
   render() {
 
     const {
@@ -94,7 +98,7 @@ export default class BeerItem extends React.Component {
       <div className="chat-special-bubble chat-special-bubble-beer">
           <div className="bubble-content">
               <div className="bubble-header">
-                <span><a href="">{user.username}</a> à lancé un événement</span>
+                <span><a href="">{this.getAuthorName.bind(this, beer.author)}</a> à lancé un événement</span>
                 <h5>{beer.occasion}</h5>
                 <i className="icon icon-event-color icon-event2"/>
                 {
