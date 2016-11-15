@@ -118,10 +118,18 @@ export default class MyProfile extends Component {
                         <i className="icon icon-chevron-right"></i>
                       </TouchEvent>
 
-                      <TouchEvent class="list-item small touch-event" onClick={this.goTo.bind(this, '/my-groups')}>
+                      <TouchEvent class="list-item small touch-event" onClick={this.goTo.bind(this, '/my-profile/actions')}>
                         <div className="circle"><i className="icon icon-action action-color"></i></div>
                         <div className="list-item-content">
                           <p className="title">Mes actions en cours</p>
+                        </div>
+                        <i className="icon icon-chevron-right"></i>
+                      </TouchEvent>
+
+                      <TouchEvent class="list-item small touch-event" onClick={this.goTo.bind(this, '/my-profile/groups')}>
+                        <div className="circle"><i className="icon icon-action action-color"></i></div>
+                        <div className="list-item-content">
+                          <p className="title">Mes groupes</p>
                         </div>
                         <i className="icon icon-chevron-right"></i>
                       </TouchEvent>
