@@ -79,7 +79,7 @@ export default class MyProfile extends Component {
 
                     <div className='list'>
 
-                      <TouchEvent class="list-item small" onClick={this.goTo.bind(this, '/my-profile/infos')}>
+                      <TouchEvent class="list-item small touch-event" onClick={this.goTo.bind(this, '/my-profile/infos')}>
                         <div className="circle"><i className="icon icon-info info-color"></i></div>
                         <div className="list-item-content">
                           <p className="title">Mes informations personnelles</p>
@@ -87,21 +87,22 @@ export default class MyProfile extends Component {
                         <i className="icon icon-chevron-right"></i>
                       </TouchEvent>
 
-                      <TouchEvent class="list-item small">
+                      {/*
+                      <TouchEvent class="list-item small touch-event">
                         <div className="circle"><i className="icon icon-grade grade-color"></i></div>
                         <div className="list-item-content">
                           <p className="title">Ma réputation <span className="value">20</span></p>
                         </div>
                       </TouchEvent>
-
-                      <TouchEvent class="list-item small">
+                        <TouchEvent class="list-item small touch-event">
                         <div className="circle"><i className="icon icon-euro money-color"></i></div>
                         <div className="list-item-content">
-                          <p className="title">Mon budget <span className="value">{(user.coinz) ? user.coinz + " €" : "Non déclaré"}</span></p>
+                        <p className="title">Mon budget <span className="value">{(user.coinz) ? user.coinz + " €" : "Non déclaré"}</span></p>
                         </div>
-                      </TouchEvent>
+                        </TouchEvent>
+                      */}
 
-                      <TouchEvent class="list-item small" onClick={this.goTo.bind(this, '/my-profile/hero')}>
+                      <TouchEvent class="list-item small touch-event" onClick={this.goTo.bind(this, '/my-profile/hero')}>
                         <div className="circle"><i className="icon icon-hero hero-color"></i></div>
                         <div className="list-item-content">
                           <p className="title">Mon héro <span className="value">{(user.hero && user.hero.title) ? user.hero.title : "Non déclaré"}</span></p>
@@ -109,7 +110,7 @@ export default class MyProfile extends Component {
                         <i className="icon icon-chevron-right"></i>
                       </TouchEvent>
 
-                      <TouchEvent class="list-item small" onClick={this.goTo.bind(this, '/my-profile/skills')}>
+                      <TouchEvent class="list-item small touch-event" onClick={this.goTo.bind(this, '/my-profile/skills')}>
                         <div className="circle"><i className="icon icon-tools tools-color"></i></div>
                         <div className="list-item-content">
                           <p className="title">Mes compétences <span className="value">{(user.skills) ? user.skills.length : "Non déclaré"}</span></p>
@@ -117,7 +118,7 @@ export default class MyProfile extends Component {
                         <i className="icon icon-chevron-right"></i>
                       </TouchEvent>
 
-                      <TouchEvent class="list-item small" onClick={this.goTo.bind(this, '/my-groups')}>
+                      <TouchEvent class="list-item small touch-event" onClick={this.goTo.bind(this, '/my-groups')}>
                         <div className="circle"><i className="icon icon-action action-color"></i></div>
                         <div className="list-item-content">
                           <p className="title">Mes actions en cours</p>
@@ -125,15 +126,7 @@ export default class MyProfile extends Component {
                         <i className="icon icon-chevron-right"></i>
                       </TouchEvent>
 
-                      <TouchEvent class="list-item small" onClick={this.goTo.bind(this, '/group-list/')}>
-                        <div className="circle"><i className="icon icon-users group-color"></i></div>
-                        <div className="list-item-content">
-                          <p className="title">Mes groupes</p>
-                        </div>
-                        <i className="icon icon-chevron-right"></i>
-                      </TouchEvent>
-
-                      <TouchEvent class="list-item small" onClick={this.goTo.bind(this, '/my-profile/history')}>
+                      <TouchEvent class="list-item small touch-event" onClick={this.goTo.bind(this, '/my-profile/history')}>
                         <div className="circle"><i className="icon icon-badge badge-color"></i></div>
                         <div className="list-item-content">
                           <p className="title">Mes accomplissements</p>
