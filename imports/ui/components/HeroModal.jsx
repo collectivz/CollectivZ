@@ -33,7 +33,7 @@ export default class HeroModal extends React.Component {
 
     return (
       <div className="hero-modal">
-        <img src={hero.image} />
+        <img className="modal--big-img" src={hero.image} />
         <button className="button success self-center" onClick={this.pickHero}>Choisir ce personnage</button>
         <p>{hero.description}</p>
       </div>

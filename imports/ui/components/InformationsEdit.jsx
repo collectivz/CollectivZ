@@ -98,6 +98,24 @@ export default class InformationsEdit extends React.Component {
                 {...lastnameAttribute}
                 />
             </fieldset>
+            <fieldset className="large">
+              <label><i className="icon icon-user"></i>Email</label>
+              <input
+                className="large"
+                type="text"
+                ref="email"
+                {...emailAttribute}
+              />
+            </fieldset>
+            <fieldset className="large">
+              <label><i className="icon icon-user"></i>Téléphone (optionnel)</label>
+              <input
+                className="large"
+                type="text"
+                ref="phone"
+                {...phoneAttribute}
+              />
+            </fieldset>
             <fieldset className="large merge">
               <label><i className="icon icon-lock"></i>Mot de passe</label>
               <input

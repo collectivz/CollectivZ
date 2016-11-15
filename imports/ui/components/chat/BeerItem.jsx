@@ -74,9 +74,7 @@ export default class BeerItem extends React.Component {
     else {
       return (
         <div className="beer-participate">
-          <div className="button-box">
-            <button onClick={this.joinBeer}>Participer {beer.members.length}</button>
-          </div>
+            <button className="button success" onClick={this.joinBeer}>Participer {beer.members.length}</button>
           <AvatarRowContainer isLarge={true} userIds={beer.members} />
         </div>
       );

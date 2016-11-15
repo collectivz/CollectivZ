@@ -158,20 +158,7 @@ export default class ContactPage extends React.Component {
                   <UserItem />
                 </List>
               </div>
-              <div className="list-sub-menu small">
-                <i className="big-icon icon icon-bubble"/>
-                <h5>Cercle(s) </h5>
-              </div>
-              <div>
-                <List
-                  data={circles}
-                  type="circle"
-                  editCircle={this.openCircleModal}
-                  emptyListString="Aucun cercle créé."
-                  >
-                  <CircleItem />
-                </List>
-              </div>
+
               <hr className="hidden"/>
               <button className="button self-center success" onClick={this.goTo.bind(this, '/contact/circles')} >
                 Gérer mes cercles

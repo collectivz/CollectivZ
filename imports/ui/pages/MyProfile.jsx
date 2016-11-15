@@ -94,12 +94,6 @@ export default class MyProfile extends Component {
                           <p className="title">Ma réputation <span className="value">20</span></p>
                         </div>
                       </TouchEvent>
-                        <TouchEvent class="list-item small touch-event">
-                        <div className="circle"><i className="icon icon-euro money-color"></i></div>
-                        <div className="list-item-content">
-                        <p className="title">Mon budget <span className="value">{(user.coinz) ? user.coinz + " €" : "Non déclaré"}</span></p>
-                        </div>
-                        </TouchEvent>
                       */}
 
                       <TouchEvent class="list-item small touch-event" onClick={this.goTo.bind(this, '/my-profile/hero')}>
@@ -127,7 +121,7 @@ export default class MyProfile extends Component {
                       </TouchEvent>
 
                       <TouchEvent class="list-item small touch-event" onClick={this.goTo.bind(this, '/my-profile/groups')}>
-                        <div className="circle"><i className="icon icon-action action-color"></i></div>
+                        <div className="circle"><i className="icon icon-users group-color"></i></div>
                         <div className="list-item-content">
                           <p className="title">Mes groupes</p>
                         </div>

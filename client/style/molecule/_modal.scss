@@ -147,4 +147,9 @@ $modal-easing-duration: 250ms;
 	.modal.modal--closing {
 			opacity:0;
 	}
+	.modal--big-img {
+			margin: auto;
+			max-width: 50%;
+			margin-bottom:1rem;
+	}
 }
