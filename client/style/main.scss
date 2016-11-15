@@ -51,6 +51,8 @@ $background-color: color("grey", "lighten-3");
 @import "molecule/drop-down";
 @import "molecule/modal";
 @import "molecule/someone-is-typing";
+@import "molecule/hero";
+@import "molecule/page";
 
 @import "template/login";
 @import "template/chat";
@@ -110,6 +112,37 @@ $chat-open-with-filter-sub-container-offset: $breadcrumb-height + $chat-filter-h
 	}
 }
 
+
+
+.grade-color {
+	background-color: #b55dcb;
+	color: white;
+}
+
+.info-color {
+	background-color: #e49f39;
+	color: white;
+}
+
+.hero-color {
+	background-color: #ee4e8c;
+	color: white;
+}
+
+.group-color {
+	background-color: #42abe5;
+	color: white;
+}
+
+.tools-color {
+	background-color: #42abe5;
+	color: white;
+}
+
+.badge-color {
+	background-color: #e5bf3a;
+	color: white;
+}
 
 .pollz-color {
 	background-color:#2e9fd6;

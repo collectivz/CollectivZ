@@ -1,0 +1,21 @@
+.page {
+  .header {
+		position:relative;
+		border-bottom: 1px solid #fafafa;
+		margin-bottom:$text-size * 2;
+    margin:20px;
+		h4 {
+			margin-top: 0px;
+			margin-bottom: $text-size / 2;
+			font-family: $nav-font;
+		}
+    i {
+      float: left;
+      margin-top: 7px;
+      margin-right: 8px;
+    }
+	}
+  .content {
+    padding:20px;
+  }
+}

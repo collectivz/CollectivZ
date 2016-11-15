@@ -8,7 +8,6 @@ export default class List extends React.Component {
     this.state = {isLoaded: false, isLoadable: false};
     this.renderItem = this.renderItem.bind(this);
     this.isLoaded = this.isLoaded.bind(this);
-    console.log(props);
   }
 
   isLoaded() {
@@ -42,8 +41,6 @@ export default class List extends React.Component {
       user,
       emptyListString
     } = this.props;
-
-    console.log(this.state.isLoadable)
 
     return (
       !this.state.isLoaded && this.state.isLoadable ?

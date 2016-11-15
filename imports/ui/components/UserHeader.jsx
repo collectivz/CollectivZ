@@ -22,7 +22,7 @@ export default class UserHeader extends Component {
                 <i className="edit icon icon-pencil"></i>
               </div>
               <h3 className="name">{user.username}</h3>
-              <h5 className="attribute">PERFORMER</h5>
+              <h5 className="attribute">{(user.hero && user.hero.title) ? user.hero.title : ""}</h5>
           </div>
       </div>
     );

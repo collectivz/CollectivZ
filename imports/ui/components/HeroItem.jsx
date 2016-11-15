@@ -24,7 +24,7 @@ export default class HeroItem extends React.Component {
     } = this.props;
 
     return (
-      <div>
+      <div className="item">
         <img src={data.image} onClick={this.openHeroModal}/>
         <p>{data.title}</p>
       </div>

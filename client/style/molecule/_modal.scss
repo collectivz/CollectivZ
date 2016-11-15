@@ -10,7 +10,8 @@ $modal-easing-duration: 250ms;
 	display:none;
 	img {
 		width:auto;
-    	max-width: 350px;
+    	max-width: 100%;
+			min-width: 250px;
 		display:block;
 	}
 	.modal--content {
@@ -28,7 +29,7 @@ $modal-easing-duration: 250ms;
 	}
 	.modal--content-wrapper {
 		z-index: 999;
-		margin:auto;
+		margin-top:55px;
 	}
 	.modal--header {
 		position:relative;
@@ -113,6 +114,9 @@ $modal-easing-duration: 250ms;
 		margin: auto;
 		transform:scale(0);
 		width:auto;
+	}
+	.modal .modal--content-wrapper {
+		margin:auto;
 	}
 	.modal .modal--overlay {
 		width:100%;

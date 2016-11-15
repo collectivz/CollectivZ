@@ -18,10 +18,14 @@ export default class ContactPage extends React.Component {
 
   constructor(props) {
     super(props);
-
+    this.state = {isLoaded: false};
     this.acceptInvite = this.acceptInvite.bind(this);
     this.refuseInvite = this.refuseInvite.bind(this);
     this.openCircleModal = this.openCircleModal.bind(this);
+  }
+
+  componentDidMount() {
+    this.isLoaded();
   }
 
   acceptInvite(userSelectedId) {
@@ -69,6 +73,12 @@ export default class ContactPage extends React.Component {
     openModal(component, title);
   }
 
+  isLoaded() {
+    setTimeout( () => {
+      this.setState({isLoaded: true});
+    }, 1350 );
+  }
+
   render() {
     const {
       repertory,
@@ -95,7 +105,6 @@ export default class ContactPage extends React.Component {
                 <h5>Vos invitations en attente</h5>
             </div>
             <List
-              isLoadable={true}
               data={usersInvitationReceived}
               type="invitation"
               emptyListString="Aucune discussion en attente"
@@ -109,7 +118,6 @@ export default class ContactPage extends React.Component {
                 <h5>Vos invitations envoyées</h5>
             </div>
             <List
-              isLoadable={false}
               data={usersInvitationSent}
               emptyListString="Aucune invitation en cours de validation"
               type="invitationSent"
@@ -122,7 +130,6 @@ export default class ContactPage extends React.Component {
                 <h5>Vos contacts</h5>
             </div>
             <List
-              isLoadable={false}
               data={usersContact}
               type="contact"
               removeContact={this.removeContact}
@@ -131,14 +138,14 @@ export default class ContactPage extends React.Component {
               <UserItem />
             </List>
           </div>
+          {/*
           {
-            (usersContact && usersContact.length > 0)
+            (!this.state.isLoaded && usersContact && usersContact.length > 0)
             ?
               ""
             :
               <a className="success self-center button" onClick={this.openInviteModal}> Inviter un contact </a>
           }
-          {/*
             <div className="list-sub-menu">
                 <i className="big-icon icon icon-bubble"/>
                 <h5>Cercle(s) </h5>
