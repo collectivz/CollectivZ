@@ -1,5 +1,8 @@
 import React from 'react';
 
+import ToastrStack from '../components/ToastrStack.jsx';
+import { Toast } from '../helpers/Toast';
+
 export default class RegisterPage extends React.Component {
 
   constructor(props) {
@@ -23,22 +26,22 @@ export default class RegisterPage extends React.Component {
     e.preventDefault();
 
     if (!username) {
-      errors.push("Entrez un nom d'utilisateur.");
+      Toast("Entrez un nom d'utilisateur.", 'danger');
     }
     if (!email) {
-      errors.push("Entrez un email.");
+      Toast("Entrez un email.", 'danger');
     }
     if (!mailRegex.test(email)) {
-      errors.push("Entrez un email valide.");
+      Toast("Entrez un email valide.", 'danger');
     }
     if (!password || !passwordAgain) {
-      errors.push("Entrez et confirmez votre mot de passe.");
+      Toast("Entrez et confirmez votre mot de passe.", 'danger');
     }
     if (password.length < 6) {
-      errors.push("Votre mot de passe est trop court.")
+      Toast("Votre mot de passe est trop court.", 'danger');
     }
     if (password !== passwordAgain) {
-      errors.push("Le mot de passe ne correspond pas à la confirmation.")
+      Toast("Le mot de passe ne correspond pas à la confirmation.", 'danger');
     }
 
     if (errors.length) {
@@ -122,6 +125,7 @@ export default class RegisterPage extends React.Component {
             <a className="lost-password" href="/login"> Déjà inscrit ? </a>
           </div>
         </div>
+        <ToastrStack />
 
       </div>
     );
