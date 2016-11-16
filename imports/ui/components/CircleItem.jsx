@@ -72,7 +72,7 @@ export default class CircleItem extends React.Component {
         <button className="button success" onClick={() => { router.push(`/conversation/${data.channel}`) }}><i className="icon icon-eye"></i></button>
       );
     } else {
-      return  <button className="button success" onClick={this.createConversation}><i className="icon icon-plus"></i></button>;
+      return  <button className="button success" onClick={this.createConversation}><i className="icon icon-plus-circle"></i></button>;
     }
   }
 
