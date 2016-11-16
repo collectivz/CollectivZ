@@ -99,7 +99,7 @@ export default class MyProfile extends Component {
                       <TouchEvent class="list-item small touch-event" onClick={this.goTo.bind(this, '/my-profile/hero')}>
                         <div className="circle"><i className="icon icon-hero hero-color"></i></div>
                         <div className="list-item-content">
-                          <p className="title">Mon héro <span className="value">{(user.hero && user.hero.title) ? user.hero.title : "Non déclaré"}</span></p>
+                          <p className="title">Mon héros <span className="value">{(user.hero && user.hero.title) ? user.hero.title : "Non déclaré"}</span></p>
                         </div>
                         <i className="icon icon-chevron-right"></i>
                       </TouchEvent>
