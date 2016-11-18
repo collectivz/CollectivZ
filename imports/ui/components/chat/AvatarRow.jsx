@@ -14,7 +14,7 @@ export default class AvatarRow extends React.Component {
   render() {
 
     let avatars = this.props.avatars;
-    let numberOfUsers = this.props.avatars.length;
+    let numberOfUsers = avatar ? avatars.length : 0;
     let hasToMuchUsers = false;
     if (numberOfUsers >= 4) {
       avatars = avatars.slice(0, 2);
