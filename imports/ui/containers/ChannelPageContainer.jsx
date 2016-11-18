@@ -9,7 +9,6 @@ export default createContainer(({ params, user }) => {
   const id = params.groupId;
   const channelSub = Meteor.subscribe('chanPage', id);
   const channel = Channels.findOne(id);
-  console.log(id);
   const users = Meteor.users.find({ subscribedChannels: { $in: [id] } }).fetch();
   let group;
 

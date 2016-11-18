@@ -5,7 +5,10 @@ import AvatarRow from '../components/chat/AvatarRow.jsx'
 
 export default createContainer(({ userIds }) => {
   let avatars = [];
-  const users = Meteor.users.find({_id: { $in: userIds }}).fetch();
+
+  if (userIds.length > 0) {
+    const users = Meteor.users.find({_id: { $in: userIds }}).fetch();
+  }
 
 
   users.forEach((user) => {
