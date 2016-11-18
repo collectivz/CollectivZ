@@ -6,7 +6,7 @@ import AvatarRow from '../components/chat/AvatarRow.jsx'
 export default createContainer(({ userIds }) => {
   let avatars = [];
 
-  if (userIds.length > 0) {
+  if (userIds && userIds.length > 0) {
     const users = Meteor.users.find({_id: { $in: userIds }}).fetch();
     users.forEach((user) => {
       if (user.imageUrl) {
