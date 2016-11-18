@@ -8,14 +8,14 @@ export default createContainer(({ userIds }) => {
 
   if (userIds.length > 0) {
     const users = Meteor.users.find({_id: { $in: userIds }}).fetch();
+    users.forEach((user) => {
+      if (user.imageUrl) {
+        avatars.push(user.imageUrl);
+      }
+    });
   }
 
 
-  users.forEach((user) => {
-    if (user.imageUrl) {
-      avatars.push(user.imageUrl);
-    }
-  });
 
   return {
     avatars
