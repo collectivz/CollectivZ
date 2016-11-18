@@ -43,7 +43,6 @@ export default class MessageInput extends Component {
   }
 
   scrollDown() {
-    console.log("scrollDownTriggered");
     const elem = $('.chat-sub-container');
     $(".chat-sub-container").scrollTop(1000000);
     setTimeout( () => {
