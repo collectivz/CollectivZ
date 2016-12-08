@@ -1,6 +1,6 @@
 import React, { Component, PropTypes }    from 'react';
 import { Meteor }                         from 'meteor/meteor';
-import json2xls                           from 'json2xls';
+import json2csv                           from 'json2csv';
 
 import AppNav                             from '../components/AppNav.jsx';
 import List                             from '../components/List.jsx';
@@ -29,12 +29,12 @@ export default class AdminPage extends Component {
     Meteor.call('admin.exportData', (err, res) => {
       if (err) {
       } else {
-        const xls = json2xls(res);
+        const xls = json2csv({data: res});
         const blob = new Blob(["\ufeff", xls]);
         const url = URL.createObjectURL(blob);
         this.setState({
           downloadReady: true,
-          fileName: `Utilisateurs de CollectivZ.xls`,
+          fileName: `Utilisateurs de CollectivZ.csv`,
           downloadUrl: url
         });
       }
