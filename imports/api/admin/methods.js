@@ -1,6 +1,8 @@
 import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
 
+import { Channels } from '../channels/collection';
+
 Meteor.methods({
   'admin.addMoney'(amount) {
     if (!this.userId) {
@@ -72,5 +74,42 @@ Meteor.methods({
     Meteor.users.update(userId, {
       $set: { isAdmin: false }
     });
+  },
+
+  'admin.exportData'() {
+    if (!this.userId) {
+      throw new Meteor.Error('not-logged',
+        "Vous devez être connecté");
+    }
+
+    if (!Meteor.user().isAdmin) {
+      throw new Meteor.Error('no-right',
+        "Vous n'avez pas les droits");
+    }
+
+    const users = Meteor.users.find().fetch();
+    let result = [];
+
+    users.forEach(user => {
+      const group = Channels.findOne({ author: user._id });
+      if (group) {
+        result.push({
+          username: user.username,
+          email: user.emails[0].address,
+          phone: user.phone,
+          groupName: group.name,
+          groupDescription: group.description,
+          groupMemberCount: group.members.length
+        });
+      } else {
+        result.push({
+          username: user.username,
+          email: user.emails[0].address,
+          phone: user.phone,
+        });
+      }
+    });
+
+    return result;
   }
 });

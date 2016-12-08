@@ -1,5 +1,6 @@
 import React, { Component, PropTypes }    from 'react';
 import { Meteor }                         from 'meteor/meteor';
+import json2xls                           from 'json2xls';
 
 import AppNav                             from '../components/AppNav.jsx';
 import List                             from '../components/List.jsx';
@@ -24,10 +25,26 @@ export default class AdminPage extends Component {
     this.removeAdmin = this.removeAdmin.bind(this);
   }
 
+  componentWillMount() {
+    Meteor.call('admin.exportData', (err, res) => {
+      if (err) {
+      } else {
+        const xls = json2xls(res);
+        const blob = new Blob(["\ufeff", xls]);
+        const url = URL.createObjectURL(blob);
+        this.setState({
+          downloadReady: true,
+          fileName: `Utilisateurs de CollectivZ.xls`,
+          downloadUrl: url
+        });
+      }
+    });
+  }
+
   componentDidMount() {
     Meteor.call('users.getUserNumber', (err, res) => {
       this.setState({
-        userNumber: res
+        userNumber: res,
       });
     });
   }
@@ -107,7 +124,13 @@ export default class AdminPage extends Component {
   render() {
 
     const { user, admins } = this.props;
-    const { userNumber, coinTotal } = this.state;
+    const {
+      userNumber,
+      coinTotal,
+      downloadUrl,
+      downloadReady,
+      fileName
+    } = this.state;
 
     const emptyListString = 'Aucun coordinateur sur la plate-forme. Veuillez contacter CollectivZ.'
 
@@ -148,6 +171,17 @@ export default class AdminPage extends Component {
                   <label>{coinTotal}</label>
                 </form>
               </div>
+              { downloadReady ?
+                <div className="button-box">
+                  <label>Télécharger les données</label>
+                    <a download={fileName} href={downloadUrl} ref="downloadButton">
+                      <button className="small button info">Enregister le csv</button>
+                    </a>
+                  <br />
+                </div>
+
+                : ''
+              }
               <h5>Ajouter un coordinateur</h5>
               <div className="button-box">
                 <form className="merged">
