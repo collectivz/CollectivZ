@@ -6,9 +6,9 @@ import * as TYPES from '../constants/constants';
 
 export default store => next => action => {
   if (action.type === TYPES.SUBSCRIBE) {
-    Subscriptions.add('userProfile', Meteor.userId(), () => {
-      store.dispatch(readSuccess(Meteor.user()));
-    });
+    const { publishName, query } = action;
+
+    Subscriptions.add(publishName, query);
   }
   return next(action);
 }

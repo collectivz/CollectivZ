@@ -11,6 +11,7 @@ import ChannelPageContainer from '../imports/ui/containers/ChannelPageContainer.
 import ConversationPageContainer from '../imports/ui/containers/ConversationPageContainer.jsx';
 import GroupListContainer from '../imports/ui/containers/GroupListContainer.jsx';
 import ProfilePage from '../imports/ui/pages/ProfilePage.jsx';
+import MyProfile from '../imports/ui/pages/MyProfile.jsx';
 // import PublicProfileContainer from '../imports/ui/containers/PublicProfileContainer';
 import MyProfileContainer from '../imports/ui/containers/MyProfileContainer.jsx';
 import AdminPageContainer from '../imports/ui/containers/AdminPageContainer.jsx';
@@ -21,7 +22,7 @@ import NotFound from '../imports/ui/pages/NotFound.jsx';
 import HeroPicker from '../imports/ui/components/HeroPicker';
 import InformationsEdit from '../imports/ui/components/InformationsEdit';
 import CurrentGroupsContainer from '../imports/ui/containers/CurrentGroupsContainer';
-import CurrentActionsContainer from '../imports/ui/containers/CurrentActionsContainer';
+import CurrentActions from '../imports/ui/components/CurrentActions';
 import SkillsEdit from '../imports/ui/components/SkillsEdit';
 import UserHistory from '../imports/ui/components/UserHistory';
 import Store from '../imports/ui/store/store';
@@ -43,11 +44,11 @@ Meteor.startup(() => {
           <Route path='/contact' component={ContactPageContainer}>
             <Route path="circles" component={CirclePageContainer} />
           </Route>
-          <Route path='/my-profile' component={ProfilePage}>
+          <Route path='/my-profile' component={MyProfile}>
             <Route path='infos' component={InformationsEdit} />
             <Route path='hero' component={HeroPicker} />
             <Route path='skills' component={SkillsEdit} />
-            <Route path='actions' component={CurrentActionsContainer} />
+            <Route path='actions' component={CurrentActions} />
             <Route path='groups' component={CurrentGroupsContainer} />
             <Route path='history' component={UserHistory} />
           </Route>

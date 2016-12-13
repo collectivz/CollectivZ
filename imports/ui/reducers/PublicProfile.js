@@ -12,6 +12,7 @@ const initialState = {
 export default function publicProfile(state = initialState, action) {
   switch (action.type) {
     case USERPROFILE_SUCCESS:
+    console.log({ ...state, ...action })
       return { ...state, ...action };
     default:
       return state;

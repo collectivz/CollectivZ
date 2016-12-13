@@ -14,7 +14,7 @@ import App from '../layout/App.jsx'
 // }, App);
 
 const dispatchAndMapAction = (dispatch) => {
-  dispatch(startRead(Meteor.userId()));
+  dispatch(startRead('userProfile', Meteor.userId()));
   return {};
 }
 

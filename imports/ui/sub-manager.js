@@ -46,7 +46,9 @@ Tracker.autorun(() => {
   Object.keys(map).forEach(publishName => {
     map[publishName].handle = Meteor.subscribe(publishName, map[publishName].query, {
       onReady() {
-        map[publishName].callback.call();
+        if (map[publishName].callback) {
+          map[publishName].callback.call();
+        }
         console.log(`sub ${publishName} ready`);
       },
       onStop() {

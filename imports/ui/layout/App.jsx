@@ -18,6 +18,7 @@ export default class App extends React.Component {
   render() {
     const {
       user,
+      collections,
       loading,
       children,
       location,
@@ -25,6 +26,7 @@ export default class App extends React.Component {
 
     const clonedChildren = children && React.cloneElement(children, {
       user,
+      collections,
       key: location.pathname,
     });
 
