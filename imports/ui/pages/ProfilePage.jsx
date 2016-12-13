@@ -34,7 +34,7 @@ export default class ProfilePage extends Component {
 
               <Breadcrumb title={`Profil de ${user.username}`} hasBack={true} />
 
-                {
+                {/* {
                   children ?
                     children
                   :
@@ -46,8 +46,8 @@ export default class ProfilePage extends Component {
                       </TouchEvent>
                     </div>
                   </div>
-                }
-              <AppNav user={currentUser} />
+                } */}
+              <AppNav user={user} />
             </div>
           : <Loader />
         }

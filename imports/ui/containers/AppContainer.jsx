@@ -1,13 +1,28 @@
 import { Meteor } from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
+import { connect } from 'react-redux';
 
-import { UnreadCount } from '../../api/users/client/unread-count.js';
+import { startRead } from '../actions/PublicProfile';
 import App from '../layout/App.jsx'
 
-export default createContainer(() => {
-  const userSub = Meteor.subscribe('user');
+// export default createContainer(() => {
+//   // const userSub = Meteor.subscribe('user');
+//
+//   return {
+//     user: Meteor.user(),
+//   };
+// }, App);
 
+const dispatchAndMapAction = (dispatch) => {
+  dispatch(startRead(Meteor.userId()));
+  return {};
+}
+
+const mapStateToProps = (state) => {
   return {
-    user: Meteor.user(),
+    user: state.collections.users ? state.collections.users[Meteor.userId()] : null,
+    collections: state.collections
   };
-}, App);
+};
+
+export default connect(mapStateToProps, dispatchAndMapAction)(App);

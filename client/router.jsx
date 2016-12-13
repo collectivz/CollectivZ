@@ -10,8 +10,8 @@ import ContactPageContainer from '../imports/ui/containers/ContactPageContainer.
 import ChannelPageContainer from '../imports/ui/containers/ChannelPageContainer.jsx';
 import ConversationPageContainer from '../imports/ui/containers/ConversationPageContainer.jsx';
 import GroupListContainer from '../imports/ui/containers/GroupListContainer.jsx';
-import ProfilePageContainer from '../imports/ui/containers/ProfilePageContainer.jsx';
-import PublicProfileContainer from '../imports/ui/containers/PublicProfileContainer';
+import ProfilePage from '../imports/ui/pages/ProfilePage.jsx';
+// import PublicProfileContainer from '../imports/ui/containers/PublicProfileContainer';
 import MyProfileContainer from '../imports/ui/containers/MyProfileContainer.jsx';
 import AdminPageContainer from '../imports/ui/containers/AdminPageContainer.jsx';
 import CirclePageContainer from '../imports/ui/containers/CirclePageContainer.jsx';
@@ -24,13 +24,13 @@ import CurrentGroupsContainer from '../imports/ui/containers/CurrentGroupsContai
 import CurrentActionsContainer from '../imports/ui/containers/CurrentActionsContainer';
 import SkillsEdit from '../imports/ui/components/SkillsEdit';
 import UserHistory from '../imports/ui/components/UserHistory';
-import configureStore from '../imports/ui/store/store';
+import Store from '../imports/ui/store/store';
 
-const store = configureStore();
+// const store = configureStore();
 
 Meteor.startup(() => {
   render(
-    <Provider store={store}>
+    <Provider store={Store}>
       <Router history={browserHistory}>
       <Route path='/register' component={RegisterPage} />
       <Route path='/password' component={PasswordLost} />
@@ -43,7 +43,7 @@ Meteor.startup(() => {
           <Route path='/contact' component={ContactPageContainer}>
             <Route path="circles" component={CirclePageContainer} />
           </Route>
-          <Route path='/my-profile' component={PublicProfileContainer}>
+          <Route path='/my-profile' component={ProfilePage}>
             <Route path='infos' component={InformationsEdit} />
             <Route path='hero' component={HeroPicker} />
             <Route path='skills' component={SkillsEdit} />
@@ -51,7 +51,7 @@ Meteor.startup(() => {
             <Route path='groups' component={CurrentGroupsContainer} />
             <Route path='history' component={UserHistory} />
           </Route>
-          <Route path='/profile/:userId' component={ProfilePageContainer} />
+          <Route path='/profile/:userId' component={ProfilePage} />
           <Route path='*' component={NotFound} />
         </Route>
       </Router>
