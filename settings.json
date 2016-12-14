@@ -1,7 +1,0 @@
-{
-  "galaxy.meteor.com": {
-    "env": {
-      "MONGO_URL": "mongodb://collectivz-server:CollectivZServerToDatabasePassword123@ds029565.mlab.com:29565/collectivz-db"
-    }
-  }
-}

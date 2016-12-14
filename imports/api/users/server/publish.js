@@ -45,14 +45,15 @@ Meteor.publish('userProfile', function(userId) {
   if (this.userId) {
     const user = Meteor.users.findOne(userId);
 
-    return [
-      Meteor.users.find(userId),
-      Channels.find({ _id: { $in: user.subscribedChannels } }),
-      History.find({ userId: user._id })
-    ];
-  } else {
-    this.ready();
+    if (user) {
+      return [
+        Meteor.users.find(userId),
+        Channels.find({ _id: { $in: user.subscribedChannels } }),
+        History.find({ userId: user._id })
+      ];
+    }
   }
+  this.ready();
 });
 
 Meteor.publish('unread-count', function() {

@@ -6,26 +6,16 @@ import ChannelItem from './ChannelItem';
 
 export default class CurrentActions extends React.Component {
   render() {
-    const { collections } = this.props;
-    if (collections.channels) {
-      const actions = [];
-      Object.keys(collections.channels).forEach(_id => {
-        if (collections.channels[_id].type === 'channel') {
-          actions.push(collections.channels[_id]);
-        }
-      });
-
-      return (
-        <div className="sub-container">
+    const { actions } = this.props;
+    return (
+      <div className="sub-container">
         <Breadcrumb title="Mes actions" hasBack={true} />
         <List
-        data={actions}
+          data={actions}
         >
-        <ChannelItem />
+          <ChannelItem />
         </List>
-        </div>
-      );
-    }
-    return null;
+      </div>
+    );
   }
 }

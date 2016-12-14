@@ -22,7 +22,7 @@ import NotFound from '../imports/ui/pages/NotFound.jsx';
 import HeroPicker from '../imports/ui/components/HeroPicker';
 import InformationsEdit from '../imports/ui/components/InformationsEdit';
 import CurrentGroupsContainer from '../imports/ui/containers/CurrentGroupsContainer';
-import CurrentActions from '../imports/ui/components/CurrentActions';
+import CurrentActionsContainer from '../imports/ui/containers/CurrentActionsContainer';
 import SkillsEdit from '../imports/ui/components/SkillsEdit';
 import UserHistory from '../imports/ui/components/UserHistory';
 import Store from '../imports/ui/store/store';
@@ -48,7 +48,7 @@ Meteor.startup(() => {
             <Route path='infos' component={InformationsEdit} />
             <Route path='hero' component={HeroPicker} />
             <Route path='skills' component={SkillsEdit} />
-            <Route path='actions' component={CurrentActions} />
+            <Route path='actions' component={CurrentActionsContainer} />
             <Route path='groups' component={CurrentGroupsContainer} />
             <Route path='history' component={UserHistory} />
           </Route>

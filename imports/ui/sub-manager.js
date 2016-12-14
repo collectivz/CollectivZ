@@ -67,7 +67,7 @@ DDPConnection._stream.on('message', (msg) => {
   const msgObj = JSON.parse(msg);
   const collectionName = msgObj.collection;
   if (msgObj.collection && msgObj.collection !== 'meteor_autoupdate_clientVersions') {
-    const packetToProcess = { ...msgObj, collection: collectionName };
+    const packetToProcess = { ...msgObj };
     switch (packetToProcess.msg) {
       case 'added':
       Store.dispatch(ddpAction(TYPES.COLLECTION_ADDED, packetToProcess));

@@ -50,11 +50,6 @@ export default class MyProfile extends Component {
       user,
       children
     } = this.props;
-    const {
-      groups,
-      channels,
-      history,
-    } = this.props.collections;
     let actionHistory = [];
 
     if (history) {

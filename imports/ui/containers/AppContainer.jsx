@@ -21,7 +21,6 @@ const dispatchAndMapAction = (dispatch) => {
 const mapStateToProps = (state) => {
   return {
     user: state.collections.users ? state.collections.users[Meteor.userId()] : null,
-    collections: state.collections
   };
 };
 
