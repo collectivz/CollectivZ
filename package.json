@@ -6,6 +6,7 @@
   },
   "dependencies": {
     "aws-sdk": "^2.6.3",
+    "babel-runtime": "^6.20.0",
     "classnames": "^2.2.5",
     "cron": "^1.1.1",
     "fs": "0.0.1-security",
@@ -20,9 +21,11 @@
     "react-dom": "^15.3.1",
     "react-emoji": "^0.4.4",
     "react-rating": "^0.6.1",
+    "react-redux": "^4.4.6",
     "react-router": "^2.8.1",
     "react-timer-mixin": "^0.13.3",
     "react-toastr": "^2.8.1",
+    "redux": "^3.6.0",
     "smartcrop": "^1.1.1",
     "xhr": "^2.2.2"
   }
