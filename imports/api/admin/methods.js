@@ -86,28 +86,15 @@ Meteor.methods({
       throw new Meteor.Error('no-right',
         "Vous n'avez pas les droits");
     }
-
-    const users = Meteor.users.find().fetch();
     let result = [];
-
-    users.forEach(user => {
-      const group = Channels.findOne({ author: user._id });
-      if (group) {
-        result.push({
-          username: user.username,
-          email: user.emails[0].address,
-          phone: user.phone,
-          groupName: group.name,
-          groupDescription: group.description,
-          groupMemberCount: group.members.length
-        });
-      } else {
-        result.push({
-          username: user.username,
-          email: user.emails[0].address,
-          phone: user.phone,
-        });
-      }
+    const groups = Channels.find({ type: 'group' }).fetch();
+    groups.forEach(group => {
+      const author = Meteor.users.findOne(group.author);
+      result.push({
+        Groupe: group.name,
+        Créateur: author.username,
+        Email: author.emails[0].address
+      });
     });
 
     return result;
