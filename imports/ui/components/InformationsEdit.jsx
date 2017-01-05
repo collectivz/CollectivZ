@@ -81,7 +81,7 @@ export default class InformationsEdit extends React.Component {
                 />
             </fieldset>
             <fieldset className="large">
-              <label><i className="icon icon-user"></i>Nom</label>
+              <label><i className="icon icon-user"></i>Prénom</label>
               <input
                 className="large"
                 type="text"
@@ -90,7 +90,7 @@ export default class InformationsEdit extends React.Component {
                 />
             </fieldset>
             <fieldset className="large">
-              <label><i className="icon icon-user"></i>Prénom</label>
+              <label><i className="icon icon-user"></i>Nom</label>
               <input
                 className="large"
                 type="text"

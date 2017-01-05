@@ -10,7 +10,6 @@ class PublicProfileContainer extends React.Component {
   constructor(props) {
     super(props);
 
-    debugger;
     PublicProfileActions.read(Meteor.userId());
   }
 

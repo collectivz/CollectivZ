@@ -43,7 +43,7 @@ Meteor.startup(() => {
           <Route path='/contact' component={ContactPageContainer}>
             <Route path="circles" component={CirclePageContainer} />
           </Route>
-          <Route path='/my-profile' component={PublicProfileContainer}>
+          <Route path='/my-profile' component={MyProfileContainer}>
             <Route path='infos' component={InformationsEdit} />
             <Route path='hero' component={HeroPicker} />
             <Route path='skills' component={SkillsEdit} />
