@@ -1,7 +1,8 @@
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 
-import { replaceParams } from './smiley-replacer';
+import { replaceSmileys } from './smiley-replacer';
+import { replaceUrls } from './url-handler';
 import { Channels } from '../channels/collection.js';
 
 class messageCollection extends Mongo.Collection {
@@ -23,7 +24,8 @@ class messageCollection extends Mongo.Collection {
     Channels.update(message.channelId, {
       $set: { lastActivity: message.createdAt, lastMessage: lastMessage },
     });
-    message.text = replaceParams(message.text);
+    message.text = replaceSmileys(message.text);
+    message.text = replaceUrls(message.text);
     return super.insert(message);
   }
 

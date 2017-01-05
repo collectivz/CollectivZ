@@ -9,7 +9,7 @@ const smileys = {
 };
 
 
-export function replaceParams( str ) {
+export function replaceSmileys( str ) {
   return _.keys(smileys)
           .reduce( (acc, curr) => acc.replace( new RegExp(curr, 'g'), smileys[curr] ), str );
 }
