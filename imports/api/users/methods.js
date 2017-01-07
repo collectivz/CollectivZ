@@ -186,5 +186,16 @@ Meteor.methods({
     } else {
       throw new Meteor.Error('user-not-found', "Le mail spécifié n'a pas été trouvé.");
     }
+  },
+
+  'users.getUsernames'(username) {
+    const parts = username.trim().split(/[ \-\:]+/);
+    const regex = new RegExp("(" + parts.join(' ') + ")", "ig");
+
+    const users = Meteor.users.find({ username: {$regex: regex} }, {
+      fields: { username: 1 }
+    }).fetch();
+
+    return users;
   }
 });
