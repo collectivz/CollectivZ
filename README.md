@@ -1,8 +1,8 @@
-```
-meteor npm install --save react react-dom react-router
-meteor npm install --save react-addons-pure-render-mixin
-meteor add react-meteor-data accounts-password
-```
+
+## Local deploy
+
+meteor npm install
+meteor
 
 ## architecture
 ### proposition

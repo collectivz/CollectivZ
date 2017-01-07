@@ -3,7 +3,49 @@
   "private": true,
   "scripts": {
     "start": "meteor run"
+    "install": "meteor npm install meteor",
+    "test": "npm run clean && npm run build && npm run test:only",
+    "test:only": "mocha --recursive test",
+    "test:single": "mocha --watch",
+    "test:watch": "mocha --recursive --watch test",
   },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "eslint": "^2.12.0",
+    "eslint-config-airbnb": "^9.0.1",
+    "eslint-plugin-import": "^1.8.1",
+    "eslint-plugin-jsx-a11y": "^1.4.2",
+    "eslint-plugin-meteor": "^3.6.0",
+    "eslint-plugin-mocha": "^3.0.0",
+    "eslint-plugin-react": "^5.1.1"
+  },
+  "eslintConfig": {
+    "plugins": [
+      "meteor",
+      "mocha"
+    ],
+    "extends": [
+      "airbnb",
+      "plugin:meteor/recommended"
+    ],
+    "rules": {
+      "meteor/eventmap-params": [
+        2,
+        {
+          "templateInstanceParamName": "instance"
+        }
+      ],
+      "import/no-unresolved": [
+        2,
+        {
+          "ignore": [
+            "^meteor/"
+          ]
+        }
+      ],
+      "mocha/no-exclusive-tests": "error"
+    }
+  }
   "dependencies": {
     "aws-sdk": "^2.6.3",
     "babel-runtime": "^6.20.0",
