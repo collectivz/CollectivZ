@@ -1,5 +1,7 @@
 
 
+## Travis status
+
 [![Build Status](https://api.travis-ci.org/collectivz/CollectivZ.svg?branch=master)](https://travis-ci.org/collectivz/CollectivZ)
 
 
