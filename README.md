@@ -1,4 +1,8 @@
 
+
+[![Build Status](https://travis-ci.org/collectivz/CollectivZ/php.svg?branch=master)](https://travis-ci.org/collectivz/CollectivZ/php)
+
+
 ## install meteor
 
 curl https://install.meteor.com | /bin/sh
