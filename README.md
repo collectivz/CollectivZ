@@ -1,6 +1,6 @@
 
 
-[![Build Status](https://travis-ci.org/collectivz/CollectivZ/php.svg?branch=master)](https://travis-ci.org/collectivz/CollectivZ/php)
+[![Build Status](https://api.travis-ci.org/collectivz/CollectivZ.svg?branch=master)](https://travis-ci.org/collectivz/CollectivZ)
 
 
 ## install meteor
