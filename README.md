@@ -1,8 +1,24 @@
 
-## Local deploy
+## install meteor
 
-meteor npm install
-meteor
+curl https://install.meteor.com | /bin/sh
+
+
+## install jest (for test)
+
+npm install -g jest
+
+
+## install
+
+npm install
+
+
+## start
+
+npm install
+npm start
+
 
 ## architecture
 ### proposition

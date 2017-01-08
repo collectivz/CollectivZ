@@ -5,9 +5,6 @@ import UserHeader from '../components/UserHeader.jsx';
 import Breadcrumb from '../components/Breadcrumb';
 import AppNav from '../components/AppNav.jsx';
 import Loader from '../components/Loader.jsx';
-import List from '../components/List.jsx';
-import GroupItem from '../components/GroupItem.jsx';
-import ChannelItem from '../components/ChannelItem.jsx';
 import TouchEvent from '../components/TouchEvent';
 
 export default class ProfilePage extends Component {
