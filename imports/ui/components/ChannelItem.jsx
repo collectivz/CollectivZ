@@ -3,7 +3,6 @@ import { Meteor }                               from 'meteor/meteor';
 import { Router, Route, Link, browserHistory }  from 'react-router';
 import { _ }                                    from 'meteor/underscore';
 import TouchEvent                               from './TouchEvent';
-import classNames                               from 'classnames';
 
 import ActionList                               from './ActionList.jsx';
 import { Toast }         from '../helpers/Toast';

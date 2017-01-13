@@ -32,13 +32,16 @@ export default class List extends React.Component {
     props.key = index;
     const clonedChildren = children && React.cloneElement(children, props);
 
+    console.log( "cildren: " + JSON.stringify(children));
+      console.log( "props: " + JSON.stringify(props));
+    JSON.stringify( clonedChildren);
+
     return clonedChildren;
   }
 
   render() {
     const {
       data,
-      user,
       emptyListString
     } = this.props;
 

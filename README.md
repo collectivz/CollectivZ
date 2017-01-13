@@ -1,8 +1,30 @@
 
-## Local deploy
 
-meteor npm install
-meteor
+## Travis status
+
+[![Build Status](https://api.travis-ci.org/collectivz/CollectivZ.svg?branch=master)](https://travis-ci.org/collectivz/CollectivZ)
+
+
+## install meteor
+
+curl https://install.meteor.com | /bin/sh
+
+
+## install jest (for test)
+
+npm install -g jest
+
+
+## install
+
+npm install
+
+
+## start
+
+npm install
+npm start
+
 
 ## architecture
 ### proposition

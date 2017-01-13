@@ -1,0 +1,10 @@
+exports[`group snapshot 1`] = `
+<div
+  className="screen-box center">
+  <div
+    className="center-wrapper"
+    id="preloader">
+    <div />
+  </div>
+</div>
+`;
