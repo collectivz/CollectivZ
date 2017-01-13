@@ -31,7 +31,8 @@ export default class UserItem extends React.Component {
       removeFromCircle,
       addToCircle,
       removeContact,
-      removeAdmin
+      removeAdmin,
+      goToProfile
     } = this.props;
 
     switch (type) {
@@ -54,7 +55,10 @@ export default class UserItem extends React.Component {
         }
       case 'contact':
         return (
-          <button className="button only-icon danger" onClick={removeContact.bind(this, data._id)}><i className="icon icon-cross"></i></button>
+          <div>
+            <button className="button only-icon success" onClick={goToProfile.bind(this, `/profile/${data._id}`)}>Voir le profil</button>
+            <button className="button only-icon danger" onClick={removeContact.bind(this, data._id)}><i className="icon icon-cross"></i></button>
+          </div>
         )
       case 'admin':
         return (

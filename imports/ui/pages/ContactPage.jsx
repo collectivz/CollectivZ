@@ -127,7 +127,7 @@ export default class ContactPage extends React.Component {
                 <List
                   data={usersInvitationReceived}
                   type="invitation"
-                  emptyListString="Aucune discussion en attente"
+                  emptyListString="Aucune invitation en attente"
                   acceptInvite={this.acceptInvite}
                   refuseInvite={this.refuseInvite}
                   >
@@ -153,6 +153,7 @@ export default class ContactPage extends React.Component {
                   data={usersContact}
                   type="contact"
                   removeContact={this.removeContact}
+                  goToProfile={this.goTo}
                   emptyListString="Vous n'avez aucun contact. Ajouter vos amis !"
                   >
                   <UserItem />
