@@ -92,3 +92,7 @@ export default class UserItem extends React.Component {
     );
   }
 }
+
+UserItem.contextTypes = {
+  router: React.PropTypes.object
+};

@@ -13,7 +13,7 @@ export default class List extends React.Component {
   isLoaded() {
     setTimeout( () => {
       this.setState({isLoaded: true});
-    }, 1350 );
+    }, 850 );
   }
 
   componentDidMount() {
@@ -31,10 +31,6 @@ export default class List extends React.Component {
     props.data = item;
     props.key = index;
     const clonedChildren = children && React.cloneElement(children, props);
-
-    console.log( "cildren: " + JSON.stringify(children));
-      console.log( "props: " + JSON.stringify(props));
-    JSON.stringify( clonedChildren);
 
     return clonedChildren;
   }
