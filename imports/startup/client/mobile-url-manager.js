@@ -5,6 +5,7 @@ const urlRegex = new RegExp(/[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[
 
 Meteor.startup(() => {
   if (Meteor.isCordova) {
+    window.open = cordova.InAppBrowser.open;
     const platform = device.platform.toLowerCase();
     console.log(platform);
 

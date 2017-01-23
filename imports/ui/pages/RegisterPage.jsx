@@ -15,6 +15,21 @@ export default class RegisterPage extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  componentDidUpdate() {
+    const {
+      errors
+    } = this.state;
+
+    if (errors.length > 0) {
+      errors.forEach(error => {
+        Toast(error, 'danger');
+      });
+      this.setState({
+        errors: []
+      });
+    }
+  }
+
   handleSubmit(e) {
     const errors = [];
     const mailRegex = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -26,22 +41,22 @@ export default class RegisterPage extends React.Component {
     e.preventDefault();
 
     if (!username) {
-      Toast("Entrez un nom d'utilisateur.", 'danger');
+      errors.push("Entrez un nom d'utilisateur.");
     }
     if (!email) {
-      Toast("Entrez un email.", 'danger');
+      errors.push("Entrez un email.");
     }
     if (!mailRegex.test(email)) {
-      Toast("Entrez un email valide.", 'danger');
+      errors.push("Entrez un email valide.");
     }
     if (!password || !passwordAgain) {
-      Toast("Entrez et confirmez votre mot de passe.", 'danger');
+      errors.push("Entrez et confirmez votre mot de passe.");
     }
     if (password.length < 6) {
-      Toast("Votre mot de passe est trop court.", 'danger');
+      errors.push("Votre mot de passe est trop court.");
     }
     if (password !== passwordAgain) {
-      Toast("Le mot de passe ne correspond pas à la confirmation.", 'danger');
+      errors.push("Le mot de passe ne correspond pas à la confirmation.");
     }
 
     if (errors.length) {
@@ -52,7 +67,9 @@ export default class RegisterPage extends React.Component {
       Accounts.createUser({email, username, password}, (err) => {
         if (err) {
           console.log(err);
-          Toast(err.reason, 'danger');
+          this.setState({
+            errors: [err.reason]
+          });
         } else {
           Meteor.loginWithPassword(username, password, (err) => {
             if (!err) {
