@@ -1,9 +1,10 @@
 App.accessRule('*');
+App.accessRule('*', { type: 'navigation' });
 
 App.setPreference('android-targetSdkVersion', '21');
 
 App.info({
-  id: 'collectivz.messenger',
+  id: 'com.union.collectivz',
   name: 'CollectivZ',
   version: '0.1'
 });
