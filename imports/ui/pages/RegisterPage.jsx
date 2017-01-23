@@ -51,6 +51,7 @@ export default class RegisterPage extends React.Component {
     } else {
       Accounts.createUser({email, username, password}, (err) => {
         if (err) {
+          console.log(err);
           Toast(err.reason, 'danger');
         } else {
           Meteor.loginWithPassword(username, password, (err) => {
