@@ -20,7 +20,7 @@ Meteor.methods({
     let returnData;
     const s3Params = {
       Bucket: S3_BUCKET,
-      Key: `${Meteor.user().username}Avatar`,
+      Key: `${Meteor.user().username}Avatar.jpg`,
       Expires: 60,
       ContentType: fileType,
       ACL: 'public-read'

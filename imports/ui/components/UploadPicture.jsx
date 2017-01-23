@@ -109,8 +109,7 @@ export default class UploadPicture extends React.Component {
       <div className="update-avatar-wrapper">
         {
           preview ?
-            <div class="preview"></div>
-          // <img className="modal--big-img circle-img" src={preview} />
+          <img className="modal--big-img circle-img" src={preview} />
           : ''
         }
         <input type="file" onChange={this.uploadPicture}/>
