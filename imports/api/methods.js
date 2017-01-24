@@ -17,6 +17,7 @@ Meteor.methods({
     const s3 = new aws.S3();
     const S3_BUCKET = 'collectivz-bucketz';
 
+    console.log(process.env.AWS_ACCESS_KEY_ID);
     let returnData;
     const s3Params = {
       Bucket: S3_BUCKET,
@@ -28,8 +29,10 @@ Meteor.methods({
 
     s3.getSignedUrl('putObject', s3Params, (err, data) => {
       if (err) {
+        console.log(err);
         return err;
       }
+      console.log(data);
       returnData = {
         signedRequest: data,
         url: `https://${S3_BUCKET}.s3.eu-central-1.amazonaws.com/${Meteor.user().username}Avatar`
