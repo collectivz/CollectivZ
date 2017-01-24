@@ -1,7 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { check } from 'meteor/check';
 import { underscore } from 'meteor/underscore';
-import aws  from 'aws-sdk';
+import aws from 'aws-sdk';
 
 Meteor.methods({
   requestAwsSignature(fileName, fileType) {
@@ -23,7 +23,7 @@ Meteor.methods({
       Key: `${Meteor.user().username}Avatar`,
       Expires: 60,
       ContentType: fileType,
-      ACL: 'public-read'
+      ACL: 'public-read',
     };
 
     s3.getSignedUrl('putObject', s3Params, (err, data) => {
@@ -32,11 +32,11 @@ Meteor.methods({
       }
       returnData = {
         signedRequest: data,
-        url: `https://${S3_BUCKET}.s3.eu-central-1.amazonaws.com/${Meteor.user().username}Avatar`
+        url: `https://${S3_BUCKET}.s3.eu-central-1.amazonaws.com/${Meteor.user().username}Avatar`,
       };
       return returnData;
     });
 
     return returnData;
-  }
+  },
 });

@@ -15,29 +15,29 @@ export default class BeerEdit extends React.Component {
     e.preventDefault();
 
     const {
-      beer
+      beer,
     } = this.props;
 
     const newBeer = {
       _id: beer._id,
       occasion: this.refs.occasion.value,
       date: this.refs.date.value,
-      place: this.refs.place.value
+      place: this.refs.place.value,
     };
 
     Meteor.call('beers.edit', newBeer, (err, res) => {
       if (err) {
-        Toast(err.reason, "danger");
+        Toast(err.reason, 'danger');
       } else {
         closeModal();
-        Toast("Modifications prises en compte.", "success");
+        Toast('Modifications prises en compte.', 'success');
       }
     });
   }
 
   render() {
     const {
-      beer
+      beer,
     } = this.props;
 
     return (
@@ -69,7 +69,7 @@ export default class BeerEdit extends React.Component {
             />
           </fieldset>
           <fieldset className="large">
-            <input type="submit" value="Modifier" className="large success button"/>
+            <input type="submit" value="Modifier" className="large success button" />
           </fieldset>
 
         </form>

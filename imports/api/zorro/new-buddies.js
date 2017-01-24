@@ -2,19 +2,19 @@ export default class Buddie {
 
   constructor(channelId) {
     this.question = {
-      text: `Vous voulez ajouter un nouveau membre dans le groupe, quel est son nom d'utilisateur ou son mail ? Vous pouvez à tout moment écrire @annuler pour annuler.`,
-      author: 'Zorro'
+      text: 'Vous voulez ajouter un nouveau membre dans le groupe, quel est son nom d\'utilisateur ou son mail ? Vous pouvez à tout moment écrire @annuler pour annuler.',
+      author: 'Zorro',
     };
     this.state = {
       inputMode: 'newBuddie',
       dialogWithZorro: [this.question],
       ongoingAction: true,
-      choices: ['@annuler']
+      choices: ['@annuler'],
     };
     this.channelId = channelId;
     this.expectedAnswer = 'username';
     this.result = {
-      username: ''
+      username: '',
     };
   }
 
@@ -23,7 +23,7 @@ export default class Buddie {
       inputMode: 'message',
       ongoingAction: false,
       dialogWithZorro: [],
-      zorro: {}
+      zorro: {},
     };
   }
 
@@ -34,14 +34,14 @@ export default class Buddie {
   answerToZorro(answer) {
     const msg = {
       text: answer,
-      author: 'self'
+      author: 'self',
     };
     const dialog = this.state.dialogWithZorro;
 
     dialog.push(msg);
-    let zorroMsg = {
+    const zorroMsg = {
       text: '',
-      author: 'Zorro'
+      author: 'Zorro',
     };
 
 
@@ -59,7 +59,7 @@ export default class Buddie {
         Meteor.call('channels.stopTyping', this.channelId);
         this.resetState();
       } else {
-        zorroMsg.text = `Je n'ai pas compris.`;
+        zorroMsg.text = 'Je n\'ai pas compris.';
         dialog.push(zorroMsg);
       }
     }

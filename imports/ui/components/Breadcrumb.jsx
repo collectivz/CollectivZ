@@ -1,28 +1,28 @@
-import React                  from 'react';
-import { browserHistory }     from 'react-router';
+import React from 'react';
+import { browserHistory } from 'react-router';
 
-import TouchEvent             from './TouchEvent';
-import DropDown               from './DropDown';
+import TouchEvent from './TouchEvent';
+import DropDown from './DropDown';
 
 export default class Breadcrumb extends React.Component {
 
   goBack() {
-    setTimeout( () => {
+    setTimeout(() => {
       browserHistory.goBack();
-    }, 350 );
+    }, 350);
   }
 
   goToMainPage() {
-    setTimeout( () => {
+    setTimeout(() => {
       this.context.router.push('/my-groups');
-    }, 350 );
+    }, 350);
   }
 
   render() {
     const {
       title,
       hasBack,
-      children
+      children,
     } = this.props;
 
     return (
@@ -33,15 +33,13 @@ export default class Breadcrumb extends React.Component {
         {
           hasBack ?
             <TouchEvent class="back-button touch-event" onClick={this.goBack.bind(this)}>
-              <i className="icon icon-3x icon-chevron-left"/>
+              <i className="icon icon-3x icon-chevron-left" />
             </TouchEvent>
           : ''
         }
-	      <h4 className="text">{title}</h4>
+        <h4 className="text">{title}</h4>
         {
-          children ?
-            children
-          : ''
+          children || ''
         }
         {/* <DropDown>
           <ul>
@@ -57,5 +55,5 @@ export default class Breadcrumb extends React.Component {
 }
 
 Breadcrumb.contextTypes = {
-  router: React.PropTypes.object
+  router: React.PropTypes.object,
 };

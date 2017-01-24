@@ -7,7 +7,7 @@ import { Coins } from './collection.js';
 
 
 Meteor.methods({
-  'coins.insert'(message, result) {
+  'coins.insert': function (message, result) {
     check(message, {
       text: String,
       channelId: String,
@@ -23,7 +23,7 @@ Meteor.methods({
     if (!this.userId) {
       throw new Meteor.Error('not-logged-in',
       'Must be logged in to create a coinz.');
-    } else if (message.type !== "coin") {
+    } else if (message.type !== 'coin') {
       throw new Meteor.Error('wrong-typed',
       'The message must be a coin message.');
     } else if (result.goal <= 0) {
@@ -40,7 +40,7 @@ Meteor.methods({
     const messageId = Messages.insert(message);
     const newCoin = {
       purpose: message.text,
-      messageId: messageId,
+      messageId,
       finished: 0,
       channelId: message.channelId,
       goal: result.goal,
@@ -49,18 +49,18 @@ Meteor.methods({
     coinId = Coins.insert(newCoin);
 
     Messages.update(messageId, {
-      $set: { coinId: coinId }
+      $set: { coinId },
     });
 
     Channels.update(parentId, {
-      $inc: {'connections.coinCount': 1}
+      $inc: { 'connections.coinCount': 1 },
     });
   },
 
-  'coins.donate'(coinId, money) {
+  'coins.donate': function (coinId, money) {
     if (!this.userId) {
       throw new Meteor.Error('not-logged-in',
-        "Vous devez être connecté pour rejoindre un évènement.");
+        'Vous devez être connecté pour rejoindre un évènement.');
     }
 
     check(coinId, String);
@@ -72,7 +72,7 @@ Meteor.methods({
         "Vous n'avez pas assez de coinz pour donner autant.");
     } else if (money <= 0) {
       throw new Meteor.Error('not-enough-donated',
-        "Vous ne pouvez pas donner de montant négatif.");
+        'Vous ne pouvez pas donner de montant négatif.');
     }
 
     const coin = Coins.findOne(coinId);
@@ -93,37 +93,37 @@ Meteor.methods({
       coin.givers.push(newDonateMan);
     }
     Coins.update(coinId, {
-      $set: {givers: coin.givers},
-      $inc: {totalEarned: money},
+      $set: { givers: coin.givers },
+      $inc: { totalEarned: money },
     });
     Meteor.users.update(this.userId, {
-      $inc: {coinz: -money},
+      $inc: { coinz: -money },
     });
   },
 
-  'coins.edit'(coinId, newCoin) {
+  'coins.edit': function (coinId, newCoin) {
     check(newCoin, {
       purpose: String,
-      goal: Number
+      goal: Number,
     });
     if (!this.userId) {
       throw new Meteor.Error('not-logged-in',
-        "Vous devez être connecté pour rejoindre un évènement.");
+        'Vous devez être connecté pour rejoindre un évènement.');
     }
 
     const coin = Coins.findOne(coinId, { fields: { author: 1 } });
 
     if (coin && coin.author === this.userId || Meteor.user().isAdmin) {
       Coins.update(coinId, {
-        $set : { goal: newCoin.goal, purpose: newCoin.purpose }
+        $set: { goal: newCoin.goal, purpose: newCoin.purpose },
       });
     }
   },
 
-  'coins.delete'(coinId) {
+  'coins.delete': function (coinId) {
     if (!this.userId) {
       throw new Meteor.Error('not-logged-in',
-      "vous devez être connecté pour supprimer ceci.");
+      'vous devez être connecté pour supprimer ceci.');
     }
     check(coinId, String);
 
@@ -132,5 +132,5 @@ Meteor.methods({
     if (coin && coin.author === this.userId || Meteor.user().isAdmin) {
       Coins.remove(coinId);
     }
-  }
+  },
 });

@@ -8,7 +8,7 @@ import { Channels } from '../channels/collection.js';
 
 Meteor.methods({
 
-  'polls.insert'(message, choice) {
+  'polls.insert': function (message, choice) {
     check(message, {                                      // verify message if he
       text: String,                                       // does contain a text, a chan and a type
       channelId: String,
@@ -23,8 +23,7 @@ Meteor.methods({
     if (!this.userId) {
       throw new Meteor.Error('not-logged-in',
       'Must be logged in to create a poll.');
-    }
-    else if (message.type !== "poll") {
+    } else if (message.type !== 'poll') {
       throw new Meteor.Error('not-good-type',
         'Message is wrong typed.');
     }
@@ -39,7 +38,7 @@ Meteor.methods({
     const messageId = Messages.insert(message);
     const newPoll = {
       question: message.text,
-      messageId: messageId,
+      messageId,
       finished: 0,
       channelId: message.channelId,
       totalVote: 0,
@@ -52,25 +51,24 @@ Meteor.methods({
     // corresponding prop
 
     Messages.update(messageId, {
-      $set: { pollId }
+      $set: { pollId },
     });
 
     if (choice.length) {
       choice.forEach((proposition) => {
-        Meteor.call("propositions.insert", proposition, pollId);
-      })
+        Meteor.call('propositions.insert', proposition, pollId);
+      });
     } else {
-      Meteor.call("propositions.insert", "pour", pollId);
-      Meteor.call("propositions.insert", "contre", pollId);
+      Meteor.call('propositions.insert', 'pour', pollId);
+      Meteor.call('propositions.insert', 'contre', pollId);
     }
 
     Channels.update(parentId, {
-      $inc: {'connections.pollCount': 1}
+      $inc: { 'connections.pollCount': 1 },
     });
   },
 
-  'polls.vote'(pollId, propsId) {
-
+  'polls.vote': function (pollId, propsId) {
     check(pollId, String);
     check(propsId, String);
 
@@ -82,7 +80,7 @@ Meteor.methods({
     }
 
     const poll = Polls.findOne(pollId);
-    if(!poll) {
+    if (!poll) {
       throw new Meteor.Error('no-poll',
       'The poll does not exist');
     } else if (poll.finished === 1) {
@@ -90,7 +88,7 @@ Meteor.methods({
       'The poll is finished');
     }
 
-    const props = Propositions.find({pollId}).fetch();
+    const props = Propositions.find({ pollId }).fetch();
     props.forEach((proposition) => {
       if (_.contains(proposition.voteReceivedFrom, this.userId)) {
         throw new Meteor.Error('already voted',
@@ -99,26 +97,25 @@ Meteor.methods({
     });
 
     Propositions.update(propsId, {
-      $push: {voteReceivedFrom: this.userId},
+      $push: { voteReceivedFrom: this.userId },
     });
     Polls.update(pollId, {
-      $inc: {totalVote: 1},
-      $push: { members: this.userId }
+      $inc: { totalVote: 1 },
+      $push: { members: this.userId },
     });
   },
 
-  'propositions.insert'(proposition, pollId) {
-
+  'propositions.insert': function (proposition, pollId) {
     const prop = {
       name: proposition,
       voteReceivedFrom: [],
-      pollId
-    }
+      pollId,
+    };
 
     return Propositions.insert(prop);
   },
 
-  'polls.editQuestion'(pollId, newQuestion) {
+  'polls.editQuestion': function (pollId, newQuestion) {
     if (!this.userId) {
       throw new Meteor.Error('not-logged-in',
       'Vous devez être connecté pour modifier un sondage.');
@@ -131,10 +128,9 @@ Meteor.methods({
     if (poll && poll.author === this.userId || Meteor.user().isAdmin) {
       Polls.update(pollId, { $set: { question: newQuestion } });
     }
-
   },
 
-  'polls.addProposition'(pollId, newProp) {
+  'polls.addProposition': function (pollId, newProp) {
     if (!this.userId) {
       throw new Meteor.Error('not-logged-in',
       'Vous devez être connecté pour modifier un sondage.');
@@ -152,10 +148,9 @@ Meteor.methods({
       };
       Propositions.insert(proposition);
     }
-
   },
 
-  'polls.delete'(pollId) {
+  'polls.delete': function (pollId) {
     if (!this.userId) {
       throw new Meteor.Error('not-logged-in',
       'Vous devez être connecté pour modifier un sondage.');
@@ -167,6 +162,5 @@ Meteor.methods({
     if (poll && poll.author === this.userId || Meteor.user().isAdmin) {
       Polls.remove(pollId);
     }
-
-  }
-})
+  },
+});

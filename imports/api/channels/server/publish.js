@@ -10,52 +10,50 @@ import { Coins } from '../../coins/collection.js';
 import { Feedbacks } from '../../feedbacks/collection.js';
 import { Polls, Propositions } from '../../polls/collection.js';
 
-Meteor.publish('groupList', function() {
+Meteor.publish('groupList', function () {
   if (this.userId) {
     return Channels.find({ type: 'group' });
-  } else {
-    this.ready();
   }
+  this.ready();
 });
 
-Meteor.publish('chanPage', function(id) {
+Meteor.publish('chanPage', function (id) {
   check(id, String);
   if (this.userId) {
     const channel = Channels.findOne(id);
     if (channel) {
       return [
-        Channels.find({$or :[
-          {_id: { $in: [id, channel.rootId] }},
-          {parentId: id},
-        ]}),
+        Channels.find({ $or: [
+          { _id: { $in: [id, channel.rootId] } },
+          { parentId: id },
+        ] }),
         Tasks.find({ channelId: id }),
-        Messages.find({channelId: id}),
-        Feedbacks.find({channelId: id}),
-        Beers.find({channelId: id}),
-        Polls.find({channelId: id}),
-        Coins.find({channelId: id}),
-        Meteor.users.find({subscribedChannels: {$in: [id]}}),
-        Archives.find({ channelId: id })
+        Messages.find({ channelId: id }),
+        Feedbacks.find({ channelId: id }),
+        Beers.find({ channelId: id }),
+        Polls.find({ channelId: id }),
+        Coins.find({ channelId: id }),
+        Meteor.users.find({ subscribedChannels: { $in: [id] } }),
+        Archives.find({ channelId: id }),
       ];
-    } else {
-      this.ready();
     }
+    this.ready();
   } else {
     this.ready();
   }
 });
 
-Meteor.publish('conversationPage', function(id) {
+Meteor.publish('conversationPage', (id) => {
   check(id, String);
   const channel = Channels.findOne(id);
   return [
-    Messages.find({channelId: id}),
+    Messages.find({ channelId: id }),
     Channels.find(id),
-    Meteor.users.find({subscribedConversations: {$in: [id]}})
+    Meteor.users.find({ subscribedConversations: { $in: [id] } }),
   ];
 });
 
-Meteor.publish('chanList', function(channelsIds, conversationsIds) {
+Meteor.publish('chanList', function (channelsIds, conversationsIds) {
   check(channelsIds, [String]);
   let allChan;
   if (conversationsIds) {
@@ -64,7 +62,7 @@ Meteor.publish('chanList', function(channelsIds, conversationsIds) {
     allChan = channelsIds;
   }
   if (this.userId) {
-    return Channels.find({_id: {$in: allChan}}, {sort: { lastActivity: 1 }});
+    return Channels.find({ _id: { $in: allChan } }, { sort: { lastActivity: 1 } });
   }
   return [];
 });

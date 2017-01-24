@@ -14,27 +14,27 @@ export default class UsernameEdit extends React.Component {
   editUsername(e) {
     e.preventDefault();
     const {
-      user
+      user,
     } = this.props;
     const newUsername = this.refs.newUsername.value;
 
     if (newUsername.length > 0) {
       Meteor.call('users.setUsername', newUsername, (err) => {
         if (err) {
-          Toast(err.reason, "danger");
+          Toast(err.reason, 'danger');
         } else {
-          Toast("Nom d'utilisateur modifié avec succès", "success");
+          Toast("Nom d'utilisateur modifié avec succès", 'success');
           closeModal();
         }
       });
     } else {
-      Toast("Vous devez entrer un nom d'utilisateur", "danger");
+      Toast("Vous devez entrer un nom d'utilisateur", 'danger');
     }
   }
 
   render() {
     const {
-      user
+      user,
     } = this.props;
 
     return (
@@ -50,7 +50,7 @@ export default class UsernameEdit extends React.Component {
             />
           </fieldset>
           <fieldset className="large has-icon">
-            <input type="submit" value="Modifier" className="large big primary button"/>
+            <input type="submit" value="Modifier" className="large big primary button" />
           </fieldset>
 
         </form>

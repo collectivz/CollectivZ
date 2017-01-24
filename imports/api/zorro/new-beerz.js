@@ -3,20 +3,20 @@ export default class Beer {
   constructor(channelId) {
     this.question = {
       text: 'Alors vous voulez créer un nouvel evènement à ce que je vois! C\'est à quelle occasion ? Vous pouvez à tout moment écrire @annuler pour annuler.',
-      author: 'Zorro'
+      author: 'Zorro',
     };
     this.state = {
       inputMode: 'newBeer',
       dialogWithZorro: [this.question],
       ongoingAction: true,
-      choices: ['@annuler']
+      choices: ['@annuler'],
     };
     this.expectedAnswer = 'occasion';
     this.result = {
       occasion: '',
       date: '',
       place: '',
-      channelId
+      channelId,
     };
   }
 
@@ -26,7 +26,7 @@ export default class Beer {
       ongoingAction: false,
       dialogWithZorro: [],
       zorro: {},
-      choices: []
+      choices: [],
     };
   }
 
@@ -37,14 +37,14 @@ export default class Beer {
   answerToZorro(answer) {
     const msg = {
       text: answer,
-      author: 'self'
+      author: 'self',
     };
     const dialog = this.state.dialogWithZorro;
 
     dialog.push(msg);
-    let zorroMsg = {
+    const zorroMsg = {
       text: '',
-      author: 'Zorro'
+      author: 'Zorro',
     };
 
 
@@ -52,12 +52,12 @@ export default class Beer {
       this.resetState();
     } else if (this.expectedAnswer === 'occasion') {
       this.result.occasion = answer;
-      zorroMsg.text = `Et où voulez vous que cet evènement ait lieu ?`;
+      zorroMsg.text = 'Et où voulez vous que cet evènement ait lieu ?';
       dialog.push(zorroMsg);
       this.expectedAnswer = 'place';
     } else if (this.expectedAnswer === 'place') {
       this.result.place = answer;
-      zorroMsg.text = `Quand cela ?`;
+      zorroMsg.text = 'Quand cela ?';
       dialog.push(zorroMsg);
       this.expectedAnswer = 'date';
     } else if (this.expectedAnswer === 'date') {
@@ -72,7 +72,7 @@ export default class Beer {
         Meteor.call('channels.stopTyping', this.result.channelId);
         this.resetState();
       } else {
-        zorroMsg.text = `Je n'ai pas compris.`;
+        zorroMsg.text = 'Je n\'ai pas compris.';
         dialog.push(zorroMsg);
       }
     }

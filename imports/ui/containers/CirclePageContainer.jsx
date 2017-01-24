@@ -10,10 +10,10 @@ export default createContainer(({ user }) => {
   let circles = {};
   if (repertory) {
     const circleSub = Meteor.subscribe('circlePage', repertory.circles);
-    circles = Circles.find({_id: { $in: repertory.circles }}).fetch();
+    circles = Circles.find({ _id: { $in: repertory.circles } }).fetch();
   }
 
   return {
-    circles
+    circles,
   };
 }, CirclePage);

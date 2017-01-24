@@ -15,32 +15,31 @@ SyncedCron.add({
   job() {
     const yesterday = moment().add(-2, 'days').valueOf();
     const users = Meteor.users.find(
-      { lastLogin: { $lt: yesterday }, username: { $ne: 'Zorro' } }
+      { lastLogin: { $lt: yesterday }, username: { $ne: 'Zorro' } },
     ).fetch();
 
-    users.forEach(user => {
+    users.forEach((user) => {
       const channels = Channels.find(
-        { _id: { $in: user.subscribedChannels }, lastActivity: { $gt: user.lastLogin } }
+        { _id: { $in: user.subscribedChannels }, lastActivity: { $gt: user.lastLogin } },
       ).fetch();
-      let channelIds = [];
-      channels.forEach(channel => {
+      const channelIds = [];
+      channels.forEach((channel) => {
         channelIds.push(channel._id);
       });
 
       const messageCount = Messages.find(
-        { channelId: { $in: channelIds }, createdAt: { $gt: user.lastLogin } }
+        { channelId: { $in: channelIds }, createdAt: { $gt: user.lastLogin } },
       ).count();
       if (messageCount > 0) {
         Email.send({
           to: user.emails[0].address,
           from: 'postmaster@www.collectivz.com',
           subject: 'Le Collectif avance sans vous !',
-          text: `Bonjour, vous ne vous êtes pas connecté depuis plus de 2 jours... ${messageCount} messages ont été postés dans ${channels.length} groupes différents depuis votre dernier passage !`
+          text: `Bonjour, vous ne vous êtes pas connecté depuis plus de 2 jours... ${messageCount} messages ont été postés dans ${channels.length} groupes différents depuis votre dernier passage !`,
         });
       }
-
     });
-  }
+  },
 });
 
 SyncedCron.start();

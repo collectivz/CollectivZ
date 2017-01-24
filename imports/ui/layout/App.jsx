@@ -11,7 +11,7 @@ export default class App extends React.Component {
 
   componentWillUpdate({ loading, user, children }) {
     if (!loading && user && !children) {
-      this.context.router.push('/my-groups')
+      this.context.router.push('/my-groups');
     }
   }
 
@@ -43,5 +43,5 @@ export default class App extends React.Component {
 }
 
 App.contextTypes = {
-  router: React.PropTypes.object
+  router: React.PropTypes.object,
 };

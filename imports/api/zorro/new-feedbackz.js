@@ -5,13 +5,13 @@ export default class Feedback {
   constructor(channelId) {
     this.question = {
       text: 'Pour évaluer cette action, commencez par entrer une note sur 5. Vous pouvez à tout moment écrire @annuler pour annuler.',
-      author: 'Zorro'
+      author: 'Zorro',
     };
     this.state = {
       inputMode: 'newFeedback',
       dialogWithZorro: [this.question],
       ongoingAction: true,
-      choices: ['0', '1', '2', '3', '4', '5', '@annuler']
+      choices: ['0', '1', '2', '3', '4', '5', '@annuler'],
     };
     this.channelId = channelId;
     this.expectedAnswer = 'rating';
@@ -24,7 +24,7 @@ export default class Feedback {
       username: '',
       userId: '',
       rating: 0,
-      comment: ''
+      comment: '',
     };
   }
 
@@ -33,7 +33,7 @@ export default class Feedback {
       inputMode: 'message',
       ongoingAction: false,
       dialogWithZorro: [],
-      zorro: {}
+      zorro: {},
     };
   }
 
@@ -45,12 +45,12 @@ export default class Feedback {
     this.tempUserFeedback = {
       userId: '',
       rating: 0,
-      comment: ''
+      comment: '',
     };
   }
 
   getUserId(username) {
-    const user = Meteor.users.findOne({username});
+    const user = Meteor.users.findOne({ username });
     return user ? user._id : null;
   }
 
@@ -58,13 +58,13 @@ export default class Feedback {
     let message = `Vous avez évalué la mission à ${this.result.rating}/5, avec pour commentaire : ${this.result.comment}.`;
 
     if (this.result.userFeedbacks.length) {
-      message = ` Vous avez également évalué les contributeurs comme suit :`;
+      message = ' Vous avez également évalué les contributeurs comme suit :';
 
       this.result.userFeedbacks.forEach((feedback, index) => {
-        message = message + ` ${index + 1}. ${feedback.username}, note: ${feedback.rating}/5 , commentaire: "${feedback.comment}".`;
+        message = `${message} ${index + 1}. ${feedback.username}, note: ${feedback.rating}/5 , commentaire: "${feedback.comment}".`;
       });
     }
-    message = message + `Dites oui pour confirmer`;
+    message = `${message}Dites oui pour confirmer`;
 
     return message;
   }
@@ -72,15 +72,15 @@ export default class Feedback {
   answerToZorro(answer) {
     const msg = {
       text: answer,
-      author: 'self'
+      author: 'self',
     };
     const dialog = this.state.dialogWithZorro;
 
     dialog.push(msg);
-    let question = "";
-    let zorroMsg = {
+    const question = '';
+    const zorroMsg = {
       text: '',
-      author: 'Zorro'
+      author: 'Zorro',
     };
 
     if (answer === '@annuler') {
@@ -88,10 +88,10 @@ export default class Feedback {
     } else if (this.expectedAnswer === 'rating') {
       const rating = parseInt(answer);
       if (!Number.isSafeInteger(rating) || rating > 5 || rating < 0) {
-        zorroMsg.text = `La valeur entrée n'est pas bonne, veuillez entrer un nombre entre 0 et 5.`;
+        zorroMsg.text = 'La valeur entrée n\'est pas bonne, veuillez entrer un nombre entre 0 et 5.';
         dialog.push(zorroMsg);
       } else {
-        zorroMsg.text = `Très bien, veuillez maintenant laisser un commentaire.`;
+        zorroMsg.text = 'Très bien, veuillez maintenant laisser un commentaire.';
         dialog.push(zorroMsg);
         this.expectedAnswer = 'comment';
         this.result.rating = rating;
@@ -99,7 +99,7 @@ export default class Feedback {
       }
     } else if (this.expectedAnswer === 'comment') {
       this.result.comment = answer;
-      zorroMsg.text = `Vous avez évalué la mission. Vous pouvez maintenant évaluer les contributeurs, ou finaliser votre évaluation en écrivant @fini`;
+      zorroMsg.text = 'Vous avez évalué la mission. Vous pouvez maintenant évaluer les contributeurs, ou finaliser votre évaluation en écrivant @fini';
       dialog.push(zorroMsg);
       this.expectedAnswer = 'username';
       this.state.choices.push('@fini');
@@ -107,8 +107,8 @@ export default class Feedback {
       this.expectedAnswer = 'confirm';
       zorroMsg.text = this.buildConfirmMessage();
       dialog.push(zorroMsg);
-        this.state.choices = ['@annuler', 'oui'];
-    } else if (answer !== "@fini") {
+      this.state.choices = ['@annuler', 'oui'];
+    } else if (answer !== '@fini') {
       if (this.expectedAnswer === 'username') {
         const userId = this.getUserId(answer);
         if (!userId) {
@@ -117,29 +117,29 @@ export default class Feedback {
         } else {
           this.tempUserFeedback.userId = userId;
           this.tempUserFeedback.username = answer;
-          this.expectedAnswer = "userRating";
+          this.expectedAnswer = 'userRating';
           zorroMsg.text = `L'utilisateur "${answer}" a bien été ajouté. Entrez maintenant une note sur 5.`;
           dialog.push(zorroMsg);
           this.state.choices = ['@annuler', '@fini', '0', '1', '2', '3', '4', '5'];
         }
-      } else if (this.expectedAnswer === "userRating") {
+      } else if (this.expectedAnswer === 'userRating') {
         const rating = parseInt(answer);
         if (!Number.isSafeInteger(rating) || rating > 5 || rating < 0) {
-          zorroMsg.text = `La valeur entrée n'est pas bonne, veuillez entrer un nombre entre 0 et 5.`;
+          zorroMsg.text = 'La valeur entrée n\'est pas bonne, veuillez entrer un nombre entre 0 et 5.';
           dialog.push(zorroMsg);
         } else {
-          zorroMsg.text = `Très bien, veuillez maintenant laisser un commentaire.`;
+          zorroMsg.text = 'Très bien, veuillez maintenant laisser un commentaire.';
           dialog.push(zorroMsg);
           this.expectedAnswer = 'userComment';
           this.tempUserFeedback.rating = rating;
           this.state.choices = ['@annuler', '@fini'];
         }
-      } else if (this.expectedAnswer === "userComment") {
+      } else if (this.expectedAnswer === 'userComment') {
         this.tempUserFeedback.comment = answer;
         this.result.userFeedbacks.push(this.tempUserFeedback);
         this.resetTempUserFeedback();
         this.expectedAnswer = 'username';
-        zorroMsg.text = `Vous avez évalué un contributeur. Entrez le nom du suivant pour en évaluer un nouveau, ou écrivez @fini pour finaliser l'évalutation.`;
+        zorroMsg.text = 'Vous avez évalué un contributeur. Entrez le nom du suivant pour en évaluer un nouveau, ou écrivez @fini pour finaliser l\'évalutation.';
         dialog.push(zorroMsg);
       } else if (this.expectedAnswer === 'confirm') {
         if (answer === 'oui' || answer === 'Oui') {
@@ -147,7 +147,7 @@ export default class Feedback {
           Meteor.call('channels.stopTyping', this.channelId);
           this.resetState();
         } else {
-          zorroMsg.text = `Je n'ai pas compris.`;
+          zorroMsg.text = 'Je n\'ai pas compris.';
           dialog.push(zorroMsg);
         }
       }

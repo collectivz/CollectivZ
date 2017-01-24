@@ -11,7 +11,7 @@ class TaskCollection extends Mongo.Collection {
     task.author = Meteor.userId();
 
     Channels.update(task.channelId, {
-      $inc: { incompleteTasks: 1 }
+      $inc: { incompleteTasks: 1 },
     });
 
     super.insert(task, callback);
@@ -21,14 +21,14 @@ class TaskCollection extends Mongo.Collection {
     if (modifier.$set && _.has(modifier.$set, 'isDone')) {
       const tasks = this.find(selector).fetch();
 
-      tasks.forEach(task => {
+      tasks.forEach((task) => {
         if (task.isDone) {
           Channels.update(task.channelId, {
-            $inc: { completeTasks: -1, incompleteTasks: 1 }
+            $inc: { completeTasks: -1, incompleteTasks: 1 },
           });
         } else if (!task.isDone) {
           Channels.update(task.channelId, {
-            $inc: { completeTasks: 1, incompleteTasks: -1 }
+            $inc: { completeTasks: 1, incompleteTasks: -1 },
           });
         }
       });
@@ -39,14 +39,14 @@ class TaskCollection extends Mongo.Collection {
   remove(selector) {
     const tasks = this.find(selector).fetch();
 
-    tasks.forEach(task => {
+    tasks.forEach((task) => {
       if (task.isDone) {
         Channels.update(task.channelId, {
-          $inc: { completeTasks: -1 }
+          $inc: { completeTasks: -1 },
         });
       } else if (!task.isDone) {
         Channels.update(task.channelId, {
-          $inc: { incompleteTasks: -1 }
+          $inc: { incompleteTasks: -1 },
         });
       }
     });

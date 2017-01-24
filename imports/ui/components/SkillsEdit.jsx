@@ -20,28 +20,28 @@ export default class SkillsEdit extends React.Component {
     if (skill) {
       Meteor.call('users.addSkill', skill, (err, res) => {
         if (!err) {
-          Toast(`Compétence ${skill} ajoutée.`, "success");
+          Toast(`Compétence ${skill} ajoutée.`, 'success');
           this.refs.skill.value = '';
         } else {
-          Toast(err.reason, "danger");
+          Toast(err.reason, 'danger');
         }
       });
     } else {
-      Toast('Vous devez renseigner une compétence', "danger");
+      Toast('Vous devez renseigner une compétence', 'danger');
     }
   }
 
   render() {
     const {
-      user
+      user,
     } = this.props;
 
     return (
       <div className="sub-container page">
-        <Breadcrumb title="Mes compétences" hasBack={true} />
+        <Breadcrumb title="Mes compétences" hasBack />
         <form>
           <div className="header">
-            <i className="icon icon-cog"></i>
+            <i className="icon icon-cog" />
             <h4>Mes compétences</h4>
           </div>
           <div className="content">
@@ -51,7 +51,7 @@ export default class SkillsEdit extends React.Component {
                 type="text"
                 placeholder="Entrez une compétence"
                 ref="skill"
-                />
+              />
             </fieldset>
             <button className="button self-center success" onClick={this.addSkill}>Ajouter</button>
           </div>
@@ -60,7 +60,7 @@ export default class SkillsEdit extends React.Component {
           <List
             data={user.skills}
             emptyListString="Aucune compétence pour le moment."
-            >
+          >
             <SkillItem />
           </List>
         </div>

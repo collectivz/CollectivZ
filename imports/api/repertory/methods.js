@@ -7,7 +7,7 @@ import { Circles } from '../circles/collection.js';
 import { Repertory } from './collection.js';
 
 Meteor.methods({
-  'repertory.sendInvite'(mailOrUsername) {
+  'repertory.sendInvite': function (mailOrUsername) {
     check(mailOrUsername, String);
 
     const user = Meteor.user();
@@ -37,14 +37,14 @@ Meteor.methods({
     }
 
     Repertory.update(userRepertory._id, {
-      $push: { invitationSent: userInvited._id }
+      $push: { invitationSent: userInvited._id },
     });
     Repertory.update(userInvitedRepertory._id, {
-      $push: { invitationReceived: user._id }
-    })
+      $push: { invitationReceived: user._id },
+    });
   },
 
-  'repertory.acceptInvite'(userSenderId) {
+  'repertory.acceptInvite': function (userSenderId) {
     check(userSenderId, String);
 
     const user = Meteor.user();
@@ -77,17 +77,17 @@ Meteor.methods({
     }
 
     Repertory.update(user.repertory, {
-      $push: { contacts: userSenderId},
-      $pull: { invitationReceived: userSenderId},
+      $push: { contacts: userSenderId },
+      $pull: { invitationReceived: userSenderId },
     });
 
     Repertory.update(userSender.repertory, {
-      $push: { contacts: user._id},
-      $pull: { invitationSent: user._id}
+      $push: { contacts: user._id },
+      $pull: { invitationSent: user._id },
     });
   },
 
-  'repertory.refuseInvite'(userSenderId) {
+  'repertory.refuseInvite': function (userSenderId) {
     check(userSenderId, String);
 
     const user = Meteor.user();
@@ -120,15 +120,15 @@ Meteor.methods({
     }
 
     Repertory.update(user.repertory, {
-      $pull: { invitationReceived: userSenderId},
+      $pull: { invitationReceived: userSenderId },
     });
 
     Repertory.update(userSender.repertory, {
-      $pull: { invitationSent: user._id},
+      $pull: { invitationSent: user._id },
     });
   },
 
-  'repertory.removeContact'(userToRemoveId) {
+  'repertory.removeContact': function (userToRemoveId) {
     check(userToRemoveId, String);
 
     const user = Meteor.user();
@@ -142,18 +142,18 @@ Meteor.methods({
         'L\'utilisateur n\'a pas été trouvé.');
     }
 
-    const repertories = Repertory.find({_id: {$in: [user.repertory, userToRemove.repertory]}}).fetch();
+    const repertories = Repertory.find({ _id: { $in: [user.repertory, userToRemove.repertory] } }).fetch();
 
-    Repertory.update({_id: {$in: [user.repertory, userToRemove.repertory]}}, {
-      $pull: { contacts: { $in: [ user._id, userToRemoveId ]}}},
-      {multi: true}
+    Repertory.update({ _id: { $in: [user.repertory, userToRemove.repertory] } }, {
+      $pull: { contacts: { $in: [user._id, userToRemoveId] } } },
+      { multi: true },
     );
 
     const circleList = repertories[0].circles.concat(repertories[1].circles);
 
-    Circles.update({_id: {$in: circleList}}, {
-      $pull: { members: { $in: [ user._id, userToRemoveId ]}}},
-      {multi: true}
+    Circles.update({ _id: { $in: circleList } }, {
+      $pull: { members: { $in: [user._id, userToRemoveId] } } },
+      { multi: true },
     );
-  }
+  },
 });

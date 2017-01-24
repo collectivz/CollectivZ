@@ -1,17 +1,17 @@
-import React, { Component, PropTypes }  from 'react';
-import { Meteor }                       from 'meteor/meteor';
+import React, { Component, PropTypes } from 'react';
+import { Meteor } from 'meteor/meteor';
 
-import Breadcrumb                       from '../components/Breadcrumb';
-import TouchEvent                       from '../components/TouchEvent';
-import DropDown                         from '../components/DropDown';
-import Loader                           from '../components/Loader.jsx';
-import GroupForm                         from '../components/GroupForm.jsx';
-import ChatContainer                    from '../containers/ChatContainer.jsx';
-import NotFound                         from '../pages/NotFound.jsx';
-import UploadPicture                    from '../components/UploadPicture';
-import ChannelInfo                    from '../components/ChannelInfo';
-import { Toast }         from '../helpers/Toast';
-import { openModal }         from '../helpers/Modal';
+import Breadcrumb from '../components/Breadcrumb';
+import TouchEvent from '../components/TouchEvent';
+import DropDown from '../components/DropDown';
+import Loader from '../components/Loader.jsx';
+import GroupForm from '../components/GroupForm.jsx';
+import ChatContainer from '../containers/ChatContainer.jsx';
+import NotFound from '../pages/NotFound.jsx';
+import UploadPicture from '../components/UploadPicture';
+import ChannelInfo from '../components/ChannelInfo';
+import { Toast } from '../helpers/Toast';
+import { openModal } from '../helpers/Modal';
 
 
 export default class ChannelPage extends React.Component {
@@ -32,10 +32,10 @@ export default class ChannelPage extends React.Component {
 
     Meteor.call('channels.delete', channel._id, (err, res) => {
       if (!err) {
-        Toast(`Groupe supprimé.`, "success");
+        Toast('Groupe supprimé.', 'success');
         this.context.router.push('/my-groups');
       } else {
-        Toast(err.reason, "danger");
+        Toast(err.reason, 'danger');
       }
     });
   }
@@ -45,7 +45,7 @@ export default class ChannelPage extends React.Component {
 
     Meteor.call('channels.leave', channel._id, (err, res) => {
       if (!err) {
-        Toast(`Vous avez quitté le groupe ${channel.name}.`, "success");
+        Toast(`Vous avez quitté le groupe ${channel.name}.`, 'success');
         this.context.router.push('/my-groups');
       } else {
         Toast(err.reason, 'danger');
@@ -57,15 +57,15 @@ export default class ChannelPage extends React.Component {
     const {
       channel,
       group,
-      users
+      users,
     } = this.props;
     const component = <ChannelInfo channel={channel} group={group} users={users} />;
-    openModal(component, "Informations");
+    openModal(component, 'Informations');
   }
 
   openEditModal() {
     const {
-      channel
+      channel,
     } = this.props;
 
     const component = <GroupForm group={channel} />;
@@ -74,10 +74,10 @@ export default class ChannelPage extends React.Component {
 
   openPictureModal() {
     const {
-      channel
+      channel,
     } = this.props;
 
-    const component = <UploadPicture data={channel} method='channels.changePicture' />;
+    const component = <UploadPicture data={channel} method="channels.changePicture" />;
     openModal(component, `Modifier l'image du groupe ${channel.name}`);
   }
 
@@ -92,19 +92,17 @@ export default class ChannelPage extends React.Component {
           <li><a className="drop-down-menu-link" onClick={this.closeAction}> Supprimer </a></li>
         </ul>
       );
-    } else {
-      return ('');
     }
+    return ('');
   }
 
   render() {
-
     const {
       loading,
       channel,
       group,
       users,
-      user
+      user,
     } = this.props;
 
     return (
@@ -113,7 +111,7 @@ export default class ChannelPage extends React.Component {
         {
           channel ?
             <div>
-              <Breadcrumb title={channel.name} hasBack={true}>
+              <Breadcrumb title={channel.name} hasBack>
                 <DropDown>
                   <ul>
                     {this.renderAdminMenu()}
@@ -124,10 +122,10 @@ export default class ChannelPage extends React.Component {
                   <i className="icon icon-info icon-reverse" />
                 </TouchEvent>
               </Breadcrumb>
-              <ChatContainer channel={channel} user={user}/>
+              <ChatContainer channel={channel} user={user} />
             </div>
             :
-              <NotFound/>
+            <NotFound />
         }
       </div>
     );
@@ -141,5 +139,5 @@ ChannelPage.propTypes = {
 };
 
 ChannelPage.contextTypes = {
-  router: PropTypes.object
+  router: PropTypes.object,
 };

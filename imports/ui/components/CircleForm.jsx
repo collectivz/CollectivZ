@@ -25,7 +25,7 @@ export default class CircleForm extends React.Component {
   addToCircle(userSelectedId, e) {
     e.preventDefault();
     const {
-      newCircle
+      newCircle,
     } = this.state;
     if (_.contains(newCircle, userSelectedId)) {
       Toast('Vous avez déjà ajouté cette personne.', 'danger');
@@ -39,11 +39,11 @@ export default class CircleForm extends React.Component {
   removeFromCircle(userSelectedId, e) {
     e.preventDefault();
     const {
-      newCircle
+      newCircle,
     } = this.state;
     const index = newCircle.indexOf(userSelectedId);
     if (index >= 0) {
-      let newCircle = newCircle;
+      const newCircle = newCircle;
       newCircle.splice(index, 1);
       this.setState({
         newCircle,
@@ -54,23 +54,23 @@ export default class CircleForm extends React.Component {
   createCircle(e) {
     e.preventDefault();
     const {
-      newCircle
+      newCircle,
     } = this.state;
     const circleName = this.refs.circleName.value;
 
     if (circleName.length && newCircle.length) {
       Meteor.call('circles.insert', newCircle, circleName, (err, res) => {
         if (err) {
-          Toast(err.reason, "danger");
+          Toast(err.reason, 'danger');
         } else {
-          Toast(`Le cercle a bien été créé.`, "success");
+          Toast('Le cercle a bien été créé.', 'success');
           closeModal();
         }
       });
     } else if (circleName.length === 0) {
-      Toast("Vous devez renseigner un nom d'équipe.", "danger");
+      Toast("Vous devez renseigner un nom d'équipe.", 'danger');
     } else if (newCircle.length === 0) {
-      Toast("Vous ne pouvez créer une équipe vide", "danger");
+      Toast('Vous ne pouvez créer une équipe vide', 'danger');
     }
   }
 
@@ -78,36 +78,36 @@ export default class CircleForm extends React.Component {
     e.preventDefault();
     const circleName = this.refs.circleName.value;
     const {
-      circle
+      circle,
     } = this.props;
     const {
-      newCircle
+      newCircle,
     } = this.state;
 
     if (circleName.length && newCircle.length) {
       Meteor.call('circles.edit', circle._id, newCircle, circleName, (err, res) => {
         if (err) {
-          Toast(err.reason, "danger");
+          Toast(err.reason, 'danger');
         } else {
-          Toast(`Le cercle a bien été créé.`, "success");
+          Toast('Le cercle a bien été créé.', 'success');
           closeModal();
         }
       });
     } else if (circleName.length === 0) {
-      Toast("Vous devez renseigner un nom d'équipe.", "danger");
+      Toast("Vous devez renseigner un nom d'équipe.", 'danger');
     } else if (newCircle.length === 0) {
-      Toast("Vous ne pouvez créer une équipe vide", "danger");
+      Toast('Vous ne pouvez créer une équipe vide', 'danger');
     }
   }
 
   render() {
     const {
       circle,
-      usersContact
+      usersContact,
     } = this.props;
 
     const nameAttributes = circle ? { defaultValue: circle.name }
-      : { placeholder: "Entrez le nom du groupe" };
+      : { placeholder: 'Entrez le nom du groupe' };
     const method = circle ? this.editCircle : this.createCircle;
     const buttonValue = circle ? 'Modifier' : 'Créer';
 
@@ -133,7 +133,7 @@ export default class CircleForm extends React.Component {
           <UserItem />
         </List>
         <fieldset className="large">
-          <input type="submit" value={buttonValue} className="large success button"/>
+          <input type="submit" value={buttonValue} className="large success button" />
         </fieldset>
 
       </form>

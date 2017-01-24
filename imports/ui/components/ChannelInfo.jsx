@@ -8,31 +8,31 @@ export default class ChannelInfo extends React.Component {
     const {
       group,
       channel,
-      users
+      users,
     } = this.props;
 
-    const members = users.filter(user => { return user._id !== channel.author });
-    const author = users.filter(user => { return user._id === channel.author });
+    const members = users.filter(user => user._id !== channel.author);
+    const author = users.filter(user => user._id === channel.author);
 
     return (
       <div>
         {
           group._id !== channel._id ?
-          <p className="sub-title"><span>Groupe</span> {group.name}</p>
+            <p className="sub-title"><span>Groupe</span> {group.name}</p>
           : ''
         }
         <h4>{channel.name}</h4>
         {(channel.description) ? <p>{channel.description}</p> : <p className="grey-text">Ce groupe n'a pas de description.</p> }
         <div className="list-sub-menu small white">
-            <i className="big-icon icon icon-members"/>
-            <h5>Créateur du groupe</h5>
+          <i className="big-icon icon icon-members" />
+          <h5>Créateur du groupe</h5>
         </div>
         <SmallUserItem data={author[0]} />
 
 
         <div className="list-sub-menu small white">
-            <i className="big-icon icon icon-members"/>
-            <h5>Liste des membres</h5>
+          <i className="big-icon icon icon-members" />
+          <h5>Liste des membres</h5>
         </div>
 
         <List

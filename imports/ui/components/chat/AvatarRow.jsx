@@ -1,10 +1,10 @@
 import React from 'react';
-import classNames                       from 'classnames';
+import classNames from 'classnames';
 
 export default class AvatarRow extends React.Component {
 
   constructor(props) {
-    super(props)
+    super(props);
   }
 
   componentDidMount() {
@@ -12,7 +12,6 @@ export default class AvatarRow extends React.Component {
   }
 
   render() {
-
     let avatars = this.props.avatars;
     let numberOfUsers = avatars ? avatars.length : 0;
     let hasToMuchUsers = false;
@@ -23,14 +22,12 @@ export default class AvatarRow extends React.Component {
     }
 
     return (
-      <div className={classNames("user-list", {"large": this.props.isLarge})}>
+      <div className={classNames('user-list', { large: this.props.isLarge })}>
         {
-          avatars.map((avatar, index) => {
-            return (<div className="user-tag only-circle" key={index}><img src={avatar}/></div>);
-          })
+          avatars.map((avatar, index) => (<div className="user-tag only-circle" key={index}><img src={avatar} /></div>))
         }
         {
-          hasToMuchUsers ? <div className="user-tag only-circle"><span>{numberOfUsers}</span></div> : ""
+          hasToMuchUsers ? <div className="user-tag only-circle"><span>{numberOfUsers}</span></div> : ''
         }
       </div>
     );

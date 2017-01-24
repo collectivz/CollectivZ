@@ -8,7 +8,7 @@ import Feedback from './new-feedbackz.js';
 import Coin from './new-coinz.js';
 
 export default function zorroForm(type, channelId) {
-  switch(type) {
+  switch (type) {
     case 'newFeedback':
       return new Feedback(channelId);
     case 'newBuddie':

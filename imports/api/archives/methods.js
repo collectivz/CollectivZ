@@ -4,10 +4,10 @@ import { Archives } from './archives.js';
 import { Collections } from '../collection-handler';
 
 Meteor.methods({
-  'archives.addToArchive'(itemId, itemType) {
+  'archives.addToArchive': function (itemId, itemType) {
     if (!this.userId) {
       throw new Meteor.Error('not-logged-in',
-        "Vous devez être connecté pour archiver quelque chose.");
+        'Vous devez être connecté pour archiver quelque chose.');
     }
     check(itemId, String);
     check(itemType, String);
@@ -23,5 +23,5 @@ Meteor.methods({
     }
 
     Archives.addToArchive(item);
-  }
+  },
 });

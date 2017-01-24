@@ -23,15 +23,15 @@ class PublicProfileContainer extends React.Component {
 }
 
 PublicProfileContainer.propTypes = {
-  user: React.PropTypes.object
+  user: React.PropTypes.object,
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  actions: bindActionCreators(PublicProfileActions, dispatch)
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators(PublicProfileActions, dispatch),
 });
 
-const mapStateToProps = (state) => ({
-  user: state.user
+const mapStateToProps = state => ({
+  user: state.user,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PublicProfileContainer);

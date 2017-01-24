@@ -3,11 +3,11 @@ import ReactDOM from 'react-dom';
 import { Meteor } from 'meteor/meteor';
 import { _ } from 'meteor/underscore';
 
-import BeerEdit         from './BeerEdit';
-import DropDownBottom         from '../DropDownBottom';
+import BeerEdit from './BeerEdit';
+import DropDownBottom from '../DropDownBottom';
 import AvatarRowContainer from '../../containers/AvatarRowContainer';
-import { Toast }         from '../../helpers/Toast';
-import { openModal }         from '../../helpers/Modal';
+import { Toast } from '../../helpers/Toast';
+import { openModal } from '../../helpers/Modal';
 
 export default class BeerItem extends React.Component {
 
@@ -22,24 +22,24 @@ export default class BeerItem extends React.Component {
   joinBeer() {
     Meteor.call('beers.join', this.props.beer._id, (err, res) => {
       if (err) {
-        Toast(err.reason, "danger")
+        Toast(err.reason, 'danger');
       } else {
-        Toast("Vous avez rejoins l'événement.", "success");
+        Toast("Vous avez rejoins l'événement.", 'success');
       }
     });
   }
 
   openEdit() {
     const {
-      beer
+      beer,
     } = this.props;
-    const component = <BeerEdit beer={beer}/>;
+    const component = <BeerEdit beer={beer} />;
     openModal(component, "Modifier l'événement.");
   }
 
   deleteBeer() {
     const {
-      beer
+      beer,
     } = this.props;
 
     Meteor.call('beers.delete', beer._id);
@@ -47,38 +47,34 @@ export default class BeerItem extends React.Component {
 
   showMembers() {
     const { members } = this.props;
-    const membersNodes = members.map(function(member) {
-      return (
-        <div key={member._id}>
-          {member.username}
-        </div>
-      );
-    }, this);
+    const membersNodes = members.map(member => (
+      <div key={member._id}>
+        {member.username}
+      </div>
+      ), this);
     return membersNodes;
   }
 
-  participate () {
-
+  participate() {
     const { beer } = this.props;
 
     if (beer && _.contains(beer.members, Meteor.userId())) {
       return (
         <div className="beer-participate">
           <div className="success-box">
-            <h4><i className="icon icon-check"/>Vous participez !</h4>
-            <AvatarRowContainer isLarge={true} userIds={beer.members} />
+            <h4><i className="icon icon-check" />Vous participez !</h4>
+            <AvatarRowContainer isLarge userIds={beer.members} />
           </div>
         </div>
       );
     }
-    else {
-      return (
-        <div>
-            <button className="button success" onClick={this.joinBeer}>Participer {beer.members.length}</button>
-          <AvatarRowContainer isLarge={true} userIds={beer.members} />
-        </div>
-      );
-    }
+
+    return (
+      <div>
+        <button className="button success" onClick={this.joinBeer}>Participer {beer.members.length}</button>
+        <AvatarRowContainer isLarge userIds={beer.members} />
+      </div>
+    );
   }
 
   getAuthorName(id) {
@@ -88,20 +84,19 @@ export default class BeerItem extends React.Component {
   }
 
   render() {
-
     const {
       beer,
-      user
+      user,
     } = this.props;
 
     return (
       <div className="chat-special-bubble chat-special-bubble-beer">
-          <div className="bubble-content">
-              <div className="bubble-header">
-                <span><a href="">{this.getAuthorName(beer.author)}</a> à lancé un événement</span>
-                <h5>{beer.occasion}</h5>
-                <i className="icon icon-event-color icon-event2"/>
-                {
+        <div className="bubble-content">
+          <div className="bubble-header">
+            <span><a href="">{this.getAuthorName(beer.author)}</a> à lancé un événement</span>
+            <h5>{beer.occasion}</h5>
+            <i className="icon icon-event-color icon-event2" />
+            {
                   (beer.author === user._id || user.isAdmin) ?
                     <DropDownBottom>
                       <ul>
@@ -111,13 +106,13 @@ export default class BeerItem extends React.Component {
                     </DropDownBottom>
                   : ''
                 }
-              </div>
-              <div className="bubble-content-text">
-                <h5><i className="icon icon-earth"/><span>Lieu</span> {beer.place}</h5>
-                <h5><i className="icon icon-calendar-full"/><span>Date</span> {beer.date}</h5>
-                {this.participate()}
-              </div>
           </div>
+          <div className="bubble-content-text">
+            <h5><i className="icon icon-earth" /><span>Lieu</span> {beer.place}</h5>
+            <h5><i className="icon icon-calendar-full" /><span>Date</span> {beer.date}</h5>
+            {this.participate()}
+          </div>
+        </div>
       </div>
     );
   }

@@ -3,8 +3,8 @@ import React from 'react';
 import DropDownBottom from '../DropDownBottom';
 import ActionEdit from './ActionEdit';
 import AvatarRowContainer from '../../containers/AvatarRowContainer';
-import { Toast }         from '../../helpers/Toast';
-import { openModal }         from '../../helpers/Modal';
+import { Toast } from '../../helpers/Toast';
+import { openModal } from '../../helpers/Modal';
 
 export default class ActionItem extends React.Component {
 
@@ -18,7 +18,7 @@ export default class ActionItem extends React.Component {
 
   joinChannel() {
     const {
-      channel
+      channel,
     } = this.props;
 
     this.context.router.push(`/group/${channel._id}`);
@@ -26,7 +26,7 @@ export default class ActionItem extends React.Component {
 
   openEdit() {
     const {
-      channel
+      channel,
     } = this.props;
     const component = <ActionEdit channel={channel} />;
     openModal(component, "Modifier l'action");
@@ -34,7 +34,7 @@ export default class ActionItem extends React.Component {
 
   deleteAction() {
     const {
-      channel
+      channel,
     } = this.props;
 
     Meteor.call('channels.delete', channel._id);
@@ -49,18 +49,18 @@ export default class ActionItem extends React.Component {
   render() {
     const {
       channel,
-      user
+      user,
     } = this.props;
 
     return (
       channel ?
-      <div className="chat-special-bubble chat-special-bubble-mission">
+        <div className="chat-special-bubble chat-special-bubble-mission">
           <div className="bubble-content">
-              <div className="bubble-header">
-                <i className="icon icon-action-color icon-action"/>
-                <span><a href="">{this.getAuthorName(channel.author)}</a> à ouvert une action</span>
-                <h5>{channel.name}</h5>
-                {
+            <div className="bubble-header">
+              <i className="icon icon-action-color icon-action" />
+              <span><a href="">{this.getAuthorName(channel.author)}</a> à ouvert une action</span>
+              <h5>{channel.name}</h5>
+              {
                   (channel.author === user._id || user.isAdmin) ?
                     <DropDownBottom>
                       <ul>
@@ -70,27 +70,27 @@ export default class ActionItem extends React.Component {
                     </DropDownBottom>
                   : ''
                 }
-              </div>
-              <div className="bubble-content-text">
-                {
+            </div>
+            <div className="bubble-content-text">
+              {
                   (channel.description)
                   ?
-                  <p>
-                    <span>{channel.description}</span>
-                  </p>
+                    <p>
+                      <span>{channel.description}</span>
+                    </p>
                   :
-                  ""
+                  ''
                 }
-                <button className="button only-icon" onClick={this.joinChannel}><span>Rejoindre</span><i className="icon icon-chevron-right"></i></button>
-                <AvatarRowContainer userIds={channel.members} />
-              </div>
+              <button className="button only-icon" onClick={this.joinChannel}><span>Rejoindre</span><i className="icon icon-chevron-right" /></button>
+              <AvatarRowContainer userIds={channel.members} />
+            </div>
           </div>
-      </div>
+        </div>
       : null
     );
   }
 }
 
 ActionItem.contextTypes = {
-  router: React.PropTypes.object
+  router: React.PropTypes.object,
 };

@@ -20,12 +20,12 @@ export default class HeroItem extends React.Component {
 
   render() {
     const {
-      data
+      data,
     } = this.props;
 
     return (
       <div className="item">
-        <img src={data.image} onClick={this.openHeroModal}/>
+        <img src={data.image} onClick={this.openHeroModal} />
         <p>{data.title}</p>
       </div>
     );

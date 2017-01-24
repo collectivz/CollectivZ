@@ -10,7 +10,7 @@ class messageCollection extends Mongo.Collection {
   insert(message, callback) {
     message.createdAt = Date.now();
     message.author = message.author ? message.author
-      : Meteor.users.findOne({username: 'Zorro'})._id;
+      : Meteor.users.findOne({ username: 'Zorro' })._id;
 
     message.authorImage = message.authorImage ? message.authorImage
       : Meteor.users.findOne({ username: 'Zorro' }).imageUrl;
@@ -19,10 +19,10 @@ class messageCollection extends Mongo.Collection {
     message.authorName = author.username;
     const lastMessage = {
       author: author.username,
-      text: message.text
+      text: message.text,
     };
     Channels.update(message.channelId, {
-      $set: { lastActivity: message.createdAt, lastMessage: lastMessage },
+      $set: { lastActivity: message.createdAt, lastMessage },
     });
     message.text = replaceSmileys(message.text);
     message.text = replaceUrls(message.text);
@@ -32,7 +32,7 @@ class messageCollection extends Mongo.Collection {
   remove(message, callback) {
     const _message = Messages.findOne(message);
     const lastMessage = {
-      text: 'Message supprimé.'
+      text: 'Message supprimé.',
     };
     const channel = Channels.findOne(_message.channelId);
 

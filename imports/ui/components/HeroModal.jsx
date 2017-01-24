@@ -13,14 +13,14 @@ export default class HeroModal extends React.Component {
 
   pickHero() {
     const {
-      hero
+      hero,
     } = this.props;
 
     Meteor.call('users.pickHero', hero.image, (res, err) => {
       if (err) {
         Toast(err.reason, 'danger');
       } else {
-        Toast('Choix enregistré', "success");
+        Toast('Choix enregistré', 'success');
         closeModal();
       }
     });
@@ -28,7 +28,7 @@ export default class HeroModal extends React.Component {
 
   render() {
     const {
-      hero
+      hero,
     } = this.props;
 
     return (

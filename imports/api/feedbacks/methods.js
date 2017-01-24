@@ -7,17 +7,17 @@ import { Channels } from '../channels/collection.js';
 import { Messages } from '../messages/collection.js';
 
 Meteor.methods({
-  'feedbacks.giveFeedback'(channelId, feedback) {
+  'feedbacks.giveFeedback': function (channelId, feedback) {
     const userId = this.userId;
 
     if (!userId) {
       throw new Meteor.Error('not-logged-in',
-        "Vous devez être connecté pour laisser une évaluation");
+        'Vous devez être connecté pour laisser une évaluation');
     }
 
     check(channelId, String);
-    check(feedback, Match.Where(feedback => {
-      check(feedback.rating, Match.Where(rating => {
+    check(feedback, Match.Where((feedback) => {
+      check(feedback.rating, Match.Where((rating) => {
         check(rating, Number);
         if (rating >= 0 && rating < 6) {
           return true;
@@ -25,18 +25,18 @@ Meteor.methods({
         return false;
       }));
       check(feedback.comment, String);
-      _.each(feedback.userFeedbacks, userFeedback => {
+      _.each(feedback.userFeedbacks, (userFeedback) => {
         check(userFeedback, {
           username: String,
           userId: String,
-          rating: Match.Where(rating => {
+          rating: Match.Where((rating) => {
             check(rating, Number);
             if (rating >= 0 && rating < 6) {
               return true;
             }
             return false;
           }),
-          comment: String
+          comment: String,
         });
       });
       return true;
@@ -45,15 +45,14 @@ Meteor.methods({
     const channel = Channels.findOne(channelId);
 
     if (channel) {
-
       const author = Meteor.user();
 
       if (channel.receivedFeedback) {
         throw new Meteor.Error('feedback-already-given',
-          "Vous avez déjà évalué cette mission.");
+          'Vous avez déjà évalué cette mission.');
       }
 
-      const group = Channels.findOne({_id: channel.rootId});
+      const group = Channels.findOne({ _id: channel.rootId });
 
       if (!group) {
         throw new Meteor.Error('group-not-found',
@@ -68,7 +67,7 @@ Meteor.methods({
       const message = {
         text: `Evaluation laissée par ${author.username}`,
         channelId,
-        type: 'feedback'
+        type: 'feedback',
       };
       const messageId = Messages.insert(message);
 
@@ -79,12 +78,12 @@ Meteor.methods({
       const feedbackId = Feedbacks.insert(feedback);
 
       Messages.update(messageId, {
-        $set: { feedbackId }
+        $set: { feedbackId },
       });
       Channels.update(channelId, {
-        $inc : { 'connections.feedbackCount': 1 },
-        $set: { receivedFeedback: true }
+        $inc: { 'connections.feedbackCount': 1 },
+        $set: { receivedFeedback: true },
       });
     }
-  }
+  },
 });

@@ -11,7 +11,7 @@ export default class ContactInvite extends React.Component {
     super(props);
 
     this.state = {
-      userList: []
+      userList: [],
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -24,7 +24,7 @@ export default class ContactInvite extends React.Component {
     Meteor.call('users.getUsernames', username, (err, res) => {
       if (!err) {
         this.setState({
-          userList: res
+          userList: res,
         });
       }
     });
@@ -41,9 +41,9 @@ export default class ContactInvite extends React.Component {
     if (userInvited) {
       Meteor.call('repertory.sendInvite', userInvited, (err, res) => {
         if (err) {
-          Toast(err.reason, "danger");
+          Toast(err.reason, 'danger');
         } else {
-          Toast(`Une invitation a été envoyé.`, "success");
+          Toast('Une invitation a été envoyé.', 'success');
           closeModal();
         }
       });
@@ -54,35 +54,33 @@ export default class ContactInvite extends React.Component {
   render() {
     const { userList } = this.state;
 
-        return (
-          <div>
-            <form id="box" onSubmit={this.handleSubmit}>
+    return (
+      <div>
+        <form id="box" onSubmit={this.handleSubmit}>
 
-              <fieldset className="large has-icon">
-                <i className="icon icon-user"></i>
-                <input
-                  className="large"
-                  type="text"
-                  ref="userInvited"
-                  placeholder="Entrez le nom du contact à inviter"
-                  onChange={this.handleChange}
-                />
-              </fieldset>
-              { userList && userList.length > 0 ?
-                  <div>
-                    {userList.map(user => {
-                      return <p key={user._id} onClick={this.setUsername.bind(this, user.username)}>{user.username}</p>;
-                    })}
-                  </div>
+          <fieldset className="large has-icon">
+            <i className="icon icon-user" />
+            <input
+              className="large"
+              type="text"
+              ref="userInvited"
+              placeholder="Entrez le nom du contact à inviter"
+              onChange={this.handleChange}
+            />
+          </fieldset>
+          { userList && userList.length > 0 ?
+            <div>
+              {userList.map(user => <p key={user._id} onClick={this.setUsername.bind(this, user.username)}>{user.username}</p>)}
+            </div>
                 : ''
               }
-              <fieldset className="large has-icon">
-                <input type="submit" value="Inviter" className="large success button"/>
-              </fieldset>
+          <fieldset className="large has-icon">
+            <input type="submit" value="Inviter" className="large success button" />
+          </fieldset>
 
-            </form>
+        </form>
 
-          </div>
-        );
+      </div>
+    );
   }
 }

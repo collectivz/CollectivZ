@@ -1,5 +1,5 @@
 import React from 'react';
-import classNames                       from 'classnames';
+import classNames from 'classnames';
 
 import List from './List';
 import ChannelItemContainer from '../containers/ChannelItemContainer';
@@ -10,7 +10,7 @@ export default class ToggleableList extends React.Component {
     super(props);
 
     this.state = {
-      open: false
+      open: false,
     };
 
     this.toggleList = this.toggleList.bind(this);
@@ -20,17 +20,17 @@ export default class ToggleableList extends React.Component {
 
   toggleList() {
     const {
-      open
+      open,
     } = this.state;
 
     this.setState({
-      open: !open
+      open: !open,
     });
   }
 
   actionName() {
     const {
-      open
+      open,
     } = this.state;
 
     return open ? 'Voir moins' : 'Tout voir';
@@ -38,16 +38,16 @@ export default class ToggleableList extends React.Component {
 
   getData() {
     const {
-      data
+      data,
     } = this.props;
     const {
-      open
+      open,
     } = this.state;
 
     if (open) {
       return data;
     } else if (data) {
-      let result = [];
+      const result = [];
       data.forEach((item, index) => {
         if (index < 2) {
           result.push(item);
@@ -62,26 +62,25 @@ export default class ToggleableList extends React.Component {
       title,
       data,
       user,
-      emptyListString
+      emptyListString,
     } = this.props;
 
     let length = 0;
-    if (data && data.length)
-      length = data.length;
+    if (data && data.length) { length = data.length; }
 
     return (
       <div>
         <div className="list-sub-menu small">
-            <i className="big-icon icon icon-users"/>
-            <h5>{title} <span>({length})</span></h5>
-            <a className={classNames("list-sub-menu-toggle", {"active": this.state.open})} onClick={this.toggleList}>{this.actionName()}<i className="icon icon-chevron-right"></i></a>
+          <i className="big-icon icon icon-users" />
+          <h5>{title} <span>({length})</span></h5>
+          <a className={classNames('list-sub-menu-toggle', { active: this.state.open })} onClick={this.toggleList}>{this.actionName()}<i className="icon icon-chevron-right" /></a>
         </div>
         <List
           data={this.getData()}
           type="channel"
           emptyListString={emptyListString}
           user={user}
-          renderUnread={true}
+          renderUnread
           renderMargin={false}
         >
           <ChannelItemContainer />

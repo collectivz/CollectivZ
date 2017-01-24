@@ -7,12 +7,12 @@ import ChannelItem from './ChannelItem';
 export default class CurrentGroups extends React.Component {
   render() {
     const {
-      groups
+      groups,
     } = this.props;
 
     return (
       <div className="sub-container">
-        <Breadcrumb title="Mes groupes" hasBack={true} />
+        <Breadcrumb title="Mes groupes" hasBack />
         <List
           data={groups}
         >

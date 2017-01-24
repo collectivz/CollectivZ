@@ -10,7 +10,7 @@ export default class ModalContainer extends React.Component {
     this.state = {
       isOpen: false,
       component: null,
-      title: ''
+      title: '',
     };
 
     this.openModal = this.openModal.bind(this);
@@ -31,7 +31,7 @@ export default class ModalContainer extends React.Component {
     this.setState({
       component: detail.component,
       title: detail.title,
-      isOpen: true
+      isOpen: true,
     });
   }
 
@@ -39,7 +39,7 @@ export default class ModalContainer extends React.Component {
     this.setState({
       component: null,
       title: '',
-      isOpen: false
+      isOpen: false,
     });
   }
 
@@ -47,13 +47,13 @@ export default class ModalContainer extends React.Component {
     const {
       isOpen,
       component,
-      title
+      title,
     } = this.state;
 
 
     return (
       isOpen ?
-        <Modal title={title} displayCall={true} closeModal={this.closeModal}>
+        <Modal title={title} displayCall closeModal={this.closeModal}>
           {component}
         </Modal>
       : null

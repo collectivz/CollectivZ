@@ -2,7 +2,7 @@ import { combineReducers } from 'redux';
 import publicProfile from './PublicProfile';
 
 const rootReducer = combineReducers({
-  publicProfile
+  publicProfile,
 });
 
 export default rootReducer;
