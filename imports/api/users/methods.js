@@ -5,6 +5,7 @@ import { Random } from 'meteor/random';
 
 import { Heroes } from '../heroes/heroes';
 import { Channels } from '../channels/collection.js';
+import { Messages } from '../messages/collection.js';
 
 Meteor.methods({
   'users.changeAvatar'(userId, url) {
