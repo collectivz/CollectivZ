@@ -14,6 +14,7 @@ SyncedCron.add({
   },
   job() {
     const yesterday = moment().add(-2, 'days').valueOf();
+    const now = Date.now();
     const users = Meteor.users.find(
       { lastLogin: { $lt: yesterday }, username: { $ne: 'Zorro' } },
     ).fetch();
@@ -35,11 +36,14 @@ SyncedCron.add({
           to: user.emails[0].address,
           from: 'postmaster@www.collectivz.com',
           subject: 'Le Collectif avance sans vous !',
-          text: `Bonjour, vous ne vous êtes pas connecté depuis plus de 2 jours... ${messageCount} messages ont été postés dans ${channels.length} groupes différents depuis votre dernier passage !`,
+          text: `Bonjour, vous ne vous êtes pas connecté depuis plus de 2 jours... ${messageCount} messages ont été postés dans ${channels.length} groupes différents depuis votre dernier passage !`
         });
       }
+      Meteor.users.update(user._id, {
+        $set: { lastLogin: now }
+      });
     });
-  },
+  }
 });
 
 SyncedCron.start();

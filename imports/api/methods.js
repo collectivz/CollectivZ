@@ -17,26 +17,29 @@ Meteor.methods({
     const s3 = new aws.S3();
     const S3_BUCKET = 'collectivz-bucketz';
 
+    console.log(process.env.AWS_ACCESS_KEY_ID);
     let returnData;
     const s3Params = {
       Bucket: S3_BUCKET,
-      Key: `${Meteor.user().username}Avatar`,
+      Key: `${Meteor.user().username}Avatar.jpg`,
       Expires: 60,
       ContentType: fileType,
-      ACL: 'public-read',
+      ACL: 'public-read'
     };
 
     s3.getSignedUrl('putObject', s3Params, (err, data) => {
       if (err) {
+        console.log(err);
         return err;
       }
+      console.log(data);
       returnData = {
         signedRequest: data,
-        url: `https://${S3_BUCKET}.s3.eu-central-1.amazonaws.com/${Meteor.user().username}Avatar`,
+        url: `https://${S3_BUCKET}.s3.eu-central-1.amazonaws.com/${Meteor.user().username}Avatar.jpg`
       };
       return returnData;
     });
 
     return returnData;
-  },
+  }
 });

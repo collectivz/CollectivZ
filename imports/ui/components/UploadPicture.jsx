@@ -16,7 +16,7 @@ export default class UploadPicture extends React.Component {
       preview: props.data ? props.data.imageUrl : null,
       file: null,
       signedRequest: null,
-      url: '',
+      url: ''
     };
 
     this.uploadPicture = this.uploadPicture.bind(this);
@@ -26,12 +26,12 @@ export default class UploadPicture extends React.Component {
   submitPicture() {
     const {
       data,
-      method,
+      method
     } = this.props;
     const {
       file,
       signedRequest,
-      url,
+      url
     } = this.state;
 
     if (file && signedRequest) {
@@ -48,7 +48,7 @@ export default class UploadPicture extends React.Component {
                 this.setState({
                   file: null,
                   signedRequest: null,
-                  url: '',
+                  url: ''
                 });
                 closeModal();
               }
@@ -68,13 +68,14 @@ export default class UploadPicture extends React.Component {
 
     if (file) {
       const reader = new FileReader();
-      reader.onload = (self => function (e) {
-        const img = new Image();
-        img.src = e.target.result;
-        console.log(img);
-        self.setState({
-          preview: e.target.result,
-        });
+      reader.onload = ((self) => {
+        return function(e) {
+          const img = new Image();
+          img.src = e.target.result;
+          self.setState({
+            preview: e.target.result
+          });
+        };
       })(this);
 
       if (file.type.split('/')[0] !== 'image') {
@@ -90,7 +91,7 @@ export default class UploadPicture extends React.Component {
           return;
         }
         this.setState({
-          file,
+          file: file,
           signedRequest: res.signedRequest,
           url: res.url,
         });
@@ -100,15 +101,14 @@ export default class UploadPicture extends React.Component {
 
   render() {
     const {
-      preview,
+      preview
     } = this.state;
 
     return (
       <div className="update-avatar-wrapper">
         {
           preview ?
-            <div className="preview" />
-          // <img className="modal--big-img circle-img" src={preview} />
+          <img className="modal--big-img circle-img" src={preview} />
           : ''
         }
         <input type="file" onChange={this.uploadPicture} />
