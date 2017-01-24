@@ -35,7 +35,7 @@ Meteor.methods({
       console.log(data);
       returnData = {
         signedRequest: data,
-        url: `https://${S3_BUCKET}.s3.eu-central-1.amazonaws.com/${Meteor.user().username}Avatar`
+        url: `https://${S3_BUCKET}.s3.eu-central-1.amazonaws.com/${Meteor.user().username}Avatar.jpg`
       };
       return returnData;
     });
