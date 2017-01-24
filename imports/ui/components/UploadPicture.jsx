@@ -44,7 +44,7 @@ export default class UploadPicture extends React.Component {
               if (err) {
                 Toast(err.reason, 'danger');
               } else {
-                Toast('Modification prise en compte', 'success');
+                Toast("Modification prise en compte", "success")
                 this.setState({
                   file: null,
                   signedRequest: null,
@@ -64,7 +64,7 @@ export default class UploadPicture extends React.Component {
 
   uploadPicture(e) {
     e.preventDefault();
-    const file = e.target.files[0];
+    let file = e.target.files[0];
 
     if (file) {
       const reader = new FileReader();
@@ -111,7 +111,7 @@ export default class UploadPicture extends React.Component {
           <img className="modal--big-img circle-img" src={preview} />
           : ''
         }
-        <input type="file" onChange={this.uploadPicture} />
+        <input type="file" onChange={this.uploadPicture}/>
         <button className="button self-center success" onClick={this.submitPicture}>Valider</button>
       </div>);
   }

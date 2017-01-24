@@ -1,10 +1,7 @@
 import React, { Component, PropTypes } from 'react';
-import ReactDOM from 'react-dom';
-import { Meteor } from 'meteor/meteor';
 import $ from 'jquery';
 
 import TouchEvent from '../TouchEvent';
-import classNames from 'classnames';
 
 
 export default class ActionPicker extends Component {

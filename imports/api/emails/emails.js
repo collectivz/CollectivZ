@@ -16,20 +16,20 @@ SyncedCron.add({
     const yesterday = moment().add(-2, 'days').valueOf();
     const now = Date.now();
     const users = Meteor.users.find(
-      { lastLogin: { $lt: yesterday }, username: { $ne: 'Zorro' } },
+      { lastLogin: { $lt: yesterday }, username: { $ne: 'Zorro' } }
     ).fetch();
 
-    users.forEach((user) => {
+    users.forEach(user => {
       const channels = Channels.find(
-        { _id: { $in: user.subscribedChannels }, lastActivity: { $gt: user.lastLogin } },
+        { _id: { $in: user.subscribedChannels }, lastActivity: { $gt: user.lastLogin } }
       ).fetch();
-      const channelIds = [];
-      channels.forEach((channel) => {
+      let channelIds = [];
+      channels.forEach(channel => {
         channelIds.push(channel._id);
       });
 
       const messageCount = Messages.find(
-        { channelId: { $in: channelIds }, createdAt: { $gt: user.lastLogin } },
+        { channelId: { $in: channelIds }, createdAt: { $gt: user.lastLogin } }
       ).count();
       if (messageCount > 0) {
         Email.send({

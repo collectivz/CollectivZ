@@ -1,5 +1,4 @@
-import { Meteor } from 'meteor';
-import { $ } from 'meteor/underscore';
+import $ from 'jquery';
 
 Meteor.startup(() => {
   $(document).on('deviceready', () => {
