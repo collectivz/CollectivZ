@@ -72,7 +72,6 @@ export default class UploadPicture extends React.Component {
         return function(e) {
           const img = new Image();
           img.src = e.target.result;
-          console.log(img)
           self.setState({
             preview: e.target.result
           });
