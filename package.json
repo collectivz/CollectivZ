@@ -36,6 +36,7 @@
     "jquery": "^3.1.0",
     "json2csv": "^3.7.3",
     "json2xls": "^0.1.2",
+    "jsx-to-string": "^1.0.0",
     "meteor-node-stubs": "^0.2.4",
     "moment": "^2.15.0",
     "promises": "^0.2.5",
