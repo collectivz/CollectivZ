@@ -3,7 +3,7 @@ import { Mongo } from 'meteor/mongo';
 
 import { replaceSmileys } from './smiley-replacer';
 import { replaceUrls } from './url-handler';
-import { Channels } from '../channels/collection.js';
+import { Channels } from '../channels/collection';
 
 class messageCollection extends Mongo.Collection {
 
