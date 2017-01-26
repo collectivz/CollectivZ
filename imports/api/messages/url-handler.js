@@ -8,7 +8,7 @@ export function replaceUrls(string) {
     } else {
       newMatch = match;
     }
-    const target = `window.open("${newMatch}", "_system")`;
+    const target = `window.open('${newMatch}', '_system')`;
     return `<a href="#" target=${target}>${newMatch}</a>`;
   });
 
