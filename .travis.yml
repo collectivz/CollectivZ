@@ -13,3 +13,9 @@ before_install:
   - "curl https://install.meteor.com | /bin/sh"
 before_script:
   - "export PATH=$HOME/.meteor:$PATH"
+notifications:
+  webhooks:
+    urls:
+      - https://api.ghostinspector.com/v1/suites/[suite-id]/execute/?apiKey=[api-key]
+    on_success: always
+    on_failure: never

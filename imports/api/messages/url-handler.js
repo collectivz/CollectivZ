@@ -5,7 +5,7 @@ export function replaceUrls(string) {
     if (match[0] !== 'h') {
       match = `http://${match}`;
     }
-    return `<a href=${match} target="_blank">${match}</a>`;
+    return `<a href="${match}" target="_system">${match}</a>`;
   });
 
   return newString;
