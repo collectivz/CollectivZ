@@ -15,5 +15,5 @@ export function replaceUrls(string) {
     return match;
   });
 
-  return `<a href="openUrl('${target}')" target="_system">${target}</a>`;
+  return `<a href="#" target="openUrl('${target}')">${target}</a>`;
 }
