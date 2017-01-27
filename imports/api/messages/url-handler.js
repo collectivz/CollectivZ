@@ -11,5 +11,5 @@ export function replaceUrls(string) {
     return match;
   });
 
-  return `<a href="#" onclick="window.open('${target}', '_system', 'location=yes')">${target}</a>`;
+  return `<a class="system-browser" href="${target}" target="_system">${target}</a>`;
 }
