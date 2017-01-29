@@ -27,7 +27,7 @@ Meteor.methods({
     });
     Messages.update({ author: userId }, {
       $set: { 'authorImage': url }
-    });
+    }, { multi: true });
   },
 
   'users.changeBackground'(url) {

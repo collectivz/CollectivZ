@@ -64,6 +64,7 @@ export default class RegisterPage extends React.Component {
         errors
       });
     } else {
+      console.log(errors);
       Accounts.createUser({email, username, password}, (err) => {
         if (err) {
           console.log(err);
