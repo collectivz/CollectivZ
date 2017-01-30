@@ -11,5 +11,5 @@ export function replaceUrls(string) {
     return match;
   });
 
-  return `<a class="system-browser" href="${target}" target="_system">${target}</a>`;
+  return `<a href="${target}" target="_blank">${target}</a>`;
 }
