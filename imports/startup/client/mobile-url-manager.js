@@ -1,19 +1,16 @@
-Meteor.startup(function() {
-   if (!Meteor.isCordova) {
+Meteor.startup(() => {
+  if (!Meteor.isCordova) {
+    return;
+  }
+  return $(document).on('deviceready', () => $(document).on('click', (e) => {
+    let $link = $(e.target).closest('a[href]');
+    if (!($link.length > 0)) {
       return;
-   }
-   return $(document).on('deviceready', function() {
-      return $(document).on('click', function(e) {
-         var $link, url;
-         $link = $(e.target).closest('a[href]');
-         if (!($link.length > 0)) {
-            return;
-         }
-         url = $link.attr('href');
-         if (/^https?:\/\/.+/.test(url) === true) {
-            window.open(url, '_system');
-            return e.preventDefault();
-         }
-      });
-   });
+    }
+    let url = $link.attr('href');
+    if (/^https?:\/\/.+/.test(url) === true) {
+      cordova.InAppBrowser.open(url, '_system');
+      return e.preventDefault();
+    }
+  }));
 });
