@@ -3,6 +3,7 @@ import { Email } from 'meteor/email';
 import { check } from 'meteor/check';
 import { Random } from 'meteor/random';
 
+import { Collections } from '../collection-handler';
 import { Heroes } from '../heroes/heroes';
 import { Channels } from '../channels/collection.js';
 import { Messages } from '../messages/collection.js';
@@ -26,8 +27,8 @@ Meteor.methods({
       $set: { imageUrl: url },
     });
     Messages.update({ author: userId }, {
-      $set: { authorImage: url },
-    });
+      $set: { 'authorImage': url }
+    }, { multi: true });
   },
 
   'users.changeBackground': function (url) {
@@ -199,4 +200,40 @@ Meteor.methods({
 
     return users;
   },
+
+  'users.blockUser'(userIdToBlock) {
+    const userId = Meteor.userId();
+
+    Meteor.users.update(userId, {
+      $addToSet: { blockedUsers: userIdToBlock }
+    });
+  },
+
+  'users.unblockUser'(userIdToUnblock) {
+    const userId = Meteor.userId();
+
+    Meteor.users.update(userId, {
+      $pull: { blockedUsers: userIdToUnblock }
+    });
+
+  },
+
+  'users.reportContent'(contentId, contentType) {
+    if (Collections[contentType]) {
+      const content = Collections[contentType].findOne(contentId);
+
+      if (content) {
+        Collections[contentType].update(content._id, {
+          $set: { objectionable: true }
+        });
+        const badUser = Meteor.users.findOne(content.author);
+        Email.send({
+          to: 'philippe.decrat@gmail.com',
+          from: 'postmaster@www.collectivz.com',
+          subject: 'Un grand méchant requiert une action de Zorro !',
+          text: `L'utilisateur ${badUser.username} (id: ${badUser._id}) a été signalé pour contenu inapprioprié. Nuke the fucker.`,
+        });
+      }
+    }
+  }
 });

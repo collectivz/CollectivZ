@@ -13,6 +13,7 @@ class CoinCollection extends Mongo.Collection {
     coin.givers = [];
     coin.createdAt = Date.now();
     coin.type = 'coin';
+    coin.objectionable = false;
 
     return super.insert(coin);
   }

@@ -10,10 +10,10 @@ import { Messages } from '../messages/collection';
 SyncedCron.add({
   name: 'Send mail to keep people in touch with CollectivZ',
   schedule(parser) {
-    return parser.text('at 00:10 am');
+    return parser.text('on the first day of the week');
   },
   job() {
-    const yesterday = moment().add(-2, 'days').valueOf();
+    const yesterday = moment().add(-7, 'days').valueOf();
     const now = Date.now();
     const users = Meteor.users.find(
       { lastLogin: { $lt: yesterday }, username: { $ne: 'Zorro' } }
@@ -36,7 +36,7 @@ SyncedCron.add({
           to: user.emails[0].address,
           from: 'postmaster@www.collectivz.com',
           subject: 'Le Collectif avance sans vous !',
-          text: `Bonjour, vous ne vous êtes pas connecté depuis plus de 2 jours... ${messageCount} messages ont été postés dans ${channels.length} groupes différents depuis votre dernier passage !`
+          text: `Bonjour, vous ne vous êtes pas connecté depuis plus de 7 jours... ${messageCount} messages ont été postés dans ${channels.length} groupes différents depuis votre dernier passage !`
         });
       }
       Meteor.users.update(user._id, {

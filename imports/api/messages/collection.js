@@ -24,6 +24,7 @@ class messageCollection extends Mongo.Collection {
     Channels.update(message.channelId, {
       $set: { lastActivity: message.createdAt, lastMessage },
     });
+    message.objectionable = false;
     message.text = replaceSmileys(message.text);
     message.text = replaceUrls(message.text);
     return super.insert(message);

@@ -28,6 +28,8 @@ export default class MessageItem extends Component {
     this.isChannelAuthor = this.isChannelAuthor.bind(this);
     this.transformIntoAction = this.transformIntoAction.bind(this);
     this.answerMessage = this.answerMessage.bind(this);
+    this.blockUser = this.blockUser.bind(this);
+    this.reportContent = this.reportContent.bind(this);
     this.openUserModal = this.openUserModal.bind(this);
   }
 
@@ -141,6 +143,22 @@ export default class MessageItem extends Component {
     this.context.router.push(`/profile/${message.author}`);
   }
 
+  reportContent() {
+    const {
+      message
+    } = this.props;
+
+    Meteor.call('users.reportContent', message._id, 'message');
+  }
+
+  blockUser() {
+    const {
+      message
+    } = this.props;
+
+    Meteor.call('users.blockUser', message.author);
+  }
+
   openUserModal() {
     const {
       message,
@@ -197,6 +215,8 @@ export default class MessageItem extends Component {
                           <li><a className="drop-down-menu-link" onClick={this.chatWithAuthor}> Lancer une conversation avec l'auteur </a></li>
                           <li><a className="drop-down-menu-link" onClick={this.answerMessage}> Répondre </a></li>
                           <li><a className="drop-down-menu-link" onClick={this.goToProfile}> Voir le profil </a></li>
+                          <li><a className="drop-down-menu-link" onClick={this.reportContent}> Signaler le contenu </a></li>
+                          <li><a className="drop-down-menu-link" onClick={this.blockUser}> Bloquer l'utilisateur </a></li>
                         </ul>
                       : ''
                     }

@@ -13,6 +13,7 @@ class BeerCollection extends Mongo.Collection {
     beer.authorName = user.username;
     beer.members = [user._id];
     beer.type = 'beer';
+    beer.objectionable = false;
 
     return super.insert(beer);
   }

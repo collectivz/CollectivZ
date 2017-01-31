@@ -30,6 +30,7 @@ if (Meteor.isServer) {
     user.coinz = 100;
     user.history = '';
     user.lastReadAt = {};
+    user.blockedUsers = [];
     user.repertory = Repertory.insert(newRepertory);
     return user;
   });

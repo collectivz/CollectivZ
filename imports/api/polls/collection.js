@@ -13,6 +13,7 @@ class PollCollection extends Mongo.Collection {
     poll.members = [user._id];
     poll.authorName = user.username;
     poll.type = 'poll';
+    poll.objectionable = false;
 
     return super.insert(poll, callback);
   }

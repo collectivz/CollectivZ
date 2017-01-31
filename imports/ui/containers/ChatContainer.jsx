@@ -7,7 +7,6 @@ import { Beers } from '../../api/beers/collection.js';
 import { Coins } from '../../api/coins/collection.js';
 import { Feedbacks } from '../../api/feedbacks/collection.js';
 import { Channels } from '../../api/channels/collection.js';
-import { Tasks } from '../../api/tasks/tasks.js';
 
 import Chat from '../components/chat/Chat.jsx';
 

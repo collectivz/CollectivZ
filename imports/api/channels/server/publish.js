@@ -3,7 +3,6 @@ import { check } from 'meteor/check';
 
 import { Channels } from '../collection.js';
 import { Messages } from '../../messages/collection.js';
-import { Tasks } from '../../tasks/tasks.js';
 import { Archives } from '../../archives/archives.js';
 import { Beers } from '../../beers/collection.js';
 import { Coins } from '../../coins/collection.js';
@@ -12,7 +11,8 @@ import { Polls, Propositions } from '../../polls/collection.js';
 
 Meteor.publish('groupList', function () {
   if (this.userId) {
-    return Channels.find({ type: 'group' });
+    const user = Meteor.users.findOne(this.userId);
+    return Channels.find({ type: 'group', author: { $nin: user.blockedUsers }, objectionable: false  });
   }
   this.ready();
 });
@@ -22,19 +22,19 @@ Meteor.publish('chanPage', function (id) {
   if (this.userId) {
     const channel = Channels.findOne(id);
     if (channel) {
+      const user = Meteor.users.findOne(this.userId);
       return [
         Channels.find({ $or: [
-          { _id: { $in: [id, channel.rootId] } },
-          { parentId: id },
+          { _id: { $in: [id, channel.rootId] }, author: { $nin: user.blockedUsers }, objectionable: false },
+          { parentId: id, author: { $nin: user.blockedUsers }, objectionable: false   },
         ] }),
-        Tasks.find({ channelId: id }),
-        Messages.find({ channelId: id }),
-        Feedbacks.find({ channelId: id }),
-        Beers.find({ channelId: id }),
-        Polls.find({ channelId: id }),
-        Coins.find({ channelId: id }),
-        Meteor.users.find({ subscribedChannels: { $in: [id] } }),
-        Archives.find({ channelId: id }),
+        Messages.find({ channelId: id, author: { $nin: user.blockedUsers } , objectionable: false }),
+        Feedbacks.find({ channelId: id, author: { $nin: user.blockedUsers } , objectionable: false }),
+        Beers.find({ channelId: id, author: { $nin: user.blockedUsers } , objectionable: false }),
+        Polls.find({ channelId: id, author: { $nin: user.blockedUsers } , objectionable: false }),
+        Coins.find({ channelId: id, author: { $nin: user.blockedUsers } , objectionable: false }),
+        Meteor.users.find({ subscribedChannels: { $in: [id] }, _id: { $nin: user.blockedUsers } }),
+        // Archives.find({ channelId: id }),
       ];
     }
     this.ready();
@@ -46,10 +46,11 @@ Meteor.publish('chanPage', function (id) {
 Meteor.publish('conversationPage', (id) => {
   check(id, String);
   const channel = Channels.findOne(id);
+  const user = Meteor.users.findOne(this.userId);
   return [
-    Messages.find({ channelId: id }),
+    Messages.find({ channelId: id, author: { $nin: user.blockedUsers }, objectionable: false  }),
     Channels.find(id),
-    Meteor.users.find({ subscribedConversations: { $in: [id] } }),
+    Meteor.users.find({ subscribedConversations: { $in: [id] }, _id: { $nin: user.blockedUsers } }),
   ];
 });
 
@@ -62,7 +63,8 @@ Meteor.publish('chanList', function (channelsIds, conversationsIds) {
     allChan = channelsIds;
   }
   if (this.userId) {
-    return Channels.find({ _id: { $in: allChan } }, { sort: { lastActivity: 1 } });
+    const user = Meteor.users.findOne(this.userId);
+    return Channels.find({ _id: { $in: allChan }, author: { $nin: user.blockedUsers } }, { sort: { lastActivity: 1 } });
   }
   return [];
 });
