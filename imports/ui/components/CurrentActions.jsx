@@ -7,12 +7,12 @@ import ChannelItem from './ChannelItem';
 export default class CurrentActions extends React.Component {
   render() {
     const {
-      actions
+      actions,
     } = this.props;
 
     return (
       <div className="sub-container">
-        <Breadcrumb title="Mes actions" hasBack={true} />
+        <Breadcrumb title="Mes actions" hasBack />
         <List
           data={actions}
         >

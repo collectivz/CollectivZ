@@ -1,11 +1,11 @@
-import $                                  from 'jquery';
-import React, { Component, PropTypes }    from 'react';
-import { Router }                         from 'react-router';
-import { Meteor }                         from 'meteor/meteor';
-import ReactEmoji                         from 'react-emoji';
+import $ from 'jquery';
+import React, { Component, PropTypes } from 'react';
+import { Router } from 'react-router';
+import { Meteor } from 'meteor/meteor';
+import ReactEmoji from 'react-emoji';
 
-import ActionPicker                       from './ActionPicker.jsx';
-import { Toast }                          from '../../helpers/Toast';
+import ActionPicker from './ActionPicker.jsx';
+import { Toast } from '../../helpers/Toast';
 
 
 export default class MessageInput extends Component {
@@ -18,7 +18,7 @@ export default class MessageInput extends Component {
       isTyping: false,
       isTypingMessage: '',
       isTypingVisible: false,
-      typerCount: 0
+      typerCount: 0,
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -32,10 +32,10 @@ export default class MessageInput extends Component {
 
   componentDidMount() {
     const {
-      channel
+      channel,
     } = this.props;
     this.setState({
-      barHeight: { height: this.refs.bar.scrollHeight + 10 }
+      barHeight: { height: this.refs.bar.scrollHeight + 10 },
     });
     if (channel) {
       this.getWhoIsTyping();
@@ -44,30 +44,30 @@ export default class MessageInput extends Component {
 
   scrollDown() {
     const elem = $('.chat-sub-container');
-    $(".chat-sub-container").scrollTop(1000000);
-    setTimeout( () => {
-      $(".chat-sub-container").scrollTop(1000000);
-    }, 350 );
+    $('.chat-sub-container').scrollTop(1000000);
+    setTimeout(() => {
+      $('.chat-sub-container').scrollTop(1000000);
+    }, 350);
   }
 
   componentDidUpdate() {
     const {
-      channel
+      channel,
     } = this.props;
     const {
-      typerCount
+      typerCount,
     } = this.state;
     if (channel && typerCount !== channel.isTyping.length) {
       this.getWhoIsTyping();
       this.setState({
-        typerCount: channel.isTyping.length
+        typerCount: channel.isTyping.length,
       });
     }
   }
 
   componentWillUnmount() {
     const {
-      channel
+      channel,
     } = this.props;
 
     Meteor.call('channels.stopTyping', channel._id);
@@ -83,21 +83,21 @@ export default class MessageInput extends Component {
   toggleTyping(e) {
     e.preventDefault();
     const {
-      channel
+      channel,
     } = this.props;
     const {
-      isTyping
+      isTyping,
     } = this.state;
 
     if (!isTyping) {
       Meteor.call('channels.startTyping', channel._id);
       this.setState({
-        isTyping: true
+        isTyping: true,
       });
     } else if (!this.refs.textInput.value) {
       Meteor.call('channels.stopTyping', channel._id);
       this.setState({
-        isTyping: false
+        isTyping: false,
       });
     }
   }
@@ -110,49 +110,49 @@ export default class MessageInput extends Component {
       channel,
       user,
       answeringTo,
-      changeInputMode
+      changeInputMode,
     } = this.props;
     const text = this.refs.textInput.value.trim();
 
     if (text.length) {
       if (inputMode === 'message' || hasActionPicker === false) {
-        let message = {
+        const message = {
           text,
           channelId: channel._id,
         };
         Meteor.call('channels.stopTyping', channel._id);
         this.setState({
-          isTyping: false
+          isTyping: false,
         });
         if (channel.type === 'group' && !_.contains(user.subscribedChannels, channel._id)) {
           Meteor.call('channels.join', channel._id);
         }
         Meteor.call('messages.insert', message, (err, res) => {
-          if(err) {
-            Toast(err.reason, "danger");
+          if (err) {
+            Toast(err.reason, 'danger');
           }
         });
         this.refs.textInput.value = '';
         this.setState({
           barHeight: { height: 46 },
-          formHeight: { height: 36 }
+          formHeight: { height: 36 },
         });
       } else if (inputMode === 'answer') {
         Meteor.call('channels.stopTyping', channel._id);
         this.setState({
-          isTyping: false
+          isTyping: false,
         });
         if (channel.type === 'group' && !_.contains(user.subscribedChannels, channel._id)) {
           Meteor.call('channels.join', channel._id);
         }
         Meteor.call('messages.answerMessage', answeringTo, text, (err, res) => {
-          if(err) {
-            Toast(err.reason, "danger");
+          if (err) {
+            Toast(err.reason, 'danger');
           }
           this.refs.textInput.value = '';
           this.setState({
             barHeight: { height: 46 },
-            formHeight: { height: 36 }
+            formHeight: { height: 36 },
           });
         });
         changeInputMode('message');
@@ -178,25 +178,25 @@ export default class MessageInput extends Component {
       this.props.changeInputMode('message');
     }
     this.setState({
-      showActions: !showActions
+      showActions: !showActions,
     });
-    $(".chat-input-wrapper").toggleClass("open");
-    $(".chat-sub-container").toggleClass("open");
-    $(".icon-plus-circle").toggleClass("icon-rotate-45");
+    $('.chat-input-wrapper').toggleClass('open');
+    $('.chat-sub-container').toggleClass('open');
+    $('.icon-plus-circle').toggleClass('icon-rotate-45');
   }
 
   getWhoIsTyping() {
     const {
-      channel
+      channel,
     } = this.props;
     if (channel && channel.isTyping && !channel.isTyping.length) {
       this.setState({
-        isTypingVisible: false
+        isTypingVisible: false,
       });
       return;
     }
     const users = Meteor.users.find({ _id: { $in: channel.isTyping } }).fetch();
-    const index = users.findIndex(user => {
+    const index = users.findIndex((user) => {
       if (user._id === Meteor.userId()) {
         return true;
       }
@@ -208,7 +208,7 @@ export default class MessageInput extends Component {
     let result = '';
     if (!users.length) {
       this.setState({
-        isTypingVisible: false
+        isTypingVisible: false,
       });
       return;
     } else if (users.length === 1) {
@@ -221,14 +221,14 @@ export default class MessageInput extends Component {
 
     this.setState({
       isTypingVisible: true,
-      isTypingMessage: result
+      isTypingMessage: result,
     });
   }
 
   textareaHeightTweak(e) {
     this.setState({
       barHeight: { height: this.refs.textInput.scrollHeight + 10 },
-      formHeight: { height: this.refs.textInput.scrollHeight }
+      formHeight: { height: this.refs.textInput.scrollHeight },
     });
   }
 
@@ -236,7 +236,7 @@ export default class MessageInput extends Component {
     const { hasActionPicker, channel } = this.props;
     const {
       isTypingVisible,
-      isTypingMessage
+      isTypingMessage,
     } = this.state;
     const showWhoIsTyping = isTypingVisible
       ? 'someone-is-typing visible'
@@ -246,9 +246,9 @@ export default class MessageInput extends Component {
       <div ref="bar" className="chat-input-wrapper">
         <div className={showWhoIsTyping}>
           <div className="ball-pulse">
-            <div></div>
-            <div></div>
-            <div></div>
+            <div />
+            <div />
+            <div />
           </div>
           <div className="someone-is-typing-names">{isTypingMessage}</div>
         </div>
@@ -256,7 +256,7 @@ export default class MessageInput extends Component {
           {
             hasActionPicker ?
               <button onClick={this.toggleAction} className="chat-input-button-left button">
-                <i className="icon icon-plus-circle"></i>
+                <i className="icon icon-plus-circle" />
               </button>
             : ''
           }
@@ -267,16 +267,16 @@ export default class MessageInput extends Component {
               name="name"
               placeholder="Discuter..."
               className="chat-input-textarea"
-              ref="textInput">
-            </textarea>
+              ref="textInput"
+            />
           </form>
           <button onClick={this.handleSubmit} className="chat-input-button-right button">
-            <i className="icon icon-envelope"></i>
+            <i className="icon icon-envelope" />
           </button>
         </div>
         {
           hasActionPicker ?
-            <ActionPicker changeInputMode={this.handleInputChange}/>
+            <ActionPicker changeInputMode={this.handleInputChange} />
           : ''
         }
       </div>
@@ -288,7 +288,7 @@ export default class MessageInput extends Component {
 window.onbeforeunload = () => {
   const channels = Channels.find().fetch();
 
-  channels.forEach(channel => {
+  channels.forEach((channel) => {
     Meteor.call('channels.stopTyping', channel._id);
   });
-}
+};

@@ -8,20 +8,20 @@ export default class GroupAndActions extends React.Component {
     const {
       group,
       actions,
-      user
+      user,
     } = this.props;
 
     return (
       <div>
-        <ChannelItemContainer data={group} renderUnread={true} />
+        <ChannelItemContainer data={group} renderUnread />
         {
           actions.length ?
             <List
               data={actions}
-              type='channel'
+              type="channel"
               emptyListString="Aucune action dans ce groupe"
-              renderUnread={true}
-              renderMargin={true}
+              renderUnread
+              renderMargin
             >
               <ChannelItemContainer />
             </List>

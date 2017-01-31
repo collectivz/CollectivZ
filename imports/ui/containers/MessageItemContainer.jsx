@@ -7,6 +7,6 @@ export default createContainer(({ message }) => {
   const author = Meteor.users.findOne(message.author);
 
   return {
-    author
+    author,
   };
 }, MessageItem);

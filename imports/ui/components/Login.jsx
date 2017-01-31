@@ -1,39 +1,37 @@
 import React, { Component } from 'react';
 import { Meteor } from 'meteor/meteor';
-import classNames                       from 'classnames';
+import classNames from 'classnames';
 
-import { Toast }         from '../helpers/Toast';
+import { Toast } from '../helpers/Toast';
 
 export default class Login extends Component {
 
   constructor(props) {
     super(props);
 
-    this.state = { isClicked : false };
+    this.state = { isClicked: false };
     this.handleClick = this.handleClick.bind(this);
   }
 
   handleClick(e) {
+    e.preventDefault();
+    this.setState({ isClicked: true });
 
-      e.preventDefault();
-      this.setState( { isClicked : true } );
+    setTimeout(() => {
+      this.setState({ isClicked: false });
+      const username = this.refs.username.value;
+      const password = this.refs.password.value;
 
-      setTimeout( () => {
-          this.setState( { isClicked : false } );
-          const username = this.refs.username.value;
-          const password = this.refs.password.value;
-
-          if (username && password) {
-            Meteor.loginWithPassword(username, password, err => {
-              if (err) {
-                Toast(err.reason, "danger");
-              } else {
-                this.context.router.push('/');
-              }
-            });
+      if (username && password) {
+        Meteor.loginWithPassword(username, password, (err) => {
+          if (err) {
+            Toast(err.reason, 'danger');
+          } else {
+            this.context.router.push('/');
           }
-      }, 500);
-
+        });
+      }
+    }, 500);
   }
 
   render() {
@@ -45,7 +43,7 @@ export default class Login extends Component {
             <h2>Collectivz</h2>
             <h5>Refaire le monde est donné à tout le monde</h5>
             <fieldset className="large has-icon name">
-              <i className="icon icon-user"></i>
+              <i className="icon icon-user" />
               <input
                 className="large"
                 type="text"
@@ -54,7 +52,7 @@ export default class Login extends Component {
               />
             </fieldset>
             <fieldset className="large has-icon">
-              <i className="icon icon-lock"></i>
+              <i className="icon icon-lock" />
               <input
                 className="large"
                 type="password"
@@ -62,18 +60,18 @@ export default class Login extends Component {
                 ref="password"
               />
             </fieldset>
-            <button onClick={ this.handleClick } className={classNames("large big success button spinner touch-event", { "touch-active spinner-active": this.state.isClicked})}>
-              <div className="icon-spin"/>
+            <button onClick={this.handleClick} className={classNames('large big success button spinner touch-event', { 'touch-active spinner-active': this.state.isClicked })}>
+              <div className="icon-spin" />
               <span>Se connecter</span>
             </button>
           </form>
           <div className="extra-content">
             <div className="error">
-              <i className="icon icon-error"/>
+              <i className="icon icon-error" />
               <span>ErrorCode</span>
             </div>
             <a className="lost-password" href="/password"> Mot de passe perdu ? </a>
-            <a className="subscription" href="/register"><i className="icon icon-chevron-right"></i> Pas encore inscrit ?  </a>
+            <a className="subscription" href="/register"><i className="icon icon-chevron-right" /> Pas encore inscrit ?            </a>
           </div>
         </div>
       </div>
@@ -82,5 +80,5 @@ export default class Login extends Component {
 }
 
 Login.contextTypes = {
-  router: React.PropTypes.object
+  router: React.PropTypes.object,
 };

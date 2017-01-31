@@ -13,24 +13,24 @@ import { Circles } from '../circles/collection.js';
 import historyUserAction from '../history/functions.js';
 
 Meteor.methods({
-  'groups.insert'(group) {
+  'groups.insert': function (group) {
     new SimpleSchema({
       name: {
-        type: String
+        type: String,
       },
       description: {
         type: String,
-        optional: true
+        optional: true,
       },
       imageUrl: {
         type: String,
-        optional: true
-      }
+        optional: true,
+      },
     }).validate(group);
 
     if (!this.userId) {
       throw new Meteor.Error('not-logged-in',
-        "Vous devez être connecté pour créer un groupe de discussion.");
+        'Vous devez être connecté pour créer un groupe de discussion.');
     }
 
     group._id = new Mongo.ObjectID()._str;
@@ -43,35 +43,35 @@ Meteor.methods({
     Channels.insert(group);
 
     const msg = {
-      text: 'Le groupe : ' + group.name + ' a été crée.',
-      channelId: group._id
+      text: `Le groupe : ${group.name} a été crée.`,
+      channelId: group._id,
     };
     Messages.insert(msg);
 
     const lastReadField = `lastReadAt.${group._id}`;
     Meteor.users.update(this.userId, {
       $push: { subscribedChannels: group._id },
-      $set: { [lastReadField]: Date.now() }
+      $set: { [lastReadField]: Date.now() },
     });
   },
 
-  'channels.insert'(channel, parentId) {
+  'channels.insert': function (channel, parentId) {
     if (!this.userId) {
       throw new Meteor.Error('not-logged-in',
-        "Vous devez être connecté pour créer une action.");
+        'Vous devez être connecté pour créer une action.');
     }
 
     check(parentId, String);
     check(channel, {
       name: String,
-      description: Match.Maybe(String)
+      description: Match.Maybe(String),
     });
 
     const parent = Channels.findOne(parentId);
 
     if (!parent) {
       throw new Meteor.Error('parent-not-found',
-        "Le petit Chan a perdu ses parents, il a donc été supprimé.")
+        'Le petit Chan a perdu ses parents, il a donc été supprimé.');
     }
     channel.parentId = parent._id;
     channel.depth = parent.depth + 1;
@@ -81,42 +81,42 @@ Meteor.methods({
     channel.imageUrl = '/img/red_action.png';
     channel.incompleteTasks = 0;
 
-    const channelId = Channels.insert(channel)
+    const channelId = Channels.insert(channel);
 
     const msg = {
-      text: 'le groupe : ' + channel.name + ' a été crée',
+      text: `le groupe : ${channel.name} a été crée`,
       url: channelId,
       type: 'channel',
-      channelId: parentId
+      channelId: parentId,
     };
     const messageId = Messages.insert(msg);
 
     const welcomeMessage = {
-      text: `Invitez des amis en cliquant sur + puis People.`,
-      channelId: channelId
+      text: 'Invitez des amis en cliquant sur + puis People.',
+      channelId,
     };
     Messages.insert(welcomeMessage);
 
     Channels.update(parentId, {
-      $inc: {'connections.channelCount' : 1}
+      $inc: { 'connections.channelCount': 1 },
     });
     Channels.update(channelId, {
-      $set: { messageId: messageId }
+      $set: { messageId },
     });
 
     const lastReadField = `lastReadAt.${channelId}`;
     Meteor.users.update(this.userId, {
       $push: { subscribedChannels: channelId },
-      $set: { [lastReadField]: Date.now() }
+      $set: { [lastReadField]: Date.now() },
     });
 
     return channelId;
   },
 
-  'channels.join'(channelId) {
+  'channels.join': function (channelId) {
     if (!this.userId) {
       throw new Meteor.Error('not-logged-in',
-        "Vous devez être connecté pour rejoindre un groupe de discussion.");
+        'Vous devez être connecté pour rejoindre un groupe de discussion.');
     }
 
     check(channelId, String);
@@ -131,24 +131,24 @@ Meteor.methods({
       const lastReadField = `lastReadAt.${channelId}`;
       Meteor.users.update(this.userId, {
         $push: { subscribedChannels: channelId },
-        $set: { [lastReadField]: Date.now() }
+        $set: { [lastReadField]: Date.now() },
       });
 
       const username = Meteor.users.findOne(this.userId).username;
       const msg = {
         text: `Dites un petit mot d'accueil à ${username} qui vient de rejoindre le groupe.`,
-        channelId: channel._id
+        channelId: channel._id,
       };
       Messages.insert(msg);
     }
   },
 
-  'channels.leave'(channelId) {
+  'channels.leave': function (channelId) {
     const userId = this.userId;
 
     if (!userId) {
       throw new Meteor.Error('not-logged-in',
-        "Vous devez être connecté pour rejoindre un groupe de discussion.");
+        'Vous devez être connecté pour rejoindre un groupe de discussion.');
     }
 
     check(channelId, String);
@@ -157,32 +157,32 @@ Meteor.methods({
 
     if (channel && _.contains(channel.members, userId)) {
       Channels.update(channelId, {
-        $pullAll: { members: [userId] }
+        $pullAll: { members: [userId] },
       });
 
       if (channel.type === 'conversation') {
         Meteor.users.update(userId, {
-          $pullAll: { subscribedConversations: [channelId] }
+          $pullAll: { subscribedConversations: [channelId] },
         });
       } else {
         Meteor.users.update(userId, {
-          $pullAll: { subscribedChannels: [channelId] }
+          $pullAll: { subscribedChannels: [channelId] },
         });
       }
 
       const username = Meteor.users.findOne(userId).username;
       const msg = {
         text: `${username} vient de quitter le groupe.`,
-        channelId: channel._id
+        channelId: channel._id,
       };
       Messages.insert(msg);
     }
   },
 
-  'channels.conversationCreate'(members, circleId) {
+  'channels.conversationCreate': function (members, circleId) {
     if (!this.userId) {
       throw new Meteor.Error('not-logged-in',
-        "Vous devez être connecté pour créer un groupe de discussion.");
+        'Vous devez être connecté pour créer un groupe de discussion.');
     }
     members.push(this.userId);
 
@@ -190,89 +190,89 @@ Meteor.methods({
       const circle = Circles.findOne(circleId);
       if (circle.channel) {
         throw new Meteor.Error('already-exist',
-        "Cette conversation existe deja.");
+        'Cette conversation existe deja.');
       }
     }
 
-    const participants = Meteor.users.find({_id: {$in: members}}).fetch();
+    const participants = Meteor.users.find({ _id: { $in: members } }).fetch();
     if (participants.length !== members.length) {
       throw new Meteor.Error('user-not-found',
       "Nous n'avons pas trouvé tout les utilisateurs pour créer une conversation.");
     }
 
     const newConversationChannel = {
-      name: "Discussion privée",
+      name: 'Discussion privée',
       depth: 0,
-      parentId: "",
-      rootId: "",
-      messageId: "",
+      parentId: '',
+      rootId: '',
+      messageId: '',
       type: 'conversation',
       imageUrl: '/img/icons/bubble.svg',
-      members
+      members,
     };
 
     const channelId = Channels.insert(newConversationChannel);
 
     if (circleId) {
       Circles.update(circleId, {
-        $set: {channel: channelId}
+        $set: { channel: channelId },
       });
     }
     const lastReadField = `lastReadAt.${channelId}`;
-    Meteor.users.update({_id: {$in: members}}, {
+    Meteor.users.update({ _id: { $in: members } }, {
       $push: { subscribedConversations: channelId },
-      $set: { [lastReadField]: Date.now() }
-    }, {multi: true});
+      $set: { [lastReadField]: Date.now() },
+    }, { multi: true });
     return channelId;
   },
 
-  'channels.edit'(channelId, newChannel) {
+  'channels.edit': function (channelId, newChannel) {
     check(channelId, String);
     new SimpleSchema({
       name: {
         type: String,
-        optional: true
+        optional: true,
       },
       description: {
         type: String,
-        optional: true
+        optional: true,
       },
       imageUrl: {
         type: String,
-        optional: true
-      }
+        optional: true,
+      },
     }).validate(newChannel);
 
     if (!this.userId) {
       throw new Meteor.Error('not-logged-in',
-        "Vous devez être connecté pour créer un groupe de discussion.");
+        'Vous devez être connecté pour créer un groupe de discussion.');
     }
 
     const channel = Channels.findOne(channelId, { fields: { author: 1 } });
     if (channel.author !== this.userId && !Meteor.user().isAdmin) {
-      throw new Meteor.Error('no-right', "Vous n'avez pas les droits pour faire ça.")
+      throw new Meteor.Error('no-right', "Vous n'avez pas les droits pour faire ça.");
     }
 
-    let modifier = {};
-    _.keys(newChannel).forEach(key => {
+    const modifier = {};
+    _.keys(newChannel).forEach((key) => {
       modifier[key] = newChannel[key];
     });
 
     Channels.update(channelId, { $set: modifier });
   },
 
-  'channels.delete'(channelId) {
+  'channels.delete': function (channelId) {
     check(channelId, String);
 
     if (!this.userId) {
       throw new Meteor.Error('not-logged-in',
-        "Vous devez être connecté pour supprimer une action.");
+        'Vous devez être connecté pour supprimer une action.');
     }
-    const hasChildren = Channels.find({parentId: channelId}).count();
+    const hasChildren = Channels.find({ parentId: channelId }).count();
 
     if (hasChildren) {
       throw new Meteor.Error('has-children',
-        "Cette action contient des sous-actions, vous ne pouvez la supprimer.");
+        'Cette action contient des sous-actions, vous ne pouvez la supprimer.');
     }
 
     const channel = Channels.findOne(channelId, { fields: {
@@ -280,7 +280,7 @@ Meteor.methods({
       parentId: 1,
       rootId: 1,
       type: 1,
-      connections: 1
+      connections: 1,
     } });
     if (channel && (channel.author === this.userId || Meteor.user().isAdmin)) {
       if (channel.type === 'channel' || channel.type === 'group') {
@@ -288,36 +288,36 @@ Meteor.methods({
           pollCount,
           beerCount,
           feedbackCount,
-          coinCount
+          coinCount,
         } = channel.connections;
         if (pollCount) {
-          Polls.remove({channelId});
+          Polls.remove({ channelId });
         }
         if (beerCount) {
-          Beers.remove({channelId});
+          Beers.remove({ channelId });
         }
         if (feedbackCount) {
-          Feedbacks.remove({channelId});
+          Feedbacks.remove({ channelId });
         }
         if (coinCount) {
-          Coins.remove({channelId});
+          Coins.remove({ channelId });
         }
         if (channel.parentId) {
           Channels.update(channel.parentId, {
-            $inc: { 'connections.channelCount': -1 }
+            $inc: { 'connections.channelCount': -1 },
           });
         }
 
         const lastReadField = `lastReadAt.${channelId}`;
         Meteor.users.update({ subscribedChannels: { $in: [channelId] } }, {
           $pullAll: { subscribedChannels: [channelId] },
-          $unset: { [lastReadField]: '' }
+          $unset: { [lastReadField]: '' },
         });
       } else if (channel.type === 'conversation') {
         const lastReadField = `lastReadAt.${channelId}`;
         Meteor.users.update({ subscribedConversations: { $in: [channelId] } }, {
           $pullAll: { subscribedConversations: [channelId] },
-          $unset: { [lastReadField]: '' }
+          $unset: { [lastReadField]: '' },
         });
       }
 
@@ -325,10 +325,10 @@ Meteor.methods({
     }
   },
 
-  'channels.changePicture'(channelId, imageUrl) {
+  'channels.changePicture': function (channelId, imageUrl) {
     if (!this.userId) {
       throw new Meteor.Error('not-logged-in',
-        "Vous devez vous connecter pour modifier une image.");
+        'Vous devez vous connecter pour modifier une image.');
     }
 
     check(channelId, String);
@@ -343,29 +343,29 @@ Meteor.methods({
     }
 
     Channels.update(channelId, {
-      $set: { imageUrl }
+      $set: { imageUrl },
     });
   },
 
-  'channels.startTyping'(channelId) {
+  'channels.startTyping': function (channelId) {
     if (!this.userId) {
       throw new Meteor.Error('not-logged-in',
-        "Vous devez vous connecter pour commencer à taper.");
+        'Vous devez vous connecter pour commencer à taper.');
     }
 
     Channels.update(channelId, {
-      $push: { isTyping: this.userId }
+      $push: { isTyping: this.userId },
     });
   },
 
-  'channels.stopTyping'(channelId) {
+  'channels.stopTyping': function (channelId) {
     if (!this.userId) {
       throw new Meteor.Error('not-logged-in',
-        "Vous devez vous connecter pour arrêter de taper.");
+        'Vous devez vous connecter pour arrêter de taper.');
     }
 
     Channels.update(channelId, {
-      $pullAll: { isTyping: [this.userId] }
+      $pullAll: { isTyping: [this.userId] },
     });
-  }
+  },
 });

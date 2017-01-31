@@ -1,10 +1,10 @@
-import React            from 'react';
+import React from 'react';
 
 import DropDownBottom from '../DropDownBottom';
 import PollEdit from './PollEdit';
 import AvatarRowContainer from '../../containers/AvatarRowContainer';
-import { Toast }         from '../../helpers/Toast';
-import { openModal }         from '../../helpers/Modal';
+import { Toast } from '../../helpers/Toast';
+import { openModal } from '../../helpers/Modal';
 
 export default class PollItem extends React.Component {
 
@@ -12,7 +12,7 @@ export default class PollItem extends React.Component {
     super(props);
 
     this.state = {
-      selectedProposition: ''
+      selectedProposition: '',
     };
 
     this.openEdit = this.openEdit.bind(this);
@@ -22,30 +22,26 @@ export default class PollItem extends React.Component {
 
   openEdit() {
     const {
-      poll
+      poll,
     } = this.props;
     const component = <PollEdit poll={poll} />;
-    openModal(component, "Modifier la question du sondage.");
+    openModal(component, 'Modifier la question du sondage.');
   }
 
   hasVoted() {
     const {
       user,
-      propositions
+      propositions,
     } = this.props;
 
     if (propositions.length) {
-      return propositions.some(proposition => {
-        return proposition.voteReceivedFrom.some(id => {
-          return id === user._id;
-        });
-      });
+      return propositions.some(proposition => proposition.voteReceivedFrom.some(id => id === user._id));
     }
   }
 
   deletePoll() {
     const {
-      poll
+      poll,
     } = this.props;
 
     Meteor.call('polls.delete', poll._id);
@@ -53,18 +49,18 @@ export default class PollItem extends React.Component {
 
   selectProposition(propositionId) {
     this.setState({
-      selectedProposition: propositionId
+      selectedProposition: propositionId,
     });
   }
 
   getVotePercent(proposition) {
     const {
-      poll
+      poll,
     } = this.props;
     const percent = (proposition.voteReceivedFrom.length * 100) / poll.totalVote || 0;
 
     return {
-      width: percent + '%'
+      width: `${percent}%`,
     };
   }
 
@@ -76,12 +72,12 @@ export default class PollItem extends React.Component {
 
   voteForAPoll() {
     const {
-      selectedProposition
+      selectedProposition,
     } = this.state;
 
     Meteor.call('polls.vote', this.props.poll._id, selectedProposition, (err, res) => {
       if (err) {
-        Toast(err.reason, "danger");
+        Toast(err.reason, 'danger');
       }
     });
   }
@@ -90,25 +86,25 @@ export default class PollItem extends React.Component {
     const {
       poll,
       propositions,
-      user
+      user,
     } = this.props;
 
-    const propositionNodes = propositions.map(function(proposition, i) {
+    const propositionNodes = propositions.map(function (proposition, i) {
       return (
         <div key={proposition._id}>
           {
             !this.hasVoted() ?
-            <div className="radio">
-              <input id={i} type="radio" className="primary" name='radio-group' onClick={this.selectProposition.bind(this, proposition._id)}/>
-              <label htmlFor={i}>{proposition.name}</label>
-            </div>
+              <div className="radio">
+                <input id={i} type="radio" className="primary" name="radio-group" onClick={this.selectProposition.bind(this, proposition._id)} />
+                <label htmlFor={i}>{proposition.name}</label>
+              </div>
             :
               <div>
                 <p className="b">
                   {proposition.name}
                 </p>
                 <div className="progress-bar-wrapper">
-                  <div className="progress-bar success" style={this.getVotePercent(proposition)}></div>
+                  <div className="progress-bar success" style={this.getVotePercent(proposition)} />
                   <span>{proposition.voteReceivedFrom.length} votes reçus </span>
                 </div>
               </div>
@@ -119,12 +115,12 @@ export default class PollItem extends React.Component {
 
     return (
       <div className="chat-special-bubble chat-special-bubble-poll">
-          <div className="bubble-content">
-              <div className="bubble-header">
-                <i className="icon icon-pie-chart icon-pollz-color"/>
-                <span><a href="">{this.getAuthorName.bind(this, poll.author)}</a> à lancé un sondage</span>
-                <h5> {poll.question}</h5>
-                {
+        <div className="bubble-content">
+          <div className="bubble-header">
+            <i className="icon icon-pie-chart icon-pollz-color" />
+            <span><a href="">{this.getAuthorName.bind(this, poll.author)}</a> à lancé un sondage</span>
+            <h5> {poll.question}</h5>
+            {
                   (poll.author === user._id || user.isAdmin) ?
                     <DropDownBottom>
                       <ul>
@@ -134,20 +130,20 @@ export default class PollItem extends React.Component {
                     </DropDownBottom>
                   : ''
                 }
-              </div>
-              <div className="poll-choice">{propositionNodes}</div>
-              {
+          </div>
+          <div className="poll-choice">{propositionNodes}</div>
+          {
                 this.hasVoted() ?
                   <div className="success-box">
-                    <h4><i className="icon icon-check"/>Vous avez déjà voté.</h4>
+                    <h4><i className="icon icon-check" />Vous avez déjà voté.</h4>
                   </div>
                 :
                   <button className="success button" onClick={this.voteForAPoll}>
                     Voter
                   </button>
               }
-              <AvatarRowContainer isLarge={true} userIds={poll.members} />
-          </div>
+          <AvatarRowContainer isLarge userIds={poll.members} />
+        </div>
       </div>
     );
   }

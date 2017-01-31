@@ -1,24 +1,24 @@
-import React from 'react'
+import React from 'react';
 import { Link } from 'react-router';
 
 import AppNav from '../components/AppNav.jsx';
 import Breadcrumb from '../components/Breadcrumb.jsx';
 import List from '../components/List.jsx';
-import CircleItem from '../components/CircleItem.jsx'
-import UserItem from '../components/UserItem.jsx'
+import CircleItem from '../components/CircleItem.jsx';
+import UserItem from '../components/UserItem.jsx';
 import CircleForm from '../components/CircleForm';
 import ContactInvite from '../components/ContactInvite';
 import DropDown from '../components/DropDown';
 import TouchEvent from '../components/TouchEvent.jsx';
-import { Toast }         from '../helpers/Toast';
-import { openModal }         from '../helpers/Modal';
+import { Toast } from '../helpers/Toast';
+import { openModal } from '../helpers/Modal';
 
 
 export default class ContactPage extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {isLoaded: false};
+    this.state = { isLoaded: false };
     this.acceptInvite = this.acceptInvite.bind(this);
     this.refuseInvite = this.refuseInvite.bind(this);
     this.openCircleModal = this.openCircleModal.bind(this);
@@ -31,7 +31,7 @@ export default class ContactPage extends React.Component {
   acceptInvite(userSelectedId) {
     Meteor.call('repertory.acceptInvite', userSelectedId, (err, res) => {
       if (err) {
-        Toast(err.reason, "danger");
+        Toast(err.reason, 'danger');
       }
     });
   }
@@ -45,7 +45,7 @@ export default class ContactPage extends React.Component {
   refuseInvite(userSelectedId) {
     Meteor.call('repertory.refuseInvite', userSelectedId, (err, res) => {
       if (err) {
-        Toast(err.reason, "danger");
+        Toast(err.reason, 'danger');
       }
     });
   }
@@ -53,21 +53,21 @@ export default class ContactPage extends React.Component {
   removeContact(userSelectedId) {
     Meteor.call('repertory.removeContact', userSelectedId, (err, res) => {
       if (err) {
-        Toast(err.reason, "danger");
+        Toast(err.reason, 'danger');
       } else {
-        Toast(`Le contact a été supprimé.`, "success");
+        Toast('Le contact a été supprimé.', 'success');
       }
     });
   }
 
   openInviteModal() {
     const component = <ContactInvite />;
-    openModal(component, "Inviter un contact");
+    openModal(component, 'Inviter un contact');
   }
 
   openCircleModal(circle, e) {
     const {
-      usersContact
+      usersContact,
     } = this.props;
 
     if (!e) {
@@ -80,9 +80,9 @@ export default class ContactPage extends React.Component {
   }
 
   isLoaded() {
-    setTimeout( () => {
-      this.setState({isLoaded: true});
-    }, 1350 );
+    setTimeout(() => {
+      this.setState({ isLoaded: true });
+    }, 1350);
   }
 
   renderChild() {
@@ -103,7 +103,7 @@ export default class ContactPage extends React.Component {
       usersInvitationSent,
       loading,
       user,
-      children
+      children,
     } = this.props;
 
     return (
@@ -121,8 +121,8 @@ export default class ContactPage extends React.Component {
 
               <div>
                 <div className="list-sub-menu small">
-                    <i className="big-icon icon icon-users"/>
-                    <h5>Vos invitations en attente</h5>
+                  <i className="big-icon icon icon-users" />
+                  <h5>Vos invitations en attente</h5>
                 </div>
                 <List
                   data={usersInvitationReceived}
@@ -130,24 +130,24 @@ export default class ContactPage extends React.Component {
                   emptyListString="Aucune invitation en attente"
                   acceptInvite={this.acceptInvite}
                   refuseInvite={this.refuseInvite}
-                  >
+                >
                   <UserItem />
                 </List>
                 <div className="list-sub-menu small">
-                    <i className="big-icon icon icon-users"/>
-                    <h5>Vos invitations envoyées</h5>
+                  <i className="big-icon icon icon-users" />
+                  <h5>Vos invitations envoyées</h5>
                 </div>
                 <List
                   data={usersInvitationSent}
                   emptyListString="Aucune invitation en cours de validation"
                   type="invitationSent"
-                  >
+                >
                   <UserItem />
                 </List>
 
                 <div className="list-sub-menu small">
-                    <i className="big-icon icon icon-users"/>
-                    <h5>Vos contacts</h5>
+                  <i className="big-icon icon icon-users" />
+                  <h5>Vos contacts</h5>
                 </div>
                 <List
                   data={usersContact}
@@ -155,12 +155,12 @@ export default class ContactPage extends React.Component {
                   removeContact={this.removeContact}
                   goToProfile={this.goTo}
                   emptyListString="Vous n'avez aucun contact. Ajouter vos amis !"
-                  >
+                >
                   <UserItem />
                 </List>
               </div>
 
-              <hr className="hidden"/>
+              <hr className="hidden" />
               <button className="button self-center success" onClick={this.goTo.bind(this, '/contact/circles')} >
                 Gérer mes cercles
               </button>
@@ -174,14 +174,14 @@ export default class ContactPage extends React.Component {
               }
               */}
             </div>
-        </div>
+          </div>
         }
-        <AppNav user={user}/>
+        <AppNav user={user} />
       </div>
     );
   }
 }
 
 ContactPage.contextTypes = {
-  router: React.PropTypes.object
+  router: React.PropTypes.object,
 };

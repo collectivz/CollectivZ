@@ -13,6 +13,7 @@ class CoinCollection extends Mongo.Collection {
     coin.givers = [];
     coin.createdAt = Date.now();
     coin.type = 'coin';
+    coin.objectionable = false;
 
     return super.insert(coin);
   }
@@ -20,10 +21,10 @@ class CoinCollection extends Mongo.Collection {
   remove(selector) {
     const coins = Coins.find(selector, { fields: { _id: 1, channelId: 1 } }).fetch();
 
-    coins.forEach(coin => {
-      Messages.remove({coinId: coin._id});
+    coins.forEach((coin) => {
+      Messages.remove({ coinId: coin._id });
       Channels.update({ _id: coin.channelId }, {
-        $inc: { 'connections.coinCount': -1 }
+        $inc: { 'connections.coinCount': -1 },
       });
     });
 

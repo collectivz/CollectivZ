@@ -1,39 +1,37 @@
 import React, { Component } from 'react';
 import { Meteor } from 'meteor/meteor';
-import classNames                       from 'classnames';
+import classNames from 'classnames';
 
-import { Toast }         from '../helpers/Toast';
+import { Toast } from '../helpers/Toast';
 
 export default class PasswordLost extends Component {
 
   constructor(props) {
     super(props);
 
-    this.state = { isClicked : false };
+    this.state = { isClicked: false };
     this.handleClick = this.handleClick.bind(this);
   }
 
   handleClick(e) {
+    e.preventDefault();
+    this.setState({ isClicked: true });
 
-      e.preventDefault();
-      this.setState( { isClicked : true } );
+    setTimeout(() => {
+      this.setState({ isClicked: false });
+      const email = this.refs.email.value;
 
-      setTimeout( () => {
-          this.setState( { isClicked : false } );
-          const email = this.refs.email.value;
-
-          if (email) {
-            Meteor.call('users.lostPassword', email, (err, res) => {
-              if (err) {
-                Toast(err.reason, 'danger');
-              } else {
-                Toast('Un email contenant le nouveau mot de passe va vous être envoyé.', "success");
-                this.refs.email.value = '';
-              }
-            });
+      if (email) {
+        Meteor.call('users.lostPassword', email, (err, res) => {
+          if (err) {
+            Toast(err.reason, 'danger');
+          } else {
+            Toast('Un email contenant le nouveau mot de passe va vous être envoyé.', 'success');
+            this.refs.email.value = '';
           }
-      }, 500);
-
+        });
+      }
+    }, 500);
   }
 
   render() {
@@ -45,7 +43,7 @@ export default class PasswordLost extends Component {
             <h2>Collectivz</h2>
             <h5>Refaire le monde est donné à tout le monde</h5>
             <fieldset className="large has-icon name">
-              <i className="icon icon-mail"></i>
+              <i className="icon icon-mail" />
               <input
                 className="large"
                 type="text"
@@ -53,18 +51,18 @@ export default class PasswordLost extends Component {
                 ref="email"
               />
             </fieldset>
-            <button onClick={ this.handleClick } className={classNames("large big success button spinner touch-event", { "touch-active spinner-active": this.state.isClicked})}>
-              <div className="icon-spin"/>
+            <button onClick={this.handleClick} className={classNames('large big success button spinner touch-event', { 'touch-active spinner-active': this.state.isClicked })}>
+              <div className="icon-spin" />
               <span>Réinitialiser le mot de passe</span>
             </button>
           </form>
           <div className="extra-content">
             <div className="error">
-              <i className="icon icon-error"/>
+              <i className="icon icon-error" />
               <span>ErrorCode</span>
             </div>
             <a className="lost-password" href="/login"> Se connecter </a>
-            <a className="subscription" href="/register"><i className="icon icon-chevron-right"></i> Pas encore inscrit ?  </a>
+            <a className="subscription" href="/register"><i className="icon icon-chevron-right" /> Pas encore inscrit ?            </a>
           </div>
         </div>
       </div>

@@ -12,6 +12,7 @@ class ChannelCollection extends Mongo.Collection {
     channel.receivedFeedback = false;
     channel.connections = {};
     channel.isTyping = [];
+    channel.objectionable = false;
 
 
     return super.insert(channel);

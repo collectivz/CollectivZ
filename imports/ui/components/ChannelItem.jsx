@@ -1,11 +1,11 @@
-import React, { Component, PropTypes }          from 'react';
-import { Meteor }                               from 'meteor/meteor';
-import { Router, Route, Link, browserHistory }  from 'react-router';
-import { _ }                                    from 'meteor/underscore';
-import TouchEvent                               from './TouchEvent';
+import React, { Component, PropTypes } from 'react';
+import { Meteor } from 'meteor/meteor';
+import { Router, Route, Link, browserHistory } from 'react-router';
+import { _ } from 'meteor/underscore';
+import TouchEvent from './TouchEvent';
 
-import ActionList                               from './ActionList.jsx';
-import { Toast }         from '../helpers/Toast';
+import ActionList from './ActionList.jsx';
+import { Toast } from '../helpers/Toast';
 
 export default class ChannelItem extends React.Component {
 
@@ -26,37 +26,33 @@ export default class ChannelItem extends React.Component {
       dest = `/group/${data._id}`;
     }
 
-    setTimeout( () => {
+    setTimeout(() => {
       browserHistory.push(dest);
       Meteor.call('users.updateLastRead', data._id, (err, res) => {
         if (err) {
-          Toast(err.reason, "danger");
+          Toast(err.reason, 'danger');
         }
       });
-    }, 350 );
-
+    }, 350);
   }
 
   getCss() {
     const {
       data,
       renderMargin,
-      count
+      count,
     } = this.props;
 
 
-    if (data && data.type === 'channel' && renderMargin)
-      return count ? 'list-item touch-event sub-list has-notif' : 'list-item touch-event sub-list';
-    else
-      return count ? 'list-item touch-event has-notif' : 'list-item touch-event';
+    if (data && data.type === 'channel' && renderMargin) { return count ? 'list-item touch-event sub-list has-notif' : 'list-item touch-event sub-list'; }
+    return count ? 'list-item touch-event has-notif' : 'list-item touch-event';
   }
 
   render() {
-
     const {
       data,
       renderUnread,
-      count
+      count,
     } = this.props;
 
     return (
@@ -67,7 +63,7 @@ export default class ChannelItem extends React.Component {
             <p className="title">{data.name}</p>
             <p className="text">
               {data.lastMessage ?
-                  <span>{data.lastMessage.author}</span>
+                <span>{data.lastMessage.author}</span>
                 : ''
               }
               {data.lastMessage ?
@@ -81,7 +77,7 @@ export default class ChannelItem extends React.Component {
             }
             {
               renderUnread && count ?
-                <div className="list-item-notif"><span>{count}</span><i className="icon icon-envelope"></i></div>
+                <div className="list-item-notif"><span>{count}</span><i className="icon icon-envelope" /></div>
                 : ''
             }
           </div>

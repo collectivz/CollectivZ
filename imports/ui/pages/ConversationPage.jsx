@@ -7,8 +7,8 @@ import Loader from '../components/Loader.jsx';
 import DropDown from '../components/DropDown.jsx';
 import MessageList from '../components/chat/MessageList.jsx';
 import MessageInput from '../components/chat/MessageInput.jsx';
-import { Toast }         from '../helpers/Toast';
-import { openModal }         from '../helpers/Modal';
+import { Toast } from '../helpers/Toast';
+import { openModal } from '../helpers/Modal';
 
 export default class ConversationPage extends React.Component {
 
@@ -16,7 +16,7 @@ export default class ConversationPage extends React.Component {
     super(props);
 
     this.state = {
-      messageCount: this.props.messages.length
+      messageCount: this.props.messages.length,
     };
 
     this.leaveAction = this.leaveAction.bind(this);
@@ -27,7 +27,7 @@ export default class ConversationPage extends React.Component {
 
     Meteor.call('channels.leave', channel._id, (err, res) => {
       if (!err) {
-        Toast(`Vous avez quitté le groupe ${channel.name}.`, "success");
+        Toast(`Vous avez quitté le groupe ${channel.name}.`, 'success');
         this.context.router.push('/my-groups');
       } else {
         Toast(err.reason, 'danger');
@@ -37,32 +37,31 @@ export default class ConversationPage extends React.Component {
 
   scrollDown() {
     const elem = $('.chat-sub-container');
-    $(".chat-sub-container").scrollTop(1000000);
+    $('.chat-sub-container').scrollTop(1000000);
   }
 
   componentDidUpdate() {
     const {
       channel,
-      messages
+      messages,
     } = this.props;
     const {
-      messageCount
+      messageCount,
     } = this.state;
 
     if (channel && messageCount !== messages.length) {
       Meteor.call('users.updateLastRead', channel._id, (err, res) => {
         if (err) {
-          Toast(err.reason, "danger");
+          Toast(err.reason, 'danger');
         }
       });
       this.setState({
-        messageCount: messages.length
+        messageCount: messages.length,
       });
     }
   }
 
   render() {
-
     const { loading, channel, messages, user } = this.props;
 
     return (
@@ -70,7 +69,7 @@ export default class ConversationPage extends React.Component {
         <Loader />
       :
         <div>
-          <Breadcrumb title="Conversation" hasBack={true}>
+          <Breadcrumb title="Conversation" hasBack>
             <DropDown>
               <ul>
                 <li><a className="drop-down-menu-link" onClick={this.leaveAction}> Quitter </a></li>
@@ -78,10 +77,10 @@ export default class ConversationPage extends React.Component {
             </DropDown>
           </Breadcrumb>
           <div className="chat-sub-container">
-            <div ref='scroll'>
+            <div ref="scroll">
               <div className="chat">
                 <div className="message-list">
-                  <MessageList messages={messages} user={user}/>
+                  <MessageList messages={messages} user={user} />
                 </div>
               </div>
             </div>
@@ -97,5 +96,5 @@ ConversationPage.propTypes = {
 };
 
 ConversationPage.contextTypes = {
-  router: PropTypes.object
+  router: PropTypes.object,
 };

@@ -9,19 +9,18 @@ import HeroItem from './HeroItem';
 export default class HeroPicker extends React.Component {
 
   render() {
-
     return (
       <div className="sub-container page">
-        <Breadcrumb title="Mon héros" hasBack={true} />
+        <Breadcrumb title="Mon héros" hasBack />
         <div className="header">
-          <i className="icon icon-hero"></i>
+          <i className="icon icon-hero" />
           <h4>Choisir son héros</h4>
         </div>
         <div className="hero-list content">
           <List
             data={Heroes}
             emptyListString="Aucun héros, ce qui est bizarre."
-            >
+          >
             <HeroItem />
           </List>
         </div>

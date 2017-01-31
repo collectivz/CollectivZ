@@ -1,7 +1,7 @@
 import {
   USERPROFILE,
   USERPROFILE_ERROR,
-  USERPROFILE_SUCCESS
+  USERPROFILE_SUCCESS,
 } from '../constants/constants';
 
 const initialState = {

@@ -13,13 +13,13 @@ export default createContainer(({ params, user }) => {
   if (_user) {
     var groups = Channels.find({
       _id: { $in: _user.subscribedChannels },
-      type: 'group'
+      type: 'group',
     }).fetch();
     var channels = Channels.find({
       _id: { $in: _user.subscribedChannels },
-      type: 'channel'
+      type: 'channel',
     }).fetch();
-    var history = History.findOne({userId: _user._id});
+    var history = History.findOne({ userId: _user._id });
   }
 
   return {
@@ -27,6 +27,6 @@ export default createContainer(({ params, user }) => {
     currentUser: user,
     groups,
     channels,
-    history
+    history,
   };
 }, ProfilePage);

@@ -9,7 +9,7 @@ export default class RegisterPage extends React.Component {
     super(props);
 
     this.state = {
-      errors: []
+      errors: [],
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -17,15 +17,15 @@ export default class RegisterPage extends React.Component {
 
   componentDidUpdate() {
     const {
-      errors
+      errors,
     } = this.state;
 
     if (errors.length > 0) {
-      errors.forEach(error => {
+      errors.forEach((error) => {
         Toast(error, 'danger');
       });
       this.setState({
-        errors: []
+        errors: [],
       });
     }
   }
@@ -44,39 +44,38 @@ export default class RegisterPage extends React.Component {
       errors.push("Entrez un nom d'utilisateur.");
     }
     if (!email) {
-      errors.push("Entrez un email.");
+      errors.push('Entrez un email.');
     }
     if (!mailRegex.test(email)) {
-      errors.push("Entrez un email valide.");
+      errors.push('Entrez un email valide.');
     }
     if (!password || !passwordAgain) {
-      errors.push("Entrez et confirmez votre mot de passe.");
+      errors.push('Entrez et confirmez votre mot de passe.');
     }
     if (password.length < 6) {
-      errors.push("Votre mot de passe est trop court.");
+      errors.push('Votre mot de passe est trop court.');
     }
     if (password !== passwordAgain) {
-      errors.push("Le mot de passe ne correspond pas à la confirmation.");
+      errors.push('Le mot de passe ne correspond pas à la confirmation.');
     }
 
     if (errors.length) {
       this.setState({
-        errors
+        errors,
       });
     } else {
-      console.log(errors);
-      Accounts.createUser({email, username, password}, (err) => {
+      Accounts.createUser({ email, username, password }, (err) => {
         if (err) {
           console.log(err);
           this.setState({
-            errors: [err.reason]
+            errors: [err.reason],
           });
         } else {
           Meteor.loginWithPassword(username, password, (err) => {
             if (!err) {
               this.context.router.push('/my-groups');
             }
-          })
+          });
         }
       });
     }
@@ -91,7 +90,7 @@ export default class RegisterPage extends React.Component {
             <h2>Collectivz</h2>
             <h5>Refaire le monde est donné à tout le monde</h5>
             <fieldset className="large has-icon">
-              <i className="icon icon-user"></i>
+              <i className="icon icon-user" />
               <input
                 className="large"
                 type="text"
@@ -100,7 +99,7 @@ export default class RegisterPage extends React.Component {
               />
             </fieldset>
             <fieldset className="large has-icon">
-              <i className="icon icon-envelope"></i>
+              <i className="icon icon-envelope" />
               <input
                 className="large"
                 type="text"
@@ -109,7 +108,7 @@ export default class RegisterPage extends React.Component {
               />
             </fieldset>
             <fieldset className="large has-icon">
-              <i className="icon icon-phone"></i>
+              <i className="icon icon-phone" />
               <input
                 className="large"
                 type="tel"
@@ -119,7 +118,7 @@ export default class RegisterPage extends React.Component {
               />
             </fieldset>
             <fieldset className="large has-icon">
-              <i className="icon icon-lock"></i>
+              <i className="icon icon-lock" />
               <input
                 className="large"
                 type="password"
@@ -128,14 +127,14 @@ export default class RegisterPage extends React.Component {
               />
             </fieldset>
             <fieldset className="large has-icon">
-              <i className="icon icon-lock"></i>
+              <i className="icon icon-lock" />
               <input
                 className="large"
                 type="password"
                 placeholder="Confirmation mot de passe"
                 ref="passwordAgain"
               />
-            <input type="submit" value="S'enregister" className="large big success button"/>
+              <input type="submit" value="S'enregister" className="large big success button" />
             </fieldset>
           </form>
           <div className="extra-content">
@@ -150,5 +149,5 @@ export default class RegisterPage extends React.Component {
 }
 
 RegisterPage.contextTypes = {
-  router: React.PropTypes.object
+  router: React.PropTypes.object,
 };

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Toast }         from '../../helpers/Toast';
+import { Toast } from '../../helpers/Toast';
 
 export default class JoinActionButton extends React.Component {
 
@@ -15,13 +15,13 @@ export default class JoinActionButton extends React.Component {
 
     Meteor.call('channels.join', channel._id, (err, res) => {
       if (err) {
-        Toast(err.reason, "danger");
+        Toast(err.reason, 'danger');
       }
     });
   }
 
   render() {
-    $(".chat-sub-container").toggleClass("open");
+    $('.chat-sub-container').toggleClass('open');
     return (
       <div ref="bar" className="chat-input-wrapper disabled open">
         <div className="chat-input-disabled">

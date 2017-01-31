@@ -15,7 +15,7 @@ export default class CoinEdit extends React.Component {
     e.preventDefault();
 
     const {
-      coin
+      coin,
     } = this.props;
 
     const newCoin = {
@@ -26,20 +26,20 @@ export default class CoinEdit extends React.Component {
     if (newCoin.goal > 0) {
       Meteor.call('coins.edit', coin._id, newCoin, (err, res) => {
         if (err) {
-          Toast(err.reason, "danger");
+          Toast(err.reason, 'danger');
         } else {
           closeModal();
-          Toast("Modifications prises en compte.", "success");
+          Toast('Modifications prises en compte.', 'success');
         }
       });
     } else {
-      Toast("Vous devez entrer un nombre positif.", "danger");
+      Toast('Vous devez entrer un nombre positif.', 'danger');
     }
   }
 
   render() {
     const {
-      coin
+      coin,
     } = this.props;
 
     return (
@@ -63,7 +63,7 @@ export default class CoinEdit extends React.Component {
             />
           </fieldset>
           <fieldset className="large">
-            <input type="submit" value="Modifier" className="large success button"/>
+            <input type="submit" value="Modifier" className="large success button" />
           </fieldset>
 
         </form>

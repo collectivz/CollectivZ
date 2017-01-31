@@ -1,9 +1,9 @@
 import React from 'react';
-import { Router, Route, Link, browserHistory }  from 'react-router';
+import { Router, Route, Link, browserHistory } from 'react-router';
 
-import TouchEvent                               from './TouchEvent';
-import classNames                               from 'classnames';
-import { _ }                                    from 'meteor/underscore';
+import TouchEvent from './TouchEvent';
+import classNames from 'classnames';
+import { _ } from 'meteor/underscore';
 
 export default class UserItem extends React.Component {
 
@@ -14,11 +14,11 @@ export default class UserItem extends React.Component {
   }
 
   onClick(dest) {
-    setTimeout( () => {
+    setTimeout(() => {
       if (dest) {
         browserHistory.push(dest);
       }
-    }, 350 );
+    }, 350);
   }
 
   toggleButton() {
@@ -32,34 +32,34 @@ export default class UserItem extends React.Component {
       addToCircle,
       removeContact,
       removeAdmin,
-      goToProfile
+      goToProfile,
     } = this.props;
 
     switch (type) {
       case 'invitation':
         return (
           <div className="merge">
-            <button className="button success" onClick={acceptInvite.bind(this, data._id)}><i className="icon icon-check"></i></button>
-            <button className="button danger" onClick={refuseInvite.bind(this, data._id)}><i className="icon icon-cross"></i></button>
+            <button className="button success" onClick={acceptInvite.bind(this, data._id)}><i className="icon icon-check" /></button>
+            <button className="button danger" onClick={refuseInvite.bind(this, data._id)}><i className="icon icon-cross" /></button>
           </div>
-      )
+        );
       case 'createCircle':
         if (_.contains(circle, data._id)) {
           return (
-            <button className="button only-icon danger" onClick={removeFromCircle.bind(this, data._id)}><i className="icon icon-cross"></i></button>
-          )
-        } else {
-          return (
-            <button className="button only-icon success" onClick={addToCircle.bind(this, data._id)}><i className="icon icon-check"></i></button>
-          )
+            <button className="button only-icon danger" onClick={removeFromCircle.bind(this, data._id)}><i className="icon icon-cross" /></button>
+          );
         }
+        return (
+          <button className="button only-icon success" onClick={addToCircle.bind(this, data._id)}><i className="icon icon-check" /></button>
+        );
+
       case 'contact':
         return (
           <div>
             <button className="button only-icon success" onClick={goToProfile.bind(this, `/profile/${data._id}`)}>Voir le profil</button>
-            <button className="button only-icon danger" onClick={removeContact.bind(this, data._id)}><i className="icon icon-cross"></i></button>
+            <button className="button only-icon danger" onClick={removeContact.bind(this, data._id)}><i className="icon icon-cross" /></button>
           </div>
-        )
+        );
       case 'admin':
         return (
           <button className="button only-icon danger" onClick={removeAdmin.bind(this, data._id)}>Rétrograder</button>
@@ -69,7 +69,7 @@ export default class UserItem extends React.Component {
           <p>En attente...</p>
         );
       default:
-        return ;
+
     }
   }
 
@@ -78,15 +78,15 @@ export default class UserItem extends React.Component {
 
     return (
       <div className="list-item">
-        <TouchEvent onClick={ () => { this.onClick(`/data/${user._id}`) } }>
-            <img className="circle" src={data.imageUrl} alt="" />
+        <TouchEvent onClick={() => { this.onClick(`/data/${user._id}`); }}>
+          <img className="circle" src={data.imageUrl} alt="" />
         </TouchEvent>
         <div className="list-item-content">
           <p className="title">{data.username}</p>
-          <p className="text type">{(data.hero && data.hero.title) ? data.hero.title : ""}</p>
+          <p className="text type">{(data.hero && data.hero.title) ? data.hero.title : ''}</p>
         </div>
         <div className="list-item-action">
-        {this.toggleButton()}
+          {this.toggleButton()}
         </div>
       </div>
     );
@@ -94,5 +94,5 @@ export default class UserItem extends React.Component {
 }
 
 UserItem.contextTypes = {
-  router: React.PropTypes.object
+  router: React.PropTypes.object,
 };

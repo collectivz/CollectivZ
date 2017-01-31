@@ -2,19 +2,18 @@ import { Accounts } from 'meteor/accounts-base';
 
 import { Repertory } from '../repertory/collection.js';
 
-Accounts.onLogin(function() {
+Accounts.onLogin(() => {
   // updates lastLogin date on succesful login
   const lastLogin = Meteor.user().lastLogin;
   const date = Date.now();
 
   if (lastLogin < date) {
-    Meteor.users.update(Meteor.userId(), {$set: {lastLogin: date }})
+    Meteor.users.update(Meteor.userId(), { $set: { lastLogin: date } });
   }
 });
 
 if (Meteor.isServer) {
-
-  Accounts.onCreateUser(function(options, user) {
+  Accounts.onCreateUser((options, user) => {
     const newRepertory = {
       userId: user._id,
     };
@@ -31,6 +30,7 @@ if (Meteor.isServer) {
     user.coinz = 100;
     user.history = '';
     user.lastReadAt = {};
+    user.blockedUsers = [];
     user.repertory = Repertory.insert(newRepertory);
     return user;
   });

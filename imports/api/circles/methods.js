@@ -7,7 +7,7 @@ import { Repertory } from '../repertory/collection.js';
 import { Circles } from './collection.js';
 
 Meteor.methods({
-  'circles.insert'(usersId, name) {
+  'circles.insert': function (usersId, name) {
     const user = Meteor.user();
 
     if (!user) {
@@ -29,16 +29,16 @@ Meteor.methods({
 
     const newCircle = {
       members: usersId,
-      name: name,
+      name,
     };
 
     const circleId = Circles.insert(newCircle);
-    Repertory.update({userId: user._id}, {
-      $push: { circles: circleId}}
+    Repertory.update({ userId: user._id }, {
+      $push: { circles: circleId } },
     );
   },
 
-  'circles.remove'(circleId) {
+  'circles.remove': function (circleId) {
     check(circleId, String);
 
     if (!this.userId) {
@@ -57,14 +57,13 @@ Meteor.methods({
         'Vous ne disposez pas des droits nécéssaires.');
     }
 
-    Repertory.update({userId: user._id}, {
-      $pull: {circles: circleId}
+    Repertory.update({ userId: user._id }, {
+      $pull: { circles: circleId },
     });
     Circles.remove(circleId);
   },
 
-  'circles.edit'(circleId, newMembers, newName) {
-
+  'circles.edit': function (circleId, newMembers, newName) {
     check(circleId, String);
     check(newName, String);
     check(newMembers, [String]);
@@ -84,18 +83,18 @@ Meteor.methods({
         'Vous ne disposez pas des droits nécéssaires.');
     }
 
-    const users = Meteor.users.find({_id: {$in: newMembers}}).fetch();
+    const users = Meteor.users.find({ _id: { $in: newMembers } }).fetch();
     if (users.length !== newMembers.length) {
       throw new Meteor.Error('not-found',
-        "Un des utilisateurs spécifié est introuvable");
+        'Un des utilisateurs spécifié est introuvable');
     }
 
     Circles.update(circleId, {
-      $set: {name: newName, members: newMembers}
+      $set: { name: newName, members: newMembers },
     });
   },
 
-  'circles.editPicture'(url, circleId) {
+  'circles.editPicture': function (url, circleId) {
     const userId = this.userId;
 
     if (!userId) {
@@ -107,7 +106,7 @@ Meteor.methods({
     check(circleId, String);
 
     Circles.update(circleId, {
-      $set: { picture : url }
+      $set: { picture: url },
     });
-  }
+  },
 });

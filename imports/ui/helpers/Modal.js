@@ -1,7 +1,7 @@
 export function openModal(component, title) {
   const event = new CustomEvent('open-modal', { detail: {
     component,
-    title
+    title,
   } });
 
   document.dispatchEvent(event);

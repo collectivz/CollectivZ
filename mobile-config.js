@@ -1,5 +1,4 @@
 App.accessRule('*');
-App.accessRule('*', { type: 'navigation' });
 
 App.setPreference('android-targetSdkVersion', '21');
 

@@ -12,11 +12,10 @@ export default class ProfilePage extends Component {
   goTo(url) {
     setTimeout(() => {
       this.context.router.push(url);
-    }, 350)
+    }, 350);
   }
 
   render() {
-
     const { user, groups, channels, currentUser, history } = this.props;
     let actionHistory = [];
 
@@ -27,32 +26,29 @@ export default class ProfilePage extends Component {
     return (
       <div className="screen-box">
         {user ?
-            <div className="screen-box">
+          <div className="screen-box">
 
-              <Breadcrumb title={`Profil de ${user.username}`} hasBack={true} />
+            <Breadcrumb title={`Profil de ${user.username}`} hasBack />
 
-                {
-                  children ?
-                    children
-                  :
-                  <div className="sub-container">
-                    <UserHeader user={user}/>
-                    <div className='list'>
+            {
+                  children || <div className="sub-container">
+                    <UserHeader user={user} />
+                    <div className="list">
                       <TouchEvent class="touch-event" onClick={this.goTo.bind(this, '/my-profile/history')}>
                         <p>Mes informations personnelles</p>
                       </TouchEvent>
                     </div>
                   </div>
                 }
-              <AppNav user={currentUser} />
-            </div>
+            <AppNav user={currentUser} />
+          </div>
           : <Loader />
         }
       </div>
-      );
+    );
   }
 }
 
 ProfilePage.contextTypes = {
-  router: React.PropTypes.object
+  router: React.PropTypes.object,
 };

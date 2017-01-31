@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { Meteor } from 'meteor/meteor';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
-import { browserHistory, Router, Route, Link, withRouter, hashHistory } from 'react-router'
+import { browserHistory, Router, Route, Link, withRouter, hashHistory } from 'react-router';
 
 import AppContainer from '../imports/ui/containers/AppContainer.jsx';
 import ChannelListContainer from '../imports/ui/containers/ChannelListContainer.jsx';
@@ -32,27 +32,27 @@ Meteor.startup(() => {
   render(
     <Provider store={store}>
       <Router history={browserHistory}>
-      <Route path='/register' component={RegisterPage} />
-      <Route path='/password' component={PasswordLost} />
+        <Route path="/register" component={RegisterPage} />
+        <Route path="/password" component={PasswordLost} />
         <Route path="/" component={AppContainer}>
-          <Route path='/my-groups' component={ChannelListContainer} />
-          <Route path='/group/:groupId' component={ChannelPageContainer} />
-          <Route path='/group-list' component={GroupListContainer} />
-          <Route path='/conversation/:conversationId' component={ConversationPageContainer} />
-          <Route path='/admin' component={AdminPageContainer} />
-          <Route path='/contact' component={ContactPageContainer}>
+          <Route path="/my-groups" component={ChannelListContainer} />
+          <Route path="/group/:groupId" component={ChannelPageContainer} />
+          <Route path="/group-list" component={GroupListContainer} />
+          <Route path="/conversation/:conversationId" component={ConversationPageContainer} />
+          <Route path="/admin" component={AdminPageContainer} />
+          <Route path="/contact" component={ContactPageContainer}>
             <Route path="circles" component={CirclePageContainer} />
           </Route>
-          <Route path='/my-profile' component={MyProfileContainer}>
-            <Route path='infos' component={InformationsEdit} />
-            <Route path='hero' component={HeroPicker} />
-            <Route path='skills' component={SkillsEdit} />
-            <Route path='actions' component={CurrentActionsContainer} />
-            <Route path='groups' component={CurrentGroupsContainer} />
-            <Route path='history' component={UserHistory} />
+          <Route path="/my-profile" component={MyProfileContainer}>
+            <Route path="infos" component={InformationsEdit} />
+            <Route path="hero" component={HeroPicker} />
+            <Route path="skills" component={SkillsEdit} />
+            <Route path="actions" component={CurrentActionsContainer} />
+            <Route path="groups" component={CurrentGroupsContainer} />
+            <Route path="history" component={UserHistory} />
           </Route>
-          <Route path='/profile/:userId' component={ProfilePageContainer} />
-          <Route path='*' component={NotFound} />
+          <Route path="/profile/:userId" component={ProfilePageContainer} />
+          <Route path="*" component={NotFound} />
         </Route>
       </Router>
     </Provider>

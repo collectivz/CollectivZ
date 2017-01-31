@@ -15,30 +15,30 @@ export default class GroupForm extends React.Component {
     e.preventDefault();
 
     const {
-      group
+      group,
     } = this.props;
     const newGroup = {
       name: this.refs.name.value,
-      description: this.refs.description.value
+      description: this.refs.description.value,
     };
 
     if (newGroup.name.length) {
       if (!group) {
         Meteor.call('groups.insert', newGroup, (err, res) => {
           if (err) {
-            Toast(err.reason, "danger");
+            Toast(err.reason, 'danger');
           } else {
-            Toast(`Groupe "${newGroup.name}" créé.`, "success");
+            Toast(`Groupe "${newGroup.name}" créé.`, 'success');
             closeModal();
           }
         });
       } else {
         Meteor.call('channels.edit', group._id, newGroup, (err, res) => {
           if (err) {
-            Toast(err.reason, "danger");
+            Toast(err.reason, 'danger');
           } else {
-            Toast(`Groupe "${group.name}" modifié.`, "success");
-            closeModal()
+            Toast(`Groupe "${group.name}" modifié.`, 'success');
+            closeModal();
           }
         });
       }
@@ -49,14 +49,14 @@ export default class GroupForm extends React.Component {
 
   render() {
     const {
-      group
+      group,
     } = this.props;
 
     const nameAttributes = group ? { defaultValue: group.name }
-      : { placeholder: "Entrez le nom de votre groupe" };
+      : { placeholder: 'Entrez le nom de votre groupe' };
 
     const descriptionAttributes = group ? { defaultValue: group.description }
-      : { placeholder: "Vous pouvez ajouter une description (optionnel)" };
+      : { placeholder: 'Vous pouvez ajouter une description (optionnel)' };
 
     return (
       <div>
@@ -67,7 +67,7 @@ export default class GroupForm extends React.Component {
               className="large"
               type="text"
               ref="name"
-              { ...nameAttributes }
+              {...nameAttributes}
             />
           </fieldset>
           <fieldset className="large">
@@ -75,10 +75,10 @@ export default class GroupForm extends React.Component {
               className="large"
               type="text"
               ref="description"
-              { ...descriptionAttributes }
+              {...descriptionAttributes}
             />
           </fieldset>
-          <input type="submit" value="Valider" className="large success button"/>
+          <input type="submit" value="Valider" className="large success button" />
 
         </form>
 

@@ -20,19 +20,18 @@ export default class PasswordEdit extends React.Component {
     if (newPassword.length >= 6) {
       Accounts.changePassword(oldPassword, newPassword, (err) => {
         if (err) {
-          Toast(err.reason, "danger");
+          Toast(err.reason, 'danger');
         } else {
-          Toast("Mot de passe modifié avec succès", "success");
+          Toast('Mot de passe modifié avec succès', 'success');
           closeModal();
         }
       });
     } else {
-      Toast("Vous devez entrer un mot de passe de plus de 6 caractères", "danger");
+      Toast('Vous devez entrer un mot de passe de plus de 6 caractères', 'danger');
     }
   }
 
   render() {
-
     return (
       <div>
         <form id="box" onSubmit={this.editPassword}>
@@ -56,7 +55,7 @@ export default class PasswordEdit extends React.Component {
             />
           </fieldset>
           <fieldset className="large has-icon">
-            <input type="submit" value="Modifier" className="large big success button"/>
+            <input type="submit" value="Modifier" className="large big success button" />
           </fieldset>
         </form>
         <div className="extra-content">

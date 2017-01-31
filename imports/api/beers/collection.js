@@ -13,6 +13,7 @@ class BeerCollection extends Mongo.Collection {
     beer.authorName = user.username;
     beer.members = [user._id];
     beer.type = 'beer';
+    beer.objectionable = false;
 
     return super.insert(beer);
   }
@@ -20,10 +21,10 @@ class BeerCollection extends Mongo.Collection {
   remove(selector) {
     const beers = Beers.find(selector, { fields: { _id: 1, channelId: 1 } }).fetch();
 
-    beers.forEach(beer => {
-      Messages.remove({beerId: beer._id});
+    beers.forEach((beer) => {
+      Messages.remove({ beerId: beer._id });
       Channels.update({ _id: beer.channelId }, {
-        $inc: { 'connections.beerCount': -1 }
+        $inc: { 'connections.beerCount': -1 },
       });
     });
 

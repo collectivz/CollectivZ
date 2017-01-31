@@ -1,17 +1,17 @@
-import React                  from 'react';
-import { browserHistory }     from 'react-router';
-import classNames             from 'classnames';
+import React from 'react';
+import { browserHistory } from 'react-router';
+import classNames from 'classnames';
 
-import TouchEvent             from './TouchEvent';
+import TouchEvent from './TouchEvent';
 
 export default class DropDown extends React.Component {
 
-  constructor( props ) {
-    super( props );
+  constructor(props) {
+    super(props);
 
     this.state = {
-      isOpen : false,
-      isClicked: false
+      isOpen: false,
+      isClicked: false,
     };
 
     this.handleOpen = this.handleOpen.bind(this);
@@ -28,7 +28,7 @@ export default class DropDown extends React.Component {
 
   closeMenu() {
     this.setState({
-      isOpen: false
+      isOpen: false,
     });
   }
 
@@ -36,38 +36,36 @@ export default class DropDown extends React.Component {
     e.nativeEvent.stopImmediatePropagation();
 
     const {
-      isOpen
+      isOpen,
     } = this.state;
 
     this.setState({
-      isOpen: !isOpen
+      isOpen: !isOpen,
     });
 
-    this.setState( { isClicked : true } );
-    setTimeout( () => {
-        this.setState( { isClicked : false } );
+    this.setState({ isClicked: true });
+    setTimeout(() => {
+      this.setState({ isClicked: false });
     }, 300);
-
   }
 
   render() {
-
     const {
-      children
+      children,
     } = this.props;
 
     const {
       isOpen,
-      isClicked
+      isClicked,
     } = this.state;
 
 
     return (
       <div>
-        <div className={classNames("right-button touch-event", {"touch-active": isClicked})}  onClick={this.handleOpen.bind(this)}>
-          <i className="icon icon-3x icon-three-dot"/>
+        <div className={classNames('right-button touch-event', { 'touch-active': isClicked })} onClick={this.handleOpen.bind(this)}>
+          <i className="icon icon-3x icon-three-dot" />
         </div>
-        <div className= {classNames("drop-down", {"drop-down--open": isOpen})} >
+        <div className={classNames('drop-down', { 'drop-down--open': isOpen })} >
           <div className="drop-down-menu">
             {children}
           </div>

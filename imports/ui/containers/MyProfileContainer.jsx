@@ -11,17 +11,17 @@ export default createContainer(({ user }) => {
   const userSub = Meteor.subscribe('userProfile', user._id);
   const groups = Channels.find({
     _id: { $in: user.subscribedChannels },
-    type: 'group'
+    type: 'group',
   }).fetch();
   const channels = Channels.find({
     _id: { $in: user.subscribedChannels },
-    type: 'channel'
+    type: 'channel',
   }).fetch();
-  const history = History.findOne({userId: user._id});
+  const history = History.findOne({ userId: user._id });
 
   return {
     groups,
     channels,
-    history
+    history,
   };
 }, MyProfile);

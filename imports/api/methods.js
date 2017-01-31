@@ -1,7 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { check } from 'meteor/check';
 import { underscore } from 'meteor/underscore';
-import aws  from 'aws-sdk';
+import aws from 'aws-sdk';
 
 Meteor.methods({
   requestAwsSignature(fileName, fileType) {

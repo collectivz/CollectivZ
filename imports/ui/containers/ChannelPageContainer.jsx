@@ -13,13 +13,13 @@ export default createContainer(({ params, user }) => {
   let group;
 
   if (channelSub.ready() && channel) {
-    group = Channels.findOne({_id: channel.rootId});
+    group = Channels.findOne({ _id: channel.rootId });
   }
   return {
     loading: !channelSub.ready(),
     channel,
     group,
     users,
-    user
+    user,
   };
 }, ChannelPage);

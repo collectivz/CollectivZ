@@ -1,93 +1,90 @@
 import '../../api/users/users.js';
 
-Meteor.startup(function() {
+Meteor.startup(() => {
   if (Meteor.users.find().count() === 0) {
     Accounts.createUser({
-      email : 'mastermind@mastermind.com',
+      email: 'mastermind@mastermind.com',
       username: 'mastermind',
-      password : 'mastermind',
+      password: 'mastermind',
       profile: {
         firstName: 'tammy',
-        lastName: 'mind'
-      }
+        lastName: 'mind',
+      },
     });
     Accounts.createUser({
-      email : 'pdecrat@student.42.fr',
+      email: 'pdecrat@student.42.fr',
       username: 'philippe',
-      password : 'collectivz',
+      password: 'collectivz',
       profile: {
         firstName: 'philippe',
-        lastName: 'decrat'
-      }
+        lastName: 'decrat',
+      },
     });
     Accounts.createUser({
-      email : 'tfrere@student.42.fr',
+      email: 'tfrere@student.42.fr',
       username: 'thibaud',
-      password : 'collectivz',
+      password: 'collectivz',
       profile: {
         firstName: 'thibaud',
-        lastName: 'frere'
-      }
+        lastName: 'frere',
+      },
     });
     Accounts.createUser({
-      email : 'boris@collectivz.info',
+      email: 'boris@collectivz.info',
       username: 'boris',
-      password : 'collectivz',
+      password: 'collectivz',
       profile: {
         firstName: 'boris',
-        lastName: 'sirbey'
-      }
+        lastName: 'sirbey',
+      },
     });
 
     Accounts.createUser({
-      email : 'mpdequier@gmail.com',
+      email: 'mpdequier@gmail.com',
       username: 'marie-pierre',
-      password : 'collectivz',
+      password: 'collectivz',
       profile: {
         firstName: 'marie-pierre',
-        lastName: 'dequier'
-      }
+        lastName: 'dequier',
+      },
     });
 
     Accounts.createUser({
-      email : 'plop@zorro.com',
+      email: 'plop@zorro.com',
       username: 'mathias',
-      password : 'collectivz',
+      password: 'collectivz',
       profile: {
         firstName: 'zorro',
-        lastName: 'de la Vega'
-      }
+        lastName: 'de la Vega',
+      },
     });
     Accounts.createUser({
-      email : 'ploup@zorro.com',
+      email: 'ploup@zorro.com',
       username: 'nathan',
-      password : 'collectivz',
+      password: 'collectivz',
       profile: {
         firstName: 'zorro',
-        lastName: 'de la Vega'
-      }
+        lastName: 'de la Vega',
+      },
     });
     Accounts.createUser({
-      email : 'chop@zorro.com',
+      email: 'chop@zorro.com',
       username: 'no-yon',
-      password : 'collectivz',
+      password: 'collectivz',
       profile: {
         firstName: 'zorro',
-        lastName: 'de la Vega'
-      }
+        lastName: 'de la Vega',
+      },
     });
     Accounts.createUser({
-      email : 'zorro@zorro.com',
+      email: 'zorro@zorro.com',
       username: 'Zorro',
-      password : 'zorro',
+      password: 'zorro',
       profile: {
         avatar: '/img/zorro.jpg',
         firstName: 'zorro',
-        lastName: 'de la Vega'
-      }
+        lastName: 'de la Vega',
+      },
     });
-
   }
-
-
-})
+});

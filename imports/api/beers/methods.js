@@ -7,10 +7,10 @@ import { Channels } from '../channels/collection.js';
 
 
 Meteor.methods({
-  'beers.insert'(beer) {
+  'beers.insert': function (beer) {
     if (!this.userId) {
       throw new Meteor.Error('not-logged-in',
-        "Vous devez être connecté pour créer un évènement.");
+        'Vous devez être connecté pour créer un évènement.');
     }
 
     check(beer, {
@@ -32,18 +32,18 @@ Meteor.methods({
     const beerId = Beers.insert(beer);
 
     Messages.update(messageId, {
-      $set: { beerId: beerId }
+      $set: { beerId },
     });
 
     Channels.update(beer.channelId, {
-      $inc: {'connections.beerCount': 1}
+      $inc: { 'connections.beerCount': 1 },
     });
   },
 
-  'beers.join'(beerId) {
+  'beers.join': function (beerId) {
     if (!this.userId) {
       throw new Meteor.Error('not-logged-in',
-        "Vous devez être connecté pour rejoindre un évènement.");
+        'Vous devez être connecté pour rejoindre un évènement.');
     }
 
     check(beerId, String);
@@ -57,10 +57,10 @@ Meteor.methods({
     }
   },
 
-  'beers.edit'(newBeer) {
+  'beers.edit': function (newBeer) {
     if (!this.userId) {
       throw new Meteor.Error('not-logged-in',
-      "Vous devez être connecté pour rejoindre un évènement.");
+      'Vous devez être connecté pour rejoindre un évènement.');
     }
 
     check(newBeer, {
@@ -78,15 +78,15 @@ Meteor.methods({
           occasion: newBeer.occasion,
           place: newBeer.place,
           date: newBeer.date,
-        }
+        },
       });
     }
   },
 
-  'beers.delete'(beerId) {
+  'beers.delete': function (beerId) {
     if (!this.userId) {
       throw new Meteor.Error('not-logged-in',
-      "vous devez être connecté pour supprimer ceci.");
+      'vous devez être connecté pour supprimer ceci.');
     }
     check(beerId, String);
 
@@ -95,6 +95,5 @@ Meteor.methods({
     if (beer && beer.author === this.userId || Meteor.user().isAdmin) {
       Beers.remove(beerId);
     }
-
-  }
+  },
 });

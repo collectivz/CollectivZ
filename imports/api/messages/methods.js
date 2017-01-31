@@ -6,10 +6,10 @@ import { Channels } from '../channels/collection.js';
 
 
 Meteor.methods({
-  'messages.insert'(message) {
+  'messages.insert': function (message) {
     if (!this.userId) {
       throw new Meteor.Error('not-logged-in',
-        "Vous devez être connecté pour poster un message.");
+        'Vous devez être connecté pour poster un message.');
     }
 
     check(message, {
@@ -24,10 +24,10 @@ Meteor.methods({
       Messages.insert(message);
     }
   },
-  'messages.edit'(newText, messageId) {
+  'messages.edit': function (newText, messageId) {
     if (!this.userId) {
       throw new Meteor.Error('not-logged-in',
-        "Vous devez être connecté pour éditer un message.");
+        'Vous devez être connecté pour éditer un message.');
     }
 
     check(newText, String);
@@ -47,17 +47,17 @@ Meteor.methods({
 
     if (channel.lastMessage.text === message.text) {
       Channels.update(message.channelId, {
-        $set: { 'lastMessage.text' : newText }
+        $set: { 'lastMessage.text': newText },
       });
     }
     Messages.update(messageId, {
-      $set: { text : newText }
+      $set: { text: newText },
     });
   },
-  'messages.delete'(messageId) {
+  'messages.delete': function (messageId) {
     if (!this.userId) {
       throw new Meteor.Error('not-logged-in',
-        "Vous devez être connecté pour supprimer un message.");
+        'Vous devez être connecté pour supprimer un message.');
     }
 
     check(messageId, String);
@@ -76,10 +76,10 @@ Meteor.methods({
     Messages.remove(messageId);
   },
 
-  'messages.transformIntoAction'(messageId) {
+  'messages.transformIntoAction': function (messageId) {
     if (!this.userId) {
       throw new Meteor.Error('not-logged-in',
-        "Vous devez être connecté pour transformer un message.");
+        'Vous devez être connecté pour transformer un message.');
     }
 
     check(messageId, String);
@@ -99,7 +99,7 @@ Meteor.methods({
     }
 
     Messages.update(message._id, {
-      $set: { type: 'channel' }
+      $set: { type: 'channel' },
     });
     const newChannel = {
       name: message.text,
@@ -108,17 +108,17 @@ Meteor.methods({
       rootId: channel.rootId,
       type: 'channel',
       imageUrl: '/img/red_action.png',
-      messageId: message._id
+      messageId: message._id,
     };
     const newChannelId = Channels.insert(newChannel);
     Channels.update(message.channelId, {
-      $inc: {'connections.channelCount' : 1}
+      $inc: { 'connections.channelCount': 1 },
     });
     let selector;
     if (message.author !== this.userId) {
       selector = { _id: { $in: [message.author, this.userId] } };
       Channels.update(newChannelId, {
-        $push: { members: message.author }
+        $push: { members: message.author },
       });
     } else {
       selector = this.userId;
@@ -127,14 +127,14 @@ Meteor.methods({
     const lastReadField = `lastReadAt.${newChannelId}`;
     Meteor.users.update(selector, {
       $push: { subscribedChannels: newChannelId },
-      $set: { [lastReadField]: Date.now() }
-    }, {multi: true});
+      $set: { [lastReadField]: Date.now() },
+    }, { multi: true });
   },
 
-  'messages.answerMessage'(messageId, text) {
+  'messages.answerMessage': function (messageId, text) {
     if (!this.userId) {
       throw new Meteor.Error('not-logged-in',
-        "Vous devez être connecté pour poster un message.");
+        'Vous devez être connecté pour poster un message.');
     }
     check(messageId, String);
     check(text, String);
@@ -148,14 +148,14 @@ Meteor.methods({
       quoted: {
         text: message.text,
         author: message.author,
-        authorName: message.authorName
+        authorName: message.authorName,
       },
       text,
       channelId: message.channelId,
       author: this.userId,
-      authorImage: Meteor.user().imageUrl
+      authorImage: Meteor.user().imageUrl,
     };
 
     Messages.insert(newMessage);
-  }
+  },
 });

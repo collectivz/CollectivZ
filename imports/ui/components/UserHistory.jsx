@@ -7,12 +7,12 @@ import HistoryItem from '../components/HistoryItem.jsx';
 export default class UserHistory extends React.Component {
   render() {
     const {
-      actionHistory
+      actionHistory,
     } = this.props;
 
     return (
       <div className="sub-container">
-        <Breadcrumb title="Mes accomplissements" hasBack={true} />
+        <Breadcrumb title="Mes accomplissements" hasBack />
         <List
           data={actionHistory}
           type="history"

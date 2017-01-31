@@ -7,10 +7,10 @@ import ChannelItem from '../components/ChannelItem';
 
 export default createContainer(({ data }) => {
   if (data) {
-    var unread = UnreadCount.findOne({channelId: data._id });
+    var unread = UnreadCount.findOne({ channelId: data._id });
   }
 
   return {
-    count: unread ? unread.count : 0
+    count: unread ? unread.count : 0,
   };
 }, ChannelItem);

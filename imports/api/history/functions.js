@@ -14,11 +14,11 @@ function addFeedback(historyItem, userId) {
     };
     historyId = History.insert(newUserHistory);
     Meteor.users.update(user._id, {
-      $set: {history: historyId},
+      $set: { history: historyId },
     });
   } else {
-    History.update({userId: user._id}, {
-      $push: {actionHistory: historyItem},
+    History.update({ userId: user._id }, {
+      $push: { actionHistory: historyItem },
     });
   }
 }
@@ -26,7 +26,7 @@ function addFeedback(historyItem, userId) {
 export default function logFeedbackToHistory(feedback) {
   const channel = Channels.findOne(feedback.channelId);
 
-  feedback.userFeedbacks.forEach(userFeedback => {
+  feedback.userFeedbacks.forEach((userFeedback) => {
     const historyItem = {
       name: channel.name,
       channelId: feedback.channelId,
@@ -34,7 +34,7 @@ export default function logFeedbackToHistory(feedback) {
       actionComment: feedback.comment,
       userRating: userFeedback.rating,
       userComment: userFeedback.comment,
-      createdAt: Date.now()
+      createdAt: Date.now(),
     };
 
     addFeedback(historyItem, userFeedback.userId);

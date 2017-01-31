@@ -8,7 +8,7 @@ concerne les principes. Je suis secret et ambitieux, et j’ai peu d’égal qui
 
 et me comprendre.`,
     title: 'Stratège',
-    image: '/img/bmti/Marvel/INTJ.png'
+    image: '/img/bmti/Marvel/INTJ.png',
   },
   {
     description: `Je suis à l’origine de nombreuses découvertes scientifiques tout au long de l’histoire. Je
@@ -19,7 +19,7 @@ J’examine la vie qui m’émerveille dans les moindres détails et j’en tire
 
 brillantes.`,
     title: 'Savante/savant',
-    image: '/img/bmti/Marvel/INTP.png'
+    image: '/img/bmti/Marvel/INTP.png',
   },
   {
     description: `Je suis charismatique et je rassemble les foules avec mon autorité naturelle. Je sais
@@ -30,7 +30,7 @@ atteindre un but, quel qu’il soit, avec dynamisme. J’aime relever tous les d
 
 entreprendre.`,
     title: 'Leader',
-    image: '/img/bmti/Marvel/ENTJ.png'
+    image: '/img/bmti/Marvel/ENTJ.png',
   },
   {
     description: `Je suis d’une honnêteté sans compromis et j’inspire confiance. Je suis respecté pour ma
@@ -41,7 +41,7 @@ pensée dominante en question, bousculer les idées et les gens. Je brille dans 
 
 que je remporte toujours.`,
     title: 'Visionnaire',
-    image: '/img/bmti/Marvel/ENTP.png'
+    image: '/img/bmti/Marvel/ENTP.png',
   },
   {
     description: `Je suis un diplomate rare qui possède un sens inné de l’idéalisme et de la morale. Je
@@ -52,7 +52,7 @@ problèmes à la source afin que personne n’ait besoin d’être sauvé. Je ve
 
 battre un jour de plus.`,
     title: 'Protectrice/eur',
-    image: '/img/bmti/Marvel/INFJ.png'
+    image: '/img/bmti/Marvel/INFJ.png',
   },
   {
     description: `Je suis in idéaliste absolu qui recherche toujours un soupçon de bien. Je suis calme mais
@@ -63,7 +63,7 @@ principes qui apprécie l’excitation. Je suis mené par la pureté de mon inte
 
 la beauté, la compassion et la bonté.`,
     title: 'Philosophe',
-    image: '/img/bmti/Marvel/INFP.png'
+    image: '/img/bmti/Marvel/INFP.png',
   },
   {
     description: `Je suis plein de passion et d’authenticité. J’attire les gens avec ma personnalité. Je crois
@@ -74,7 +74,7 @@ monde. Je suis convaincant, et je montre de quoi je suis capable. J’aime la lu
 
 motiver l’équipe avec enthousiasme.`,
     title: 'Coach',
-    image: '/img/bmti/Marvel/ENFJ.png'
+    image: '/img/bmti/Marvel/ENFJ.png',
   },
   {
     description: `Je suis un champion, un esprit libre et j’attire le monde avec mon charisme, ma
@@ -85,7 +85,7 @@ innovateur. Je considère la vie comme un puzzle mystique. Je recherche toujours
 
 sous-jacents et les émotions.`,
     title: 'Modèle',
-    image: '/img/bmti/Marvel/ENFP.png'
+    image: '/img/bmti/Marvel/ENFP.png',
   },
   {
     description: `Je suis un intègre. Mon dévouement infatigable envers le devoir fait de moi le cœur vital
@@ -95,8 +95,8 @@ des familles et des collectifs. Je préfère être seul que mal accompagné. J�
 avec patience, pragmatisme et responsabilité. J’aime la stabilité et le respect des règles.
 
 Je tiens toutes mes promesses.`,
-    title: `Génie de l'action`,
-    image: '/img/bmti/Marvel/ISTJ.png'
+    title: 'Génie de l\'action',
+    image: '/img/bmti/Marvel/ISTJ.png',
   },
   {
     description: `Je suis un perfectionniste humble qui accomplit. J’aime être sociable, et je sais toucher
@@ -107,7 +107,7 @@ sans limite quant à protéger ceux qui m’entourent. Je sais apporter un nivea
 
 satisfaction que beaucoup ne peuvent que rêver.`,
     title: 'Altruiste',
-    image: '/img/bmti/Marvel/ISFJ.png'
+    image: '/img/bmti/Marvel/ISFJ.png',
   },
   {
     description: `Je suis le représentant de la tradition et l’ordre et j’aime aider. Je suis fier de rassembler
@@ -118,7 +118,7 @@ donne l’exemple. J’aime le labeur manuel qui forge le caractère. Je tiens a
 
 communautés et aux organisations.`,
     title: 'Sage',
-    image: '/img/bmti/Marvel/ESTJ.png'
+    image: '/img/bmti/Marvel/ESTJ.png',
   },
   {
     description: `Je suis un meneur d’exception et je suis populaire. J’aime utiliser mon pouvoir pour faire
@@ -129,7 +129,7 @@ lois. Je suis loyal, fidèle et dévoué. J’aime rétablir l’harmonie et la 
 
 suis généreux en temps et en énergie.`,
     title: 'Ange gardien',
-    image: '/img/bmti/Marvel/ESFJ.png'
+    image: '/img/bmti/Marvel/ESFJ.png',
   },
   {
     description: `J’aime toucher de mes mains et examiner le monde. J’existe en faisant tout court. Ma
@@ -140,7 +140,7 @@ et améliorer. Je mets au point des solutions pratiques. Je suis imprévisible e
 
 et je sais cultiver les amitiés.`,
     title: 'Ingénieuse/eux',
-    image: '/img/bmti/Marvel/ISTP.png'
+    image: '/img/bmti/Marvel/ISTP.png',
   },
   {
     description: `Je suis un vrai artiste qui repousse les limites des conventions sociales. J’aime
@@ -151,7 +151,7 @@ réfléchir à qui je suis et me transformer. J’aime prendre des risques insen
 
 sensible aux autres et j’aime l’harmonie.`,
     title: 'Génie du sens',
-    image: '/img/bmti/Marvel/ISFP.png'
+    image: '/img/bmti/Marvel/ISFP.png',
   },
   {
     description: `Je suis l’œil du cyclone, audacieux et astucieux. J’aime le drame, la passion et le plaisir
@@ -162,7 +162,7 @@ comportement à risque est un style de vie. Pour moi, les règles sont faites po
 
 brisées. Je suis un chef de groupe exaltant et convaincant.`,
     title: 'Génie du risque',
-    image: '/img/bmti/Marvel/ESTP.png'
+    image: '/img/bmti/Marvel/ESTP.png',
   },
   {
     description: `Je suis le premier à chanter et à danser, et à entraîner le monde dans une belle énergie.
@@ -173,7 +173,7 @@ grande scène où le plaisir règne. J’aime partager les émotions avec mes am
 
 l’écoute pour apporter un soutien affectif.`,
     title: 'Irrésistible',
-    image: '/img/bmti/Marvel/ESFP.png'
+    image: '/img/bmti/Marvel/ESFP.png',
   },
   {
     description: `Je suis très rare et je le sais. Je suis le maître de la logique, un intellectuel hors pair. Je
@@ -184,7 +184,7 @@ concerne les principes. Je suis secret et ambitieux, et j’ai peu d’égal qui
 
 et me comprendre.`,
     title: 'Stratège',
-    image: '/img/bmti/Star Wars/INTJ.png'
+    image: '/img/bmti/Star Wars/INTJ.png',
   },
   {
     description: `Je suis à l’origine de nombreuses découvertes scientifiques tout au long de l’histoire. Je
@@ -195,7 +195,7 @@ J’examine la vie qui m’émerveille dans les moindres détails et j’en tire
 
 brillantes.`,
     title: 'Savante/savant',
-    image: '/img/bmti/Star Wars/INTP.png'
+    image: '/img/bmti/Star Wars/INTP.png',
   },
   {
     description: `Je suis charismatique et je rassemble les foules avec mon autorité naturelle. Je sais
@@ -206,7 +206,7 @@ atteindre un but, quel qu’il soit, avec dynamisme. J’aime relever tous les d
 
 entreprendre.`,
     title: 'Leader',
-    image: '/img/bmti/Star Wars/ENTJ.png'
+    image: '/img/bmti/Star Wars/ENTJ.png',
   },
   {
     description: `Je suis d’une honnêteté sans compromis et j’inspire confiance. Je suis respecté pour ma
@@ -217,7 +217,7 @@ pensée dominante en question, bousculer les idées et les gens. Je brille dans 
 
 que je remporte toujours.`,
     title: 'Visionnaire',
-    image: '/img/bmti/Star Wars/ENTP.png'
+    image: '/img/bmti/Star Wars/ENTP.png',
   },
   {
     description: `Je suis un diplomate rare qui possède un sens inné de l’idéalisme et de la morale. Je
@@ -228,7 +228,7 @@ problèmes à la source afin que personne n’ait besoin d’être sauvé. Je ve
 
 battre un jour de plus.`,
     title: 'Protectrice/eur',
-    image: '/img/bmti/Star Wars/INFJ.png'
+    image: '/img/bmti/Star Wars/INFJ.png',
   },
   {
     description: `Je suis in idéaliste absolu qui recherche toujours un soupçon de bien. Je suis calme mais
@@ -239,7 +239,7 @@ principes qui apprécie l’excitation. Je suis mené par la pureté de mon inte
 
 la beauté, la compassion et la bonté.`,
     title: 'Philosophe',
-    image: '/img/bmti/Star Wars/INFP.png'
+    image: '/img/bmti/Star Wars/INFP.png',
   },
   {
     description: `Je suis plein de passion et d’authenticité. J’attire les gens avec ma personnalité. Je crois
@@ -250,7 +250,7 @@ monde. Je suis convaincant, et je montre de quoi je suis capable. J’aime la lu
 
 motiver l’équipe avec enthousiasme.`,
     title: 'Coach',
-    image: '/img/bmti/Star Wars/ENFJ.png'
+    image: '/img/bmti/Star Wars/ENFJ.png',
   },
   {
     description: `Je suis un champion, un esprit libre et j’attire le monde avec mon charisme, ma
@@ -261,7 +261,7 @@ innovateur. Je considère la vie comme un puzzle mystique. Je recherche toujours
 
 sous-jacents et les émotions.`,
     title: 'Modèle',
-    image: '/img/bmti/Star Wars/ENFP.png'
+    image: '/img/bmti/Star Wars/ENFP.png',
   },
   {
     description: `Je suis un intègre. Mon dévouement infatigable envers le devoir fait de moi le cœur vital
@@ -271,8 +271,8 @@ des familles et des collectifs. Je préfère être seul que mal accompagné. J�
 avec patience, pragmatisme et responsabilité. J’aime la stabilité et le respect des règles.
 
 Je tiens toutes mes promesses.`,
-    title: `Génie de l'action`,
-    image: '/img/bmti/Star Wars/ISTJ.png'
+    title: 'Génie de l\'action',
+    image: '/img/bmti/Star Wars/ISTJ.png',
   },
   {
     description: `Je suis un perfectionniste humble qui accomplit. J’aime être sociable, et je sais toucher
@@ -283,7 +283,7 @@ sans limite quant à protéger ceux qui m’entourent. Je sais apporter un nivea
 
 satisfaction que beaucoup ne peuvent que rêver.`,
     title: 'Altruiste',
-    image: '/img/bmti/Star Wars/ISFJ.png'
+    image: '/img/bmti/Star Wars/ISFJ.png',
   },
   {
     description: `Je suis le représentant de la tradition et l’ordre et j’aime aider. Je suis fier de rassembler
@@ -294,7 +294,7 @@ donne l’exemple. J’aime le labeur manuel qui forge le caractère. Je tiens a
 
 communautés et aux organisations.`,
     title: 'Sage',
-    image: '/img/bmti/Star Wars/ESTJ.png'
+    image: '/img/bmti/Star Wars/ESTJ.png',
   },
   {
     description: `Je suis un meneur d’exception et je suis populaire. J’aime utiliser mon pouvoir pour faire
@@ -305,7 +305,7 @@ lois. Je suis loyal, fidèle et dévoué. J’aime rétablir l’harmonie et la 
 
 suis généreux en temps et en énergie.`,
     title: 'Ange gardien',
-    image: '/img/bmti/Star Wars/ESFJ.png'
+    image: '/img/bmti/Star Wars/ESFJ.png',
   },
   {
     description: `J’aime toucher de mes mains et examiner le monde. J’existe en faisant tout court. Ma
@@ -316,7 +316,7 @@ et améliorer. Je mets au point des solutions pratiques. Je suis imprévisible e
 
 et je sais cultiver les amitiés.`,
     title: 'Ingénieuse/eux',
-    image: '/img/bmti/Star Wars/ISTP.png'
+    image: '/img/bmti/Star Wars/ISTP.png',
   },
   {
     description: `Je suis un vrai artiste qui repousse les limites des conventions sociales. J’aime
@@ -327,7 +327,7 @@ réfléchir à qui je suis et me transformer. J’aime prendre des risques insen
 
 sensible aux autres et j’aime l’harmonie.`,
     title: 'Génie du sens',
-    image: '/img/bmti/Star Wars/ISFP.png'
+    image: '/img/bmti/Star Wars/ISFP.png',
   },
   {
     description: `Je suis l’œil du cyclone, audacieux et astucieux. J’aime le drame, la passion et le plaisir
@@ -338,7 +338,7 @@ comportement à risque est un style de vie. Pour moi, les règles sont faites po
 
 brisées. Je suis un chef de groupe exaltant et convaincant.`,
     title: 'Génie du risque',
-    image: '/img/bmti/Star Wars/ESTP.png'
+    image: '/img/bmti/Star Wars/ESTP.png',
   },
   {
     description: `Je suis le premier à chanter et à danser, et à entraîner le monde dans une belle énergie.
@@ -349,6 +349,6 @@ grande scène où le plaisir règne. J’aime partager les émotions avec mes am
 
 l’écoute pour apporter un soutien affectif.`,
     title: 'Irrésistible',
-    image: '/img/bmti/Star Wars/ESFP.png'
+    image: '/img/bmti/Star Wars/ESFP.png',
   },
 ];

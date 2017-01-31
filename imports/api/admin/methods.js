@@ -4,7 +4,7 @@ import { Accounts } from 'meteor/accounts-base';
 import { Channels } from '../channels/collection';
 
 Meteor.methods({
-  'admin.addMoney'(amount) {
+  'admin.addMoney': function (amount) {
     if (!this.userId) {
       throw new Meteor.Error('not-logged',
         "Vous devez être connecté pour répartir de l'argent.");
@@ -16,7 +16,7 @@ Meteor.methods({
     }
 
 
-    check(amount, Match.Where(amount => {
+    check(amount, Match.Where((amount) => {
       check(amount, Number);
       if (amount > 0) {
         return true;
@@ -28,10 +28,10 @@ Meteor.methods({
       { $inc: { coinz: amount } });
   },
 
-  'admin.addAdmin'(username) {
+  'admin.addAdmin': function (username) {
     if (!this.userId) {
       throw new Meteor.Error('not-logged',
-        "Vous devez être connecté pour ajouter un coordinateur.");
+        'Vous devez être connecté pour ajouter un coordinateur.');
     }
 
     if (!Meteor.user().isAdmin) {
@@ -45,18 +45,18 @@ Meteor.methods({
 
     if (!user) {
       throw new Meteor.Error('user-not-found',
-        "Aucun utilisateur ne correspond à ce nom.");
+        'Aucun utilisateur ne correspond à ce nom.');
     }
 
     Meteor.users.update(user._id, {
-      $set: { isAdmin: true }
+      $set: { isAdmin: true },
     });
   },
 
-  'admin.removeAdmin'(userId) {
+  'admin.removeAdmin': function (userId) {
     if (!this.userId) {
       throw new Meteor.Error('not-logged',
-        "Vous devez être connecté pour enlever un coordinateur.");
+        'Vous devez être connecté pour enlever un coordinateur.');
     }
 
     if (!Meteor.user().isAdmin) {
@@ -72,31 +72,31 @@ Meteor.methods({
     }
 
     Meteor.users.update(userId, {
-      $set: { isAdmin: false }
+      $set: { isAdmin: false },
     });
   },
 
-  'admin.exportData'() {
+  'admin.exportData': function () {
     if (!this.userId) {
       throw new Meteor.Error('not-logged',
-        "Vous devez être connecté");
+        'Vous devez être connecté');
     }
 
     if (!Meteor.user().isAdmin) {
       throw new Meteor.Error('no-right',
         "Vous n'avez pas les droits");
     }
-    let result = [];
+    const result = [];
     const groups = Channels.find({ type: 'group' }).fetch();
-    groups.forEach(group => {
+    groups.forEach((group) => {
       const author = Meteor.users.findOne(group.author);
       result.push({
         Groupe: group.name,
         Créateur: author.username,
-        Email: author.emails[0].address
+        Email: author.emails[0].address,
       });
     });
 
     return result;
-  }
+  },
 });

@@ -1,20 +1,20 @@
-import React                from 'react';
-import classNames           from 'classnames';
-import $                    from 'jquery';
-import _                    from 'lodash';
+import React from 'react';
+import classNames from 'classnames';
+import $ from 'jquery';
+import _ from 'lodash';
 
-import zorroForm            from '../../../api/zorro/zorro.js';
+import zorroForm from '../../../api/zorro/zorro.js';
 
-import ChatFilter           from './ChatFilter.jsx';
-import ZorroItem            from './ZorroItem.jsx';
-import MessageInput         from './MessageInput.jsx';
-import MessageList          from './MessageList.jsx';
-import JoinActionButton          from './JoinActionButton.jsx';
+import ChatFilter from './ChatFilter.jsx';
+import ZorroItem from './ZorroItem.jsx';
+import MessageInput from './MessageInput.jsx';
+import MessageList from './MessageList.jsx';
+import JoinActionButton from './JoinActionButton.jsx';
 
-import DropDownBottom          from '../DropDownBottom.jsx';
+import DropDownBottom from '../DropDownBottom.jsx';
 
-import Modal          from '../Modal.jsx';
-import Toastr          from '../Toastr.jsx';
+import Modal from '../Modal.jsx';
+import Toastr from '../Toastr.jsx';
 
 
 export default class Chat extends React.Component {
@@ -32,7 +32,7 @@ export default class Chat extends React.Component {
       expectedAnswer: '',
       choices: [],
       messageCount: this.props.messages.length,
-      answeringTo: ''
+      answeringTo: '',
     };
 
     this.setFilterOption = this.setFilterOption.bind(this);
@@ -49,7 +49,7 @@ export default class Chat extends React.Component {
 
   scrollDown() {
     const elem = $('.chat-sub-container');
-    $(".chat-sub-container").scrollTop(1000000);
+    $('.chat-sub-container').scrollTop(1000000);
   }
 
   componentDidUpdate() {
@@ -67,7 +67,7 @@ export default class Chat extends React.Component {
     if (messageCount !== messages.length) {
       Meteor.call('users.updateLastRead', channel._id);
       this.setState({
-        messageCount: messages.length
+        messageCount: messages.length,
       });
     }
     this.scrollDown();
@@ -75,21 +75,21 @@ export default class Chat extends React.Component {
 
   setFilterOption(filter) {
     this.setState({
-      filter
+      filter,
     });
     this.scrollDown();
   }
 
   changeInputMode(inputMode) {
     this.setState({
-      inputMode
+      inputMode,
     });
   }
 
   answerToMessage(messageId) {
     this.setState({
       inputMode: 'answer',
-      answeringTo: messageId
+      answeringTo: messageId,
     });
   }
 
@@ -102,8 +102,7 @@ export default class Chat extends React.Component {
   }
 
   answerToZorro(answer, e) {
-    if (e)
-      e.preventDefault();
+    if (e) { e.preventDefault(); }
     const zorro = this.state.zorro;
     zorro.answerToZorro(answer);
     const newState = zorro.getState();
@@ -118,12 +117,11 @@ export default class Chat extends React.Component {
     let filteredMessages = [];
 
     if (filter !== 'all') {
-      filteredMessages = messages.filter(message => {
+      filteredMessages = messages.filter((message) => {
         if (message.type && message.type === filter) {
           return true;
-        } else {
-          return false;
         }
+        return false;
       });
     } else {
       filteredMessages = messages;
@@ -149,7 +147,7 @@ export default class Chat extends React.Component {
       filter,
       choices,
       answeringTo,
-      inputMode
+      inputMode,
     } = this.state;
 
     const filteredMessages = this.filterMessage();
@@ -160,13 +158,13 @@ export default class Chat extends React.Component {
           <ChatFilter channel={channel} setFilterOption={this.setFilterOption} />
           : ''
         }
-        <div className={classNames("chat-sub-container", {"chat-with-filter-sub-container" : !_.isEmpty(channel.connections)})}>
+        <div className={classNames('chat-sub-container', { 'chat-with-filter-sub-container': !_.isEmpty(channel.connections) })}>
 
           <div className="chat">
             <div className="chat-separator">
               <h5>Aujourd'hui</h5>
             </div>
-            <div ref='scroll'>
+            <div ref="scroll">
               <div className="scroll">
                 <div className="message-list">
                   <MessageList
@@ -179,7 +177,7 @@ export default class Chat extends React.Component {
                     user={user}
                     answerToMessage={this.answerToMessage}
                     channel={channel}
-                    />
+                  />
                 </div>
               </div>
               {ongoingAction ?
@@ -187,7 +185,7 @@ export default class Chat extends React.Component {
                   <div className="message-list">
                     {dialogWithZorro.map((message, index) => {
                       const _choices = ((index + 1) === dialogWithZorro.length) ? choices : [];
-                      return (<ZorroItem message={message} key={index} answerToZorro={this.answerToZorro} choices={_choices}/>);
+                      return (<ZorroItem message={message} key={index} answerToZorro={this.answerToZorro} choices={_choices} />);
                     })}
                   </div>
                 </div>
@@ -197,18 +195,18 @@ export default class Chat extends React.Component {
           </div>
           {
             this.hasJoined() ?
-            <MessageInput
-              inputMode={inputMode}
-              changeInputMode={this.changeInputMode}
-              answerToZorro={this.answerToZorro}
-              channel={channel}
-              toggleMarginBottom={this.toggleMarginBottom}
-              hasActionPicker={true}
-              user={user}
-              answeringTo={answeringTo}
+              <MessageInput
+                inputMode={inputMode}
+                changeInputMode={this.changeInputMode}
+                answerToZorro={this.answerToZorro}
+                channel={channel}
+                toggleMarginBottom={this.toggleMarginBottom}
+                hasActionPicker
+                user={user}
+                answeringTo={answeringTo}
               />
             :
-            <JoinActionButton channel={channel} />
+              <JoinActionButton channel={channel} />
           }
         </div>
       </div>
@@ -217,5 +215,5 @@ export default class Chat extends React.Component {
 }
 
 Chat.contextTypes = {
-  router: React.PropTypes.object
+  router: React.PropTypes.object,
 };
