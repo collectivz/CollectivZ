@@ -1,2 +1,4 @@
 Meteor.startup(() => {
+
+   // nope
 });
