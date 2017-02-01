@@ -2,7 +2,7 @@
   "name": "cz_react_meteor",
   "private": true,
   "scripts": {
-    "install": "npm run appinbrowser && npm run webapp && npm run links",
+    "postinstall": "npm run appinbrowser && npm run webapp && npm run links",
     "appinbrowser": "meteor add cordova:cordova-plugin-inappbrowser@1.6.1",
     "webapp": "meteor add cordova:cordova-plugin-meteor-webapp@1.4.1",
     "links": "meteor add cordova:cordova-universal-links-plugin@1.2.1",
