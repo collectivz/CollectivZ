@@ -125,7 +125,15 @@ collectivzcz: autre serveur
 
 On se connecte sur Heroku avec l'url heroku.com
 
-Comme pour github, un compte organisation Heroku CollectivZ a été crée.
+Comme pour github, on peut avoir des comptes organisations Heroku.
+
+Le cout d'un serveur Organisation est de 7 euros.
+
+Afin de diminuer les couts, on ne mettra que les serveurs de production en compte organisation. Pour l'instant seul le serveur collectivz-union
+est un compte Organisation.
+
+Pour les autres comptes, Jacques Bonet est admin et Philippe Decrat est collaborateur.
+La difference entre un admin et un Collaboration, est que le Collaborateur ne peut pas changer les droits
 
 Deux personnes ont pour l'instant acces à ce compte : Jacques Bonet, Philippe Decrat
 
@@ -144,7 +152,11 @@ la fonction "Promote to ..."
 Le serveur collectivz-test doit etre utilisé uniquement par l'outils de test fonctionnel
 
 
+## Monitoring des serveurs de production Heroku
 
+Pour l'instant aucun outils de monitoring n'a été installé sur les serveur de production Heroku.
+
+Cela peut se faire très facilement en cliquant sur le menu setting d'un serveur Heroku.
 
 
 
