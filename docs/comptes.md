@@ -156,7 +156,9 @@ Le serveur collectivz-test doit etre utilisé uniquement par l'outils de test fo
 
 Pour l'instant aucun outils de monitoring n'a été installé sur les serveur de production Heroku.
 
-Cela peut se faire très facilement en cliquant sur le menu setting d'un serveur Heroku.
+Cela peut se faire très facilement en cliquant sur le menu More d'un serveur Heroku, situé en haut à droite de l'écran.
+
+
 
 
 

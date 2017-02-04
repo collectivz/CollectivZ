@@ -6,6 +6,7 @@
     "appinbrowser": "meteor add cordova:cordova-plugin-inappbrowser@1.6.1",
     "webapp": "meteor add cordova:cordova-plugin-meteor-webapp@1.4.1",
     "links": "meteor add cordova:cordova-universal-links-plugin@1.2.1",
+    "prestart": "if-env NPM_CONFIG_TEST=1 && meteor reset",
     "start": "meteor run",
     "test": "jest"
   },
@@ -37,6 +38,7 @@
     "cloudinary-jquery-file-upload": "^2.1.9",
     "cron": "^1.1.1",
     "fs": "0.0.2",
+    "if-env": "^1.0.0",
     "jquery": "^3.1.0",
     "json2csv": "^3.7.3",
     "json2xls": "^0.1.2",
