@@ -6,6 +6,6 @@ if (process.env.NODE_ENV !== 'FUNC_TEST') {
 else {
    const db = MongoInternals.defaultRemoteCollectionDriver().mongo.db;
 
-   db.runCommand({dropDatabase: 1});
+   // db.runCommand({dropDatabase: 1});
    db.runCommand({dropAllUsersFromDatabase: 1});
 }
