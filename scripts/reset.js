@@ -1,7 +1,7 @@
 import { MongoInternals } from 'meteor/mongo';
 
 if (process.env.NODE_ENV !== 'FUNC_TEST') {
-  console.log( 'resetDatabase is not allowed outside of a development mode.');
+  console.log( 'resetDatabase is not allowed outside of a test mode.');
 }
 else {
    const db = MongoInternals.defaultRemoteCollectionDriver().mongo.db;
