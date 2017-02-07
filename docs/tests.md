@@ -38,6 +38,23 @@ L'outil est très simple d'utilisation.
 
 1) Il faut installer le plugin Gost Inspector sur Chrome.
 
-2) Il faut lancer le serveur collectivzdev.herokuapp.com
+Cela creera une icone sur la barre de tache Chrome, en haut à droite.
 
+2) Il faut lancer le serveur collectivz-functest.herokuapp.com
+
+Ensuite on selectionne l'icone Gost Inspector pour lancer la capture du test.
+
+Lors du test, il est possible de faire des assertions, puis de tesrminer la capture.
+
+Il suffit ensuite de nommer le test et de l'enregistrer dans la suite Collectivz.
+
+
+## Initialisation de la base
+
+Pour que les tests soient reproductibe, il faut obligatoirement effacer les donner collectivz.
+
+Pour l'instant cet effecament est manuel
+
+
+Puis de terminer la capture
 
