@@ -1,6 +1,6 @@
 import { MongoInt } from 'meteor/mongo';
 
-if (process.env.NODE_ENV !== 'FUNC_TEST') {
+if (process.env.TEST_ENV !== 'FUNCTIONAL') {
   console.log( 'resetDatabase is not allowed outside of a test mode.');
 }
 else {
