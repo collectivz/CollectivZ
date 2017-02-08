@@ -2,22 +2,18 @@ import '../../api/users/users.js';
 import { Meteor } from 'meteor/meteor';
 
 function dbReset(collectionNames) {
+  console.log( 'dbReset call');
+  const collections = _.map(collectionNames, collectionName => _.reduce(collectionName.split('.'), (memo, name) => memo[name], GLOBAL));
 
-   var collections = _.map(collectionNames, function(collectionName) {
-      return _.reduce(collectionName.split('.'), function (memo, name) {
-         return memo[name];
-      }, GLOBAL);
-   });
-
-   Tracker.nonreactive( () => {
-      _.each(collections, (collection) => {
-         collection.find().forEach( (doc) => {
-            collection.remove(doc._id);
-         });
+  Tracker.nonreactive(() => {
+    _.each(collections, (collection) => {
+      collection.find().forEach((doc) => {
+        console.log( 'remove ' + doc._id);
+        collection.remove(doc._id);
       });
-   });
-
-};
+    });
+  });
+}
 
 
 Meteor.startup(() => {
