@@ -1,26 +1,11 @@
 import '../../api/users/users.js';
 import { Meteor } from 'meteor/meteor';
-
-function dbReset(collectionNames) {
-  console.log( 'dbReset call');
-  const collections = _.map(collectionNames, collectionName => _.reduce(collectionName.split('.'), (memo, name) => memo[name], GLOBAL));
-
-  Tracker.nonreactive(() => {
-    _.each(collections, (collection) => {
-      if (collection) {
-         collection.find().forEach((doc) => {
-            console.log('remove ' + doc._id);
-            collection.remove(doc._id);
-         });
-      }
-    });
-  });
-}
+import { DBReset } from 'ryne:dbreset';
 
 
 Meteor.startup(() => {
   if (process.env.TEST_ENV === 'FUNCTIONAL') {
-    dbReset(['users', 'polls', 'history', 'messages', 'repertory', 'channels', 'beers', 'archives', 'coins', 'circles', 'feedback']);
+    DBReset(['users', 'polls', 'history', 'messages', 'repertory', 'channels', 'beers', 'archives', 'coins', 'circles', 'feedback']);
   } else if (process.env.TEST_ENV === 'STAGING') {
     if (Meteor.users.find().count() === 0) {
       Accounts.createUser({
