@@ -1,26 +1,28 @@
 import '../../api/users/users.js';
 import { Meteor } from 'meteor/meteor';
 
-function removeCollections(collection) {
-  collection.find().forEach((doc) => {
-    collection.remove(doc._id);
-  });
-}
+function dbReset(collectionNames) {
+
+   var collections = _.map(collectionNames, function(collectionName) {
+      return _.reduce(collectionName.split('.'), function (memo, name) {
+         return memo[name];
+      }, GLOBAL);
+   });
+
+   Tracker.nonreactive( () => {
+      _.each(collections, (collection) => {
+         collection.find().forEach( (doc) => {
+            collection.remove(doc._id);
+         });
+      });
+   });
+
+};
 
 
 Meteor.startup(() => {
   if (process.env.TEST_ENV === 'FUNCTIONAL') {
-    removeCollections(Meteor.users);
-    removeCollections(Meteor.polls);
-    removeCollections(Meteor.history);
-    removeCollections(Meteor.messages);
-    removeCollections(Meteor.repertory);
-    removeCollections(Meteor.channels);
-    removeCollections(Meteor.beers);
-    removeCollections(Meteor.archives);
-    removeCollections(Meteor.coins);
-    removeCollections(Meteor.circles);
-    removeCollections(Meteor.feedback);
+    dbReset(['users', 'polls', 'history', 'messages', 'repertory', 'channels', 'beers', 'archives', 'coins', 'circles', 'feedback']);
   } else if (process.env.TEST_ENV === 'STAGING') {
     if (Meteor.users.find().count() === 0) {
       Accounts.createUser({
