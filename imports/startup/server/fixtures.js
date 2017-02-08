@@ -1,17 +1,23 @@
 import '../../api/users/users.js';
 import { Meteor } from 'meteor/meteor';
-import { MongoInt } from 'meteor/mongo';
-import { _ } from 'meteor/underscore';
+
 
 Meteor.startup(() => {
   if (process.env.TEST_ENV === 'FUNCTIONAL') {
-    const globalObject = Meteor.isClient ? window : global;
-    for (const property in globalObject) {
-      const object = globalObject[property];
-      if (object instanceof Meteor.Collection) {
-        object.remove({});
-      }
-    }
+    Meteor.users.remove({});
+    Meteor.polls.remove({});
+    Meteor.emails.remove({});
+    Meteor.history.remove({});
+    Meteor.messages.remove({});
+    Meteor.repertory.remove({});
+    Meteor.channels.remove({});
+    Meteor.beers.remove({});
+    Meteor.archives.remove({});
+    Meteor.coins.remove({});
+    Meteor.circles.remove({});
+    Meteor.buddies.remove({});
+    Meteor.feedback.remove({});
+    Meteor.heroes.remove({});
   } else if (process.env.TEST_ENV === 'STAGING') {
     if (Meteor.users.find().count() === 0) {
       Accounts.createUser({
