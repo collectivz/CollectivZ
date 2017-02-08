@@ -7,10 +7,12 @@ function dbReset(collectionNames) {
 
   Tracker.nonreactive(() => {
     _.each(collections, (collection) => {
-      collection.find().forEach((doc) => {
-        console.log( 'remove ' + doc._id);
-        collection.remove(doc._id);
-      });
+      if (collection) {
+         collection.find().forEach((doc) => {
+            console.log('remove ' + doc._id);
+            collection.remove(doc._id);
+         });
+      }
     });
   });
 }
