@@ -71,37 +71,36 @@ Meteor.startup(() => {
           lastName: 'dequier',
         },
       });
-
-      Accounts.createUser({
-        email: 'plop@zorro.com',
-        username: 'mathias',
-        password: 'collectivz',
-        profile: {
-          firstName: 'zorro',
-          lastName: 'de la Vega',
-        },
-      });
-      Accounts.createUser({
-        email: 'ploup@zorro.com',
-        username: 'nathan',
-        password: 'collectivz',
-        profile: {
-          firstName: 'zorro',
-          lastName: 'de la Vega',
-        },
-      });
-      Accounts.createUser({
-        email: 'chop@zorro.com',
-        username: 'no-yon',
-        password: 'collectivz',
-        profile: {
-          firstName: 'zorro',
-          lastName: 'de la Vega',
-        },
-      });
     }
   }
   if (Meteor.users.find().count() === 0) {
+    Accounts.createUser({
+      email: 'plop@zorro.com',
+      username: 'mathias',
+      password: 'collectivz',
+      profile: {
+        firstName: 'zorro',
+        lastName: 'de la Vega',
+      },
+    });
+    Accounts.createUser({
+      email: 'ploup@zorro.com',
+      username: 'nathan',
+      password: 'collectivz',
+      profile: {
+        firstName: 'zorro',
+        lastName: 'de la Vega',
+      },
+    });
+    Accounts.createUser({
+      email: 'chop@zorro.com',
+      username: 'no-yon',
+      password: 'collectivz',
+      profile: {
+        firstName: 'zorro',
+        lastName: 'de la Vega',
+      },
+    });
     Accounts.createUser({
       email: 'zorro@zorro.com',
       username: 'Zorro',
