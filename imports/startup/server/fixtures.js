@@ -13,7 +13,6 @@ Meteor.startup(() => {
   if (process.env.TEST_ENV === 'FUNCTIONAL') {
      removeCollections( Meteor.users);
      removeCollections( Meteor.polls);
-     removeCollections( Meteor.emails);
      removeCollections( Meteor.history);
      removeCollections( Meteor.messages);
      removeCollections( Meteor.repertory);
@@ -22,9 +21,7 @@ Meteor.startup(() => {
      removeCollections( Meteor.archives);
      removeCollections( Meteor.coins);
      removeCollections( Meteor.circles);
-     removeCollections( Meteor.buddies);
      removeCollections( Meteor.feedback);
-     removeCollections( Meteor.heroes);
   } else if (process.env.TEST_ENV === 'STAGING') {
     if (Meteor.users.find().count() === 0) {
       Accounts.createUser({
