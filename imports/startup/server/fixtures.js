@@ -12,17 +12,6 @@ Meteor.startup(() => {
         object.remove({});
       }
     }
-    Accounts.createUser({
-      email: 'zorro@zorro.com',
-      username: 'Zorro',
-      password: 'zorro',
-      profile: {
-        avatar: '/img/zorro.jpg',
-        firstName: 'zorro',
-        lastName: 'de la Vega',
-      },
-    });
-    return;
   } else if (process.env.TEST_ENV === 'STAGING') {
     if (Meteor.users.find().count() === 0) {
       Accounts.createUser({
