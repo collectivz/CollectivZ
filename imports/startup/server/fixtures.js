@@ -1,23 +1,30 @@
 import '../../api/users/users.js';
 import { Meteor } from 'meteor/meteor';
 
+function removeCollections( collections) {
+   _.each(collections, function(collection) {
+      collection.find().forEach(function (doc) {
+         collection.remove(doc._id);
+      });
+}
+
 
 Meteor.startup(() => {
   if (process.env.TEST_ENV === 'FUNCTIONAL') {
-    Meteor.users.remove({});
-    Meteor.polls.remove({});
-    Meteor.emails.remove({});
-    Meteor.history.remove({});
-    Meteor.messages.remove({});
-    Meteor.repertory.remove({});
-    Meteor.channels.remove({});
-    Meteor.beers.remove({});
-    Meteor.archives.remove({});
-    Meteor.coins.remove({});
-    Meteor.circles.remove({});
-    Meteor.buddies.remove({});
-    Meteor.feedback.remove({});
-    Meteor.heroes.remove({});
+     removeCollections( Meteor.users);
+     removeCollections( Meteor.polls);
+     removeCollections( Meteor.emails);
+     removeCollections( Meteor.history);
+     removeCollections( Meteor.messages);
+     removeCollections( Meteor.repertory);
+     removeCollections( Meteor.channels);
+     removeCollections( Meteor.beers);
+     removeCollections( Meteor.archives);
+     removeCollections( Meteor.coins);
+     removeCollections( Meteor.circles);
+     removeCollections( Meteor.buddies);
+     removeCollections( Meteor.feedback);
+     removeCollections( Meteor.heroes);
   } else if (process.env.TEST_ENV === 'STAGING') {
     if (Meteor.users.find().count() === 0) {
       Accounts.createUser({
