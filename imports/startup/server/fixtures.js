@@ -1,11 +1,9 @@
 import '../../api/users/users.js';
 import { Meteor } from 'meteor/meteor';
 
-function removeCollections(collections) {
-  _.each(collections, (collection) => {
-    collection.find().forEach((doc) => {
-      collection.remove(doc._id);
-    });
+function removeCollections(collection) {
+  collection.find().forEach((doc) => {
+    collection.remove(doc._id);
   });
 }
 
