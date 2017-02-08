@@ -1,12 +1,16 @@
 import '../../api/users/users.js';
 import { Meteor } from 'meteor/meteor';
-import { DBReset } from 'ryne:dbreset';
 
 
 Meteor.startup(() => {
   if (process.env.TEST_ENV === 'FUNCTIONAL') {
-    DBReset(['users', 'polls', 'history', 'messages', 'repertory', 'channels', 'beers', 'archives', 'coins', 'circles', 'feedback']);
-  } else if (process.env.TEST_ENV === 'STAGING') {
+        for(var property in global){
+           var object=global[property];
+           if(object instanceof Meteor.Collection){
+              object.remove({});
+           }
+        }
+ } else if (process.env.TEST_ENV === 'STAGING') {
     if (Meteor.users.find().count() === 0) {
       Accounts.createUser({
         email: 'mastermind@mastermind.com',
@@ -54,36 +58,36 @@ Meteor.startup(() => {
           lastName: 'dequier',
         },
       });
+      Accounts.createUser({
+        email: 'plop@zorro.com',
+        username: 'mathias',
+        password: 'collectivz',
+        profile: {
+          firstName: 'zorro',
+          lastName: 'de la Vega',
+        },
+      });
+      Accounts.createUser({
+        email: 'ploup@zorro.com',
+        username: 'nathan',
+        password: 'collectivz',
+        profile: {
+          firstName: 'zorro',
+          lastName: 'de la Vega',
+        },
+      });
+      Accounts.createUser({
+        email: 'chop@zorro.com',
+        username: 'no-yon',
+        password: 'collectivz',
+        profile: {
+          firstName: 'zorro',
+          lastName: 'de la Vega',
+        },
+      });
     }
   }
   if (Meteor.users.find().count() === 0) {
-    Accounts.createUser({
-      email: 'plop@zorro.com',
-      username: 'mathias',
-      password: 'collectivz',
-      profile: {
-        firstName: 'zorro',
-        lastName: 'de la Vega',
-      },
-    });
-    Accounts.createUser({
-      email: 'ploup@zorro.com',
-      username: 'nathan',
-      password: 'collectivz',
-      profile: {
-        firstName: 'zorro',
-        lastName: 'de la Vega',
-      },
-    });
-    Accounts.createUser({
-      email: 'chop@zorro.com',
-      username: 'no-yon',
-      password: 'collectivz',
-      profile: {
-        firstName: 'zorro',
-        lastName: 'de la Vega',
-      },
-    });
     Accounts.createUser({
       email: 'zorro@zorro.com',
       username: 'Zorro',
