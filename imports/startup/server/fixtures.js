@@ -4,13 +4,22 @@ import { Meteor } from 'meteor/meteor';
 
 Meteor.startup(() => {
   if (process.env.TEST_ENV === 'FUNCTIONAL') {
-        for(var property in global){
-           var object=global[property];
-           if(object instanceof Meteor.Collection){
-              object.remove({});
-           }
-        }
- } else if (process.env.TEST_ENV === 'STAGING') {
+    if (Meteor.users) Meteor.users.remove({});
+    if (Meteor.polls) Meteor.polls.remove({});
+    if (Meteor.emails) Meteor.emails.remove({});
+    if (Meteor.history) Meteor.history.remove({});
+    if (Meteor.messages) Meteor.messages.remove({});
+    if (Meteor.propositions) Meteor.propositions.remove({});
+    if (Meteor.repertory) Meteor.repertory.remove({});
+    if (Meteor.channels) Meteor.channels.remove({});
+    if (Meteor.beers) Meteor.beers.remove({});
+    if (Meteor.archives) Meteor.archives.remove({});
+    if (Meteor.coins) Meteor.coins.remove({});
+    if (Meteor.circles) Meteor.circles.remove({});
+    if (Meteor.buddies) Meteor.buddies.remove({});
+    if (Meteor.feedback) Meteor.feedback.remove({});
+    if (Meteor.heroes) Meteor.heroes.remove({});
+  } else if (process.env.TEST_ENV === 'STAGING') {
     if (Meteor.users.find().count() === 0) {
       Accounts.createUser({
         email: 'mastermind@mastermind.com',
