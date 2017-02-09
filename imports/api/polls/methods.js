@@ -1,5 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { check } from 'meteor/check';
+import { Push } from 'meteor/raix:push';
 import { _ } from 'meteor/underscore';
 
 import { Polls, Propositions } from './collection.js';
@@ -67,7 +68,14 @@ Meteor.methods({
       $inc: { 'connections.pollCount': 1 },
     });
 
-    Meteor.call('serverNotification', 'Nouveau Sondage', 'CollectivZ News');
+     Push.send({
+        from: 'CollectivZ Token Notification',
+        title: 'CollectivZ News',
+        text: 'Nouveau Sondage',
+        badge: 12,
+        query: {},
+     });
+//    Meteor.call('serverNotification', 'Nouveau Sondage', 'CollectivZ News');
   },
 
   'polls.vote': function (pollId, propsId) {
