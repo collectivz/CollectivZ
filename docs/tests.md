@@ -34,17 +34,22 @@ Voir la donc Jest de React pour plus d'information
 
 L'outil pour réaliser des tests fonctionnels s'appelle Gost Inspector.
 
-L'outil est très simple d'utilisation.
+L'outil est très simple a installer et à utiliser.
 
-1) Il faut installer le plugin Gost Inspector sur Chrome.
+## Installation de l'extension Ghost Inspector de Chrome.
 
 Cela creera une icone sur la barre de tache Chrome, en haut à droite.
 
-2) Il faut lancer le serveur collectivz-functest.herokuapp.com
+
+## Connection à Gost Inspector
+
+Une fois l'addon Gost Inspecteur installé, il suffit de lui renseigner
+
+2) Il faut lancer le serveur collectivz.herokuapp.com
 
 Ensuite on selectionne l'icone Gost Inspector pour lancer la capture du test.
 
-Lors du test, il est possible de faire des assertions, puis de tesrminer la capture.
+Lors du test, il est possible de faire des assertions, puis de terminer la capture.
 
 Il suffit ensuite de nommer le test et de l'enregistrer dans la suite Collectivz.
 
