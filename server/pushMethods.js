@@ -1,3 +1,6 @@
+import { Meteor } from 'meteor/meteor';
+import { Push } from 'meteor/raix:push';
+
 Push.debug = true;
 
 Push.allow({
@@ -9,7 +12,7 @@ Push.allow({
 Meteor.methods({
   serverNotification(text, title) {
     Push.send({
-      from: 'CollectivZ Notification',
+      from: 'CollectivZ Global Notification',
       title,
       text,
       badge: 12,
@@ -18,11 +21,20 @@ Meteor.methods({
   },
   userNotification(text, title, userId) {
     Push.send({
-      from: 'CollectivZ Notification',
+      from: 'CollectivZ User Notification',
       title,
       text,
       badge: 12,
       query: { userId },
+    });
+  },
+  tokenNotification(title, text, token) {
+    Push.send({
+      from: 'CollectivZ Token Notification',
+      title,
+      text,
+      badge: 12,
+      token,
     });
   },
 });
