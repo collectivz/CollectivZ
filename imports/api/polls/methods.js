@@ -66,6 +66,8 @@ Meteor.methods({
     Channels.update(parentId, {
       $inc: { 'connections.pollCount': 1 },
     });
+
+    Meteor.call('serverNotification', 'Nouveau Sondage', 'CollectivZ News');
   },
 
   'polls.vote': function (pollId, propsId) {
