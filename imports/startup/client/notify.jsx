@@ -44,6 +44,9 @@ Meteor.startup(() => {
          alert: true,
          badge: true,
          sound: true,
-      }
+      },
    });
+
+   Push.enabled(true); // Will enable notifications (requires a token...)
 });
+

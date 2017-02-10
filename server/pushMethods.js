@@ -9,6 +9,13 @@ Push.allow({
   },
 });
 
+// Or...
+Push.deny({
+   send(userId, notification) {
+      return false; // Allow all users to send
+   };
+});
+
 Meteor.methods({
   serverNotification(text, title) {
     Push.send({
