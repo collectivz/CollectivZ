@@ -1,7 +1,10 @@
 import React from 'react';
 
-import ToastrStack from '../components/ToastrStack.jsx';
+import EULAModal from '../components/EULAModal.jsx';
 import { Toast } from '../helpers/Toast';
+import { openModal } from '../helpers/Modal';
+import ToastrStack from '../components/ToastrStack.jsx';
+import ModalContainer from '../containers/ModalContainer.jsx';
 
 export default class RegisterPage extends React.Component {
 
@@ -13,6 +16,7 @@ export default class RegisterPage extends React.Component {
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.openEULA = this.openEULA.bind(this);
   }
 
   componentDidUpdate() {
@@ -28,6 +32,11 @@ export default class RegisterPage extends React.Component {
         errors: [],
       });
     }
+  }
+
+  openEULA(e) {
+    e.preventDefault();
+    openModal(<EULAModal />, "Contrat de License Utilisateur Final");
   }
 
   handleSubmit(e) {
@@ -134,6 +143,7 @@ export default class RegisterPage extends React.Component {
                 placeholder="Confirmation mot de passe"
                 ref="passwordAgain"
               />
+              <h5>En cliquant sur "S'enregistrez", vous déclarez avoir lu et accepté les <a onClick={this.openEULA}>conditions d'utilisation suivantes.</a></h5>
               <input type="submit" value="S'enregister" className="large big success button" />
             </fieldset>
           </form>
@@ -142,6 +152,7 @@ export default class RegisterPage extends React.Component {
           </div>
         </div>
         <ToastrStack />
+        <ModalContainer />
 
       </div>
     );

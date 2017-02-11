@@ -43,7 +43,7 @@ Meteor.publish('chanPage', function (id) {
   }
 });
 
-Meteor.publish('conversationPage', (id) => {
+Meteor.publish('conversationPage', function(id) {
   check(id, String);
   const channel = Channels.findOne(id);
   const user = Meteor.users.findOne(this.userId);
