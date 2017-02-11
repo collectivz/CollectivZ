@@ -144,12 +144,11 @@ Un lien Heroku vers le projet github CollectivZ a été crée.
 
 ## Deployement Heroku
 
-Il y aura un deployement automatique vers le serveur collectivzdev et collectivz-test de Heroku, que si la génération du projet sous Travis est correcte
+Il y a un deployement automatique vers le serveur collectivzdev, que si la génération du projet sous Travis est correcte
 
 Le deployement vers les autres serveurs se fait de facon manuel en allant sur la pipeline CollectivZ d'Heroku et en exécutant
 la fonction "Promote to ..."
 
-Le serveur collectivz-test doit etre utilisé uniquement par l'outils de test fonctionnel
 
 
 ## Monitoring des serveurs de production Heroku
@@ -160,6 +159,12 @@ Cela peut se faire très facilement en cliquant sur le menu More d'un serveur He
 
 
 
+## Visualisation contenu Database
+
+Pour visualiser le contenu de la base CollectivZ, il suffit de :
+- selectionner le serveur que l'on veut observer,
+- aller sur l'onglet Ressources.
+- selectionner l'addon "mLab MongoDB"
 
 
 
