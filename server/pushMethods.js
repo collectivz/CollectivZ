@@ -13,7 +13,7 @@ Push.allow({
 Push.deny({
    send(userId, notification) {
       return false; // Allow all users to send
-   };
+   }
 });
 
 Meteor.methods({
