@@ -6,7 +6,7 @@ App.setPreference('android-targetSdkVersion', '21');
 App.info({
   id: 'com.union.collectivz',
   name: 'CollectivZ',
-  version: '0.1.1'
+  version: '0.1.1',
 });
 
 App.icons({
@@ -43,8 +43,4 @@ App.launchScreens({
   android_xhdpi_landscape: 'public/img/mobile/android/splashscreen/drawable-land-xhdpi/screen.png',
   android_xxhdpi_portrait: 'public/img/mobile/android/splashscreen/drawable-xxhdpi/screen.png',
   android_xxhdpi_landscape: 'public/img/mobile/android/splashscreen/drawable-land-xxhdpi/screen.png',
-});
-
-App.configurePlugin('phonegap-plugin-push', {
-   SENDER_ID: 354968128746,
 });
