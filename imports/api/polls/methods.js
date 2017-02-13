@@ -66,7 +66,7 @@ Meteor.methods({
     Channels.update(parentId, {
       $inc: { 'connections.pollCount': 1 },
     });
-
+/*
      Push.send({
         from: 'CollectivZ Token Notification',
         title: 'CollectivZ News',
@@ -74,8 +74,8 @@ Meteor.methods({
         badge: 12,
         query: {},
      });
-//    Meteor.call('serverNotification', 'Nouveau Sondage', 'CollectivZ News');
-  },
+    Meteor.call('serverNotification', 'Nouveau Sondage', 'CollectivZ News');
+*/  },
 
   'polls.vote': function (pollId, propsId) {
     check(pollId, String);

@@ -44,3 +44,4 @@ App.launchScreens({
   android_xxhdpi_portrait: 'public/img/mobile/android/splashscreen/drawable-xxhdpi/screen.png',
   android_xxhdpi_landscape: 'public/img/mobile/android/splashscreen/drawable-land-xxhdpi/screen.png',
 });
+
