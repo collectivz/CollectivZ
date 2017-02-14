@@ -5,8 +5,8 @@ Push.debug = true;
 
 Push.Configure({
    apn: {
-      certData: Assets.getText('apnDevCert.pem'),
-      keyData: Assets.getText('apnDevKey.pem'),
+//      certData: Assets.getText('apnDevCert.pem'),
+//      keyData: Assets.getText('apnDevKey.pem'),
       passphrase: 'xxxxxxxxx',
       production: true,
       //gateway: 'gateway.push.apple.com',
