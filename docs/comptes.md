@@ -9,7 +9,7 @@ Un compte gmail CollectivZ a été crée. Ce compte est
 
 nodev.collectivz@gmail.com
 
-password: QSDfgh_123
+password: xxxxx
 
 
 # Github
@@ -34,7 +34,7 @@ Ces deux personnes ont les droits admin sur ce compte.
 
 Ce compte permet à des non développeurs d’avoir acces au repository CollectivZ (code, zube.io, ...)
 
-le password d'acces est QSDfgh_123
+le password d'acces est xxxxx
 
 
 
