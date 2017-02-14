@@ -69,7 +69,7 @@ Meteor.methods({
     });
 
      Push.send({
-        from: 'CollectivZ Token Notification',
+        from: 'push',
         title: 'CollectivZ News',
         text: 'Nouveau Sondage',
         badge: 12,
