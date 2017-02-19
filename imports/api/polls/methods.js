@@ -68,14 +68,7 @@ Meteor.methods({
       $inc: { 'connections.pollCount': 1 },
     });
 
-     Push.send({
-        from: 'push',
-        title: 'CollectivZ News',
-        text: 'Nouveau Sondage',
-        badge: 12,
-        query: {},
-     });
-     Meteor.call('serverNotification', 'Nouveau Sondage', 'CollectivZ News');
+    Meteor.call('serverNotification', 'Nouveau Sondage', 'CollectivZ News');
   },
 
   'polls.vote': function (pollId, propsId) {

@@ -1,19 +1,32 @@
 Meteor.startup(() => {
-   document.addEventListener('deviceready', function () {
-      // Enable to debug issues.
-      // window.plugins.OneSignal.setLogLevel({logLevel: 4, visualLevel: 4});
+   Push.Configure({
+      android: {
+         senderID: 354968128746,
+         alert: true,
+         badge: true,
+         sound: true,
+         vibrate: true,
+         clearNotifications: true,
+         // icon: '',
+         // iconColor: ''
+      },
+      ios: {
+         alert: true,
+         badge: true,
+         sound: true,
+      },
+   });
 
-      var notificationOpenedCallback = function(jsonData) {
-         console.log('notificationOpenedCallback: ' + JSON.stringify(jsonData));
-      };
+   Push.enabled(true); // Will enable notifications (requires a token...)
 
-      window.plugins.OneSignal
-         .startInit("354968128746")
-         .handleNotificationOpened(notificationOpenedCallback)
-         .endInit();
+   Push.addListener('message', function(notification) {
+      // Called on every message
+      console.log(JSON.stringify(notification));
+   });
 
-      // Call syncHashedEmail anywhere in your app if you have the user's email.
-      // This improves the effectiveness of OneSignal's "best-time" notification scheduling feature.
-      // window.plugins.OneSignal.syncHashedEmail(userEmail);
-   }, false);
+   // Internal events
+   Push.addListener('token', function(token) {
+      // Token is { apn: 'xxxx' } or { gcm: 'xxxx' }
+      console.log(JSON.stringify(token));
+   });
 });
