@@ -1,19 +1,12 @@
-const OneSignal = window.plugins.OneSignal;
-
-// Add to index.js or the first page that loads with your app.
-// For Intel XDK and please add this to your app.js.
-
-OneSignal.setLogLevel(OneSignal.LOG_LEVEL.DEBUG, OneSignal.LOG_LEVEL.DEBUG);
-
 document.addEventListener('deviceready', function () {
    // Enable to debug issues.
-   OneSignal.setLogLevel({logLevel: 4, visualLevel: 4});
+   window.plugins.OneSignal.setLogLevel({logLevel: 4, visualLevel: 4});
 
    var notificationOpenedCallback = function(jsonData) {
       console.log('notificationOpenedCallback: ' + JSON.stringify(jsonData));
    };
 
-   OneSignal
+   window.plugins.OneSignal
       .startInit("AIzaSyDf9leiVyhmfyqancbOGR0X7mno5zKWAnc")
       .handleNotificationOpened(notificationOpenedCallback)
       .endInit();
@@ -24,3 +17,60 @@ document.addEventListener('deviceready', function () {
    });
 
 }, false);
+
+Meteor.methods({
+   channelNotification(channel, text) {
+      const notificationObj = { contents: { en: text }, included_segments: ['all'] };
+
+      Meteor.call('publish', notificationObj);
+   },
+   userNotification(text, userId) {
+      const notificationObj = { contents: { en: text }, include_player_ids: userId };
+
+      Meteor.call('publish', notificationObj);
+   },
+   publish(data) {
+      if (Meteor.isCordova()) {
+         window.OneSignal.postNotification(notificationObj,
+            (successResponse) => {
+               console.log('Notification Post Success:', successResponse);
+            },
+            (failedResponse) => {
+               console.log('Notification Post Failed: ', failedResponse);
+               alert(`Notification Post Failed:\n${JSON.stringify(failedResponse)}`);
+            },
+         );
+      }
+      else {
+         var data = { app_id: "88cf61ed-a0b2-4303-98c6-114bb0991ddb", ...notificationObj}
+         var headers = {
+            "Content-Type": "application/json; charset=utf-8",
+            "Authorization": "Basic NGEwMGZmMjItY2NkNy0xMWUzLTk5ZDUtMDAwYzI5NDBlNjJj"
+         };
+
+         var options = {
+            host: "onesignal.com",
+            port: 443,
+            path: "/api/v1/notifications",
+            method: "POST",
+            headers: headers
+         };
+
+         var https = require('https');
+         var req = https.request(options, function(res) {
+            res.on('data', function(data) {
+               console.log("Response:");
+               console.log(JSON.parse(data));
+            });
+         });
+
+         req.on('error', function(e) {
+            console.log("ERROR:");
+            console.log(e);
+         });
+
+         req.write(JSON.stringify(data));
+         req.end();
+      }
+   },
+});
