@@ -12,7 +12,7 @@ Push.Configure({
       //gateway: 'gateway.push.apple.com',
    },
    gcm: {
-      apiKey: 'AAAAUqW_zOo:APA91bG6Vu_eGxPv5xwg5abwp29y4pvWrABNjnI1LHZfdrO8IRLi8Y72uuHnbnwfDr-iUKuCL1QyHImToIRZlaOMEiBEDvbACMkPHOXlbPfo0q18owgRB9sJn32mEATuwxACJoLwn_ji',
+      apiKey: 'AIzaSyDf9leiVyhmfyqancbOGR0X7mno5zKWAnc',
       projectNumber: 354968128746,
    },
    // production: true,
