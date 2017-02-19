@@ -7,8 +7,7 @@
     "webapp": "meteor add cordova:cordova-plugin-meteor-webapp@1.4.1",
     "links": "meteor add cordova:cordova-universal-links-plugin@1.2.1",
     "device": "meteor add cordova:cordova-plugin-device@1.1.4",
-    "build": "meteor android-device collectivz.herokuapp.com run",
-    "start": "meteor android-device collectivz.herokuapp.com run",
+    "start": "meteor run android-device --mobile-server collectivz.herokuapp.com --production",
     "test": "jest"
   },
   "devDependencies": {
