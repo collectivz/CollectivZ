@@ -30,8 +30,8 @@ Meteor.methods({
       Meteor.call('publish', notificationObj);
    },
    publish(data) {
-      if (Meteor.isCordova()) {
-         window.OneSignal.postNotification(notificationObj,
+      if (Meteor.isCordova) {
+         window.plugins.OneSignal.postNotification(data,
             (successResponse) => {
                console.log('Notification Post Success:', successResponse);
             },
@@ -42,7 +42,7 @@ Meteor.methods({
          );
       }
       else {
-         var data = { app_id: "88cf61ed-a0b2-4303-98c6-114bb0991ddb", ...notificationObj}
+         var notificationObj = { app_id: "88cf61ed-a0b2-4303-98c6-114bb0991ddb", ...data}
          var headers = {
             "Content-Type": "application/json; charset=utf-8",
             "Authorization": "Basic NGEwMGZmMjItY2NkNy0xMWUzLTk5ZDUtMDAwYzI5NDBlNjJj"
@@ -58,9 +58,9 @@ Meteor.methods({
 
          var https = require('https');
          var req = https.request(options, function(res) {
-            res.on('data', function(data) {
+            res.on('data', function(notificationObj) {
                console.log("Response:");
-               console.log(JSON.parse(data));
+               console.log(JSON.parse(notificationObj));
             });
          });
 
@@ -69,7 +69,7 @@ Meteor.methods({
             console.log(e);
          });
 
-         req.write(JSON.stringify(data));
+         req.write(JSON.stringify(notificationObj));
          req.end();
       }
    },
