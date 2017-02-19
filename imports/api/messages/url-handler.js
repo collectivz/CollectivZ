@@ -5,8 +5,7 @@ export function replaceUrls(string) {
     if (match[0] !== 'h') {
       return `http://${match}`;
     }
-    return match;
+    return `<a href="#" onclick="window.open( '${match}', '_system');">${match}</a>`;
   });
-
-  return `<a href="#" onclick="window.open( '${target}', '_system');">${target}</a>`;
+  return target;
 }
