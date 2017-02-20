@@ -1,4 +1,5 @@
-App.accessRule('*');
+App.accessRule('http://*');
+App.accessRule('https://*');
 
 App.setPreference('android-targetSdkVersion', '21');
 
