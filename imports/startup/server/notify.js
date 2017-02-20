@@ -1,46 +1,22 @@
 import { Meteor } from 'meteor/meteor';
 
-export function publish (data) {
-    var notificationObj = { app_id: "88cf61ed-a0b2-4303-98c6-114bb0991ddb", ...data}
-    var headers = {
-        "Content-Type": "application/json; charset=utf-8",
-        "Authorization": "Basic NGEwMGZmMjItY2NkNy0xMWUzLTk5ZDUtMDAwYzI5NDBlNjJj"
-    };
+var OneSignalClient = null;
 
-    var options = {
-        host: "onesignal.com",
-        port: 443,
-        path: "/api/v1/notifications",
-        method: "POST",
-        headers: headers
-    };
+export function publish (data, options) {
+    // require the module
+    if (OneSignalClient === null)
+        OneSignalClient = require('node-onesignal');
 
-    var https = require('https');
-    var req = https.request(options, function(res) {
-        res.on('data', function(notificationObj) {
-            console.log("Response:");
-            console.log(JSON.parse(notificationObj));
-        });
-    });
+    const client = new OneSignalClient('88cf61ed-a0b2-4303-98c6-114bb0991ddb', 'AIzaSyDf9leiVyhmfyqancbOGR0X7mno5zKWAnc');
 
-    req.on('error', function(e) {
-        console.log("ERROR:");
-        console.log(e);
-    });
-
-    req.write(JSON.stringify(notificationObj));
-    req.end();
+    client.sendNotification(data, options);
 }
 
 Meteor.methods({
     'channelNotification': function (channel, text) {
-        const notificationObj = { contents: { en: text }, included_segments: ['all'] };
-
-        publish( notificationObj);
+        publish( text, {included_segments: 'all'});
     },
     'userNotification': function (text, userId) {
-        const notificationObj = { contents: { en: text }, include_player_ids: userId };
-
-        publish( notificationObj);
+        publish( text, {include_player_ids: userId});
     }
 });
