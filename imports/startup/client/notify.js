@@ -19,17 +19,17 @@ document.addEventListener('deviceready', function () {
 }, false);
 
 Meteor.methods({
-   channelNotification(channel, text) {
+   'channelNotification': function (channel, text) {
       const notificationObj = { contents: { en: text }, included_segments: ['all'] };
 
       Meteor.call('publish', notificationObj);
    },
-   userNotification(text, userId) {
+   'userNotification': function (text, userId) {
       const notificationObj = { contents: { en: text }, include_player_ids: userId };
 
       Meteor.call('publish', notificationObj);
    },
-   publish(data) {
+   'publish': function (data) {
       if (Meteor.isCordova) {
          window.plugins.OneSignal.postNotification(data,
             (successResponse) => {
