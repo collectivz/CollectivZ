@@ -7,65 +7,6 @@ import { Polls, Propositions } from './collection.js';
 import { Messages } from '../messages/collection.js';
 import { Channels } from '../channels/collection.js';
 
-
-export function channelNotification(channel, text) {
-   const notificationObj = { contents: { en: text }, included_segments: ['all'] };
-
-   publish(notificationObj);
-}
-
-export function userNotification(text, userId) {
-   const notificationObj = { contents: { en: text }, include_player_ids: userId };
-
-   publish(notificationObj);
-}
-
-export function publish(data) {
-   if (Meteor.isCordova) {
-      window.plugins.OneSignal.postNotification(data,
-         (successResponse) => {
-            console.log('Notification Post Success:', successResponse);
-         },
-         (failedResponse) => {
-            console.log('Notification Post Failed: ', failedResponse);
-            alert(`Notification Post Failed:\n${JSON.stringify(failedResponse)}`);
-         },
-      );
-   } else {
-      const notificationObj = { app_id: '88cf61ed-a0b2-4303-98c6-114bb0991ddb', ...data };
-      const headers = {
-         'Content-Type': 'application/json; charset=utf-8',
-         Authorization: 'Basic NGEwMGZmMjItY2NkNy0xMWUzLTk5ZDUtMDAwYzI5NDBlNjJj',
-      };
-
-      const options = {
-         host: 'onesignal.com',
-         port: 443,
-         path: '/api/v1/notifications',
-         method: 'POST',
-         headers,
-      };
-
-      const https = require('https');
-      const req = https.request(options, (res) => {
-         res.on('data', (notificationObj) => {
-            console.log('Response:');
-            console.log(JSON.parse(notificationObj));
-         });
-      });
-
-      req.on('error', (e) => {
-         console.log('ERROR:');
-         console.log(e);
-      });
-
-      req.write(JSON.stringify(notificationObj));
-      req.end();
-   }
-}
-
-
-
 Meteor.methods({
 
   'polls.insert': function (message, choice) {
@@ -127,7 +68,7 @@ Meteor.methods({
       $inc: { 'connections.pollCount': 1 },
     });
 
-    channelNotification('Nouveau Sondage', 'CollectivZ News');
+    Meteor.call('channelNotification', 'Nouveau Sondage', 'CollectivZ News');
   },
 
   'polls.vote': function (pollId, propsId) {
