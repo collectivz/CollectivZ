@@ -2,7 +2,11 @@
   "name": "cz_react_meteor",
   "private": true,
   "scripts": {
-    "start": "meteor run",
+    "postinstall": "npm run appinbrowser && npm run links && npm run device && npm run onesignal",
+    "appinbrowser": "meteor add cordova:cordova-plugin-inappbrowser@1.6.1",
+    "links": "meteor add cordova:cordova-universal-links-plugin@1.2.1",
+    "device": "meteor add cordova:cordova-plugin-device@1.1.4",
+    "onesignal": "meteor add cordova:onesignal-cordova-plugin@2.0.11",
     "test": "jest"
   },
   "devDependencies": {
