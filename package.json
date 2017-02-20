@@ -2,11 +2,8 @@
   "name": "cz_react_meteor",
   "private": true,
   "scripts": {
-    "postinstall": "npm run appinbrowser && npm run webapp && npm run links",
-    "appinbrowser": "meteor add cordova:cordova-plugin-inappbrowser@1.6.1",
-    "webapp": "meteor add cordova:cordova-plugin-meteor-webapp@1.4.1",
-    "links": "meteor add cordova:cordova-universal-links-plugin@1.2.1",
-    "start": "meteor run",
+    "postinstall": "npm run inappbrowser",
+    "inappbrowser": "meteor add cordova:cordova-plugin-inappbrowser@1.6.1",
     "test": "jest"
   },
   "devDependencies": {
@@ -44,6 +41,7 @@
     "jsx-to-string": "^1.0.0",
     "meteor-node-stubs": "^0.2.4",
     "moment": "^2.15.0",
+    "node-onesignal": "^0.3.0",
     "promises": "^0.2.5",
     "react": "^15.3.1",
     "react-addons-pure-render-mixin": "^15.3.1",

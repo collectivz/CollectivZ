@@ -1,3 +1,5 @@
-import './register-api.js';
-import './fixtures.js';
-import './db-migrate.js';
+import './register-api';
+import './fixtures';
+import './db-migrate';
+import './notify';
+
