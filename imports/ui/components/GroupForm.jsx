@@ -8,7 +8,18 @@ export default class GroupForm extends React.Component {
   constructor(props) {
     super(props);
 
+    this.state = {
+      isPublic: false
+    }
+
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.togglePrivacy = this.togglePrivacy.bind(this);
+  }
+
+  togglePrivacy() {
+    this.setState({
+      isPublic: !this.state.isPublic
+    });
   }
 
   handleSubmit(e) {
@@ -17,9 +28,14 @@ export default class GroupForm extends React.Component {
     const {
       group,
     } = this.props;
+    const {
+      isPublic
+    } = this.state;
+
     const newGroup = {
       name: this.refs.name.value,
       description: this.refs.description.value,
+      private: !isPublic
     };
 
     if (newGroup.name.length) {
@@ -51,6 +67,9 @@ export default class GroupForm extends React.Component {
     const {
       group,
     } = this.props;
+    const {
+      isPublic
+    } = this.state;
 
     const nameAttributes = group ? { defaultValue: group.name }
       : { placeholder: 'Entrez le nom de votre groupe' };
@@ -77,6 +96,10 @@ export default class GroupForm extends React.Component {
               ref="description"
               {...descriptionAttributes}
             />
+          </fieldset>
+          <fieldset className="large">
+            <input type="radio" name="gender" value="private" checked={!isPublic} onChange={this.togglePrivacy} /> Privé
+            <input type="radio" name="gender" value="public" checked={isPublic} onChange={this.togglePrivacy} /> Public <br />
           </fieldset>
           <input type="submit" value="Valider" className="large success button" />
 

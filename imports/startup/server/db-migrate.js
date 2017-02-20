@@ -26,6 +26,14 @@ Meteor.startup(() => {
     }
   });
 
+  const groups = Channels.find({ type: 'group' }).fetch()
+  groups.forEach(group => {
+    if (!group.private) {
+      group.private = false
+      Channels.update(group._id, group);
+    }
+  })
+
   _.keys(Collections).forEach(key => {
     const docs = Collections[key].find({ type: key }).fetch();
     docs.forEach(doc => {

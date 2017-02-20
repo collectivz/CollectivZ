@@ -12,7 +12,19 @@ import { Polls, Propositions } from '../../polls/collection.js';
 Meteor.publish('groupList', function () {
   if (this.userId) {
     const user = Meteor.users.findOne(this.userId);
-    return Channels.find({ type: 'group', author: { $nin: user.blockedUsers }, objectionable: false  });
+    return Channels.find({ $or: [{
+        type: 'group',
+        author: { $nin: user.blockedUsers },
+        objectionable: false,
+        private: false
+      }, {
+        type: 'group',
+        author: user._id,
+      }, {
+        type: 'group',
+        members: { $in: [user._id] }
+      }
+    ]});
   }
   this.ready();
 });

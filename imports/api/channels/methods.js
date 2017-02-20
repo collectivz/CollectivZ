@@ -22,6 +22,9 @@ Meteor.methods({
         type: String,
         optional: true,
       },
+      private: {
+        type: Boolean
+      },
       imageUrl: {
         type: String,
         optional: true,
