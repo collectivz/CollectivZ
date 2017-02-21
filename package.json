@@ -27,6 +27,7 @@
   "dependencies": {
     "aws-sdk": "^2.7.27",
     "babel-eslint": "^7.1.1",
+    "babel-plugin-transform-async-to-generator": "^6.22.0",
     "babel-runtime": "^6.22.0",
     "bcrypt": "^1.0.2",
     "blueimp-file-upload": "^9.14.2",
