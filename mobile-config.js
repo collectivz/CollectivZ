@@ -1,6 +1,12 @@
 App.accessRule('http://*');
 App.accessRule('https://*');
 
+App.appendToConfig(
+  <universal-links>
+    <host name="https://collectivz.herokuapp.com" />
+  </universal-links>
+)
+
 App.setPreference('android-targetSdkVersion', '21');
 
 App.info({
