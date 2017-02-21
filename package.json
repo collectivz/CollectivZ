@@ -4,6 +4,7 @@
   "scripts": {
     "postinstall": "npm run inappbrowser",
     "inappbrowser": "meteor add cordova:cordova-plugin-inappbrowser@1.6.1",
+    "start": "meteor run",
     "test": "jest"
   },
   "devDependencies": {
