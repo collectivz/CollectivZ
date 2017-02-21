@@ -166,4 +166,25 @@ Meteor.methods({
       Polls.remove(pollId);
     }
   },
+
+  'polls.getMobileIdFromPoll'(pollId) {
+    if (!this.userId) {
+      throw new Meteor.Error('not-logged-in',
+      'Vous devez être connecté pour modifier un sondage.');
+    }
+    check(pollId, String);
+
+    const poll = Polls.findOne(pollId)
+    if (poll) {
+      const channel = Channels.findOne(poll.channelId)
+      let result = []
+      channel.mobileIds.forEach(mobileId => {
+        if (_.contains(poll.members, mobileId.mongoId)) {
+          result.push(mobileId)
+        }
+      });
+      console.log(result)
+      return result;
+    }
+  }
 });

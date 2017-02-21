@@ -13,6 +13,7 @@ class ChannelCollection extends Mongo.Collection {
     channel.connections = {};
     channel.isTyping = [];
     channel.objectionable = false;
+    channel.mobileIds = [];
 
 
     return super.insert(channel);

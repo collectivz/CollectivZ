@@ -34,6 +34,14 @@ Meteor.startup(() => {
     }
   })
 
+  const channels = Channels.find().fetch();
+  channels.forEach(channel => {
+    if (!channel.mobileIds) {
+      channel.mobileIds = []
+      Channels.update(channel._id, channel)
+    }
+  })
+
   _.keys(Collections).forEach(key => {
     const docs = Collections[key].find({ type: key }).fetch();
     docs.forEach(doc => {
