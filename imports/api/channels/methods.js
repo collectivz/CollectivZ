@@ -371,4 +371,53 @@ Meteor.methods({
       $pullAll: { isTyping: [this.userId] },
     });
   },
+
+  'channels.addMobileIdToGroup'(groupId, mobileId) {
+    if (!this.userId) {
+      throw new Meteor.Error('not-logged-in',
+        'Vous devez vous connecter pour arrêter de taper.');
+    }
+    check(groupId, String)
+    check(mobileId, {
+      userId: String,
+      pushToken: String
+    })
+    mobileId.mongoId = this.userId
+    Channels.update(groupId, {
+      $addToSet: { mobileIds: mobileId }
+    })
+
+  },
+
+  'channels.removeMobileIdFromGroup'(groupId, mobileId) {
+    if (!this.userId) {
+      throw new Meteor.Error('not-logged-in',
+        'Vous devez vous connecter pour arrêter de taper.');
+    }
+    check(groupId, String)
+    check(mobileId, {
+      userId: String,
+      pushToken: String
+    })
+    Channels.update(groupId, {
+      $pull: { mobileIds: mobileId }
+    }, false, true)
+  },
+
+  'channels.getMobileIdFromGroup'(groupId) {
+    if (!this.userId) {
+      throw new Meteor.Error('not-logged-in',
+        'Vous devez vous connecter pour arrêter de taper.');
+    }
+    check(groupId, String)
+    console.log(groupId)
+    const channel = Channels.findOne(groupId)
+    console.log(channel)
+
+    if (channel) {
+      console.log(channel.mobileIds)
+      return channel.mobileIds
+    }
+    return null
+  },
 });
