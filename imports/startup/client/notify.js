@@ -18,6 +18,8 @@ Meteor.startup(() => {
             .handleNotificationOpened(notificationOpenedCallback)
             .getIds(notificationIdsCallback)
             .endInit();
+
+         window.plugins.OneSignal.getIds(notificationIdsCallback)
       }
 
       // Call syncHashedEmail anywhere in your app if you have the user's email.
