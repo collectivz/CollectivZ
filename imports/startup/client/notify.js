@@ -15,7 +15,6 @@ document.addEventListener('deviceready', () => {
     window.plugins.OneSignal
          .startInit('354968128746')
          .handleNotificationOpened(notificationOpenedCallback)
-         .getIds(notificationIdsCallback)
          .endInit();
 
     window.plugins.OneSignal.getIds(notificationIdsCallback);
