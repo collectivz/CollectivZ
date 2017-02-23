@@ -2,13 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import OneSignalClient from 'node-onesignal';
 
 export function publish(data, options) {
-  const client = new OneSignalClient('88cf61ed-a0b2-4303-98c6-114bb0991ddb', 'AIzaSyDf9leiVyhmfyqancbOGR0X7mno5zKWAnc');
-
-  client.sendNotification(data, options);
-}
-
-export function publish(data, options) {
-  console.log( 'publishCordova');
+  console.log('publish to OneSignal');
   const client = new OneSignalClient('88cf61ed-a0b2-4303-98c6-114bb0991ddb', 'ZGUwOTU0NjEtMDJmMS00ZmY0LTgyZDAtZGY0MDZlNDE3Y2E0');
 
   client.sendNotification(data, options);
