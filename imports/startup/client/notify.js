@@ -13,7 +13,7 @@ document.addEventListener('deviceready', () => {
 
   if (Meteor.isCordova) {
     window.plugins.OneSignal
-         .startInit('354968128746', { googleProjectNumber: 'AIzaSyDpFP4uIbrCQIMHwE5BpOrWv-67B0b1bJI' })
+         .startInit('88cf61ed-a0b2-4303-98c6-114bb0991ddb')
          .handleNotificationOpened(notificationOpenedCallback)
          .endInit();
 
