@@ -23,7 +23,7 @@ Meteor.methods({
         optional: true,
       },
       private: {
-        type: Boolean
+        type: Boolean,
       },
       imageUrl: {
         type: String,
@@ -56,6 +56,8 @@ Meteor.methods({
       $push: { subscribedChannels: group._id },
       $set: { [lastReadField]: Date.now() },
     });
+
+    Meteor.call('allUsersNotification', 'CollectivZ: nouveau groupe', group.name);
   },
 
   'channels.insert': function (channel, parentId) {
@@ -113,6 +115,10 @@ Meteor.methods({
       $set: { [lastReadField]: Date.now() },
     });
 
+    const titre = channel.type === 'channel' ? 'CollectivZ: nouvelle action' : 'CollectivZ: nouveau groupe';
+
+    Meteor.call('allUsersNotification', titre, channel.name);
+
     return channelId;
   },
 
@@ -151,7 +157,7 @@ Meteor.methods({
 
     if (!userId) {
       throw new Meteor.Error('not-logged-in',
-        'Vous devez être connecté pour rejoindre un groupe de discussion.');
+        'Vous devez être connecté pour quitter un groupe de discussion.');
     }
 
     check(channelId, String);
@@ -226,6 +232,7 @@ Meteor.methods({
       $push: { subscribedConversations: channelId },
       $set: { [lastReadField]: Date.now() },
     }, { multi: true });
+
     return channelId;
   },
 
@@ -262,6 +269,7 @@ Meteor.methods({
     });
 
     Channels.update(channelId, { $set: modifier });
+    Meteor.call('usersNotificationFromChannel', 'CollectivZ: message modifié', message.text, message.channelId);
   },
 
   'channels.delete': function (channelId) {
@@ -372,52 +380,51 @@ Meteor.methods({
     });
   },
 
-  'channels.addMobileIdToGroup'(groupId, mobileId) {
+  'channels.addMobileIdToGroup': function (groupId, mobileId) {
     if (!this.userId) {
       throw new Meteor.Error('not-logged-in',
         'Vous devez vous connecter pour arrêter de taper.');
     }
-    check(groupId, String)
+    check(groupId, String);
     check(mobileId, {
       userId: String,
-      pushToken: String
-    })
-    mobileId.mongoId = this.userId
+      pushToken: String,
+    });
+    mobileId.mongoId = this.userId;
     Channels.update(groupId, {
-      $addToSet: { mobileIds: mobileId }
-    })
-
+      $addToSet: { mobileIds: mobileId },
+    });
   },
 
-  'channels.removeMobileIdFromGroup'(groupId, mobileId) {
+  'channels.removeMobileIdFromGroup': function (groupId, mobileId) {
     if (!this.userId) {
       throw new Meteor.Error('not-logged-in',
         'Vous devez vous connecter pour arrêter de taper.');
     }
-    check(groupId, String)
+    check(groupId, String);
     check(mobileId, {
       userId: String,
-      pushToken: String
-    })
+      pushToken: String,
+    });
     Channels.update(groupId, {
-      $pull: { mobileIds: mobileId }
-    }, false, true)
+      $pull: { mobileIds: mobileId },
+    }, false, true);
   },
 
-  'channels.getMobileIdFromGroup'(groupId) {
+  'channels.getMobileIdFromGroup': function (groupId) {
     if (!this.userId) {
       throw new Meteor.Error('not-logged-in',
         'Vous devez vous connecter pour arrêter de taper.');
     }
-    check(groupId, String)
-    console.log(groupId)
-    const channel = Channels.findOne(groupId)
-    console.log(channel)
+    check(groupId, String);
+    console.log(groupId);
+    const channel = Channels.findOne(groupId);
+    console.log(channel);
 
     if (channel) {
-      console.log(channel.mobileIds)
-      return channel.mobileIds
+      console.log(channel.mobileIds);
+      return channel.mobileIds;
     }
-    return null
+    return null;
   },
 });

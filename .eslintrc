@@ -8,7 +8,8 @@
   ],
   "rules": {
     "no-underscore-dangle": "off",
-    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }]
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    "semi": [ 0, "never"]
   },
   "parserOptions": {
     "ecmaVersion": 6,

@@ -9,10 +9,19 @@ export function publish(data, options) {
 }
 
 Meteor.methods({
-  channelNotification(channel, text) {
-    publish(text, { included_segments: 'All' });
+  usersNotificationFromChannel(title, text, groupId) {
+    const userIds = Meteor.channels.getMobileIdFromGroup(groupId);
+    const message = {
+      contents: { en: text },
+      headings: { en: title },
+    };
+    publish(message, { include_player_ids: userIds });
   },
-  userNotification(text, userId) {
-    publish(text, { include_player_ids: userId });
+  allUsersNotification(title, text) {
+    const message = {
+      contents: { en: text },
+      headings: { en: title },
+    };
+    publish(message, { included_segments: 'All' });
   },
 });
