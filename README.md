@@ -21,7 +21,6 @@ npm install
 
 
 ## start
-
 npm install
 npm start
 
@@ -29,7 +28,7 @@ npm start
 ## architecture
 ### proposition
 
-```
+```.
 user = {
   _id,
   suscribedChannels: [String id],     // moins de channels par utilisateur que
