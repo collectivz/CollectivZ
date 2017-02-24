@@ -167,5 +167,9 @@ Pour visualiser le contenu de la base CollectivZ, il suffit de :
 - selectionner l'addon "mLab MongoDB"
 
 
+# Compte Onesignal
 
+Jacques et Philippe on un compte OneSignal.
+
+Il se connecte avec leur compte OneSignal personnel.
 
