@@ -57,7 +57,7 @@ Meteor.methods({
       $set: { [lastReadField]: Date.now() },
     });
 
-    Meteor.call('allUsersNotification', 'CollectivZ: nouveau groupe', group.name);
+    if (!group.private) { Meteor.call('allUsersNotification', 'CollectivZ: nouveau groupe', group.name); }
   },
 
   'channels.insert': function (channel, parentId) {
@@ -117,7 +117,7 @@ Meteor.methods({
 
     const titre = channel.type === 'channel' ? 'CollectivZ: nouvelle action' : 'CollectivZ: nouveau groupe';
 
-    Meteor.call('allUsersNotification', titre, channel.name);
+    Meteor.call('usersNotificationFromChannel', titre, channel.name, parentId);
 
     return channelId;
   },
