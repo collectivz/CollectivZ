@@ -35,6 +35,8 @@ Meteor.methods({
         channelId,
       };
       Messages.insert(msg);
+      const user = Meteor.users.findOne(friend._id);
+      Meteor.call('userNotification', 'CollectivZ: invitation au groupe', Channels.findOne(channelId).name, user.mobileId);
     } else {
       throw new Meteor.Error('channel-not-found',
         'Channel non trouvé.');

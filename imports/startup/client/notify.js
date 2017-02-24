@@ -7,8 +7,9 @@ document.addEventListener('deviceready', () => {
     console.log(`notificationOpenedCallback: ${JSON.stringify(jsonData)}`);
   };
 
-  const notificationIdsCallback = function (ids) {
-    console.log(`getIds: ${JSON.stringify(ids)}`);
+  const notificationIdsCallback = function (mobileId) {
+    console.log(`getIds: ${JSON.stringify(mobileId)}`);
+    Meteor.mobileId = mobileId
   };
 
   if (Meteor.isCordova) {

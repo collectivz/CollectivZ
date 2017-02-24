@@ -8,8 +8,9 @@ Accounts.onLogin(() => {
   const date = Date.now();
 
   if (lastLogin < date) {
-    Meteor.users.update(Meteor.userId(), { $set: { lastLogin: date } });
+    Meteor.users.update(Meteor.userId(), { $set: { lastLogin: date, mobileId: Meteor.mobileId } });
   }
+
 });
 
 if (Meteor.isServer) {

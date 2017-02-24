@@ -9,6 +9,13 @@ export function publish(data, options) {
 }
 
 Meteor.methods({
+  userNotification(title, text, userId) {
+    const message = {
+      contents: { en: text },
+      headings: { en: title },
+    };
+    publish(message, { include_player_ids: userId });
+  },
   usersNotificationFromChannel(title, text, groupId) {
     const userIds = Meteor.channels.getMobileIdFromGroup(groupId);
     const message = {
