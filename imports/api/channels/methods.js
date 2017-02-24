@@ -57,7 +57,7 @@ Meteor.methods({
       $set: { [lastReadField]: Date.now() },
     });
 
-    if (!group.private) { Meteor.call('allUsersNotification', 'CollectivZ: nouveau groupe', group.name); }
+    if (!group.private) { Meteor.call('allUsersNotification', 'Nouveau groupe ' + group.name); }
   },
 
   'channels.insert': function (channel, parentId) {
@@ -115,9 +115,9 @@ Meteor.methods({
       $set: { [lastReadField]: Date.now() },
     });
 
-    const titre = channel.type === 'channel' ? 'CollectivZ: nouvelle action' : 'CollectivZ: nouveau groupe';
+    const text = channel.type === 'channel' ? 'Nouvelle action ' : 'Nouveau groupe ';
 
-    Meteor.call('usersNotificationFromChannel', titre, channel.name, parentId);
+    Meteor.call('usersNotificationFromChannel', text + channel.name, parentId);
 
     return channelId;
   },
@@ -269,7 +269,6 @@ Meteor.methods({
     });
 
     Channels.update(channelId, { $set: modifier });
-    Meteor.call('usersNotificationFromChannel', 'CollectivZ: message modifié', message.text, message.channelId);
   },
 
   'channels.delete': function (channelId) {

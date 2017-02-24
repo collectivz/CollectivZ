@@ -68,7 +68,7 @@ Meteor.methods({
       $inc: { 'connections.pollCount': 1 },
     });
 
-    Meteor.call( 'usersNotificationFromChannel', 'CollectivZ: Nouveau sondage', message.text, message.channelId);
+    Meteor.call( 'usersNotificationFromChannel', 'Nouveau sondage ' + message.text, message.channelId);
   },
 
   'polls.vote': function (pollId, propsId) {
