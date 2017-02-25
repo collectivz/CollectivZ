@@ -14,7 +14,7 @@ Meteor.methods({
       contents: { en: text },
       headings: { en: 'CollectivZ' },
     };
-    publish(message, { include_player_ids: userId });
+    publish(message, { include_player_ids: userId, small_icon: 'android_mdpi' });
   },
   usersNotificationFromChannel(text, groupId) {
     const userIds = Meteor.channels.getMobileIdFromGroup(groupId);
@@ -22,13 +22,13 @@ Meteor.methods({
       contents: { en: text },
       headings: { en: 'CollectivZ' },
     };
-    publish(message, { include_player_ids: userIds });
+    publish(message, { include_player_ids: userIds, small_icon: 'android_mdpi' });
   },
   allUsersNotification(text) {
     const message = {
       contents: { en: text },
       headings: { en: 'CollectivZ' },
     };
-    publish(message, { included_segments: 'All' });
+    publish(message, { included_segments: 'All', small_icon: 'android_mdpi' });
   },
 });
