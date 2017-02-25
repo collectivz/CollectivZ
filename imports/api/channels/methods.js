@@ -391,9 +391,11 @@ Meteor.methods({
 
     if (channel) {
       const mobileIds = [];
-      for (const { mobileId: m } of channel.members) {
-        mobileIds.push(m);
-      }
+
+      channel.members.forEach( (member) => {
+        mobileIds.push( Meteor.users.findOne(member._id).mobileId);
+      });
+
       console.log(`getMobileIdFromGroup${mobileIds}`);
       return mobileIds;
     }
