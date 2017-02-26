@@ -171,5 +171,15 @@ Pour visualiser le contenu de la base CollectivZ, il suffit de :
 
 Jacques et Philippe on un compte OneSignal.
 
-Il se connecte avec leur compte OneSignal personnel.
+Ils se connectent avec leur compte OneSignal personnel.
+
+OneSignal est un system de cloud push. 
+
+L'interet d'utiliser OneSignal par rapport à un systeme de push cordova classique sont les suivants
+
+
+* offre une meilleur abstraction du systeme de push Android et IOS. Moins de code spécifique a ecrire
+
+* offre une interface de management des push et permet d'administrer les push
+
 

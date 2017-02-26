@@ -24,7 +24,7 @@ function getMobileIdFromGroup(groupId) {
     channel.members.forEach(userId => {
       const user = Meteor.users.findOne(userId);
 
-      console.log( `getMobileIdFromGroup: User from group = ${user}` )
+      console.log( `getMobileIdFromGroup: User from group = ${JSON.stringify(user)}` )
 
       if (user && user.mobileId) {
         mobileIds.push(user.mobileId);
