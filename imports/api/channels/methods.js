@@ -378,27 +378,4 @@ Meteor.methods({
       $pullAll: { isTyping: [this.userId] },
     });
   },
-
-  'channels.getMobileIdFromGroup': function (groupId) {
-    if (!this.userId) {
-      throw new Meteor.Error('not-logged-in',
-        'Vous devez vous connecter pour arrêter de taper.');
-    }
-    check(groupId, String);
-    console.log(groupId);
-    const channel = Channels.findOne(groupId);
-    console.log(channel);
-
-    if (channel) {
-      const mobileIds = [];
-
-      channel.members.forEach( (member) => {
-        mobileIds.push( Meteor.users.findOne(member._id).mobileId);
-      });
-
-      console.log(`getMobileIdFromGroup${mobileIds}`);
-      return mobileIds;
-    }
-    return null;
-  },
 });
