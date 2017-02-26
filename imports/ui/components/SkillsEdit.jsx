@@ -1,12 +1,11 @@
-import React from 'react';
+import React from "react";
 
-import List from './List';
-import SkillItem from './SkillItem';
-import Breadcrumb from './Breadcrumb';
-import { Toast } from '../helpers/Toast';
+import List from "./List";
+import SkillItem from "./SkillItem";
+import Breadcrumb from "./Breadcrumb";
+import { Toast } from "../helpers/Toast";
 
 export default class SkillsEdit extends React.Component {
-
   constructor(props) {
     super(props);
 
@@ -18,22 +17,22 @@ export default class SkillsEdit extends React.Component {
     const skill = this.refs.skill.value;
 
     if (skill) {
-      Meteor.call('users.addSkill', skill, (err, res) => {
+      Meteor.call("users.addSkill", skill, (err, res) => {
         if (!err) {
-          Toast(`Compétence ${skill} ajoutée.`, 'success');
-          this.refs.skill.value = '';
+          Toast(`Compétence ${skill} ajoutée.`, "success");
+          this.refs.skill.value = "";
         } else {
-          Toast(err.reason, 'danger');
+          Toast(err.reason, "danger");
         }
       });
     } else {
-      Toast('Vous devez renseigner une compétence', 'danger');
+      Toast("Vous devez renseigner une compétence", "danger");
     }
   }
 
   render() {
     const {
-      user,
+      user
     } = this.props;
 
     return (
@@ -53,7 +52,12 @@ export default class SkillsEdit extends React.Component {
                 ref="skill"
               />
             </fieldset>
-            <button className="button self-center success" onClick={this.addSkill}>Ajouter</button>
+            <button
+              className="button self-center success"
+              onClick={this.addSkill}
+            >
+              Ajouter
+            </button>
           </div>
         </form>
         <div>

@@ -1,46 +1,54 @@
-import { Meteor } from 'meteor/meteor';
-import { check } from 'meteor/check';
-import { _ } from 'meteor/underscore';
+import { Meteor } from "meteor/meteor";
+import { check } from "meteor/check";
+import { _ } from "meteor/underscore";
 
-import { Feedbacks } from './collection.js';
-import { Channels } from '../channels/collection.js';
-import { Messages } from '../messages/collection.js';
+import { Feedbacks } from "./collection.js";
+import { Channels } from "../channels/collection.js";
+import { Messages } from "../messages/collection.js";
 
 Meteor.methods({
-  'feedbacks.giveFeedback': function (channelId, feedback) {
+  "feedbacks.giveFeedback": function(channelId, feedback) {
     const userId = this.userId;
 
     if (!userId) {
-      throw new Meteor.Error('not-logged-in',
-        'Vous devez être connecté pour laisser une évaluation');
+      throw new Meteor.Error(
+        "not-logged-in",
+        "Vous devez être connecté pour laisser une évaluation"
+      );
     }
 
     check(channelId, String);
-    check(feedback, Match.Where((feedback) => {
-      check(feedback.rating, Match.Where((rating) => {
-        check(rating, Number);
-        if (rating >= 0 && rating < 6) {
-          return true;
-        }
-        return false;
-      }));
-      check(feedback.comment, String);
-      _.each(feedback.userFeedbacks, (userFeedback) => {
-        check(userFeedback, {
-          username: String,
-          userId: String,
-          rating: Match.Where((rating) => {
+    check(
+      feedback,
+      Match.Where(feedback => {
+        check(
+          feedback.rating,
+          Match.Where(rating => {
             check(rating, Number);
             if (rating >= 0 && rating < 6) {
               return true;
             }
             return false;
-          }),
-          comment: String,
+          })
+        );
+        check(feedback.comment, String);
+        _.each(feedback.userFeedbacks, userFeedback => {
+          check(userFeedback, {
+            username: String,
+            userId: String,
+            rating: Match.Where(rating => {
+              check(rating, Number);
+              if (rating >= 0 && rating < 6) {
+                return true;
+              }
+              return false;
+            }),
+            comment: String
+          });
         });
-      });
-      return true;
-    }));
+        return true;
+      })
+    );
 
     const channel = Channels.findOne(channelId);
 
@@ -48,26 +56,35 @@ Meteor.methods({
       const author = Meteor.user();
 
       if (channel.receivedFeedback) {
-        throw new Meteor.Error('feedback-already-given',
-          'Vous avez déjà évalué cette mission.');
+        throw new Meteor.Error(
+          "feedback-already-given",
+          "Vous avez déjà évalué cette mission."
+        );
       }
 
       const group = Channels.findOne({ _id: channel.rootId });
 
       if (!group) {
-        throw new Meteor.Error('group-not-found',
-          "La communauté à laquelle appartient cette action n'a pas été trouvée.");
+        throw new Meteor.Error(
+          "group-not-found",
+          "La communauté à laquelle appartient cette action n'a pas été trouvée."
+        );
       }
 
-      if (!_.contains(channel.leaders, author._id) && !_.contains(group.leaders, author._id)) {
-        throw new Meteor.Error('not-allowed',
-          "Vous n'avez pas les droits pour laisser une évaluation ici.");
+      if (
+        !_.contains(channel.leaders, author._id) &&
+        !_.contains(group.leaders, author._id)
+      ) {
+        throw new Meteor.Error(
+          "not-allowed",
+          "Vous n'avez pas les droits pour laisser une évaluation ici."
+        );
       }
 
       const message = {
         text: `Evaluation laissée par ${author.username}`,
         channelId,
-        type: 'feedback',
+        type: "feedback"
       };
       const messageId = Messages.insert(message);
 
@@ -78,12 +95,12 @@ Meteor.methods({
       const feedbackId = Feedbacks.insert(feedback);
 
       Messages.update(messageId, {
-        $set: { feedbackId },
+        $set: { feedbackId }
       });
       Channels.update(channelId, {
-        $inc: { 'connections.feedbackCount': 1 },
-        $set: { receivedFeedback: true },
+        $inc: { "connections.feedbackCount": 1 },
+        $set: { receivedFeedback: true }
       });
     }
-  },
+  }
 });

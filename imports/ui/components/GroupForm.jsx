@@ -1,16 +1,15 @@
-import React from 'react';
+import React from "react";
 
-import { Toast } from '../helpers/Toast';
-import { closeModal } from '../helpers/Modal';
+import { Toast } from "../helpers/Toast";
+import { closeModal } from "../helpers/Modal";
 
 export default class GroupForm extends React.Component {
-
   constructor(props) {
     super(props);
 
     this.state = {
       isPublic: false
-    }
+    };
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.togglePrivacy = this.togglePrivacy.bind(this);
@@ -26,7 +25,7 @@ export default class GroupForm extends React.Component {
     e.preventDefault();
 
     const {
-      group,
+      group
     } = this.props;
     const {
       isPublic
@@ -40,42 +39,44 @@ export default class GroupForm extends React.Component {
 
     if (newGroup.name.length) {
       if (!group) {
-        Meteor.call('groups.insert', newGroup, (err, res) => {
+        Meteor.call("groups.insert", newGroup, (err, res) => {
           if (err) {
-            Toast(err.reason, 'danger');
+            Toast(err.reason, "danger");
           } else {
-            Toast(`Groupe "${newGroup.name}" créé.`, 'success');
+            Toast(`Groupe "${newGroup.name}" créé.`, "success");
             closeModal();
           }
         });
       } else {
-        Meteor.call('channels.edit', group._id, newGroup, (err, res) => {
+        Meteor.call("channels.edit", group._id, newGroup, (err, res) => {
           if (err) {
-            Toast(err.reason, 'danger');
+            Toast(err.reason, "danger");
           } else {
-            Toast(`Groupe "${group.name}" modifié.`, 'success');
+            Toast(`Groupe "${group.name}" modifié.`, "success");
             closeModal();
           }
         });
       }
-      this.refs.name.value = '';
-      this.refs.description.value = '';
+      this.refs.name.value = "";
+      this.refs.description.value = "";
     }
   }
 
   render() {
     const {
-      group,
+      group
     } = this.props;
     const {
       isPublic
     } = this.state;
 
-    const nameAttributes = group ? { defaultValue: group.name }
-      : { placeholder: 'Entrez le nom de votre groupe' };
+    const nameAttributes = group
+      ? { defaultValue: group.name }
+      : { placeholder: "Entrez le nom de votre groupe" };
 
-    const descriptionAttributes = group ? { defaultValue: group.description }
-      : { placeholder: 'Vous pouvez ajouter une description (optionnel)' };
+    const descriptionAttributes = group
+      ? { defaultValue: group.description }
+      : { placeholder: "Vous pouvez ajouter une description (optionnel)" };
 
     return (
       <div>
@@ -98,10 +99,29 @@ export default class GroupForm extends React.Component {
             />
           </fieldset>
           <fieldset className="large">
-            <input type="radio" name="gender" value="private" checked={!isPublic} onChange={this.togglePrivacy} /> Privé
-            <input type="radio" name="gender" value="public" checked={isPublic} onChange={this.togglePrivacy} /> Public <br />
+            <input
+              type="radio"
+              name="gender"
+              value="private"
+              checked={!isPublic}
+              onChange={this.togglePrivacy}
+            />
+            {" "}Privé
+            <input
+              type="radio"
+              name="gender"
+              value="public"
+              checked={isPublic}
+              onChange={this.togglePrivacy}
+            />
+            {" "}Public{" "}
+            <br />
           </fieldset>
-          <input type="submit" value="Valider" className="large success button" />
+          <input
+            type="submit"
+            value="Valider"
+            className="large success button"
+          />
 
         </form>
 

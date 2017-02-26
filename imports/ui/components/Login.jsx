@@ -1,11 +1,10 @@
-import React, { Component } from 'react';
-import { Meteor } from 'meteor/meteor';
-import classNames from 'classnames';
+import React, { Component } from "react";
+import { Meteor } from "meteor/meteor";
+import classNames from "classnames";
 
-import { Toast } from '../helpers/Toast';
+import { Toast } from "../helpers/Toast";
 
 export default class Login extends Component {
-
   constructor(props) {
     super(props);
 
@@ -17,21 +16,24 @@ export default class Login extends Component {
     e.preventDefault();
     this.setState({ isClicked: true });
 
-    setTimeout(() => {
-      this.setState({ isClicked: false });
-      const username = this.refs.username.value;
-      const password = this.refs.password.value;
+    setTimeout(
+      () => {
+        this.setState({ isClicked: false });
+        const username = this.refs.username.value;
+        const password = this.refs.password.value;
 
-      if (username && password) {
-        Meteor.loginWithPassword(username, password, (err) => {
-          if (err) {
-            Toast(err.reason, 'danger');
-          } else {
-            this.context.router.push('/');
-          }
-        });
-      }
-    }, 500);
+        if (username && password) {
+          Meteor.loginWithPassword(username, password, err => {
+            if (err) {
+              Toast(err.reason, "danger");
+            } else {
+              this.context.router.push("/");
+            }
+          });
+        }
+      },
+      500
+    );
   }
 
   render() {
@@ -60,7 +62,13 @@ export default class Login extends Component {
                 ref="password"
               />
             </fieldset>
-            <button onClick={this.handleClick} className={classNames('large big success button spinner touch-event', { 'touch-active spinner-active': this.state.isClicked })}>
+            <button
+              onClick={this.handleClick}
+              className={classNames(
+                "large big success button spinner touch-event",
+                { "touch-active spinner-active": this.state.isClicked }
+              )}
+            >
               <div className="icon-spin" />
               <span>Se connecter</span>
             </button>
@@ -70,8 +78,13 @@ export default class Login extends Component {
               <i className="icon icon-error" />
               <span>ErrorCode</span>
             </div>
-            <a className="lost-password" href="/password"> Mot de passe perdu ? </a>
-            <a className="subscription" href="/register"><i className="icon icon-chevron-right" /> Pas encore inscrit ?            </a>
+            <a className="lost-password" href="/password">
+              {" "}Mot de passe perdu ?{" "}
+            </a>
+            <a className="subscription" href="/register">
+              <i className="icon icon-chevron-right" />
+              {" "}Pas encore inscrit ?{" "}
+            </a>
           </div>
         </div>
       </div>
@@ -80,5 +93,5 @@ export default class Login extends Component {
 }
 
 Login.contextTypes = {
-  router: React.PropTypes.object,
+  router: React.PropTypes.object
 };

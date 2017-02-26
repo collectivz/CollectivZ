@@ -1,17 +1,16 @@
-import React from 'react';
-import { Meteor } from 'meteor/meteor';
+import React from "react";
+import { Meteor } from "meteor/meteor";
 
-import Login from '../components/Login.jsx';
-import Loader from '../components/Loader.jsx';
-import AppNav from '../components/AppNav.jsx';
-import ToastrStack from '../components/ToastrStack.jsx';
-import ModalContainer from '../containers/ModalContainer.jsx';
+import Login from "../components/Login.jsx";
+import Loader from "../components/Loader.jsx";
+import AppNav from "../components/AppNav.jsx";
+import ToastrStack from "../components/ToastrStack.jsx";
+import ModalContainer from "../containers/ModalContainer.jsx";
 
 export default class App extends React.Component {
-
   componentWillUpdate({ loading, user, children }) {
     if (!loading && user && !children) {
-      this.context.router.push('/my-groups');
+      this.context.router.push("/my-groups");
     }
   }
 
@@ -20,21 +19,18 @@ export default class App extends React.Component {
       user,
       loading,
       children,
-      location,
+      location
     } = this.props;
 
-    const clonedChildren = children && React.cloneElement(children, {
-      user,
-      key: location.pathname,
-    });
+    const clonedChildren = children &&
+      React.cloneElement(children, {
+        user,
+        key: location.pathname
+      });
 
     return (
       <div id="app-container">
-        {loading ? <Loader /> :
-          user ?
-          clonedChildren
-          : <Login />
-        }
+        {loading ? <Loader /> : user ? clonedChildren : <Login />}
         <ToastrStack />
         <ModalContainer />
       </div>
@@ -43,5 +39,5 @@ export default class App extends React.Component {
 }
 
 App.contextTypes = {
-  router: React.PropTypes.object,
+  router: React.PropTypes.object
 };

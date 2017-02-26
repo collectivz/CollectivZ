@@ -1,16 +1,15 @@
-import React, { Component, PropTypes } from 'react';
-import { Meteor } from 'meteor/meteor';
+import React, { Component, PropTypes } from "react";
+import { Meteor } from "meteor/meteor";
 
-import AppNav from '../components/AppNav.jsx';
-import Breadcrumb from '../components/Breadcrumb.jsx';
-import TouchEvent from '../components/TouchEvent.jsx';
-import List from '../components/List';
-import GroupItem from '../components/GroupItem.jsx';
-import GroupForm from '../components/GroupForm.jsx';
-import { openModal } from '../helpers/Modal.js';
+import AppNav from "../components/AppNav.jsx";
+import Breadcrumb from "../components/Breadcrumb.jsx";
+import TouchEvent from "../components/TouchEvent.jsx";
+import List from "../components/List";
+import GroupItem from "../components/GroupItem.jsx";
+import GroupForm from "../components/GroupForm.jsx";
+import { openModal } from "../helpers/Modal.js";
 
 export default class GroupList extends Component {
-
   constructor(props) {
     super(props);
 
@@ -25,21 +24,23 @@ export default class GroupList extends Component {
   openModal() {
     const component = <GroupForm />;
 
-    openModal(component, 'Créer un nouveau groupe');
+    openModal(component, "Créer un nouveau groupe");
   }
 
   isLoaded() {
-    setTimeout(() => {
-      this.setState({ isLoaded: true });
-    }, 1350);
+    setTimeout(
+      () => {
+        this.setState({ isLoaded: true });
+      },
+      1350
+    );
   }
 
   render() {
     const {
       groups,
-      user,
+      user
     } = this.props;
-
 
     return (
       <div className="screen-box">
@@ -67,7 +68,8 @@ export default class GroupList extends Component {
                 ""
                 :
                 <a className="success self-center button" onClick={this.openModal}> En créer un </a>
-              */}
+              */
+            }
           </div>
         </div>
         <AppNav user={user} />
@@ -77,5 +79,5 @@ export default class GroupList extends Component {
 }
 
 GroupList.propTypes = {
-  groups: PropTypes.array.isRequired,
+  groups: PropTypes.array.isRequired
 };

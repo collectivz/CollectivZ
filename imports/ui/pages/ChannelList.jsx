@@ -1,25 +1,26 @@
-import React from 'react';
+import React from "react";
 
-import ToggleableList from '../components/ToggleableList';
-import AppNav from '../components/AppNav.jsx';
-import Breadcrumb from '../components/Breadcrumb.jsx';
-import ChannelParser from '../components/ChannelParser';
+import ToggleableList from "../components/ToggleableList";
+import AppNav from "../components/AppNav.jsx";
+import Breadcrumb from "../components/Breadcrumb.jsx";
+import ChannelParser from "../components/ChannelParser";
 
 export default class ChannelList extends React.Component {
-
   render() {
     const {
       groups,
       actions,
       conversations,
       user,
-      unreadCounts,
+      unreadCounts
     } = this.props;
 
-    const sortedGroups = groups && groups.sort((a, b) => b.lastActivity - a.lastActivity);
-    const sortedActions = actions && actions.sort((a, b) => b.lastActivity - a.lastActivity);
-    const sortedConversations = conversations && conversations.sort((a, b) => b.lastActivity - a.lastActivity);
-
+    const sortedGroups = groups &&
+      groups.sort((a, b) => b.lastActivity - a.lastActivity);
+    const sortedActions = actions &&
+      actions.sort((a, b) => b.lastActivity - a.lastActivity);
+    const sortedConversations = conversations &&
+      conversations.sort((a, b) => b.lastActivity - a.lastActivity);
 
     return (
       <div className="screen-box">

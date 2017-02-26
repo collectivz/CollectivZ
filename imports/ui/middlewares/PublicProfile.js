@@ -1,11 +1,11 @@
-import { Meteor } from 'meteor/meteor';
+import { Meteor } from "meteor/meteor";
 
-import * as TYPES from '../constants/constants';
+import * as TYPES from "../constants/constants";
 
-export default store => next => (action) => {
+export default store => next => action => {
   debugger;
   if (action.type === TYPES.USERPROFILE) {
-    Meteor.subscribe('userProfile', action.userId);
+    Meteor.subscribe("userProfile", action.userId);
     const user = Meteor.users.findOne(action.userId);
     store.dispatch(readSuccess(user));
   }

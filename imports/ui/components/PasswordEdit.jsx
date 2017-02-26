@@ -1,11 +1,10 @@
-import React from 'react';
-import { Accounts } from 'meteor/accounts-base';
+import React from "react";
+import { Accounts } from "meteor/accounts-base";
 
-import { Toast } from '../helpers/Toast.js';
-import { closeModal } from '../helpers/Modal';
+import { Toast } from "../helpers/Toast.js";
+import { closeModal } from "../helpers/Modal";
 
 export default class PasswordEdit extends React.Component {
-
   constructor(props) {
     super(props);
 
@@ -18,16 +17,19 @@ export default class PasswordEdit extends React.Component {
     const newPassword = this.refs.newPassword.value;
 
     if (newPassword.length >= 6) {
-      Accounts.changePassword(oldPassword, newPassword, (err) => {
+      Accounts.changePassword(oldPassword, newPassword, err => {
         if (err) {
-          Toast(err.reason, 'danger');
+          Toast(err.reason, "danger");
         } else {
-          Toast('Mot de passe modifié avec succès', 'success');
+          Toast("Mot de passe modifié avec succès", "success");
           closeModal();
         }
       });
     } else {
-      Toast('Vous devez entrer un mot de passe de plus de 6 caractères', 'danger');
+      Toast(
+        "Vous devez entrer un mot de passe de plus de 6 caractères",
+        "danger"
+      );
     }
   }
 
@@ -55,7 +57,11 @@ export default class PasswordEdit extends React.Component {
             />
           </fieldset>
           <fieldset className="large has-icon">
-            <input type="submit" value="Modifier" className="large big success button" />
+            <input
+              type="submit"
+              value="Modifier"
+              className="large big success button"
+            />
           </fieldset>
         </form>
         <div className="extra-content">

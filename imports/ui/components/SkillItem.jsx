@@ -1,18 +1,17 @@
-import React from 'react';
+import React from "react";
 
-import { Toast } from '../helpers/Toast';
+import { Toast } from "../helpers/Toast";
 
 export default class SkillItem extends React.Component {
-
   removeSkill(skill, e) {
     e.preventDefault();
 
     if (skill) {
-      Meteor.call('users.removeSkill', skill, (err, res) => {
+      Meteor.call("users.removeSkill", skill, (err, res) => {
         if (!err) {
-          Toast(`Compétence ${skill} enlevée.`, 'success');
+          Toast(`Compétence ${skill} enlevée.`, "success");
         } else {
-          Toast(err.reason, 'danger');
+          Toast(err.reason, "danger");
         }
       });
     }
@@ -20,7 +19,7 @@ export default class SkillItem extends React.Component {
 
   render() {
     const {
-      data,
+      data
     } = this.props;
 
     return (
@@ -29,7 +28,12 @@ export default class SkillItem extends React.Component {
           <p className="title">{data}</p>
         </div>
         <div className="list-item-action">
-          <button className="button only-icon danger" onClick={this.removeSkill.bind(this, data)}><i className="icon icon-cross" /></button>
+          <button
+            className="button only-icon danger"
+            onClick={this.removeSkill.bind(this, data)}
+          >
+            <i className="icon icon-cross" />
+          </button>
         </div>
       </div>
     );

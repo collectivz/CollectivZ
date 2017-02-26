@@ -1,15 +1,14 @@
-import React, { Component, PropTypes } from 'react';
-import { Meteor } from 'meteor/meteor';
-import TouchEvent from './TouchEvent';
-import { Router, Route, Link, browserHistory } from 'react-router';
-import classNames from 'classnames';
-import { _ } from 'meteor/underscore';
+import React, { Component, PropTypes } from "react";
+import { Meteor } from "meteor/meteor";
+import TouchEvent from "./TouchEvent";
+import { Router, Route, Link, browserHistory } from "react-router";
+import classNames from "classnames";
+import { _ } from "meteor/underscore";
 
-import { Toast } from '../helpers/Toast';
-import { openModal } from '../helpers/Modal';
+import { Toast } from "../helpers/Toast";
+import { openModal } from "../helpers/Modal";
 
 export default class CircleItem extends React.Component {
-
   constructor(props) {
     super(props);
 
@@ -19,24 +18,30 @@ export default class CircleItem extends React.Component {
   }
 
   onClick(dest) {
-    setTimeout(() => {
-      if (dest) {
-        browserHistory.push(dest);
-      }
-    }, 350);
+    setTimeout(
+      () => {
+        if (dest) {
+          browserHistory.push(dest);
+        }
+      },
+      350
+    );
   }
 
   createConversation(e) {
     e.preventDefault();
     const {
-      data,
+      data
     } = this.props;
 
-    Meteor.call('channels.conversationCreate', data.members, data._id, (err, res) => {
+    Meteor.call("channels.conversationCreate", data.members, data._id, (
+      err,
+      res
+    ) => {
       if (err) {
-        Toast(err.reason, 'danger');
+        Toast(err.reason, "danger");
       } else {
-        Toast('Conversation créée', 'success');
+        Toast("Conversation créée", "success");
         this.context.router.push(`/conversation/${res}`);
       }
     });
@@ -45,38 +50,45 @@ export default class CircleItem extends React.Component {
   removeCircle(e) {
     e.preventDefault();
     const {
-      data,
+      data
     } = this.props;
 
-    Meteor.call('circles.remove', data._id, (err, res) => {
+    Meteor.call("circles.remove", data._id, (err, res) => {
       if (err) {
-        Toast(err.reason, 'danger');
+        Toast(err.reason, "danger");
       } else {
-        Toast('Le cercle a bien été supprimé.', 'success');
+        Toast("Le cercle a bien été supprimé.", "success");
       }
     });
   }
 
   toggleConversationButton() {
     const {
-      data,
+      data
     } = this.props;
     const {
-      router,
+      router
     } = this.context;
 
     if (data.channel) {
-      return (
-        <button className="button success" onClick={() => { router.push(`/conversation/${data.channel}`); }}><i className="icon icon-eye" /></button>
-      );
+      return <button
+          className="button success"
+          onClick={() => {
+            router.push(`/conversation/${data.channel}`);
+          }}
+        ><i className="icon icon-eye" /></button>;
     }
-    return <button className="button success" onClick={this.createConversation}><i className="icon icon-plus-circle" /></button>;
+    return (
+      <button className="button success" onClick={this.createConversation}>
+        <i className="icon icon-plus-circle" />
+      </button>
+    );
   }
 
   render() {
     const {
       data,
-      editCircle,
+      editCircle
     } = this.props;
 
     console.log(data);
@@ -85,22 +97,26 @@ export default class CircleItem extends React.Component {
       <TouchEvent class="list-item no-image touch-event">
         <div className="list-item-content">
           <p className="title">{data.name}</p>
-          {
-              (data.members.length) ?
-                <div className="tag">
-                  <i className="icon icon-user" />
-                  <span>{data.members.length}</span>
-                </div>
-              :
-                <div className="tag">
-                  <span>Vous êtes tout seul.</span>
-                </div>
-            }
+          {data.members.length
+            ? <div className="tag">
+                <i className="icon icon-user" />
+                <span>{data.members.length}</span>
+              </div>
+            : <div className="tag">
+                <span>Vous êtes tout seul.</span>
+              </div>}
         </div>
         <div className="list-item-action">
           <div className="merge">
-            <button className="button danger" onClick={this.removeCircle}><i className="icon icon-cross" /></button>
-            <button className="button info" onClick={editCircle.bind(this, data)}><i className="icon icon-pencil" /></button>
+            <button className="button danger" onClick={this.removeCircle}>
+              <i className="icon icon-cross" />
+            </button>
+            <button
+              className="button info"
+              onClick={editCircle.bind(this, data)}
+            >
+              <i className="icon icon-pencil" />
+            </button>
             {this.toggleConversationButton()}
           </div>
         </div>
@@ -110,7 +126,7 @@ export default class CircleItem extends React.Component {
 }
 
 CircleItem.contextTypes = {
-  router: PropTypes.object,
+  router: PropTypes.object
 };
 
 // CircleItem.propTypes = {

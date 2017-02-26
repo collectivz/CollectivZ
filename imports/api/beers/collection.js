@@ -1,8 +1,8 @@
-import { Meteor } from 'meteor/meteor';
-import { Mongo } from 'meteor/mongo';
+import { Meteor } from "meteor/meteor";
+import { Mongo } from "meteor/mongo";
 
-import { Messages } from '../messages/collection';
-import { Channels } from '../channels/collection';
+import { Messages } from "../messages/collection";
+import { Channels } from "../channels/collection";
 
 class BeerCollection extends Mongo.Collection {
   insert(beer, callback) {
@@ -12,19 +12,20 @@ class BeerCollection extends Mongo.Collection {
     beer.author = user._id;
     beer.authorName = user.username;
     beer.members = [user._id];
-    beer.type = 'beer';
+    beer.type = "beer";
     beer.objectionable = false;
 
     return super.insert(beer);
   }
 
   remove(selector) {
-    const beers = Beers.find(selector, { fields: { _id: 1, channelId: 1 } }).fetch();
+    const beers = Beers.find(selector, { fields: { _id: 1, channelId: 1 } })
+      .fetch();
 
-    beers.forEach((beer) => {
+    beers.forEach(beer => {
       Messages.remove({ beerId: beer._id });
       Channels.update({ _id: beer.channelId }, {
-        $inc: { 'connections.beerCount': -1 },
+        $inc: { "connections.beerCount": -1 }
       });
     });
 
@@ -32,7 +33,7 @@ class BeerCollection extends Mongo.Collection {
   }
 }
 
-export const Beers = new BeerCollection('beers');
+export const Beers = new BeerCollection("beers");
 
 if (Meteor.isClient) {
   window.Beers = Beers;

@@ -1,12 +1,11 @@
-import React from 'react';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
+import React from "react";
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
 
-import * as PublicProfileActions from '../actions/PublicProfile';
-import ProfilePage from '../pages/ProfilePage';
+import * as PublicProfileActions from "../actions/PublicProfile";
+import ProfilePage from "../pages/ProfilePage";
 
 class PublicProfileContainer extends React.Component {
-
   constructor(props) {
     super(props);
 
@@ -23,15 +22,17 @@ class PublicProfileContainer extends React.Component {
 }
 
 PublicProfileContainer.propTypes = {
-  user: React.PropTypes.object,
+  user: React.PropTypes.object
 };
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators(PublicProfileActions, dispatch),
+  actions: bindActionCreators(PublicProfileActions, dispatch)
 });
 
 const mapStateToProps = state => ({
-  user: state.user,
+  user: state.user
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(PublicProfileContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(
+  PublicProfileContainer
+);

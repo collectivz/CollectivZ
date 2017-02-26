@@ -1,21 +1,19 @@
-import React from 'react';
+import React from "react";
 
-import Breadcrumb from './Breadcrumb';
-import List from './List';
-import ChannelItem from './ChannelItem';
+import Breadcrumb from "./Breadcrumb";
+import List from "./List";
+import ChannelItem from "./ChannelItem";
 
 export default class CurrentActions extends React.Component {
   render() {
     const {
-      actions,
+      actions
     } = this.props;
 
     return (
       <div className="sub-container">
         <Breadcrumb title="Mes actions" hasBack />
-        <List
-          data={actions}
-        >
+        <List data={actions}>
           <ChannelItem />
         </List>
       </div>

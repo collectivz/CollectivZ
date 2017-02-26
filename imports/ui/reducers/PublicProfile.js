@@ -1,12 +1,12 @@
 import {
   USERPROFILE,
   USERPROFILE_ERROR,
-  USERPROFILE_SUCCESS,
-} from '../constants/constants';
+  USERPROFILE_SUCCESS
+} from "../constants/constants";
 
 const initialState = {
-  _id: '',
-  username: '',
+  _id: "",
+  username: ""
 };
 
 export default function publicProfile(state = initialState, action) {

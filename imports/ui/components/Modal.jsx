@@ -1,11 +1,10 @@
-import React, { Component, PropTypes } from 'react';
-import { browserHistory } from 'react-router';
-import classNames from 'classnames';
+import React, { Component, PropTypes } from "react";
+import { browserHistory } from "react-router";
+import classNames from "classnames";
 
-import { closeModal } from '../helpers/Modal.js';
+import { closeModal } from "../helpers/Modal.js";
 
 export default class Modal extends React.Component {
-
   constructor(props) {
     super(props);
     this.state = { isOpening: false, isOpen: false, isClosing: false };
@@ -16,47 +15,70 @@ export default class Modal extends React.Component {
   handleDisplay() {
     this.setState({ isOpening: true });
 
-    setTimeout(() => {
-      this.setState({ isOpen: true, isOpening: false });
-    }, 350);
+    setTimeout(
+      () => {
+        this.setState({ isOpen: true, isOpening: false });
+      },
+      350
+    );
   }
 
   handleClose() {
     this.setState({ isClosing: true });
-    setTimeout(() => {
+    setTimeout(
+      () => {
         // this.props.closeModal();
-      closeModal();
-      this.setState({ isClosing: false, isOpen: false, isOpening: false });
-    }, 350);
+        closeModal();
+        this.setState({ isClosing: false, isOpen: false, isOpening: false });
+      },
+      350
+    );
   }
 
   componentDidMount() {
-    if (this.props.displayCall) { this.handleDisplay(); }
+    if (this.props.displayCall) {
+      this.handleDisplay();
+    }
   }
-
 
   render() {
     const {
       children,
       color,
       displayCall,
-      title,
+      title
     } = this.props;
 
     const {
       isOpening,
       isClosing,
-      isOpen,
+      isOpen
     } = this.state;
 
     return (
-      <div className={classNames('modal', { 'modal--opening': isOpening, 'modal--open': isOpen, 'modal--closing': isClosing })} >
-        <div className="modal--overlay" onClick={() => { this.handleClose(); }} />
+      <div
+        className={classNames("modal", {
+          "modal--opening": isOpening,
+          "modal--open": isOpen,
+          "modal--closing": isClosing
+        })}
+      >
+        <div
+          className="modal--overlay"
+          onClick={() => {
+            this.handleClose();
+          }}
+        />
         <div className="modal--content">
           <div className="modal--content-wrapper">
             <div className="modal--header">
               <h4>{title}</h4>
-              <div className="modal--close-button" onClick={() => { this.handleClose(); }}>
+              <div
+                className="modal--close-button"
+                onClick={() => {
+                  this.handleClose();
+                }}
+              >
                 <i className="icon icon-2x icon-cross" />
               </div>
             </div>
@@ -71,5 +93,5 @@ export default class Modal extends React.Component {
 Modal.propTypes = {
   title: PropTypes.string,
   onClose: PropTypes.func,
-  onOpen: PropTypes.func,
+  onOpen: PropTypes.func
 };

@@ -1,13 +1,12 @@
-import React from 'react';
+import React from "react";
 
-import { Heroes } from '../../api/heroes/heroes';
+import { Heroes } from "../../api/heroes/heroes";
 
-import Breadcrumb from './Breadcrumb';
-import List from './List';
-import HeroItem from './HeroItem';
+import Breadcrumb from "./Breadcrumb";
+import List from "./List";
+import HeroItem from "./HeroItem";
 
 export default class HeroPicker extends React.Component {
-
   render() {
     return (
       <div className="sub-container page">

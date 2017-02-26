@@ -1,12 +1,11 @@
-import React from 'react';
-import { Router, Route, Link, browserHistory } from 'react-router';
+import React from "react";
+import { Router, Route, Link, browserHistory } from "react-router";
 
-import TouchEvent from './TouchEvent';
-import classNames from 'classnames';
-import { _ } from 'meteor/underscore';
+import TouchEvent from "./TouchEvent";
+import classNames from "classnames";
+import { _ } from "meteor/underscore";
 
 export default class UserItem extends React.Component {
-
   constructor(props) {
     super(props);
 
@@ -14,11 +13,14 @@ export default class UserItem extends React.Component {
   }
 
   onClick(dest) {
-    setTimeout(() => {
-      if (dest) {
-        browserHistory.push(dest);
-      }
-    }, 350);
+    setTimeout(
+      () => {
+        if (dest) {
+          browserHistory.push(dest);
+        }
+      },
+      350
+    );
   }
 
   toggleButton() {
@@ -32,44 +34,76 @@ export default class UserItem extends React.Component {
       addToCircle,
       removeContact,
       removeAdmin,
-      goToProfile,
+      goToProfile
     } = this.props;
 
     switch (type) {
-      case 'invitation':
+      case "invitation":
         return (
           <div className="merge">
-            <button className="button success" onClick={acceptInvite.bind(this, data._id)}><i className="icon icon-check" /></button>
-            <button className="button danger" onClick={refuseInvite.bind(this, data._id)}><i className="icon icon-cross" /></button>
+            <button
+              className="button success"
+              onClick={acceptInvite.bind(this, data._id)}
+            >
+              <i className="icon icon-check" />
+            </button>
+            <button
+              className="button danger"
+              onClick={refuseInvite.bind(this, data._id)}
+            >
+              <i className="icon icon-cross" />
+            </button>
           </div>
         );
-      case 'createCircle':
+      case "createCircle":
         if (_.contains(circle, data._id)) {
           return (
-            <button className="button only-icon danger" onClick={removeFromCircle.bind(this, data._id)}><i className="icon icon-cross" /></button>
+            <button
+              className="button only-icon danger"
+              onClick={removeFromCircle.bind(this, data._id)}
+            >
+              <i className="icon icon-cross" />
+            </button>
           );
         }
         return (
-          <button className="button only-icon success" onClick={addToCircle.bind(this, data._id)}><i className="icon icon-check" /></button>
+          <button
+            className="button only-icon success"
+            onClick={addToCircle.bind(this, data._id)}
+          >
+            <i className="icon icon-check" />
+          </button>
         );
 
-      case 'contact':
+      case "contact":
         return (
           <div>
-            <button className="button only-icon success" onClick={goToProfile.bind(this, `/profile/${data._id}`)}>Voir le profil</button>
-            <button className="button only-icon danger" onClick={removeContact.bind(this, data._id)}><i className="icon icon-cross" /></button>
+            <button
+              className="button only-icon success"
+              onClick={goToProfile.bind(this, `/profile/${data._id}`)}
+            >
+              Voir le profil
+            </button>
+            <button
+              className="button only-icon danger"
+              onClick={removeContact.bind(this, data._id)}
+            >
+              <i className="icon icon-cross" />
+            </button>
           </div>
         );
-      case 'admin':
+      case "admin":
         return (
-          <button className="button only-icon danger" onClick={removeAdmin.bind(this, data._id)}>Rétrograder</button>
+          <button
+            className="button only-icon danger"
+            onClick={removeAdmin.bind(this, data._id)}
+          >
+            Rétrograder
+          </button>
         );
-      case 'invitationSent':
-        return (
-          <p>En attente...</p>
-        );
+      case "invitationSent":
+        return <p>En attente...</p>;
       default:
-
     }
   }
 
@@ -78,12 +112,18 @@ export default class UserItem extends React.Component {
 
     return (
       <div className="list-item">
-        <TouchEvent onClick={() => { this.onClick(`/data/${user._id}`); }}>
+        <TouchEvent
+          onClick={() => {
+            this.onClick(`/data/${user._id}`);
+          }}
+        >
           <img className="circle" src={data.imageUrl} alt="" />
         </TouchEvent>
         <div className="list-item-content">
           <p className="title">{data.username}</p>
-          <p className="text type">{(data.hero && data.hero.title) ? data.hero.title : ''}</p>
+          <p className="text type">
+            {data.hero && data.hero.title ? data.hero.title : ""}
+          </p>
         </div>
         <div className="list-item-action">
           {this.toggleButton()}
@@ -94,5 +134,5 @@ export default class UserItem extends React.Component {
 }
 
 UserItem.contextTypes = {
-  router: React.PropTypes.object,
+  router: React.PropTypes.object
 };

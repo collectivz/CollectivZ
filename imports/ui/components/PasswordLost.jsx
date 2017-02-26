@@ -1,11 +1,10 @@
-import React, { Component } from 'react';
-import { Meteor } from 'meteor/meteor';
-import classNames from 'classnames';
+import React, { Component } from "react";
+import { Meteor } from "meteor/meteor";
+import classNames from "classnames";
 
-import { Toast } from '../helpers/Toast';
+import { Toast } from "../helpers/Toast";
 
 export default class PasswordLost extends Component {
-
   constructor(props) {
     super(props);
 
@@ -17,21 +16,27 @@ export default class PasswordLost extends Component {
     e.preventDefault();
     this.setState({ isClicked: true });
 
-    setTimeout(() => {
-      this.setState({ isClicked: false });
-      const email = this.refs.email.value;
+    setTimeout(
+      () => {
+        this.setState({ isClicked: false });
+        const email = this.refs.email.value;
 
-      if (email) {
-        Meteor.call('users.lostPassword', email, (err, res) => {
-          if (err) {
-            Toast(err.reason, 'danger');
-          } else {
-            Toast('Un email contenant le nouveau mot de passe va vous être envoyé.', 'success');
-            this.refs.email.value = '';
-          }
-        });
-      }
-    }, 500);
+        if (email) {
+          Meteor.call("users.lostPassword", email, (err, res) => {
+            if (err) {
+              Toast(err.reason, "danger");
+            } else {
+              Toast(
+                "Un email contenant le nouveau mot de passe va vous être envoyé.",
+                "success"
+              );
+              this.refs.email.value = "";
+            }
+          });
+        }
+      },
+      500
+    );
   }
 
   render() {
@@ -51,7 +56,13 @@ export default class PasswordLost extends Component {
                 ref="email"
               />
             </fieldset>
-            <button onClick={this.handleClick} className={classNames('large big success button spinner touch-event', { 'touch-active spinner-active': this.state.isClicked })}>
+            <button
+              onClick={this.handleClick}
+              className={classNames(
+                "large big success button spinner touch-event",
+                { "touch-active spinner-active": this.state.isClicked }
+              )}
+            >
               <div className="icon-spin" />
               <span>Réinitialiser le mot de passe</span>
             </button>
@@ -62,7 +73,10 @@ export default class PasswordLost extends Component {
               <span>ErrorCode</span>
             </div>
             <a className="lost-password" href="/login"> Se connecter </a>
-            <a className="subscription" href="/register"><i className="icon icon-chevron-right" /> Pas encore inscrit ?            </a>
+            <a className="subscription" href="/register">
+              <i className="icon icon-chevron-right" />
+              {" "}Pas encore inscrit ?{" "}
+            </a>
           </div>
         </div>
       </div>

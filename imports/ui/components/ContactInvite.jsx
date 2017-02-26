@@ -1,17 +1,16 @@
-import { Meteor } from 'meteor/meteor';
-import React from 'react';
-import { _ } from 'meteor/underscore';
+import { Meteor } from "meteor/meteor";
+import React from "react";
+import { _ } from "meteor/underscore";
 
-import { Toast } from '../helpers/Toast';
-import { closeModal } from '../helpers/Modal';
+import { Toast } from "../helpers/Toast";
+import { closeModal } from "../helpers/Modal";
 
 export default class ContactInvite extends React.Component {
-
   constructor(props) {
     super(props);
 
     this.state = {
-      userList: [],
+      userList: []
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -21,10 +20,10 @@ export default class ContactInvite extends React.Component {
   handleChange(e) {
     const username = this.refs.userInvited.value;
 
-    Meteor.call('users.getUsernames', username, (err, res) => {
+    Meteor.call("users.getUsernames", username, (err, res) => {
       if (!err) {
         this.setState({
-          userList: res,
+          userList: res
         });
       }
     });
@@ -39,15 +38,15 @@ export default class ContactInvite extends React.Component {
     const userInvited = this.refs.userInvited.value;
 
     if (userInvited) {
-      Meteor.call('repertory.sendInvite', userInvited, (err, res) => {
+      Meteor.call("repertory.sendInvite", userInvited, (err, res) => {
         if (err) {
-          Toast(err.reason, 'danger');
+          Toast(err.reason, "danger");
         } else {
-          Toast('Une invitation a été envoyé.', 'success');
+          Toast("Une invitation a été envoyé.", "success");
           closeModal();
         }
       });
-      this.refs.userInvited.value = '';
+      this.refs.userInvited.value = "";
     }
   }
 
@@ -68,14 +67,24 @@ export default class ContactInvite extends React.Component {
               onChange={this.handleChange}
             />
           </fieldset>
-          { userList && userList.length > 0 ?
-            <div>
-              {userList.map(user => <p key={user._id} onClick={this.setUsername.bind(this, user.username)}>{user.username}</p>)}
-            </div>
-                : ''
-              }
+          {userList && userList.length > 0
+            ? <div>
+                {userList.map(user => (
+                  <p
+                    key={user._id}
+                    onClick={this.setUsername.bind(this, user.username)}
+                  >
+                    {user.username}
+                  </p>
+                ))}
+              </div>
+            : ""}
           <fieldset className="large has-icon">
-            <input type="submit" value="Inviter" className="large success button" />
+            <input
+              type="submit"
+              value="Inviter"
+              className="large success button"
+            />
           </fieldset>
 
         </form>

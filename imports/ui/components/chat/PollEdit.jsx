@@ -1,10 +1,9 @@
-import React from 'react';
+import React from "react";
 
-import { Toast } from '../../helpers/Toast';
-import { closeModal } from '../../helpers/Modal';
+import { Toast } from "../../helpers/Toast";
+import { closeModal } from "../../helpers/Modal";
 
 export default class PollEdit extends React.Component {
-
   constructor(props) {
     super(props);
 
@@ -15,24 +14,24 @@ export default class PollEdit extends React.Component {
     e.preventDefault();
 
     const {
-      poll,
+      poll
     } = this.props;
 
     const newQuestion = this.refs.question.value;
 
-    Meteor.call('polls.editQuestion', poll._id, newQuestion, (err, res) => {
+    Meteor.call("polls.editQuestion", poll._id, newQuestion, (err, res) => {
       if (err) {
-        Toast(err.reason, 'danger');
+        Toast(err.reason, "danger");
       } else {
         closeModal();
-        Toast('Modifications prises en compte.', 'success');
+        Toast("Modifications prises en compte.", "success");
       }
     });
   }
 
   render() {
     const {
-      poll,
+      poll
     } = this.props;
 
     return (
@@ -48,7 +47,11 @@ export default class PollEdit extends React.Component {
             />
           </fieldset>
           <fieldset className="large">
-            <input type="submit" value="Modifier" className="large success button" />
+            <input
+              type="submit"
+              value="Modifier"
+              className="large success button"
+            />
           </fieldset>
 
         </form>

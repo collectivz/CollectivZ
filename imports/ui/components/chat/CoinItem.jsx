@@ -1,15 +1,14 @@
-import React from 'react';
-import { Meteor } from 'meteor/meteor';
-import { check } from 'meteor/check';
+import React from "react";
+import { Meteor } from "meteor/meteor";
+import { check } from "meteor/check";
 
-import DropDownBottom from '../DropDownBottom';
-import CoinEdit from './CoinEdit';
-import AvatarRowContainer from '../../containers/AvatarRowContainer';
-import { Toast } from '../../helpers/Toast';
-import { openModal } from '../../helpers/Modal';
+import DropDownBottom from "../DropDownBottom";
+import CoinEdit from "./CoinEdit";
+import AvatarRowContainer from "../../containers/AvatarRowContainer";
+import { Toast } from "../../helpers/Toast";
+import { openModal } from "../../helpers/Modal";
 
 export default class CoinItem extends React.Component {
-
   constructor(props) {
     super(props);
 
@@ -20,18 +19,18 @@ export default class CoinItem extends React.Component {
 
   openEdit() {
     const {
-      coin,
+      coin
     } = this.props;
     const component = <CoinEdit coin={coin} />;
-    openModal(component, 'Modifier le financement');
+    openModal(component, "Modifier le financement");
   }
 
   deleteCoin() {
     const {
-      coin,
+      coin
     } = this.props;
 
-    Meteor.call('coins.delete', coin._id);
+    Meteor.call("coins.delete", coin._id);
   }
 
   handleSubmit(e) {
@@ -40,19 +39,22 @@ export default class CoinItem extends React.Component {
     const { number } = this.refs;
     const numberInt = parseInt(number.value);
     if (Number.isInteger(numberInt) && numberInt > 0) {
-      Meteor.call('coins.donate', this.props.coin._id, numberInt, (err, res) => {
+      Meteor.call("coins.donate", this.props.coin._id, numberInt, (
+        err,
+        res
+      ) => {
         if (err) {
-          Toast(err.reason, 'danger');
+          Toast(err.reason, "danger");
         }
       });
-      this.refs.number.value = '';
+      this.refs.number.value = "";
     }
   }
 
   getAuthorName(id) {
     const author = Meteor.users.findOne(id);
 
-    return author ? author.username : '';
+    return author ? author.username : "";
   }
 
   render() {
@@ -63,31 +65,46 @@ export default class CoinItem extends React.Component {
         <div className="bubble-content">
           <div className="bubble-header">
             <i className="icon icon-money-color icon-euro" />
-            <span>{this.getAuthorName.bind(this, coin.author)} à lancé une collecte</span>
+            <span>
+              {this.getAuthorName.bind(this, coin.author)} à lancé une collecte
+            </span>
             <h5>{coin.purpose}</h5>
-            {
-                  (coin.author === user._id || user.isAdmin) ?
-                    <DropDownBottom>
-                      <ul>
-                        <li><a className="drop-down-menu-link" onClick={this.deleteCoin}> Supprimer le financement </a></li>
-                        <li><a className="drop-down-menu-link" onClick={this.openEdit}> Modifier le financement </a></li>
-                      </ul>
-                    </DropDownBottom>
-                  : ''
-                }
+            {coin.author === user._id || user.isAdmin
+              ? <DropDownBottom>
+                  <ul>
+                    <li>
+                      <a
+                        className="drop-down-menu-link"
+                        onClick={this.deleteCoin}
+                      >
+                        {" "}Supprimer le financement{" "}
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        className="drop-down-menu-link"
+                        onClick={this.openEdit}
+                      >
+                        {" "}Modifier le financement{" "}
+                      </a>
+                    </li>
+                  </ul>
+                </DropDownBottom>
+              : ""}
           </div>
           <div className="bubble-content-text">
-            <h4 className="success-text">{coin.totalEarned} / {coin.goal} reçu</h4>
-            <h5>Donner &nbsp;
-                    <input
-                      className="small"
-                      type="number"
-                      ref="number"
-                    /> € de mes <span className="success-text">{user.coinz} €</span>
+            <h4 className="success-text">
+              {coin.totalEarned} / {coin.goal} reçu
+            </h4>
+            <h5>
+              Donner &nbsp;
+              <input className="small" type="number" ref="number" />
+              {" "}€ de mes{" "}
+              <span className="success-text">{user.coinz} €</span>
             </h5>
             <button className="success button" onClick={this.handleSubmit}>
-                  Financer
-                </button>
+              Financer
+            </button>
             <AvatarRowContainer userIds={coin.givers} />
           </div>
 
@@ -95,5 +112,4 @@ export default class CoinItem extends React.Component {
       </div>
     );
   }
-
 }

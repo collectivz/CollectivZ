@@ -1,5 +1,5 @@
-import { Meteor } from 'meteor/meteor';
-import { Mongo } from 'meteor/mongo';
+import { Meteor } from "meteor/meteor";
+import { Mongo } from "meteor/mongo";
 
 class RepertoryCollection extends Mongo.Collection {
   insert(repertory, callback) {
@@ -13,7 +13,7 @@ class RepertoryCollection extends Mongo.Collection {
   }
 }
 
-export const Repertory = new RepertoryCollection('repertory');
+export const Repertory = new RepertoryCollection("repertory");
 
 if (Meteor.isClient) {
   window.Repertory = Repertory;

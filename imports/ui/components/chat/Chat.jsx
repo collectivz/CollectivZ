@@ -1,38 +1,36 @@
-import React from 'react';
-import classNames from 'classnames';
-import $ from 'jquery';
-import _ from 'lodash';
+import React from "react";
+import classNames from "classnames";
+import $ from "jquery";
+import _ from "lodash";
 
-import zorroForm from '../../../api/zorro/zorro.js';
+import zorroForm from "../../../api/zorro/zorro.js";
 
-import ChatFilter from './ChatFilter.jsx';
-import ZorroItem from './ZorroItem.jsx';
-import MessageInput from './MessageInput.jsx';
-import MessageList from './MessageList.jsx';
-import JoinActionButton from './JoinActionButton.jsx';
+import ChatFilter from "./ChatFilter.jsx";
+import ZorroItem from "./ZorroItem.jsx";
+import MessageInput from "./MessageInput.jsx";
+import MessageList from "./MessageList.jsx";
+import JoinActionButton from "./JoinActionButton.jsx";
 
-import DropDownBottom from '../DropDownBottom.jsx';
+import DropDownBottom from "../DropDownBottom.jsx";
 
-import Modal from '../Modal.jsx';
-import Toastr from '../Toastr.jsx';
-
+import Modal from "../Modal.jsx";
+import Toastr from "../Toastr.jsx";
 
 export default class Chat extends React.Component {
-
   constructor(props) {
     super(props);
 
     this.state = {
-      filter: 'all',
-      inputMode: 'message',
+      filter: "all",
+      inputMode: "message",
       zorro: {},
       dialogWithZorro: [],
       currentAction: {},
       ongoingAction: false,
-      expectedAnswer: '',
+      expectedAnswer: "",
       choices: [],
       messageCount: this.props.messages.length,
-      answeringTo: '',
+      answeringTo: ""
     };
 
     this.setFilterOption = this.setFilterOption.bind(this);
@@ -48,26 +46,26 @@ export default class Chat extends React.Component {
   }
 
   scrollDown() {
-    const elem = $('.chat-sub-container');
-    $('.chat-sub-container').scrollTop(1000000);
+    const elem = $(".chat-sub-container");
+    $(".chat-sub-container").scrollTop(1000000);
   }
 
   componentDidUpdate() {
     const { channel, messages } = this.props;
     const { inputMode, ongoingAction, messageCount } = this.state;
-    if (inputMode !== 'message' && inputMode !== 'answer' && !ongoingAction) {
+    if (inputMode !== "message" && inputMode !== "answer" && !ongoingAction) {
       const zorro = zorroForm(inputMode, channel._id);
       const newState = zorro.getState();
 
       this.setState({
-        zorro,
+        zorro
       });
       this.setState(newState);
     }
     if (messageCount !== messages.length) {
-      Meteor.call('users.updateLastRead', channel._id);
+      Meteor.call("users.updateLastRead", channel._id);
       this.setState({
-        messageCount: messages.length,
+        messageCount: messages.length
       });
     }
     this.scrollDown();
@@ -75,21 +73,21 @@ export default class Chat extends React.Component {
 
   setFilterOption(filter) {
     this.setState({
-      filter,
+      filter
     });
     this.scrollDown();
   }
 
   changeInputMode(inputMode) {
     this.setState({
-      inputMode,
+      inputMode
     });
   }
 
   answerToMessage(messageId) {
     this.setState({
-      inputMode: 'answer',
-      answeringTo: messageId,
+      inputMode: "answer",
+      answeringTo: messageId
     });
   }
 
@@ -102,7 +100,9 @@ export default class Chat extends React.Component {
   }
 
   answerToZorro(answer, e) {
-    if (e) { e.preventDefault(); }
+    if (e) {
+      e.preventDefault();
+    }
     const zorro = this.state.zorro;
     zorro.answerToZorro(answer);
     const newState = zorro.getState();
@@ -116,8 +116,8 @@ export default class Chat extends React.Component {
     const { filter } = this.state;
     let filteredMessages = [];
 
-    if (filter !== 'all') {
-      filteredMessages = messages.filter((message) => {
+    if (filter !== "all") {
+      filteredMessages = messages.filter(message => {
         if (message.type && message.type === filter) {
           return true;
         }
@@ -138,7 +138,7 @@ export default class Chat extends React.Component {
       polls,
       coins,
       feedbacks,
-      user,
+      user
     } = this.props;
     const {
       zorro,
@@ -147,25 +147,32 @@ export default class Chat extends React.Component {
       filter,
       choices,
       answeringTo,
-      inputMode,
+      inputMode
     } = this.state;
 
     const filteredMessages = this.filterMessage();
 
     return (
       <div>
-        {!_.isEmpty(channel.connections) ?
-          <ChatFilter channel={channel} setFilterOption={this.setFilterOption} />
-          : ''
-        }
-        <div className={classNames('chat-sub-container', { 'chat-with-filter-sub-container': !_.isEmpty(channel.connections) })}>
+        {!_.isEmpty(channel.connections)
+          ? <ChatFilter
+              channel={channel}
+              setFilterOption={this.setFilterOption}
+            />
+          : ""}
+        <div
+          className={classNames("chat-sub-container", {
+            "chat-with-filter-sub-container": !_.isEmpty(channel.connections)
+          })}
+        >
 
           <div className="chat">
             {/*
               <div className="chat-separator">
                 <h5>Aujourd'hui</h5>
               </div>
-            */}
+            */
+            }
             <div ref="scroll">
               <div className="scroll">
                 <div className="message-list">
@@ -182,22 +189,29 @@ export default class Chat extends React.Component {
                   />
                 </div>
               </div>
-              {ongoingAction ?
-                <div className="scroll">
-                  <div className="message-list">
-                    {dialogWithZorro.map((message, index) => {
-                      const _choices = ((index + 1) === dialogWithZorro.length) ? choices : [];
-                      return (<ZorroItem message={message} key={index} answerToZorro={this.answerToZorro} choices={_choices} />);
-                    })}
+              {ongoingAction
+                ? <div className="scroll">
+                    <div className="message-list">
+                      {dialogWithZorro.map((message, index) => {
+                        const _choices = index + 1 === dialogWithZorro.length
+                          ? choices
+                          : [];
+                        return (
+                          <ZorroItem
+                            message={message}
+                            key={index}
+                            answerToZorro={this.answerToZorro}
+                            choices={_choices}
+                          />
+                        );
+                      })}
+                    </div>
                   </div>
-                </div>
-                : ''
-              }
+                : ""}
             </div>
           </div>
-          {
-            this.hasJoined() ?
-              <MessageInput
+          {this.hasJoined()
+            ? <MessageInput
                 inputMode={inputMode}
                 changeInputMode={this.changeInputMode}
                 answerToZorro={this.answerToZorro}
@@ -207,9 +221,7 @@ export default class Chat extends React.Component {
                 user={user}
                 answeringTo={answeringTo}
               />
-            :
-              <JoinActionButton channel={channel} />
-          }
+            : <JoinActionButton channel={channel} />}
         </div>
       </div>
     );
@@ -217,5 +229,5 @@ export default class Chat extends React.Component {
 }
 
 Chat.contextTypes = {
-  router: React.PropTypes.object,
+  router: React.PropTypes.object
 };

@@ -1,18 +1,20 @@
-import React, { Component, PropTypes } from 'react';
-import { Meteor } from 'meteor/meteor';
+import React, { Component, PropTypes } from "react";
+import { Meteor } from "meteor/meteor";
 
-import UserHeader from '../components/UserHeader.jsx';
-import Breadcrumb from '../components/Breadcrumb';
-import AppNav from '../components/AppNav.jsx';
-import Loader from '../components/Loader.jsx';
-import TouchEvent from '../components/TouchEvent';
+import UserHeader from "../components/UserHeader.jsx";
+import Breadcrumb from "../components/Breadcrumb";
+import AppNav from "../components/AppNav.jsx";
+import Loader from "../components/Loader.jsx";
+import TouchEvent from "../components/TouchEvent";
 
 export default class ProfilePage extends Component {
-
   goTo(url) {
-    setTimeout(() => {
-      this.context.router.push(url);
-    }, 350);
+    setTimeout(
+      () => {
+        this.context.router.push(url);
+      },
+      350
+    );
   }
 
   render() {
@@ -25,30 +27,31 @@ export default class ProfilePage extends Component {
 
     return (
       <div className="screen-box">
-        {user ?
-          <div className="screen-box">
+        {user
+          ? <div className="screen-box">
 
-            <Breadcrumb title={`Profil de ${user.username}`} hasBack />
+              <Breadcrumb title={`Profil de ${user.username}`} hasBack />
 
-            {
-                  children || <div className="sub-container">
-                    <UserHeader user={user} />
-                    <div className="list">
-                      <TouchEvent class="touch-event" onClick={this.goTo.bind(this, '/my-profile/history')}>
-                        <p>Mes informations personnelles</p>
-                      </TouchEvent>
-                    </div>
+              {children ||
+                <div className="sub-container">
+                  <UserHeader user={user} />
+                  <div className="list">
+                    <TouchEvent
+                      class="touch-event"
+                      onClick={this.goTo.bind(this, "/my-profile/history")}
+                    >
+                      <p>Mes informations personnelles</p>
+                    </TouchEvent>
                   </div>
-                }
-            <AppNav user={currentUser} />
-          </div>
-          : <Loader />
-        }
+                </div>}
+              <AppNav user={currentUser} />
+            </div>
+          : <Loader />}
       </div>
     );
   }
 }
 
 ProfilePage.contextTypes = {
-  router: React.PropTypes.object,
+  router: React.PropTypes.object
 };

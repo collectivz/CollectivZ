@@ -1,5 +1,5 @@
-import { Meteor } from 'meteor/meteor';
-import { Mongo } from 'meteor/mongo';
+import { Meteor } from "meteor/meteor";
+import { Mongo } from "meteor/mongo";
 
 class HistoryCollection extends Mongo.Collection {
   insert(history, callback) {
@@ -9,7 +9,7 @@ class HistoryCollection extends Mongo.Collection {
   }
 }
 
-export const History = new HistoryCollection('history');
+export const History = new HistoryCollection("history");
 
 if (Meteor.isClient) {
   window.History = History;

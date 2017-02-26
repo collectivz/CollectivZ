@@ -1,21 +1,23 @@
-import { Meteor } from 'meteor/meteor';
-import { check } from 'meteor/check';
-import { underscore } from 'meteor/underscore';
-import aws from 'aws-sdk';
+import { Meteor } from "meteor/meteor";
+import { check } from "meteor/check";
+import { underscore } from "meteor/underscore";
+import aws from "aws-sdk";
 
 Meteor.methods({
   requestAwsSignature(fileName, fileType) {
     if (!this.userId) {
-      throw new Meteor.Error('not-logged-in',
-        'Must be logged in to send message.');
+      throw new Meteor.Error(
+        "not-logged-in",
+        "Must be logged in to send message."
+      );
     }
 
     check(fileName, String);
     check(fileType, String);
-    aws.config.region = 'eu-central-1';
-    aws.config.signatureVersion = 'v4';
+    aws.config.region = "eu-central-1";
+    aws.config.signatureVersion = "v4";
     const s3 = new aws.S3();
-    const S3_BUCKET = 'collectivz-bucketz';
+    const S3_BUCKET = "collectivz-bucketz";
 
     console.log(process.env.AWS_ACCESS_KEY_ID);
     let returnData;
@@ -24,10 +26,10 @@ Meteor.methods({
       Key: `${Meteor.user().username}Avatar.jpg`,
       Expires: 60,
       ContentType: fileType,
-      ACL: 'public-read'
+      ACL: "public-read"
     };
 
-    s3.getSignedUrl('putObject', s3Params, (err, data) => {
+    s3.getSignedUrl("putObject", s3Params, (err, data) => {
       if (err) {
         console.log(err);
         return err;

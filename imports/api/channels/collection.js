@@ -1,5 +1,5 @@
-import { Meteor } from 'meteor/meteor';
-import { Mongo } from 'meteor/mongo';
+import { Meteor } from "meteor/meteor";
+import { Mongo } from "meteor/mongo";
 
 class ChannelCollection extends Mongo.Collection {
   insert(channel, callback) {
@@ -15,12 +15,11 @@ class ChannelCollection extends Mongo.Collection {
     channel.objectionable = false;
     channel.mobileIds = [];
 
-
     return super.insert(channel);
   }
 }
 
-export const Channels = new ChannelCollection('channels');
+export const Channels = new ChannelCollection("channels");
 
 if (Meteor.isClient) {
   window.Channels = Channels;

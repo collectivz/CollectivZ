@@ -1,4 +1,4 @@
-import * as TYPES from '../constants/constants';
+import * as TYPES from "../constants/constants";
 
 export const read = () => ({ type: TYPES.USERPROFILE });
 export const readSuccess = user => ({ user, type: TYPES.USERPROFILE_SUCCESS });

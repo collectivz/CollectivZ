@@ -1,10 +1,9 @@
-import React from 'react';
+import React from "react";
 
-import HeroModal from './HeroModal';
-import { openModal } from '../helpers/Modal';
+import HeroModal from "./HeroModal";
+import { openModal } from "../helpers/Modal";
 
 export default class HeroItem extends React.Component {
-
   constructor(props) {
     super(props);
 
@@ -20,7 +19,7 @@ export default class HeroItem extends React.Component {
 
   render() {
     const {
-      data,
+      data
     } = this.props;
 
     return (

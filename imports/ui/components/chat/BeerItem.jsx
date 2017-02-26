@@ -1,16 +1,15 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { Meteor } from 'meteor/meteor';
-import { _ } from 'meteor/underscore';
+import React from "react";
+import ReactDOM from "react-dom";
+import { Meteor } from "meteor/meteor";
+import { _ } from "meteor/underscore";
 
-import BeerEdit from './BeerEdit';
-import DropDownBottom from '../DropDownBottom';
-import AvatarRowContainer from '../../containers/AvatarRowContainer';
-import { Toast } from '../../helpers/Toast';
-import { openModal } from '../../helpers/Modal';
+import BeerEdit from "./BeerEdit";
+import DropDownBottom from "../DropDownBottom";
+import AvatarRowContainer from "../../containers/AvatarRowContainer";
+import { Toast } from "../../helpers/Toast";
+import { openModal } from "../../helpers/Modal";
 
 export default class BeerItem extends React.Component {
-
   constructor(props) {
     super(props);
 
@@ -20,18 +19,18 @@ export default class BeerItem extends React.Component {
   }
 
   joinBeer() {
-    Meteor.call('beers.join', this.props.beer._id, (err, res) => {
+    Meteor.call("beers.join", this.props.beer._id, (err, res) => {
       if (err) {
-        Toast(err.reason, 'danger');
+        Toast(err.reason, "danger");
       } else {
-        Toast("Vous avez rejoins l'événement.", 'success');
+        Toast("Vous avez rejoins l'événement.", "success");
       }
     });
   }
 
   openEdit() {
     const {
-      beer,
+      beer
     } = this.props;
     const component = <BeerEdit beer={beer} />;
     openModal(component, "Modifier l'événement.");
@@ -39,19 +38,22 @@ export default class BeerItem extends React.Component {
 
   deleteBeer() {
     const {
-      beer,
+      beer
     } = this.props;
 
-    Meteor.call('beers.delete', beer._id);
+    Meteor.call("beers.delete", beer._id);
   }
 
   showMembers() {
     const { members } = this.props;
-    const membersNodes = members.map(member => (
-      <div key={member._id}>
-        {member.username}
-      </div>
-      ), this);
+    const membersNodes = members.map(
+      member => (
+        <div key={member._id}>
+          {member.username}
+        </div>
+      ),
+      this
+    );
     return membersNodes;
   }
 
@@ -71,7 +73,9 @@ export default class BeerItem extends React.Component {
 
     return (
       <div>
-        <button className="button success" onClick={this.joinBeer}>Participer {beer.members.length}</button>
+        <button className="button success" onClick={this.joinBeer}>
+          Participer {beer.members.length}
+        </button>
         <AvatarRowContainer isLarge userIds={beer.members} />
       </div>
     );
@@ -80,36 +84,58 @@ export default class BeerItem extends React.Component {
   getAuthorName(id) {
     const author = Meteor.users.findOne(id);
 
-    return author ? author.username : '';
+    return author ? author.username : "";
   }
 
   render() {
     const {
       beer,
-      user,
+      user
     } = this.props;
 
     return (
       <div className="chat-special-bubble chat-special-bubble-beer">
         <div className="bubble-content">
           <div className="bubble-header">
-            <span><a href="">{this.getAuthorName(beer.author)}</a> à lancé un événement</span>
+            <span>
+              <a href="">{this.getAuthorName(beer.author)}</a>
+              {" "}à lancé un événement
+            </span>
             <h5>{beer.occasion}</h5>
             <i className="icon icon-event-color icon-event2" />
-            {
-                  (beer.author === user._id || user.isAdmin) ?
-                    <DropDownBottom>
-                      <ul>
-                        <li><a className="drop-down-menu-link" onClick={this.deleteBeer}> Supprimer l'événement </a></li>
-                        <li><a className="drop-down-menu-link" onClick={this.openEdit}> Modifier l'événement </a></li>
-                      </ul>
-                    </DropDownBottom>
-                  : ''
-                }
+            {beer.author === user._id || user.isAdmin
+              ? <DropDownBottom>
+                  <ul>
+                    <li>
+                      <a
+                        className="drop-down-menu-link"
+                        onClick={this.deleteBeer}
+                      >
+                        {" "}Supprimer l'événement{" "}
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        className="drop-down-menu-link"
+                        onClick={this.openEdit}
+                      >
+                        {" "}Modifier l'événement{" "}
+                      </a>
+                    </li>
+                  </ul>
+                </DropDownBottom>
+              : ""}
           </div>
           <div className="bubble-content-text">
-            <h5><i className="icon icon-earth" /><span>Lieu</span> {beer.place}</h5>
-            <h5><i className="icon icon-calendar-full" /><span>Date</span> {beer.date}</h5>
+            <h5>
+              <i className="icon icon-earth" /><span>Lieu</span> {beer.place}
+            </h5>
+            <h5>
+              <i className="icon icon-calendar-full" />
+              <span>Date</span>
+              {" "}
+              {beer.date}
+            </h5>
             {this.participate()}
           </div>
         </div>

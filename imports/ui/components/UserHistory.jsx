@@ -1,13 +1,13 @@
-import React from 'react';
+import React from "react";
 
-import List from '../components/List.jsx';
-import Breadcrumb from './Breadcrumb';
-import HistoryItem from '../components/HistoryItem.jsx';
+import List from "../components/List.jsx";
+import Breadcrumb from "./Breadcrumb";
+import HistoryItem from "../components/HistoryItem.jsx";
 
 export default class UserHistory extends React.Component {
   render() {
     const {
-      actionHistory,
+      actionHistory
     } = this.props;
 
     return (

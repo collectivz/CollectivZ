@@ -1,22 +1,26 @@
-import { Meteor } from 'meteor/meteor';
-import { createContainer } from 'meteor/react-meteor-data';
+import { Meteor } from "meteor/meteor";
+import { createContainer } from "meteor/react-meteor-data";
 
-import { Channels } from '../../api/channels/collection.js';
+import { Channels } from "../../api/channels/collection.js";
 
-import ConversationPage from '../pages/ConversationPage.jsx';
+import ConversationPage from "../pages/ConversationPage.jsx";
 
-export default createContainer(({ params, user }) => {
-  const id = params.conversationId;
-  const channelSub = Meteor.subscribe('conversationPage', id);
-  const channel = Channels.findOne(id);
-  const messages = Messages.find({ channelId: id }, {
-    sort: { createdAt: 1 },
-  }).fetch();
+export default createContainer(
+  ({ params, user }) => {
+    const id = params.conversationId;
+    const channelSub = Meteor.subscribe("conversationPage", id);
+    const channel = Channels.findOne(id);
+    const messages = Messages.find({ channelId: id }, {
+        sort: { createdAt: 1 }
+      })
+      .fetch();
 
-  return {
-    loading: !channelSub.ready(),
-    channel,
-    messages,
-    user,
-  };
-}, ConversationPage);
+    return {
+      loading: !channelSub.ready(),
+      channel,
+      messages,
+      user
+    };
+  },
+  ConversationPage
+);

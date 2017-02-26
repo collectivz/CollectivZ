@@ -1,22 +1,21 @@
-import React, { Component, PropTypes } from 'react';
-import $ from 'jquery';
-import { Meteor } from 'meteor/meteor';
+import React, { Component, PropTypes } from "react";
+import $ from "jquery";
+import { Meteor } from "meteor/meteor";
 
-import Breadcrumb from '../components/Breadcrumb.jsx';
-import Loader from '../components/Loader.jsx';
-import DropDown from '../components/DropDown.jsx';
-import MessageList from '../components/chat/MessageList.jsx';
-import MessageInput from '../components/chat/MessageInput.jsx';
-import { Toast } from '../helpers/Toast';
-import { openModal } from '../helpers/Modal';
+import Breadcrumb from "../components/Breadcrumb.jsx";
+import Loader from "../components/Loader.jsx";
+import DropDown from "../components/DropDown.jsx";
+import MessageList from "../components/chat/MessageList.jsx";
+import MessageInput from "../components/chat/MessageInput.jsx";
+import { Toast } from "../helpers/Toast";
+import { openModal } from "../helpers/Modal";
 
 export default class ConversationPage extends React.Component {
-
   constructor(props) {
     super(props);
 
     this.state = {
-      messageCount: this.props.messages.length,
+      messageCount: this.props.messages.length
     };
 
     this.leaveAction = this.leaveAction.bind(this);
@@ -25,38 +24,38 @@ export default class ConversationPage extends React.Component {
   leaveAction() {
     const { channel } = this.props;
 
-    Meteor.call('channels.leave', channel._id, (err, res) => {
+    Meteor.call("channels.leave", channel._id, (err, res) => {
       if (!err) {
-        Toast(`Vous avez quitté le groupe ${channel.name}.`, 'success');
-        this.context.router.push('/my-groups');
+        Toast(`Vous avez quitté le groupe ${channel.name}.`, "success");
+        this.context.router.push("/my-groups");
       } else {
-        Toast(err.reason, 'danger');
+        Toast(err.reason, "danger");
       }
     });
   }
 
   scrollDown() {
-    const elem = $('.chat-sub-container');
-    $('.chat-sub-container').scrollTop(1000000);
+    const elem = $(".chat-sub-container");
+    $(".chat-sub-container").scrollTop(1000000);
   }
 
   componentDidUpdate() {
     const {
       channel,
-      messages,
+      messages
     } = this.props;
     const {
-      messageCount,
+      messageCount
     } = this.state;
 
     if (channel && messageCount !== messages.length) {
-      Meteor.call('users.updateLastRead', channel._id, (err, res) => {
+      Meteor.call("users.updateLastRead", channel._id, (err, res) => {
         if (err) {
-          Toast(err.reason, 'danger');
+          Toast(err.reason, "danger");
         }
       });
       this.setState({
-        messageCount: messages.length,
+        messageCount: messages.length
       });
     }
   }
@@ -64,15 +63,17 @@ export default class ConversationPage extends React.Component {
   render() {
     const { loading, channel, messages, user } = this.props;
 
-    return (
-      loading ?
-        <Loader />
-      :
-        <div>
+    return loading
+      ? <Loader />
+      : <div>
           <Breadcrumb title="Conversation" hasBack>
             <DropDown>
               <ul>
-                <li><a className="drop-down-menu-link" onClick={this.leaveAction}> Quitter </a></li>
+                <li>
+                  <a className="drop-down-menu-link" onClick={this.leaveAction}>
+                    {" "}Quitter{" "}
+                  </a>
+                </li>
               </ul>
             </DropDown>
           </Breadcrumb>
@@ -86,15 +87,14 @@ export default class ConversationPage extends React.Component {
             </div>
           </div>
           <MessageInput hasActionPicker={false} channel={channel} user={user} />
-        </div>
-    );
+        </div>;
   }
 }
 
 ConversationPage.propTypes = {
-  channel: PropTypes.object,
+  channel: PropTypes.object
 };
 
 ConversationPage.contextTypes = {
-  router: PropTypes.object,
+  router: PropTypes.object
 };

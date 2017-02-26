@@ -1,9 +1,9 @@
-import React from 'react';
+import React from "react";
 
 export default class SmallUserItem extends React.Component {
   render() {
     const {
-      data,
+      data
     } = this.props;
     return (
       <div className="user-tag">

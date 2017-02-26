@@ -1,14 +1,13 @@
-import React, { Component, PropTypes } from 'react';
-import { Meteor } from 'meteor/meteor';
-import { _ } from 'meteor/underscore';
+import React, { Component, PropTypes } from "react";
+import { Meteor } from "meteor/meteor";
+import { _ } from "meteor/underscore";
 // import smartcrop from 'smartcrop';
-import xhr from 'xhr';
+import xhr from "xhr";
 
-import { Toast } from '../helpers/Toast.js';
-import { closeModal } from '../helpers/Modal.js';
+import { Toast } from "../helpers/Toast.js";
+import { closeModal } from "../helpers/Modal.js";
 
 export default class UploadPicture extends React.Component {
-
   constructor(props) {
     super(props);
 
@@ -16,7 +15,7 @@ export default class UploadPicture extends React.Component {
       preview: props.data ? props.data.imageUrl : null,
       file: null,
       signedRequest: null,
-      url: ''
+      url: ""
     };
 
     this.uploadPicture = this.uploadPicture.bind(this);
@@ -36,25 +35,25 @@ export default class UploadPicture extends React.Component {
 
     if (file && signedRequest) {
       const xhr = new XMLHttpRequest();
-      xhr.open('PUT', signedRequest);
+      xhr.open("PUT", signedRequest);
       xhr.onreadystatechange = () => {
         if (xhr.readyState === 4) {
           if (xhr.status === 200) {
             Meteor.call(method, data._id, url, (err, res) => {
               if (err) {
-                Toast(err.reason, 'danger');
+                Toast(err.reason, "danger");
               } else {
-                Toast("Modification prise en compte", "success")
+                Toast("Modification prise en compte", "success");
                 this.setState({
                   file: null,
                   signedRequest: null,
-                  url: ''
+                  url: ""
                 });
                 closeModal();
               }
             });
           } else {
-            console.log('Could not upload file.');
+            console.log("Could not upload file.");
           }
         }
       };
@@ -68,7 +67,7 @@ export default class UploadPicture extends React.Component {
 
     if (file) {
       const reader = new FileReader();
-      reader.onload = ((self) => {
+      reader.onload = (self => {
         return function(e) {
           const img = new Image();
           img.src = e.target.result;
@@ -78,14 +77,13 @@ export default class UploadPicture extends React.Component {
         };
       })(this);
 
-      if (file.type.split('/')[0] !== 'image') {
-        console.log('not an image');
+      if (file.type.split("/")[0] !== "image") {
+        console.log("not an image");
       }
 
       reader.readAsDataURL(file);
 
-
-      Meteor.call('requestAwsSignature', file.name, file.type, (err, res) => {
+      Meteor.call("requestAwsSignature", file.name, file.type, (err, res) => {
         if (err) {
           console.log(err);
           return;
@@ -93,7 +91,7 @@ export default class UploadPicture extends React.Component {
         this.setState({
           file: file,
           signedRequest: res.signedRequest,
-          url: res.url,
+          url: res.url
         });
       });
     }
@@ -106,13 +104,17 @@ export default class UploadPicture extends React.Component {
 
     return (
       <div className="update-avatar-wrapper">
-        {
-          preview ?
-          <img className="modal--big-img circle-img" src={preview} />
-          : ''
-        }
-        <input type="file" onChange={this.uploadPicture}/>
-        <button className="button self-center success" onClick={this.submitPicture}>Valider</button>
-      </div>);
+        {preview
+          ? <img className="modal--big-img circle-img" src={preview} />
+          : ""}
+        <input type="file" onChange={this.uploadPicture} />
+        <button
+          className="button self-center success"
+          onClick={this.submitPicture}
+        >
+          Valider
+        </button>
+      </div>
+    );
   }
 }

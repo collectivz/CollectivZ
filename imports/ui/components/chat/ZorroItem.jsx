@@ -1,10 +1,8 @@
-import React, { Component, PropTypes } from 'react';
-import ReactDOM from 'react-dom';
-import { Meteor } from 'meteor/meteor';
-
+import React, { Component, PropTypes } from "react";
+import ReactDOM from "react-dom";
+import { Meteor } from "meteor/meteor";
 
 export default class ZorroItem extends Component {
-
   constructor(props) {
     super(props);
 
@@ -14,33 +12,33 @@ export default class ZorroItem extends Component {
   }
 
   isMine() {
-    if (this.props.message.author === 'self') {
-      return 'chat-bubble chat-bubble-mine';
+    if (this.props.message.author === "self") {
+      return "chat-bubble chat-bubble-mine";
     }
-    return 'chat-bubble chat-bubble-other';
+    return "chat-bubble chat-bubble-other";
   }
 
   userAvatar() {
-    if (this.props.message.author === 'self') {
+    if (this.props.message.author === "self") {
       const user = Meteor.user();
       return user.imageUrl;
     }
-    return '/img/zorro.jpg';
+    return "/img/zorro.jpg";
   }
 
   getName() {
-    if (this.props.message.author === 'self') {
+    if (this.props.message.author === "self") {
       const user = Meteor.user();
       return user.username;
     }
-    return 'Zorro';
+    return "Zorro";
   }
 
   render() {
     const {
       message,
       answerToZorro,
-      choices,
+      choices
     } = this.props;
 
     return (
@@ -53,21 +51,25 @@ export default class ZorroItem extends Component {
           <p className="text">
             {message.text}
           </p>
-          {
-                message.author === 'Zorro' ?
-                  <form>
-                    {choices.map((choice, index) => (<button className="button only-icon success" onClick={answerToZorro.bind(this, choice)} key={index}>{choice}</button>))}
-                  </form>
-                :
-                  ''
-              }
+          {message.author === "Zorro"
+            ? <form>
+                {choices.map((choice, index) => (
+                  <button
+                    className="button only-icon success"
+                    onClick={answerToZorro.bind(this, choice)}
+                    key={index}
+                  >
+                    {choice}
+                  </button>
+                ))}
+              </form>
+            : ""}
         </div>
       </div>
     );
   }
 }
 
-
 ZorroItem.propTypes = {
-  message: PropTypes.object.isRequired,
+  message: PropTypes.object.isRequired
 };

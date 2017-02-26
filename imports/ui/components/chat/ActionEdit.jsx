@@ -1,10 +1,9 @@
-import React from 'react';
+import React from "react";
 
-import { Toast } from '../../helpers/Toast';
-import { closeModal } from '../../helpers/Modal';
+import { Toast } from "../../helpers/Toast";
+import { closeModal } from "../../helpers/Modal";
 
 export default class ActionEdit extends React.Component {
-
   constructor(props) {
     super(props);
 
@@ -15,27 +14,27 @@ export default class ActionEdit extends React.Component {
     e.preventDefault();
 
     const {
-      channel,
+      channel
     } = this.props;
 
     const newChannel = {
       name: this.refs.name.value,
-      description: this.refs.description.value,
+      description: this.refs.description.value
     };
 
-    Meteor.call('channels.edit', channel._id, newChannel, (err, res) => {
+    Meteor.call("channels.edit", channel._id, newChannel, (err, res) => {
       if (err) {
-        Toast(err.reason, 'danger');
+        Toast(err.reason, "danger");
       } else {
         closeModal();
-        Toast('Modifications prises en compte.', 'success');
+        Toast("Modifications prises en compte.", "success");
       }
     });
   }
 
   render() {
     const {
-      channel,
+      channel
     } = this.props;
 
     return (
@@ -59,7 +58,11 @@ export default class ActionEdit extends React.Component {
             />
           </fieldset>
           <fieldset className="large">
-            <input type="submit" value="Modifier" className="large success button" />
+            <input
+              type="submit"
+              value="Modifier"
+              className="large success button"
+            />
           </fieldset>
 
         </form>

@@ -1,8 +1,7 @@
-import React, { Component, PropTypes } from 'react';
-import classNames from 'classnames';
+import React, { Component, PropTypes } from "react";
+import classNames from "classnames";
 
 export default class TouchEvent extends Component {
-
   constructor(props) {
     super(props);
     this.state = { isClicked: false };
@@ -10,23 +9,30 @@ export default class TouchEvent extends Component {
   }
 
   handleClick() {
-    if (this.props.onClick) { this.props.onClick(); }
+    if (this.props.onClick) {
+      this.props.onClick();
+    }
     this.setState({ isClicked: true });
-    setTimeout(() => {
-      this.setState({ isClicked: false });
-    }, 150);
+    setTimeout(
+      () => {
+        this.setState({ isClicked: false });
+      },
+      150
+    );
   }
 
-  componentDidMount() {
+  componentDidMount() {}
 
-  }
-
-  componentWillUnmount() {
-  }
+  componentWillUnmount() {}
 
   render() {
     return (
-      <div onClick={this.handleClick} className={classNames(this.props.class, { 'touch-active': this.state.isClicked })}>
+      <div
+        onClick={this.handleClick}
+        className={classNames(this.props.class, {
+          "touch-active": this.state.isClicked
+        })}
+      >
         {this.props.children}
       </div>
     );

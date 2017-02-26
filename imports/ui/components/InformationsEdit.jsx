@@ -1,10 +1,9 @@
-import React from 'react';
+import React from "react";
 
-import Breadcrumb from './Breadcrumb';
-import { Toast } from '../helpers/Toast';
+import Breadcrumb from "./Breadcrumb";
+import { Toast } from "../helpers/Toast";
 
 export default class InformationsEdit extends React.Component {
-
   constructor(props) {
     super(props);
 
@@ -19,26 +18,26 @@ export default class InformationsEdit extends React.Component {
       firstname: this.refs.firstname.value,
       lastname: this.refs.lastname.value,
       email: this.refs.email.value,
-      phone: this.refs.phone.value,
+      phone: this.refs.phone.value
     };
     const oldPassword = this.refs.oldPassword.value;
     const newPassword = this.refs.newPassword.value;
 
     if (!oldPassword) {
-      Toast('Vous devez renseigner votre mot de passe', 'danger');
+      Toast("Vous devez renseigner votre mot de passe", "danger");
     } else {
       if (newPassword) {
-        Accounts.changePassword(oldPassword, newPassword, (err) => {
+        Accounts.changePassword(oldPassword, newPassword, err => {
           if (err) {
-            Toast(err.reason, 'danger');
+            Toast(err.reason, "danger");
           }
         });
       }
-      Meteor.call('users.changeInfos', user, (err, res) => {
+      Meteor.call("users.changeInfos", user, (err, res) => {
         if (err) {
-          Toast(err.reason, 'danger');
+          Toast(err.reason, "danger");
         } else {
-          Toast('Modifications prises en compte', 'success');
+          Toast("Modifications prises en compte", "success");
         }
       });
     }
@@ -46,21 +45,21 @@ export default class InformationsEdit extends React.Component {
 
   render() {
     const {
-      user,
+      user
     } = this.props;
 
     const firstnameAttribute = user.profile.firstName
       ? { defaultValue: user.profile.firstName }
-      : { placeholder: 'Prénom' };
+      : { placeholder: "Prénom" };
     const lastnameAttribute = user.profile.lastName
       ? { defaultValue: user.profile.lastName }
-      : { placeholder: 'Nom' };
+      : { placeholder: "Nom" };
     const emailAttribute = user.emails[0].address
       ? { defaultValue: user.emails[0].address }
-      : { placeholder: 'Email' };
+      : { placeholder: "Email" };
     const phoneAttribute = user.phone
       ? { defaultValue: user.phone }
-      : { placeholder: 'Numéro de téléphone' };
+      : { placeholder: "Numéro de téléphone" };
 
     return (
       <div className="sub-container page">
@@ -108,7 +107,9 @@ export default class InformationsEdit extends React.Component {
               />
             </fieldset>
             <fieldset className="large">
-              <label><i className="icon icon-user" />Téléphone (optionnel)</label>
+              <label>
+                <i className="icon icon-user" />Téléphone (optionnel)
+              </label>
               <input
                 className="large"
                 type="text"
@@ -132,7 +133,11 @@ export default class InformationsEdit extends React.Component {
               />
             </fieldset>
             <fieldset className="large">
-              <input type="submit" value="Modifier" className="large big success button" />
+              <input
+                type="submit"
+                value="Modifier"
+                className="large big success button"
+              />
             </fieldset>
           </div>
         </form>

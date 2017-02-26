@@ -1,30 +1,29 @@
 export default class Poll {
-
   constructor(channelId) {
     this.question = {
-      text: 'Pour ce sondage je vais avoir besoin de savoir quelle question vous voulez poser ? Vous pouvez à tout moment écrire @annuler pour annuler.',
-      author: 'Zorro',
+      text: "Pour ce sondage je vais avoir besoin de savoir quelle question vous voulez poser ? Vous pouvez à tout moment écrire @annuler pour annuler.",
+      author: "Zorro"
     };
     this.state = {
-      inputMode: 'newPoll',
+      inputMode: "newPoll",
       dialogWithZorro: [this.question],
       ongoingAction: true,
-      choices: ['@annuler'],
+      choices: ["@annuler"]
     };
     this.channelId = channelId;
-    this.expectedAnswer = 'question';
+    this.expectedAnswer = "question";
     this.result = {
-      question: '',
-      props: [],
+      question: "",
+      props: []
     };
   }
 
   resetState() {
     this.state = {
-      inputMode: 'message',
+      inputMode: "message",
       ongoingAction: false,
       dialogWithZorro: [],
-      zorro: {},
+      zorro: {}
     };
   }
 
@@ -35,26 +34,26 @@ export default class Poll {
   answerToZorro(answer) {
     const msg = {
       text: answer,
-      author: 'self',
+      author: "self"
     };
     const dialog = this.state.dialogWithZorro;
 
     dialog.push(msg);
     const zorroMsg = {
-      text: '',
-      author: 'Zorro',
+      text: "",
+      author: "Zorro"
     };
 
-    if (answer === '@annuler') {
+    if (answer === "@annuler") {
       this.resetState();
-    } else if (this.expectedAnswer === 'question') {
+    } else if (this.expectedAnswer === "question") {
       this.result.question = answer;
       zorroMsg.text = 'Ajoutez des choix à votre sondage, et écrivez @fini quand c\'est fini ! Vous pouvez directement écrire @fini si vous souhaitez créer un sondage "Pour/Contre"';
       dialog.push(zorroMsg);
-      this.expectedAnswer = 'props';
-      this.state.choices.push('@fini');
-    } else if (this.expectedAnswer === 'props') {
-      if (answer !== '@fini') {
+      this.expectedAnswer = "props";
+      this.state.choices.push("@fini");
+    } else if (this.expectedAnswer === "props") {
+      if (answer !== "@fini") {
         if (_.contains(this.result.props, answer)) {
           zorroMsg.text = `J'ai déjà ajouté "${answer}".`;
           dialog.push(zorroMsg);
@@ -65,10 +64,10 @@ export default class Poll {
         }
       } else if (this.result.props.length > 1 || !this.result.props.length) {
         let question = `Vous allez créer un sondage avec pour question : "${this.result.question}", et comme choix : `;
-        let proposition = '';
+        let proposition = "";
         let choiceCount = 1;
         if (this.result.props.length) {
-          this.result.props.forEach((choice) => {
+          this.result.props.forEach(choice => {
             proposition = `${proposition}, ${choiceCount} : "${choice}"`;
             choiceCount++;
           });
@@ -78,24 +77,24 @@ export default class Poll {
         question = `${question + proposition}. Dites oui pour confirmer.`;
         zorroMsg.text = question;
         dialog.push(zorroMsg);
-        this.expectedAnswer = 'confirm';
-        this.state.choices = ['@annuler', 'oui'];
+        this.expectedAnswer = "confirm";
+        this.state.choices = ["@annuler", "oui"];
       } else {
-        zorroMsg.text = 'Vous devez entrer au moins 2 choix pour créer un sondage.';
+        zorroMsg.text = "Vous devez entrer au moins 2 choix pour créer un sondage.";
         dialog.push(zorroMsg);
       }
-    } else if (this.expectedAnswer === 'confirm') {
-      if (answer === 'oui' || answer === 'Oui') {
+    } else if (this.expectedAnswer === "confirm") {
+      if (answer === "oui" || answer === "Oui") {
         const pollMsg = {
           text: this.result.question,
           channelId: this.channelId,
-          type: 'poll',
+          type: "poll"
         };
-        Meteor.call('polls.insert', pollMsg, this.result.props);
-        Meteor.call('channels.stopTyping', this.channelId);
+        Meteor.call("polls.insert", pollMsg, this.result.props);
+        Meteor.call("channels.stopTyping", this.channelId);
         this.resetState();
       } else {
-        zorroMsg.text = 'Je n\'ai pas compris.';
+        zorroMsg.text = "Je n'ai pas compris.";
         dialog.push(zorroMsg);
       }
     }

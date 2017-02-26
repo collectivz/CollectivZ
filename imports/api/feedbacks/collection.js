@@ -1,7 +1,7 @@
-import { Meteor } from 'meteor/meteor';
-import { Mongo } from 'meteor/mongo';
+import { Meteor } from "meteor/meteor";
+import { Mongo } from "meteor/mongo";
 
-import logFeedbackToHistory from '../history/functions.js';
+import logFeedbackToHistory from "../history/functions.js";
 
 class FeedbackCollection extends Mongo.Collection {
   insert(feedback, callback) {
@@ -12,7 +12,7 @@ class FeedbackCollection extends Mongo.Collection {
   }
 }
 
-export const Feedbacks = new FeedbackCollection('feedbacks');
+export const Feedbacks = new FeedbackCollection("feedbacks");
 
 if (Meteor.isClient) {
   window.Feedbacks = Feedbacks;

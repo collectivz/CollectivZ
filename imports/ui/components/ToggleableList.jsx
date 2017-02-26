@@ -1,16 +1,15 @@
-import React from 'react';
-import classNames from 'classnames';
+import React from "react";
+import classNames from "classnames";
 
-import List from './List';
-import ChannelItemContainer from '../containers/ChannelItemContainer';
+import List from "./List";
+import ChannelItemContainer from "../containers/ChannelItemContainer";
 
 export default class ToggleableList extends React.Component {
-
   constructor(props) {
     super(props);
 
     this.state = {
-      open: false,
+      open: false
     };
 
     this.toggleList = this.toggleList.bind(this);
@@ -20,28 +19,28 @@ export default class ToggleableList extends React.Component {
 
   toggleList() {
     const {
-      open,
+      open
     } = this.state;
 
     this.setState({
-      open: !open,
+      open: !open
     });
   }
 
   actionName() {
     const {
-      open,
+      open
     } = this.state;
 
-    return open ? 'Voir moins' : 'Tout voir';
+    return open ? "Voir moins" : "Tout voir";
   }
 
   getData() {
     const {
-      data,
+      data
     } = this.props;
     const {
-      open,
+      open
     } = this.state;
 
     if (open) {
@@ -62,18 +61,27 @@ export default class ToggleableList extends React.Component {
       title,
       data,
       user,
-      emptyListString,
+      emptyListString
     } = this.props;
 
     let length = 0;
-    if (data && data.length) { length = data.length; }
+    if (data && data.length) {
+      length = data.length;
+    }
 
     return (
       <div>
         <div className="list-sub-menu small">
           <i className="big-icon icon icon-users" />
           <h5>{title} <span>({length})</span></h5>
-          <a className={classNames('list-sub-menu-toggle', { active: this.state.open })} onClick={this.toggleList}>{this.actionName()}<i className="icon icon-chevron-right" /></a>
+          <a
+            className={classNames("list-sub-menu-toggle", {
+              active: this.state.open
+            })}
+            onClick={this.toggleList}
+          >
+            {this.actionName()}<i className="icon icon-chevron-right" />
+          </a>
         </div>
         <List
           data={this.getData()}

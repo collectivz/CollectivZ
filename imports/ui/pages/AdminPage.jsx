@@ -1,21 +1,20 @@
-import React, { Component, PropTypes } from 'react';
-import { Meteor } from 'meteor/meteor';
-import json2csv from 'json2csv';
+import React, { Component, PropTypes } from "react";
+import { Meteor } from "meteor/meteor";
+import json2csv from "json2csv";
 
-import AppNav from '../components/AppNav.jsx';
-import List from '../components/List.jsx';
-import Breadcrumb from '../components/Breadcrumb.jsx';
-import UserItem from '../components/UserItem.jsx';
-import { Toast } from '../helpers/Toast';
+import AppNav from "../components/AppNav.jsx";
+import List from "../components/List.jsx";
+import Breadcrumb from "../components/Breadcrumb.jsx";
+import UserItem from "../components/UserItem.jsx";
+import { Toast } from "../helpers/Toast";
 
 export default class AdminPage extends Component {
-
   constructor(props) {
     super(props);
 
     this.state = {
       userNumber: 0,
-      coinTotal: "Le montant total s'affichera quand vous aurez entré une valeur.",
+      coinTotal: "Le montant total s'affichera quand vous aurez entré une valeur."
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -26,25 +25,25 @@ export default class AdminPage extends Component {
   }
 
   componentWillMount() {
-    Meteor.call('admin.exportData', (err, res) => {
+    Meteor.call("admin.exportData", (err, res) => {
       if (err) {
       } else {
         const xls = json2csv({ data: res });
-        const blob = new Blob(['\ufeff', xls]);
+        const blob = new Blob(["\ufeff", xls]);
         const url = URL.createObjectURL(blob);
         this.setState({
           downloadReady: true,
-          fileName: 'Utilisateurs de CollectivZ.csv',
-          downloadUrl: url,
+          fileName: "Utilisateurs de CollectivZ.csv",
+          downloadUrl: url
         });
       }
     });
   }
 
   componentDidMount() {
-    Meteor.call('users.getUserNumber', (err, res) => {
+    Meteor.call("users.getUserNumber", (err, res) => {
       this.setState({
-        userNumber: res,
+        userNumber: res
       });
     });
   }
@@ -54,12 +53,12 @@ export default class AdminPage extends Component {
     const adminName = this.refs.adminName.value;
 
     if (adminName.length > 0) {
-      Meteor.call('admin.addAdmin', adminName, (err, res) => {
+      Meteor.call("admin.addAdmin", adminName, (err, res) => {
         if (!err) {
-          Toast(`${adminName} ajouté aux coordinateurs.`, 'success');
-          this.refs.adminName.value = '';
+          Toast(`${adminName} ajouté aux coordinateurs.`, "success");
+          this.refs.adminName.value = "";
         } else {
-          Toast(err.reason, 'danger');
+          Toast(err.reason, "danger");
         }
       });
     }
@@ -68,11 +67,11 @@ export default class AdminPage extends Component {
   removeAdmin(userId, e) {
     e.preventDefault();
 
-    Meteor.call('admin.removeAdmin', userId, (err, res) => {
+    Meteor.call("admin.removeAdmin", userId, (err, res) => {
       if (!err) {
-        Toast('Utilisateur supprimé des coordinateurs.', 'success');
+        Toast("Utilisateur supprimé des coordinateurs.", "success");
       } else {
-        Toast(err.reason, 'danger');
+        Toast(err.reason, "danger");
       }
     });
   }
@@ -82,10 +81,10 @@ export default class AdminPage extends Component {
     const amount = parseInt(this.refs.amount.value);
     const coinTotal = amount > 0
       ? `Cela représente un total de ${userNumber * amount}`
-      : 'Entrez une valeur supérieure à 0.';
+      : "Entrez une valeur supérieure à 0.";
 
     this.setState({
-      coinTotal,
+      coinTotal
     });
   }
 
@@ -94,12 +93,15 @@ export default class AdminPage extends Component {
     const amount = parseInt(this.refs.amount.value);
 
     if (amount > 0) {
-      Meteor.call('admin.addMoney', amount, (err, res) => {
+      Meteor.call("admin.addMoney", amount, (err, res) => {
         if (!err) {
-          Toast(`Vous avez ajouté ${amount} euros à chaque utilisateur.`, 'success');
-          this.refs.amount.value = '';
+          Toast(
+            `Vous avez ajouté ${amount} euros à chaque utilisateur.`,
+            "success"
+          );
+          this.refs.amount.value = "";
         } else {
-          Toast(err.reason, 'danger');
+          Toast(err.reason, "danger");
         }
       });
     }
@@ -110,14 +112,14 @@ export default class AdminPage extends Component {
     const groupName = this.refs.groupName.value;
 
     if (groupName) {
-      Meteor.call('groups.insert', { name: groupName }, (err, res) => {
+      Meteor.call("groups.insert", { name: groupName }, (err, res) => {
         if (!err) {
-          Toast(`Groupe ${groupName} créé.`, 'success');
+          Toast(`Groupe ${groupName} créé.`, "success");
         } else {
-          Toast(err.reason, 'danger');
+          Toast(err.reason, "danger");
         }
       });
-      this.refs.groupName.value = '';
+      this.refs.groupName.value = "";
     }
   }
 
@@ -128,10 +130,10 @@ export default class AdminPage extends Component {
       coinTotal,
       downloadUrl,
       downloadReady,
-      fileName,
+      fileName
     } = this.state;
 
-    const emptyListString = 'Aucun coordinateur sur la plate-forme. Veuillez contacter CollectivZ.';
+    const emptyListString = "Aucun coordinateur sur la plate-forme. Veuillez contacter CollectivZ.";
 
     return (
       <div className="screen-box">
@@ -147,7 +149,10 @@ export default class AdminPage extends Component {
                   placeholder="Nom du groupe"
                   ref="groupName"
                 />
-                <button onClick={this.handleSubmit} className="small button info">
+                <button
+                  onClick={this.handleSubmit}
+                  className="small button info"
+                >
                   <span>Ajouter</span>
                 </button>
               </form>
@@ -170,17 +175,21 @@ export default class AdminPage extends Component {
                 <label>{coinTotal}</label>
               </form>
             </div>
-            { downloadReady ?
-              <div className="button-box">
-                <label>Télécharger les données</label>
-                <a download={fileName} href={downloadUrl} ref="downloadButton">
-                  <button className="small button info">Enregister le csv</button>
-                </a>
-                <br />
-              </div>
-
-                : ''
-              }
+            {downloadReady
+              ? <div className="button-box">
+                  <label>Télécharger les données</label>
+                  <a
+                    download={fileName}
+                    href={downloadUrl}
+                    ref="downloadButton"
+                  >
+                    <button className="small button info">
+                      Enregister le csv
+                    </button>
+                  </a>
+                  <br />
+                </div>
+              : ""}
             <h5>Ajouter un coordinateur</h5>
             <div className="button-box">
               <form className="merged">

@@ -1,18 +1,17 @@
-import React from 'react';
+import React from "react";
 
-import EULAModal from '../components/EULAModal.jsx';
-import { Toast } from '../helpers/Toast';
-import { openModal } from '../helpers/Modal';
-import ToastrStack from '../components/ToastrStack.jsx';
-import ModalContainer from '../containers/ModalContainer.jsx';
+import EULAModal from "../components/EULAModal.jsx";
+import { Toast } from "../helpers/Toast";
+import { openModal } from "../helpers/Modal";
+import ToastrStack from "../components/ToastrStack.jsx";
+import ModalContainer from "../containers/ModalContainer.jsx";
 
 export default class RegisterPage extends React.Component {
-
   constructor(props) {
     super(props);
 
     this.state = {
-      errors: [],
+      errors: []
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -21,15 +20,15 @@ export default class RegisterPage extends React.Component {
 
   componentDidUpdate() {
     const {
-      errors,
+      errors
     } = this.state;
 
     if (errors.length > 0) {
-      errors.forEach((error) => {
-        Toast(error, 'danger');
+      errors.forEach(error => {
+        Toast(error, "danger");
       });
       this.setState({
-        errors: [],
+        errors: []
       });
     }
   }
@@ -53,36 +52,36 @@ export default class RegisterPage extends React.Component {
       errors.push("Entrez un nom d'utilisateur.");
     }
     if (!email) {
-      errors.push('Entrez un email.');
+      errors.push("Entrez un email.");
     }
     if (!mailRegex.test(email)) {
-      errors.push('Entrez un email valide.');
+      errors.push("Entrez un email valide.");
     }
     if (!password || !passwordAgain) {
-      errors.push('Entrez et confirmez votre mot de passe.');
+      errors.push("Entrez et confirmez votre mot de passe.");
     }
     if (password.length < 6) {
-      errors.push('Votre mot de passe est trop court.');
+      errors.push("Votre mot de passe est trop court.");
     }
     if (password !== passwordAgain) {
-      errors.push('Le mot de passe ne correspond pas à la confirmation.');
+      errors.push("Le mot de passe ne correspond pas à la confirmation.");
     }
 
     if (errors.length) {
       this.setState({
-        errors,
+        errors
       });
     } else {
-      Accounts.createUser({ email, username, password }, (err) => {
+      Accounts.createUser({ email, username, password }, err => {
         if (err) {
           console.log(err);
           this.setState({
-            errors: [err.reason],
+            errors: [err.reason]
           });
         } else {
-          Meteor.loginWithPassword(username, password, (err) => {
+          Meteor.loginWithPassword(username, password, err => {
             if (!err) {
-              this.context.router.push('/my-groups');
+              this.context.router.push("/my-groups");
             }
           });
         }
@@ -143,8 +142,18 @@ export default class RegisterPage extends React.Component {
                 placeholder="Confirmation mot de passe"
                 ref="passwordAgain"
               />
-              <h5>En cliquant sur "S'enregistrez", vous déclarez avoir lu et accepté les <a onClick={this.openEULA}>conditions d'utilisation suivantes.</a></h5>
-              <input type="submit" value="S'enregister" className="large big success button" />
+              <h5>
+                En cliquant sur "S'enregistrez", vous déclarez avoir lu et accepté les
+                {" "}
+                <a onClick={this.openEULA}>
+                  conditions d'utilisation suivantes.
+                </a>
+              </h5>
+              <input
+                type="submit"
+                value="S'enregister"
+                className="large big success button"
+              />
             </fieldset>
           </form>
           <div className="extra-content">
@@ -160,5 +169,5 @@ export default class RegisterPage extends React.Component {
 }
 
 RegisterPage.contextTypes = {
-  router: React.PropTypes.object,
+  router: React.PropTypes.object
 };

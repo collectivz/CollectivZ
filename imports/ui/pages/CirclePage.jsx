@@ -1,15 +1,13 @@
-import React from 'react';
+import React from "react";
 
-import { openModal } from '../helpers/Modal';
-import CircleForm from '../components/CircleForm';
-import Breadcrumb from '../components/Breadcrumb.jsx';
-import List from '../components/List.jsx';
-import CircleItem from '../components/CircleItem.jsx';
-import TouchEvent from '../components/TouchEvent.jsx';
-
+import { openModal } from "../helpers/Modal";
+import CircleForm from "../components/CircleForm";
+import Breadcrumb from "../components/Breadcrumb.jsx";
+import List from "../components/List.jsx";
+import CircleItem from "../components/CircleItem.jsx";
+import TouchEvent from "../components/TouchEvent.jsx";
 
 export default class CirclePage extends React.Component {
-
   constructor(props) {
     super(props);
 
@@ -18,28 +16,33 @@ export default class CirclePage extends React.Component {
 
   openCircleModal(circle, e) {
     const {
-      usersContact,
+      usersContact
     } = this.props;
 
     if (!e) {
       circle = null;
     }
 
-    const component = <CircleForm circle={circle} usersContact={usersContact} />;
-    const title = circle ? 'Modifier le cercle' : 'Créer un cercle';
+    const component = (
+      <CircleForm circle={circle} usersContact={usersContact} />
+    );
+    const title = circle ? "Modifier le cercle" : "Créer un cercle";
     openModal(component, title);
   }
 
   render() {
     const {
-      circles,
+      circles
     } = this.props;
 
     return (
       <div className="sub-container">
 
         <Breadcrumb title="Cercles" hasBack>
-          <TouchEvent class="right-button touch-event" onClick={this.openCircleModal}>
+          <TouchEvent
+            class="right-button touch-event"
+            onClick={this.openCircleModal}
+          >
             <i className="icon icon-rotate-45 icon-cross" />
           </TouchEvent>
         </Breadcrumb>

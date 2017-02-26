@@ -1,15 +1,12 @@
-import React from 'react';
-import classNames from 'classnames';
+import React from "react";
+import classNames from "classnames";
 
 export default class AvatarRow extends React.Component {
-
   constructor(props) {
     super(props);
   }
 
-  componentDidMount() {
-
-  }
+  componentDidMount() {}
 
   render() {
     let avatars = this.props.avatars;
@@ -22,13 +19,17 @@ export default class AvatarRow extends React.Component {
     }
 
     return (
-      <div className={classNames('user-list', { large: this.props.isLarge })}>
-        {
-          avatars.map((avatar, index) => (<div className="user-tag only-circle" key={index}><img src={avatar} /></div>))
-        }
-        {
-          hasToMuchUsers ? <div className="user-tag only-circle"><span>{numberOfUsers}</span></div> : ''
-        }
+      <div className={classNames("user-list", { large: this.props.isLarge })}>
+        {avatars.map((avatar, index) => (
+          <div className="user-tag only-circle" key={index}>
+            <img src={avatar} />
+          </div>
+        ))}
+        {hasToMuchUsers
+          ? <div className="user-tag only-circle">
+              <span>{numberOfUsers}</span>
+            </div>
+          : ""}
       </div>
     );
   }
