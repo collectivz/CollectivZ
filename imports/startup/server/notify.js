@@ -14,7 +14,7 @@ export function publish(data, options) {
 
 function getMobileIdFromGroup(groupId) {
   check(groupId, String);
-  console.log(groupId);
+  console.log( "getMobileIdFromGroup: groupid = $(groupId)");
   const channel = Channels.findOne(groupId);
   console.log(channel);
 
