@@ -10,7 +10,12 @@ export function publish(data, options) {
 }
 
 function getMobileIdFromGroup(groupId) {
-  console.log('call getMobileIdFromGroup(groupId) with groupId = ' + groupId);
+  if (!this.userId) {
+    throw new Meteor.Error('not-logged-in',
+            'Vous devez vous connecter pour arrêter de taper.');
+  }
+  check(groupId, String);
+  console.log(groupId);
   const channel = Channels.findOne(groupId);
   console.log(channel);
 
@@ -18,8 +23,10 @@ function getMobileIdFromGroup(groupId) {
     const mobileIds = [];
 
     channel.members.forEach((member) => {
+      const userId = Meteor.users.findOne(member._id);
+      
+    if (userId && userId.mobileId) 
       mobileIds.push(Meteor.users.findOne(member._id).mobileId);
-    });
 
     console.log(`getMobileIdFromGroup${mobileIds}`);
     return mobileIds;
