@@ -23,11 +23,10 @@ function getMobileIdFromGroup(groupId) {
     const mobileIds = [];
 
     channel.members.forEach((member) => {
-        const userId = Meteor.users.findOne(member._id);
+      const userId = Meteor.users.findOne(member._id);
 
-        if (userId && userId.mobileId)
-            mobileIds.push(Meteor.users.findOne(member._id).mobileId);
-    }
+      if (userId && userId.mobileId) { mobileIds.push(Meteor.users.findOne(member._id).mobileId); }
+    });
 
     console.log(`getMobileIdFromGroup${mobileIds}`);
     return mobileIds;
