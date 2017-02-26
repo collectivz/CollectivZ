@@ -10,12 +10,7 @@ export function publish(data, options) {
 }
 
 function getMobileIdFromGroup(groupId) {
-  if (!this.userId) {
-    throw new Meteor.Error('not-logged-in',
-            'Vous devez vous connecter pour arrêter de taper.');
-  }
-  check(groupId, String);
-  console.log(groupId);
+  console.log('call getMobileIdFromGroup(groupId) with groupId = ' + groupId);
   const channel = Channels.findOne(groupId);
   console.log(channel);
 
