@@ -10,10 +10,6 @@ export function publish(data, options) {
 }
 
 function getMobileIdFromGroup(groupId) {
-  if (!this.userId) {
-    throw new Meteor.Error('not-logged-in',
-            'Vous devez vous connecter pour arrêter de taper.');
-  }
   check(groupId, String);
   console.log(groupId);
   const channel = Channels.findOne(groupId);
@@ -49,7 +45,7 @@ Meteor.methods({
       contents: { en: text },
       headings: { en: 'CollectivZ' },
     };
-    publish(message, { include_player_ids: userIds, small_icon: 'android_mdpi' });
+    if (userIds) { publish(message, { include_player_ids: userIds, small_icon: 'android_mdpi' }); } else { console.log('Aucun utilisateur abonné à ce groupe'); }
   },
   allUsersNotification(text) {
     const message = {
