@@ -8,17 +8,11 @@ document.addEventListener(
       console.log(`notificationOpenedCallback: ${JSON.stringify(jsonData)}`);
     };
 
-     const notificationGetIds = function(mobileId) {
-        window.mobileId = mobileId;
-        console.log(`mobileId is: ${JSON.stringify(mobileId)}`);
-     };
-
     if (Meteor.isCordova) {
       window.plugins.OneSignal
         .startInit("88cf61ed-a0b2-4303-98c6-114bb0991ddb")
         .handleNotificationOpened(notificationOpenedCallback)
-        .getIds( notificationGetIds);
-       window.plugins.OneSignal.endInit();
+        .endInit();
     }
 
     // Call syncHashedEmail anywhere in your app if you have the user's email.
