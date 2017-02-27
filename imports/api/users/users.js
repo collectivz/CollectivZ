@@ -3,23 +3,30 @@ import {Accounts} from "meteor/accounts-base";
 import {Repertory} from "../repertory/collection.js";
 
 Accounts.onLogin(() => {
-    console.log( "onLogin: updates lastLogin date on succesful login");
-    const date = Date.now();
+   // updates lastLogin date on succesful login
+   const lastLogin = Meteor.user().lastLogin;
+   const date = Date.now();
 
-    if (Meteor.isCordova) {
-        window.plugins.OneSignal.getIds(function (mobileId) {
+   if (lastLogin < date) {
+      console.log("onLogin: updates lastLogin date on succesful login");
+      const date = Date.now();
+
+      if (Meteor.isCordova) {
+         console.log("call getIds");
+         window.plugins.OneSignal.getIds(function (mobileId) {
             console.log(`mobileId is: ${JSON.stringify(mobileId)}`);
             Meteor.users.update(
-                Meteor.userId(), {
-                    $set: {lastLogin: date, mobileId: mobileId}
-                });
-        });
-    }
-    else
-        Meteor.users.update(
+               Meteor.userId(), {
+                  $set: {lastLogin: date, mobileId: mobileId}
+               });
+         });
+      }
+      else
+         Meteor.users.update(
             Meteor.userId(), {
-                $set: {lastLogin: date}
+               $set: {lastLogin: date}
             });
+   }
 });
 
 if (Meteor.isServer) {
@@ -39,6 +46,7 @@ if (Meteor.isServer) {
         user.connections = {};
         user.coinz = 100;
         user.history = "";
+        user.mobileId = {};
         user.lastReadAt = {};
         user.blockedUsers = [];
         user.repertory = Repertory.insert(newRepertory);
