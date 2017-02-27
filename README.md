@@ -24,6 +24,12 @@ npm install
 npm install
 npm start
 
+## build android
+
+meteor build --directory ../apk --server collectivz-cfe.herokuapp.com
+jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 release-unsigned.apk CollectivZ
+zipalign 4 release-unsigned.apk "CollectivZ Union.apk"
+
 
 ## architecture
 ### proposition

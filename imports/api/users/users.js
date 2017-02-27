@@ -11,21 +11,10 @@ Accounts.onLogin(() => {
       console.log("onLogin: updates lastLogin date on succesful login");
       const date = Date.now();
 
-      if (Meteor.isCordova) {
-         console.log("call getIds");
-         window.plugins.OneSignal.getIds(function (mobileId) {
-            console.log(`mobileId is: ${JSON.stringify(mobileId)}`);
-            Meteor.users.update(
-               Meteor.userId(), {
-                  $set: {lastLogin: date, mobileId: mobileId}
-               });
-         });
-      }
-      else
-         Meteor.users.update(
-            Meteor.userId(), {
-               $set: {lastLogin: date}
-            });
+      Meteor.users.update(
+          Meteor.userId(), {
+             $set: {lastLogin: date}
+          });
    }
 });
 

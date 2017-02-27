@@ -27,6 +27,13 @@ export default class Login extends Component {
             if (err) {
               Toast(err.reason, "danger");
             } else {
+               if (Meteor.isCordova) {
+                  console.log("call getIds");
+                  window.plugins.OneSignal.getIds(function (mobileId) {
+                     console.log(`mobileId is: ${JSON.stringify(mobileId)}`);
+                     Meteor.call( 'registerUser', Meteor.userId(), mobileId)
+                  });
+               }
               this.context.router.push("/");
             }
           });

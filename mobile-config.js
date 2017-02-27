@@ -6,7 +6,7 @@ App.setPreference('android-targetSdkVersion', '21');
 App.info({
   id: 'com.union.collectivz',
   name: 'CollectivZ Union',
-  version: '0.82',
+  version: '0.2.2',
 });
 
 App.icons({
@@ -45,3 +45,6 @@ App.launchScreens({
   android_xxhdpi_landscape: 'public/img/mobile/android/splashscreen/drawable-land-xxhdpi/screen.png',
 });
 
+App.configurePlugin('phonegap-plugin-push', {
+  SENDER_ID: 354968128746,
+});

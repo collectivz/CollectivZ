@@ -7,16 +7,16 @@
 blaze-html-templates    # Compile .html files into Meteor Blaze views
 underscore@1.0.10
 check@1.2.4
-ecmascript@0.6.3              # Enable ECMAScript2015+ syntax in app code
+ecmascript@0.6.1              # Enable ECMAScript2015+ syntax in app code
 es5-shim@4.6.15                # ECMAScript 5 compatibility for older browsers.
 jquery@1.11.10                  # Helpful client-side library
 meteor-base@1.0.4             # Packages every Meteor app needs to have
 mobile-experience@1.0.4       # Packages for a great mobile UX
-mongo@1.1.15                   # The database Meteor supports right now
+mongo@1.1.14                   # The database Meteor supports right now
 reactive-var@1.0.11            # Reactive variable for tracker
 react-meteor-data
-standard-minifier-js@1.2.2    # JS minifier run for production mode
-accounts-password@1.3.4
+standard-minifier-js@1.2.1    # JS minifier run for production mode
+accounts-password@1.3.3
 aldeed:simple-schema
 session@1.1.7
 fourseven:scss
@@ -24,9 +24,9 @@ seba:minifiers-autoprefixer
 email@1.1.18
 percolate:synced-cron
 random@1.0.10
-shell-server@0.2.2
+shell-server@0.2.1
 meteorhacks:ssr
 lepozepo:cloudinary
-tracker@1.1.2
+tracker@1.1.1
 ryne:dbreset
 raix:push

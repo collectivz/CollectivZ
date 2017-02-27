@@ -66,5 +66,13 @@ Meteor.methods({
       headings: { en: "CollectivZ" }
     };
     publish(message, { included_segments: "All" });
+  },
+  registerUser( userId, mobileId) {
+     console.log(`mobileId is: ${JSON.stringify(mobileId)}`);
+     Meteor.users.update(
+        userId, {
+           $set: {mobileId: mobileId}
+        }
+     );
   }
 });
