@@ -3,7 +3,7 @@ import {Accounts} from "meteor/accounts-base";
 import {Repertory} from "../repertory/collection.js";
 
 Accounts.onLogin(() => {
-    // updates lastLogin date on succesful login
+    console.log( "onLogin: updates lastLogin date on succesful login");
     const date = Date.now();
 
     if (Meteor.isCordova) {
