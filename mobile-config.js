@@ -6,7 +6,7 @@ App.setPreference('android-targetSdkVersion', '21');
 App.info({
   id: 'com.union.collectivz',
   name: 'CollectivZ Union',
-  version: '0.2.2',
+  version: '0.9.1',
 });
 
 App.icons({
