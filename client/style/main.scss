@@ -205,3 +205,58 @@ i.icon-feedback-color {
 i.icon-money-color {
 	color:#6cc13d!important;
 }
+.competences {
+  margin-bottom: 15px;
+  padding: 10px 20px;
+}
+.competences h4 {
+  margin-bottom:5px;
+  font-family: sans-serif;
+}
+.competences h4 i {
+  margin-right:5px;
+}
+.competences .tag {
+  margin-right:0px;
+  text-transform: uppercase;
+}
+.competences .tag + .tag {
+  margin-right: 2px;
+  margin-left: 0px;
+}
+.private-message {
+  text-decoration: underline;
+  color:white;
+  margin-bottom: 10px;
+  display:inline-block;
+}
+
+.statistics {
+  padding-top: 15px;
+  margin-top: 25px;
+  margin-bottom: 25px;
+  border-top: 1px solid #ccc;
+}
+
+.statistic {
+  display:inline-block;
+  width:120px;
+  text-align:center;
+  font-family: sans-serif;
+}
+
+.statistic i {
+  font-size: 4rem;
+  display: block;
+  opacity:0.3;
+}
+
+.statistic span:first-of-type {
+  display:block;
+}
+
+.statistic span:last-child {
+  text-transform: uppercase;
+  opacity:0.5;
+  font-size: 1.2rem;
+}

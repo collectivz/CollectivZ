@@ -59,6 +59,7 @@ export default class ProfilePage extends Component {
                         <h5 className="attribute">{user.hero.title}</h5>
                       : ''
                     }
+                    <br />
           <a className="private-message" onClick={this.chatWithUser}>Envoyer un message privé</a>
               </div>
             </div>
@@ -67,8 +68,8 @@ export default class ProfilePage extends Component {
               <div className="competences">
                 <h4><i className="icon icon-info"></i>Compétences</h4>
                 {
-                  user.skills.map(skill => {
-                    return <div className="tag">{skill}</div>;
+                  user.skills.map((skill, index) => {
+                    return <div className="tag" key={index}>{skill}</div>;
                   })
                 }
               </div>
