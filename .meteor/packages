@@ -7,7 +7,7 @@
 blaze-html-templates    # Compile .html files into Meteor Blaze views
 underscore@1.0.10
 check@1.2.4
-ecmascript@0.6.2              # Enable ECMAScript2015+ syntax in app code
+ecmascript@0.6.3              # Enable ECMAScript2015+ syntax in app code
 es5-shim@4.6.15                # ECMAScript 5 compatibility for older browsers.
 jquery@1.11.10                  # Helpful client-side library
 meteor-base@1.0.4             # Packages every Meteor app needs to have
@@ -26,7 +26,5 @@ percolate:synced-cron
 random@1.0.10
 shell-server@0.2.2
 meteorhacks:ssr
-lepozepo:cloudinary
 tracker@1.1.2
 ryne:dbreset
-raix:push

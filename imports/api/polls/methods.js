@@ -1,6 +1,5 @@
 import { Meteor } from "meteor/meteor";
 import { check } from "meteor/check";
-import { Push } from "meteor/raix:push";
 import { _ } from "meteor/underscore";
 
 import { Polls, Propositions } from "./collection.js";
