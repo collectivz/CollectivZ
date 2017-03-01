@@ -2,7 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import OneSignalClient from 'node-onesignal';
 import { Channels } from '../../api/channels/collection';
 
-export async function publish(data, options) {
+async function publish(data, options) {
   console.log('publish to OneSignal.');
   const client = new OneSignalClient(
     '88cf61ed-a0b2-4303-98c6-114bb0991ddb',
@@ -15,7 +15,6 @@ export async function publish(data, options) {
 }
 
 function getUsersIdFromGroup(groupId) {
-  check(groupId, String);
   console.log('getMobileIdFromGroup: groupid = $(groupId)');
   const channel = Channels.findOne(groupId);
   console.log(channel);
@@ -41,33 +40,19 @@ function getUsersIdFromGroup(groupId) {
 
 Meteor.methods({
   userNotification(text, userId) {
-    const message = {
-      contents: { en: text },
-      headings: { en: 'CollectivZ' },
-    };
-    publish(message, { include_player_ids: userId });
+    publish( text, { include_player_ids: userId });
   },
   usersNotificationFromChannel(text, groupId) {
     const userIds = getUsersIdFromGroup(groupId);
-    const message = {
-      contents: { en: text },
-      headings: { en: 'CollectivZ' },
-    };
+
     if (userIds) {
-      publish(message, {
-        include_player_ids: userIds,
-        small_icon: 'android_mdpi',
-      });
+      publish(text, { include_player_ids: userIds });
     } else {
       console.log('Aucun utilisateur abonné à ce groupe');
     }
   },
   allUsersNotification(text) {
-    const message = {
-      contents: { en: text },
-      headings: { en: 'CollectivZ' },
-    };
-    publish(message, { included_segments: 'All' });
+    publish(text, { included_segments: 'All' });
   },
   registerUser(userId, mobileId) {
     console.log(`mobileId is: ${JSON.stringify(mobileId)}`);
