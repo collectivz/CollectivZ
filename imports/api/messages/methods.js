@@ -29,7 +29,7 @@ Meteor.methods({
     Meteor.call(
         'usersNotificationFromChannel',
         `Nouveau message: ${message.text}`,
-        message.channelId
+        message.channelId,
      );
   },
   'messages.edit': function (newText, messageId) {

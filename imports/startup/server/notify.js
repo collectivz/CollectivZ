@@ -27,11 +27,11 @@ function getUsersIdFromGroup(groupId) {
       console.log( `getMobileIdFromGroup: User from group = ${JSON.stringify(user)}` )
 
       if (user && user.mobileId) {
-        mobileIds.push(user.mobileId.userId);
+        userIds.push(user.mobileId.userId);
       }
     });
 
-    console.log(`getMobileIdFromGroup${mobileIds}`);
+    console.log(`getMobileIdFromGroup${userIds}`);
     return mobileIds;
   }
   return null;
