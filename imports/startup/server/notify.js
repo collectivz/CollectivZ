@@ -1,78 +1,65 @@
-import { Meteor } from "meteor/meteor";
-import OneSignalClient from "node-onesignal";
-import { Channels } from "../../api/channels/collection";
+import { Meteor } from 'meteor/meteor';
+import OneSignalClient from 'node-onesignal';
+import { Channels } from '../../api/channels/collection';
 
-export function publish(data, options) {
-  console.log("publish to OneSignal.");
+async function publish(data, options) {
+  console.log('publish to OneSignal.');
   const client = new OneSignalClient(
-    "88cf61ed-a0b2-4303-98c6-114bb0991ddb",
-    "ZGUwOTU0NjEtMDJmMS00ZmY0LTgyZDAtZGY0MDZlNDE3Y2E0"
+    '88cf61ed-a0b2-4303-98c6-114bb0991ddb',
+    'ZGUwOTU0NjEtMDJmMS00ZmY0LTgyZDAtZGY0MDZlNDE3Y2E0',
   );
 
-  client.sendNotification(data, options);
+  const response = await client.sendNotification(data, options);
+
+  if (response.statusCode !== 200) console.log(`CollectivZ: sendNotificationClient error ${response.statusCode}, options: : ${JSON.stringify(options)}`);
 }
 
-function getMobileIdFromGroup(groupId) {
-  check(groupId, String);
-  console.log( "getMobileIdFromGroup: groupid = $(groupId)");
+function getUsersIdFromGroup(groupId) {
+  console.log('getMobileIdFromGroup: groupid = $(groupId)');
   const channel = Channels.findOne(groupId);
   console.log(channel);
 
   if (channel) {
-    const mobileIds = [];
+    const userIds = [];
 
-    channel.members.forEach(userId => {
+    channel.members.forEach((userId) => {
       const user = Meteor.users.findOne(userId);
 
-      console.log( `getMobileIdFromGroup: User from group = ${JSON.stringify(user)}` )
+      console.log(`getMobileIdFromGroup: User from group = ${JSON.stringify(user)}`);
 
       if (user && user.mobileId) {
-        mobileIds.push(user.mobileId);
+        userIds.push(user.mobileId.userId);
       }
     });
 
-    console.log(`getMobileIdFromGroup${mobileIds}`);
-    return mobileIds;
+    console.log(`getMobileIdFromGroup${userIds}`);
+    return userIds;
   }
   return null;
 }
 
 Meteor.methods({
   userNotification(text, userId) {
-    const message = {
-      contents: { en: text },
-      headings: { en: "CollectivZ" }
-    };
-    publish(message, { include_player_ids: userId });
+    publish( text, { include_player_ids: userId });
   },
   usersNotificationFromChannel(text, groupId) {
-    const mobileIds = getMobileIdFromGroup(groupId);
-    const message = {
-      contents: { en: text },
-      headings: { en: "CollectivZ" }
-    };
-    if (mobileIds) {
-      publish(message, {
-        include_player_ids: mobileIds,
-        small_icon: "android_mdpi"
-      });
+    const userIds = getUsersIdFromGroup(groupId);
+
+    if (userIds) {
+      publish(text, { include_player_ids: userIds });
     } else {
-      console.log("Aucun utilisateur abonné à ce groupe");
+      console.log('Aucun utilisateur abonné à ce groupe');
     }
   },
   allUsersNotification(text) {
-    const message = {
-      contents: { en: text },
-      headings: { en: "CollectivZ" }
-    };
-    publish(message, { included_segments: "All" });
+    publish(text, { included_segments: 'All' });
   },
-  registerUser( userId, mobileId) {
-     console.log(`mobileId is: ${JSON.stringify(mobileId)}`);
-     Meteor.users.update(
+  registerUser(userId, mobileId) {
+    console.log(`mobileId is: ${JSON.stringify(mobileId)}`);
+    Meteor.users.update(
         userId, {
-           $set: {mobileId: mobileId}
-        }
+          $set: { mobileId },
+        },
      );
-  }
+  },
 });
