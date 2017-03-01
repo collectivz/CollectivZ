@@ -32,7 +32,7 @@ function getUsersIdFromGroup(groupId) {
     });
 
     console.log(`getMobileIdFromGroup${userIds}`);
-    return mobileIds;
+    return userIds;
   }
   return null;
 }
