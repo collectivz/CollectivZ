@@ -3,6 +3,7 @@ import { Meteor } from "meteor/meteor";
 import { Channels } from "../../channels/collection.js";
 import { Messages } from "../../messages/collection.js";
 import { History } from "../../history/collection.js";
+import { Repertory } from "../../repertory/collection.js";
 
 Meteor.publish("adminSub", function() {
   if (this.userId) {
@@ -49,7 +50,8 @@ Meteor.publish("userProfile", function(userId) {
     return [
       Meteor.users.find(userId),
       Channels.find({ _id: { $in: user.subscribedChannels } }),
-      History.find({ userId: user._id })
+      History.find({ userId: user._id }),
+      Repertory.find({ _id: user.repertory })
     ];
   }
   this.ready();
