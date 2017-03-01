@@ -1,7 +1,6 @@
 import React from "react";
 import { Meteor } from "meteor/meteor";
 
-import Login from "../components/Login.jsx";
 import Loader from "../components/Loader.jsx";
 import AppNav from "../components/AppNav.jsx";
 import ToastrStack from "../components/ToastrStack.jsx";
@@ -11,6 +10,8 @@ export default class App extends React.Component {
   componentWillUpdate({ loading, user, children }) {
     if (!loading && user && !children) {
       this.context.router.push("/my-groups");
+    } else if (!loading && !user) {
+      this.context.router.push("/onboarding")
     }
   }
 
@@ -30,7 +31,7 @@ export default class App extends React.Component {
 
     return (
       <div id="app-container">
-        {loading ? <Loader /> : user ? clonedChildren : <Login />}
+        {loading ? <Loader /> : clonedChildren}
         <ToastrStack />
         <ModalContainer />
       </div>

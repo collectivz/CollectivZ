@@ -9,6 +9,7 @@ export default createContainer(
     const userSub = Meteor.subscribe("user");
 
     return {
+      loading: !userSub.ready(),
       user: Meteor.user()
     };
   },

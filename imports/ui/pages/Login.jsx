@@ -3,6 +3,7 @@ import { Meteor } from "meteor/meteor";
 import classNames from "classnames";
 
 import { Toast } from "../helpers/Toast";
+import ToastrStack from "../components/ToastrStack.jsx";
 
 export default class Login extends Component {
   constructor(props) {
@@ -96,6 +97,7 @@ export default class Login extends Component {
             </a>
           </div>
         </div>
+        <ToastrStack />
       </div>
     );
   }

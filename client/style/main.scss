@@ -260,3 +260,61 @@ i.icon-money-color {
   opacity:0.5;
   font-size: 1.2rem;
 }
+.onboarding {
+  overflow-y: auto;
+  overflow-x: hidden;
+  .slide {
+    img {
+      width: 140px;
+      margin: 0 auto;
+      display: block;
+      margin-top: 30px;
+    }
+    h4, p {
+      text-align:center;
+    }
+    h4 {
+      margin-top: 30px;
+    }
+    p {
+      padding: 0px 10px;
+      margin-bottom: 5px;
+      font-family: sans-serif;
+    }
+  }
+  .steps {
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+  .step {
+    width: 20px;
+    height: 20px;
+    border-radius: 100%;
+    background-color: #9f1618;
+    display:inline-block;
+    position:relative;
+    &:after {
+      content:"";
+      position: absolute;
+      top: 5px;
+      left: 5px;
+      width: 10px;
+      height: 10px;
+      border-radius: 100%;
+      background-color: white;
+      display:inline-block;
+      transform: scale(0);
+      transition: transform 200ms ease;
+    }
+    &.active:after {
+      transform: scale(1);
+
+    }
+  }
+  .pass {
+    border-top: 1px solid #ccc;
+    button {
+      padding: 10px 10px;
+    }
+  }
+}
