@@ -12,14 +12,14 @@ export function publish(data, options) {
   client.sendNotification(data, options);
 }
 
-function getMobileIdFromGroup(groupId) {
+function getUsersIdFromGroup(groupId) {
   check(groupId, String);
   console.log( "getMobileIdFromGroup: groupid = $(groupId)");
   const channel = Channels.findOne(groupId);
   console.log(channel);
 
   if (channel) {
-    const mobileIds = [];
+    const userIds = [];
 
     channel.members.forEach(userId => {
       const user = Meteor.users.findOne(userId);
@@ -27,7 +27,7 @@ function getMobileIdFromGroup(groupId) {
       console.log( `getMobileIdFromGroup: User from group = ${JSON.stringify(user)}` )
 
       if (user && user.mobileId) {
-        mobileIds.push(user.mobileId);
+        mobileIds.push(user.mobileId.userId);
       }
     });
 
@@ -46,14 +46,14 @@ Meteor.methods({
     publish(message, { include_player_ids: userId });
   },
   usersNotificationFromChannel(text, groupId) {
-    const mobileIds = getMobileIdFromGroup(groupId);
+    const userIds = getUsersIdFromGroup(groupId);
     const message = {
       contents: { en: text },
       headings: { en: "CollectivZ" }
     };
-    if (mobileIds) {
+    if (userIds) {
       publish(message, {
-        include_player_ids: mobileIds,
+        include_player_ids: userIds,
         small_icon: "android_mdpi"
       });
     } else {

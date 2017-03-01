@@ -27,12 +27,12 @@ export default class Login extends Component {
             if (err) {
               Toast(err.reason, "danger");
             } else {
-               console.log( "Is Cordova = " + Meteor.isCordova)
+               console.log( "CollectivZ: Is Cordova = " + Meteor.isCordova)
                if (Meteor.isCordova) {
 
-                  console.log("call getIds");
+                  console.log("CollectivZ: call getIds");
                   window.plugins.OneSignal.getIds(function (mobileId) {
-                     console.log(`mobileId is: ${JSON.stringify(mobileId)}`);
+                     console.log(`CollectivZ: mobileId is: ${JSON.stringify(mobileId)}`);
                      Meteor.call( 'registerUser', Meteor.userId(), mobileId)
                   });
                }

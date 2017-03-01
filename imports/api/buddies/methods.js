@@ -40,7 +40,7 @@ Meteor.methods({
       Meteor.call(
         "userNotification",
         "Invitation au groupe " + Channels.findOne(channelId).name,
-        user.mobileId
+        user.mobileId.userId
       );
     } else {
       throw new Meteor.Error("channel-not-found", "Channel non trouvé.");

@@ -8,6 +8,9 @@ export function replaceUrls(string) {
     if (match[0] !== "h") {
       match = `http://${match}`;
     }
+    if (Meteor.isCordova)
+      window.open = cordova.InAppBrowser.open;
+
     return `<a href="#" onclick="window.open( '${match}', '_blank', 'location=yes');">${match}</a>`;
   });
   return target;
