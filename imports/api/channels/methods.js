@@ -127,7 +127,7 @@ Meteor.methods({
       ? "Nouvelle action "
       : "Nouveau groupe ";
 
-    Meteor.call("usersNotificationFromChannel", text + channel.name, parentId);
+    Meteor.call("usersNotificationFromChannel", text +  ' ' + channel.name, parentId);
 
     return channelId;
   },

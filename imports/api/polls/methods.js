@@ -1,18 +1,18 @@
-import { Meteor } from "meteor/meteor";
-import { check } from "meteor/check";
-import { _ } from "meteor/underscore";
+import { Meteor } from 'meteor/meteor';
+import { check } from 'meteor/check';
+import { _ } from 'meteor/underscore';
 
-import { Polls, Propositions } from "./collection.js";
-import { Messages } from "../messages/collection.js";
-import { Channels } from "../channels/collection.js";
+import { Polls, Propositions } from './collection.js';
+import { Messages } from '../messages/collection.js';
+import { Channels } from '../channels/collection.js';
 
 Meteor.methods({
-  "polls.insert": function(message, choice) {
+  'polls.insert': function (message, choice) {
     check(message, {
       // verify message if he
       text: String, // does contain a text, a chan and a type
       channelId: String,
-      type: Match.Maybe(String)
+      type: Match.Maybe(String),
     });
 
     const parentId = message.channelId;
@@ -21,18 +21,18 @@ Meteor.methods({
     // and the rights
     if (!this.userId) {
       throw new Meteor.Error(
-        "not-logged-in",
-        "Must be logged in to create a poll."
+        'not-logged-in',
+        'Must be logged in to create a poll.',
       );
-    } else if (message.type !== "poll") {
-      throw new Meteor.Error("not-good-type", "Message is wrong typed.");
+    } else if (message.type !== 'poll') {
+      throw new Meteor.Error('not-good-type', 'Message is wrong typed.');
     }
 
     const parent = Channels.findOne(parentId);
     if (!parent) {
       throw new Meteor.Error(
-        "no-chan-defined",
-        "The message don't belong to any chan"
+        'no-chan-defined',
+        "The message don't belong to any chan",
       );
     }
 
@@ -42,7 +42,7 @@ Meteor.methods({
       messageId,
       finished: 0,
       channelId: message.channelId,
-      totalVote: 0
+      totalVote: 0,
     };
     const pollId = Polls.insert(newPoll);
 
@@ -52,30 +52,30 @@ Meteor.methods({
     // corresponding prop
 
     Messages.update(messageId, {
-      $set: { pollId }
+      $set: { pollId },
     });
 
     if (choice.length) {
-      choice.forEach(proposition => {
-        Meteor.call("propositions.insert", proposition, pollId);
+      choice.forEach((proposition) => {
+        Meteor.call('propositions.insert', proposition, pollId);
       });
     } else {
-      Meteor.call("propositions.insert", "pour", pollId);
-      Meteor.call("propositions.insert", "contre", pollId);
+      Meteor.call('propositions.insert', 'pour', pollId);
+      Meteor.call('propositions.insert', 'contre', pollId);
     }
 
     Channels.update(parentId, {
-      $inc: { "connections.pollCount": 1 }
+      $inc: { 'connections.pollCount': 1 },
     });
 
     Meteor.call(
-      "usersNotificationFromChannel",
-      "Nouveau sondage " + message.text,
-      message.channelId
+      'usersNotificationFromChannel',
+      `nouveau sondage dans le groupe `,
+      message.channelId,
     );
   },
 
-  "polls.vote": function(pollId, propsId) {
+  'polls.vote': function (pollId, propsId) {
     check(pollId, String);
     check(propsId, String);
 
@@ -83,52 +83,52 @@ Meteor.methods({
     // and the rights
     if (!this.userId) {
       throw new Meteor.Error(
-        "not-logged-in",
-        "Must be logged in to create a poll."
+        'not-logged-in',
+        'Must be logged in to create a poll.',
       );
     }
 
     const poll = Polls.findOne(pollId);
     if (!poll) {
-      throw new Meteor.Error("no-poll", "The poll does not exist");
+      throw new Meteor.Error('no-poll', 'The poll does not exist');
     } else if (poll.finished === 1) {
-      throw new Meteor.Error("poll already finished", "The poll is finished");
+      throw new Meteor.Error('poll already finished', 'The poll is finished');
     }
 
     const props = Propositions.find({ pollId }).fetch();
-    props.forEach(proposition => {
+    props.forEach((proposition) => {
       if (_.contains(proposition.voteReceivedFrom, this.userId)) {
         throw new Meteor.Error(
-          "already voted",
-          "You've alreday voted for this poll"
+          'already voted',
+          "You've alreday voted for this poll",
         );
       }
     });
 
     Propositions.update(propsId, {
-      $push: { voteReceivedFrom: this.userId }
+      $push: { voteReceivedFrom: this.userId },
     });
     Polls.update(pollId, {
       $inc: { totalVote: 1 },
-      $push: { members: this.userId }
+      $push: { members: this.userId },
     });
   },
 
-  "propositions.insert": function(proposition, pollId) {
+  'propositions.insert': function (proposition, pollId) {
     const prop = {
       name: proposition,
       voteReceivedFrom: [],
-      pollId
+      pollId,
     };
 
     return Propositions.insert(prop);
   },
 
-  "polls.editQuestion": function(pollId, newQuestion) {
+  'polls.editQuestion': function (pollId, newQuestion) {
     if (!this.userId) {
       throw new Meteor.Error(
-        "not-logged-in",
-        "Vous devez être connecté pour modifier un sondage."
+        'not-logged-in',
+        'Vous devez être connecté pour modifier un sondage.',
       );
     }
     check(pollId, String);
@@ -141,11 +141,11 @@ Meteor.methods({
     }
   },
 
-  "polls.addProposition": function(pollId, newProp) {
+  'polls.addProposition': function (pollId, newProp) {
     if (!this.userId) {
       throw new Meteor.Error(
-        "not-logged-in",
-        "Vous devez être connecté pour modifier un sondage."
+        'not-logged-in',
+        'Vous devez être connecté pour modifier un sondage.',
       );
     }
     check(pollId, String);
@@ -157,17 +157,17 @@ Meteor.methods({
       const proposition = {
         name: newProp,
         voteReceivedFrom: [],
-        pollId
+        pollId,
       };
       Propositions.insert(proposition);
     }
   },
 
-  "polls.delete": function(pollId) {
+  'polls.delete': function (pollId) {
     if (!this.userId) {
       throw new Meteor.Error(
-        "not-logged-in",
-        "Vous devez être connecté pour modifier un sondage."
+        'not-logged-in',
+        'Vous devez être connecté pour modifier un sondage.',
       );
     }
     check(pollId, String);
@@ -177,5 +177,5 @@ Meteor.methods({
     if ((poll && poll.author === this.userId) || Meteor.user().isAdmin) {
       Polls.remove(pollId);
     }
-  }
+  },
 });
