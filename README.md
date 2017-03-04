@@ -27,7 +27,7 @@ npm start
 ## build android
 
 meteor build --directory ../apk --server collectivz-cfe.herokuapp.com
-jarsigner  --ks path/to/keystore -verbose -sigalg SHA1withRSA -digestalg SHA1 release-unsigned.apk collectivz-union
+jarsigner  --ks ./keystore -verbose -sigalg SHA1withRSA -digestalg SHA1 release-unsigned.apk collectivz-union < 3Kkjs23T1Uyt2m97id1W45IoSP5OLpth
 zipalign 4 release-unsigned.apk "CollectivZ Union.apk"
 
 
