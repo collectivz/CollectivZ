@@ -6,7 +6,7 @@
     "deployMobile": "npm run buildMobile && npm run jarMobile && npm run zipMobile",
     "buildMobile": "meteor build --directory ../apk --server collectivz-cfe.herokuapp.com",
     "jarMobile": "cd ../apk/android && echo \"3Kkjs23T1Uyt2m97id1W45IoSP5OLpth\" | jarsigner  -keystore ./keystore -verbose -sigalg SHA1withRSA -digestalg SHA1 ./release-unsigned.apk collectivz-union",
-    "zipMobile": "cd ../apk/android && zipalign 4 release-unsigned.apk \"Digital trait Union.apk\"",
+    "zipMobile": "cd ../apk/android && zipalign -f 4 release-unsigned.apk \"Digital trait Union.apk\"",
     "test": "jest"
   },
   "devDependencies": {

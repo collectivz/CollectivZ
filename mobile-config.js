@@ -6,7 +6,7 @@ App.setPreference('android-targetSdkVersion', '21');
 App.info({
   id: 'com.union.collectivz',
   name: 'Digital Trait d\'Union',
-  version: '0.9.1',
+  version: '0.91',
 });
 
 App.icons({
