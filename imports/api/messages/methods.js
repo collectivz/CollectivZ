@@ -25,11 +25,10 @@ Meteor.methods({
       Messages.insert(message);
     }
     const msg = `${message.text.substr(0, 120)} ...`;
-    const nomGroup = $(Channels.findOne(message.channelId).name)
 
     Meteor.call(
         'usersNotificationFromChannel',
-        `nouveau message dans le groupe`,
+        `nouveau message`,
         message.channelId,
      );
   },
