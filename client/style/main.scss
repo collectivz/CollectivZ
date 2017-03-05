@@ -265,11 +265,11 @@ i.icon-money-color {
   overflow-x: hidden;
   .slide {
     height: 75%;
+    margin: auto;
     img {
-      width: 140px;
-      margin: 0 auto;
       display: block;
       margin-top: 30px;
+      width: auto;
     }
     h4, p {
       text-align:center;
