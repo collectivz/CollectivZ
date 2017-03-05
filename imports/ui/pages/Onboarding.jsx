@@ -45,7 +45,7 @@ export default class Onboarding extends React.Component {
     const { slide } = this.state
     const CurrentSlide = Slides[slide]
 
-    return <CurrentSlide />
+    return <CurrentSlide styles="height:82%"/>
   }
 
   render() {
