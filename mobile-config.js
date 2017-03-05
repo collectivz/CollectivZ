@@ -4,9 +4,9 @@ App.accessRule('https://*');
 App.setPreference('android-targetSdkVersion', '21');
 
 App.info({
-  id: 'com.herokuapp.cfe.collectivz',
+  id: 'com.union.collectivz',
   name: 'Digital Trait d\'Union',
-  version: '0.93',
+  version: '0.94',
 });
 
 App.icons({

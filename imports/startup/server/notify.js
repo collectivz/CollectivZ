@@ -43,7 +43,7 @@ Meteor.methods({
     publish(text, { include_player_ids: [userId] });
   },
   usersNotificationFromChannel(text, groupId) {
-    const senderId = this.userId();
+    const senderId = this.userId;
     const userName = Meteor.users.findOne(senderId).username;
     let userIds = getUsersIdFromGroup(groupId);
     const message = `${userName} : ${text} dans le groupe ${Channels.findOne(groupId).name}`;
