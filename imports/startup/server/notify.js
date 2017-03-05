@@ -42,12 +42,12 @@ Meteor.methods({
   userNotification(text, userId) {
     publish(text, { include_player_ids: [userId] });
   },
-  usersNotificationFromChannel(text, groupId) {
-    const userName = Meteor.users.findOne(Meteor.userId()).username;
+  usersNotificationFromChannel(text, groupId, senderId) {
+    const userName = Meteor.users.findOne(senderId).username;
     let userIds = getUsersIdFromGroup(groupId);
     const message = `${userName} : ${text} dans le groupe ${Channels.findOne(groupId).name}`;
 
-    userIds = userIds.filter(userId => (userId !== Meteor.userId()));
+    userIds = userIds.filter(userId => (userId !== senderId));
 
     if (userIds) {
       publish(message, { include_player_ids: userIds });
