@@ -137,7 +137,7 @@ export default class PollItem extends React.Component {
             <i className="icon icon-pie-chart icon-pollz-color" />
             <span>
               <a href="">{this.getAuthorName.bind(this, poll.author)}</a>
-              {" "}à lancé un sondage
+              {" "} {poll.author} à lancé un sondage
             </span>
             <h5> {poll.question}</h5>
             {poll.author === user._id || user.isAdmin

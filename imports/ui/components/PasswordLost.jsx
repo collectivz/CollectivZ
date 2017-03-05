@@ -45,7 +45,7 @@ export default class PasswordLost extends Component {
         <div className="center-wrapper">
           <form>
             <img src="/img/login_logo.svg" width="64" height="64" />
-            <h2>Collectivz</h2>
+            <h2>CollectivZ</h2>
             <h5>Refaire le monde est donné à tout le monde</h5>
             <fieldset className="large has-icon name">
               <i className="icon icon-mail" />

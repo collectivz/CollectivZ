@@ -52,7 +52,7 @@ export default class Login extends Component {
         <div className="center-wrapper">
           <form>
             <img src="/img/login_logo.svg" width="64" height="64" />
-            <h2>Collectivz</h2>
+            <h2>CollectivZ</h2>
             <h5>Refaire le monde est donné à tout le monde</h5>
             <fieldset className="large has-icon name">
               <i className="icon icon-user" />
@@ -75,7 +75,7 @@ export default class Login extends Component {
             <button
               onClick={this.handleClick}
               className={classNames(
-                "large big success button spinner touch-event",
+                "large success button spinner touch-event",
                 { "touch-active spinner-active": this.state.isClicked }
               )}
             >

@@ -95,7 +95,7 @@ export default class RegisterPage extends React.Component {
         <div className="center-wrapper">
           <form id="box" onSubmit={this.handleSubmit}>
             <img src="/img/login_logo.svg" width="64" height="64" />
-            <h2>Collectivz</h2>
+            <h2>CollectivZ</h2>
             <h5>Refaire le monde est donné à tout le monde</h5>
             <fieldset className="large has-icon">
               <i className="icon icon-user" />
