@@ -208,7 +208,7 @@ Meteor.methods({
     Meteor.call(
         'usersNotificationFromChannel',
         `nouveau message dans le groupe`,
-        message.channelId,
+        message.channelId
     );
   },
 });
