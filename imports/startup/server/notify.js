@@ -38,31 +38,16 @@ function getUsersIdFromGroup(groupId) {
   return null;
 }
 
-function usersNotificationFromChannelOld(text, groupId, senderUserId) {
-  const userIds = getUsersIdFromGroup(groupId);
-
-  if (userIds) {
-    publish(text, { include_player_ids: userIds });
-  } else {
-    console.log('Aucun utilisateur abonné à ce groupe');
-  }
-}
-
 Meteor.methods({
   userNotification(text, userId) {
     publish(text, { include_player_ids: [userId] });
   },
-  usersNotificationFromChannel(text, groupId, senderUserId) {
-    if (!senderUserId) {
-      usersNotificationFromChannelOld(text, groupId);
-      return;
-    }
-
-    const userName = Meteor.users.findOne(senderUserId).username;
+  usersNotificationFromChannel(text, groupId) {
+    const userName = Meteor.users.findOne(Meteor.userId()).username;
     let userIds = getUsersIdFromGroup(groupId);
     const message = `${userName} : ${text} dans le groupe ${Channels.findOne(groupId).name}`;
 
-    userIds = userIds.filter(userId => (userId !== senderUserId));
+    userIds = userIds.filter(userId => (userId !== Meteor.userId()));
 
     if (userIds) {
       publish(message, { include_player_ids: userIds });
