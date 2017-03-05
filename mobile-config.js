@@ -4,7 +4,7 @@ App.accessRule('https://*');
 App.setPreference('android-targetSdkVersion', '21');
 
 App.info({
-  id: 'com.union.collectivz',
+  id: 'com.herokuapp.cfe.collectivz',
   name: 'CollectivZ Union',
   version: '0.88',
 });
