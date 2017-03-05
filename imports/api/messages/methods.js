@@ -28,7 +28,7 @@ Meteor.methods({
 
     Meteor.call(
         'usersNotificationFromChannel',
-        `Nouveau message: ${message.text}`,
+        `nouveau message`,
         message.channelId,
      );
   },
@@ -163,6 +163,14 @@ Meteor.methods({
       },
       { multi: true },
     );
+
+    const nomGroupe = Channels.findOne(newChannelId).name;
+
+    Meteor.call(
+        'usersNotificationFromChannel',
+        `nouvelle action dans le groupe`,
+        newChannelId,
+     );
   },
 
   'messages.answerMessage': function (messageId, text) {
@@ -195,5 +203,11 @@ Meteor.methods({
     };
 
     Messages.insert(newMessage);
+
+    Meteor.call(
+        'usersNotificationFromChannel',
+        `nouveau message dans le groupe`,
+        message.channelId
+    );
   },
 });

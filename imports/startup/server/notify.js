@@ -40,13 +40,18 @@ function getUsersIdFromGroup(groupId) {
 
 Meteor.methods({
   userNotification(text, userId) {
-    publish( text, { include_player_ids: userId });
+    publish(text, { include_player_ids: [userId] });
   },
   usersNotificationFromChannel(text, groupId) {
-    const userIds = getUsersIdFromGroup(groupId);
+    const senderId = this.userId();
+    const userName = Meteor.users.findOne(senderId).username;
+    let userIds = getUsersIdFromGroup(groupId);
+    const message = `${userName} : ${text} dans le groupe ${Channels.findOne(groupId).name}`;
+
+    userIds = userIds.filter(userId => (userId !== senderId));
 
     if (userIds) {
-      publish(text, { include_player_ids: userIds });
+      publish(message, { include_player_ids: userIds });
     } else {
       console.log('Aucun utilisateur abonné à ce groupe');
     }

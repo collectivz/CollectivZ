@@ -5,8 +5,8 @@ App.setPreference('android-targetSdkVersion', '21');
 
 App.info({
   id: 'com.herokuapp.cfe.collectivz',
-  name: 'CollectivZ Union',
-  version: '0.88',
+  name: 'Digital Trait d\'Union',
+  version: '0.93',
 });
 
 App.icons({
