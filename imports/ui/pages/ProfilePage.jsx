@@ -52,7 +52,7 @@ export default class ProfilePage extends Component {
           <Breadcrumb title={`Profil de ${user.username}`} hasBack />
             <div className="profile">
                 <div className="profile-header">
-                    <div className="circle"><img className="photo" src="/img/no-user.png" /></div>
+                    <div className="circle"><img className="photo" src={user.imageUrl} /></div>
                     <h3 className="name">{user.username}</h3>
                     {
                       user.hero ?
