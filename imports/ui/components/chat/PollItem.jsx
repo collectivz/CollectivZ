@@ -163,7 +163,11 @@ export default class PollItem extends React.Component {
                 </DropDownBottom>
               : ""}
           </div>
-          <div className="poll-choice">{propositionNodes}</div>
+          {
+            propositions && propositions.length > 0 ?
+              <div className="poll-choice">{propositionNodes}</div>
+            : ''
+          }
           {this.hasVoted()
             ? <div className="success-box">
                 <h4><i className="icon icon-check" />Vous avez déjà voté.</h4>

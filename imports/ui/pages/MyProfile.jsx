@@ -100,8 +100,7 @@ export default class MyProfile extends Component {
                           <p className="title">Ma réputation <span className="value">20</span></p>
                         </div>
                       </TouchEvent>
-                      */
-                      }
+                      */}
 
                       <TouchEvent
                         class="list-item small touch-event"

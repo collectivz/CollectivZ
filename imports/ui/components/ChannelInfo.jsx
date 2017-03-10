@@ -20,6 +20,13 @@ export default class ChannelInfo extends React.Component {
           ? <p className="sub-title"><span>Groupe</span> {group.name}</p>
           : ""}
         <h4>{channel.name}</h4>
+        {
+          channel.type === 'group' ?
+            channel.private === true ?
+              <h5>privé</h5>
+            : <h5>public</h5>
+          : ''
+        }
         {channel.description
           ? <p>{channel.description}</p>
           : <p className="grey-text">Ce groupe n'a pas de description.</p>}

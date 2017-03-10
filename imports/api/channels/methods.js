@@ -275,6 +275,10 @@ Meteor.methods({
         type: String,
         optional: true,
       },
+      private: {
+        type: Boolean,
+        optional: true
+      }
     }).validate(newChannel);
 
     if (!this.userId) {

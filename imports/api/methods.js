@@ -1,6 +1,7 @@
 import { Meteor } from "meteor/meteor";
 import { check } from "meteor/check";
 import { underscore } from "meteor/underscore";
+import { random } from 'meteor/random'
 import aws from "aws-sdk";
 
 Meteor.methods({
@@ -21,9 +22,10 @@ Meteor.methods({
 
     console.log(process.env.AWS_ACCESS_KEY_ID);
     let returnData;
+    const rand = random.id(8)
     const s3Params = {
       Bucket: S3_BUCKET,
-      Key: `${Meteor.user().username}Avatar.jpg`,
+      Key: `${Meteor.user().username}Avatar${rand}.jpg`,
       Expires: 60,
       ContentType: fileType,
       ACL: "public-read"
@@ -37,7 +39,7 @@ Meteor.methods({
       console.log(data);
       returnData = {
         signedRequest: data,
-        url: `https://${S3_BUCKET}.s3.eu-central-1.amazonaws.com/${Meteor.user().username}Avatar.jpg`
+        url: `https://${S3_BUCKET}.s3.eu-central-1.amazonaws.com/${Meteor.user().username}Avatar${rand}.jpg`
       };
       return returnData;
     });
