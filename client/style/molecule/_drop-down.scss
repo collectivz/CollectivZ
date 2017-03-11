@@ -66,6 +66,7 @@ $base-index: 9999999;
 	z-index: -1;
 	overflow: hidden;
 	transition: all 200ms ease;
+	user-select: none;
 	.drop-down-overlay {
 		width:100%;
 		min-height:100px;
@@ -76,8 +77,10 @@ $base-index: 9999999;
 		border-top:1px solid color("grey", "base");
 		z-index: $base-index + 1;
 		margin:0;
+		user-select: none;
 		li {
 			margin: 0;
+			user-select: none;
 		}
 	}
 	.drop-down-menu-link {
