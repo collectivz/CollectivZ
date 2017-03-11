@@ -48,79 +48,81 @@ export default class ProfilePage extends Component {
     } = this.props;
     return (
       user ?
-        <div className="sub-container">
-          <Breadcrumb title={`Profil de ${user.username}`} hasBack />
-            <div className="profile">
-                <div className="profile-header">
-                    <div className="circle"><img className="photo" src={user.imageUrl} /></div>
-                    <h3 className="name">{user.username}</h3>
-                    {
-                      user.hero ?
-                        <h5 className="attribute">{user.hero.title}</h5>
-                      : ''
-                    }
-                    <br />
-          <a className="private-message" onClick={this.chatWithUser}>Envoyer un message privé</a>
+        <div className="screen-box">
+          <div className="sub-container">
+            <Breadcrumb title={`Profil de ${user.username}`} hasBack />
+              <div className="profile">
+                  <div className="profile-header">
+                      <div className="circle"><img className="photo" src={user.imageUrl} /></div>
+                      <h3 className="name">{user.username}</h3>
+                      {
+                        user.hero ?
+                          <h5 className="attribute">{user.hero.title}</h5>
+                        : ''
+                      }
+                      <br />
+            <a className="private-message" onClick={this.chatWithUser}>Envoyer un message privé</a>
+                </div>
               </div>
+            {
+              user.skills && user.skills.length > 0 ?
+                <div className="competences">
+                  <h4><i className="icon icon-info"></i>Compétences</h4>
+                  {
+                    user.skills.map((skill, index) => {
+                      return <div className="tag" key={index}>{skill}</div>;
+                    })
+                  }
+                </div>
+              : ''
+            }
+            <div className="statistics">
+              {
+                user.connections.beerCount ?
+                  <div className="statistic">
+                    <i className="icon icon-event2"></i>
+                    <span>{user.connections.beerCount}</span>
+                    <span>Evenements</span>
+                  </div>
+                : ''
+              }
+              {
+                user.connections.pollCount ?
+                  <div className="statistic">
+                    <i className="icon icon-pie-chart"></i>
+                    <span>{user.connections.pollCount}</span>
+                    <span>Sondages</span>
+                  </div>
+                : ''
+              }
+              {
+                channels.length > 0 ?
+                  <div className="statistic">
+                    <i className="icon icon-action"></i>
+                    <span>{channels.length}</span>
+                    <span>Actions</span>
+                  </div>
+                : ''
+              }
+              {
+                groups.length > 0 ?
+                  <div className="statistic">
+                    <i className="icon icon-users"></i>
+                    <span>{groups.length}</span>
+                    <span>Groupes</span>
+                  </div>
+                : ''
+              }
+              {
+                repertory.contacts.length > 0 ?
+                  <div className="statistic">
+                    <i className="icon icon-user"></i>
+                    <span>{repertory.contacts.length}</span>
+                    <span>Contacts</span>
+                  </div>
+                : ''
+              }
             </div>
-          {
-            user.skills && user.skills.length > 0 ?
-              <div className="competences">
-                <h4><i className="icon icon-info"></i>Compétences</h4>
-                {
-                  user.skills.map((skill, index) => {
-                    return <div className="tag" key={index}>{skill}</div>;
-                  })
-                }
-              </div>
-            : ''
-          }
-          <div className="statistics">
-            {
-              user.connections.beerCount ?
-                <div className="statistic">
-                  <i className="icon icon-event2"></i>
-                  <span>{user.connections.beerCount}</span>
-                  <span>Evenements</span>
-                </div>
-              : ''
-            }
-            {
-              user.connections.pollCount ?
-                <div className="statistic">
-                  <i className="icon icon-pie-chart"></i>
-                  <span>{user.connections.pollCount}</span>
-                  <span>Sondages</span>
-                </div>
-              : ''
-            }
-            {
-              channels.length > 0 ?
-                <div className="statistic">
-                  <i className="icon icon-action"></i>
-                  <span>{channels.length}</span>
-                  <span>Actions</span>
-                </div>
-              : ''
-            }
-            {
-              groups.length > 0 ?
-                <div className="statistic">
-                  <i className="icon icon-users"></i>
-                  <span>{groups.length}</span>
-                  <span>Groupes</span>
-                </div>
-              : ''
-            }
-            {
-              repertory.contacts.length > 0 ?
-                <div className="statistic">
-                  <i className="icon icon-user"></i>
-                  <span>{repertory.contacts.length}</span>
-                  <span>Contacts</span>
-                </div>
-              : ''
-            }
           </div>
           <AppNav user={user} />
         </div>
