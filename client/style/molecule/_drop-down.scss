@@ -8,6 +8,7 @@ $base-index: 9999999;
   overflow: hidden;
   float:right;
 	transition: all 200ms ease;
+	user-select: none;
 	.touch-event {
 		width:$breadcrumb-height;
 		height:$breadcrumb-height;
@@ -36,8 +37,10 @@ $base-index: 9999999;
 	}
 	ul {
 		margin:0;
+		user-select: none;
 		li {
 			margin: 0;
+			user-select: none;
 		}
 	}
 	.drop-down-menu-link {
@@ -60,9 +63,10 @@ $base-index: 9999999;
 	text-align: center;
 	bottom:-200%;
 	left: 0;
-	z-index: $base-index;
+	z-index: -1;
 	overflow: hidden;
 	transition: all 200ms ease;
+	user-select: none;
 	.drop-down-overlay {
 		width:100%;
 		min-height:100px;
@@ -73,8 +77,10 @@ $base-index: 9999999;
 		border-top:1px solid color("grey", "base");
 		z-index: $base-index + 1;
 		margin:0;
+		user-select: none;
 		li {
 			margin: 0;
+			user-select: none;
 		}
 	}
 	.drop-down-menu-link {
@@ -87,5 +93,6 @@ $base-index: 9999999;
 	}
 	&.drop-down-bottom--open {
 		bottom:0;
+		z-index: $base-index;
 	}
 }
