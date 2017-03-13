@@ -1,7 +1,7 @@
 import { Meteor } from "meteor/meteor";
 import { check } from "meteor/check";
 import { underscore } from "meteor/underscore";
-import { random } from 'meteor/random'
+import { Random } from 'meteor/random'
 import aws from "aws-sdk";
 
 Meteor.methods({
@@ -22,7 +22,7 @@ Meteor.methods({
 
     console.log(process.env.AWS_ACCESS_KEY_ID);
     let returnData;
-    const rand = random.id(8)
+    const rand = Random.id(8)
     const s3Params = {
       Bucket: S3_BUCKET,
       Key: `${Meteor.user().username}Avatar${rand}.jpg`,

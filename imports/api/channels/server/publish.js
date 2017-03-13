@@ -36,6 +36,12 @@ Meteor.publish("groupList", function() {
 
 Meteor.publish("chanPage", function(id) {
   check(id, String);
+  console.log(
+  Messages.find({
+    channelId: id,
+    objectionable: false,
+    type: { $ne: "message" }
+  }).fetch())
   if (this.userId) {
     const channel = Channels.findOne(id);
     if (channel) {

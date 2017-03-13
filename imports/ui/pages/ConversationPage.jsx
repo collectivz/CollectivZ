@@ -58,6 +58,7 @@ export default class ConversationPage extends React.Component {
         messageCount: messages.length
       });
     }
+    this.scrollDown();
   }
 
   render() {
