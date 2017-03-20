@@ -60,7 +60,6 @@ export default class Chat extends React.Component {
       messageCount,
       scrollingUp
     } = this.state;
-    console.log(scrollingUp)
     if (inputMode !== "message" && inputMode !== "answer" && !ongoingAction) {
       const zorro = zorroForm(inputMode, channel._id);
       const newState = zorro.getState();
@@ -98,6 +97,7 @@ export default class Chat extends React.Component {
     const elem = $(".chat-sub-container");
     const { scrollingUp } = this.state;
     if (!elem.scrollTop()) {
+      elem.scrollTop(elem.height()/4);
       this.props.setMessageLimit()
     }
     if(elem.scrollTop() >= elem.height() - 50 && scrollingUp) {
