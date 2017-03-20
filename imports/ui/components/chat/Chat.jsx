@@ -30,10 +30,12 @@ export default class Chat extends React.Component {
       expectedAnswer: "",
       choices: [],
       messageCount: this.props.messages.length,
-      answeringTo: ""
+      answeringTo: "",
+      scrollingUp: false
     };
 
     this.setFilterOption = this.setFilterOption.bind(this);
+    this.handleScroll = this.handleScroll.bind(this);
     this.changeInputMode = this.changeInputMode.bind(this);
     this.answerToZorro = this.answerToZorro.bind(this);
     this.filterMessage = this.filterMessage.bind(this);
@@ -52,7 +54,13 @@ export default class Chat extends React.Component {
 
   componentDidUpdate() {
     const { channel, messages } = this.props;
-    const { inputMode, ongoingAction, messageCount } = this.state;
+    const {
+      inputMode,
+      ongoingAction,
+      messageCount,
+      scrollingUp
+    } = this.state;
+    console.log(scrollingUp)
     if (inputMode !== "message" && inputMode !== "answer" && !ongoingAction) {
       const zorro = zorroForm(inputMode, channel._id);
       const newState = zorro.getState();
@@ -68,7 +76,9 @@ export default class Chat extends React.Component {
         messageCount: messages.length
       });
     }
-    this.scrollDown();
+    if(!scrollingUp) {
+      this.scrollDown();
+    }
   }
 
   setFilterOption(filter) {
@@ -82,6 +92,23 @@ export default class Chat extends React.Component {
     this.setState({
       inputMode
     });
+  }
+
+  handleScroll(e) {
+    const elem = $(".chat-sub-container");
+    const { scrollingUp } = this.state;
+    if (!elem.scrollTop()) {
+      this.props.setMessageLimit()
+    }
+    if(elem.scrollTop() >= elem.height() - 50 && scrollingUp) {
+      this.setState({
+        scrollingUp: false
+      });
+    } else if (elem.scrollTop() <= elem.height()/2 && !scrollingUp) {
+      this.setState({
+        scrollingUp: true
+      });
+    }
   }
 
   answerToMessage(messageId) {
@@ -164,6 +191,8 @@ export default class Chat extends React.Component {
           className={classNames("chat-sub-container", {
             "chat-with-filter-sub-container": !_.isEmpty(channel.connections)
           })}
+          onScroll={this.handleScroll}
+          ref="chatContainer"
         >
 
           <div className="chat">
@@ -171,8 +200,7 @@ export default class Chat extends React.Component {
               <div className="chat-separator">
                 <h5>Aujourd'hui</h5>
               </div>
-            */
-            }
+            */}
             <div ref="scroll">
               <div className="scroll">
                 <div className="message-list">

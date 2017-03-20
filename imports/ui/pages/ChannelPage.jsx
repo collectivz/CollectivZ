@@ -13,11 +13,18 @@ import ChannelInfo from "../components/ChannelInfo";
 import { Toast } from "../helpers/Toast";
 import { openModal } from "../helpers/Modal";
 
+const LIMIT = 20;
+
 export default class ChannelPage extends React.Component {
   constructor(props) {
     super(props);
 
+    this.state = {
+      limit: LIMIT
+    };
+
     this.renderAdminMenu = this.renderAdminMenu.bind(this);
+    this.setMessageLimit = this.setMessageLimit.bind(this);
     this.closeAction = this.closeAction.bind(this);
     this.leaveAction = this.leaveAction.bind(this);
     this.openEditModal = this.openEditModal.bind(this);
@@ -83,6 +90,15 @@ export default class ChannelPage extends React.Component {
     openModal(component, `Modifier l'image du groupe ${channel.name}`);
   }
 
+  setMessageLimit() {
+    const { limit } = this.state;
+    this.setState({
+      limit: limit + LIMIT
+    }, () => {
+      console.log(this.state.limit)
+    })
+  }
+
   renderAdminMenu() {
     const { channel, user } = this.props;
 
@@ -118,6 +134,7 @@ export default class ChannelPage extends React.Component {
       users,
       user
     } = this.props;
+    const { limit } = this.state;
 
     return (
       <div className="screen-box">
@@ -144,7 +161,7 @@ export default class ChannelPage extends React.Component {
                   <i className="icon icon-info icon-reverse" />
                 </TouchEvent>
               </Breadcrumb>
-              <ChatContainer channel={channel} user={user} />
+              <ChatContainer channel={channel} user={user} limit={limit} setMessageLimit={this.setMessageLimit} />
             </div>
           : <NotFound />}
       </div>

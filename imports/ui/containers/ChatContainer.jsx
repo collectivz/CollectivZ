@@ -11,7 +11,8 @@ import { Channels } from "../../api/channels/collection.js";
 import Chat from "../components/chat/Chat.jsx";
 
 export default createContainer(
-  ({ channel, user }) => {
+  ({ channel, user, limit }) => {
+    const messageSub = Meteor.subscribe('messages', channel._id, limit);
     const messages = Messages.find({ channelId: channel._id }, {
         sort: { createdAt: 1 }
       })

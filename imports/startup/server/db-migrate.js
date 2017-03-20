@@ -11,8 +11,8 @@ Meteor.startup(() => {
   const messages = Messages.find().fetch();
 
   messages.forEach(message => {
-    if (message.type !== "message") {
-      message.objectionable = false
+    if (!message.type) {
+      message.type = "message"
       Messages.update(message._id, message);
     }
   });

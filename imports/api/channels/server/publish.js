@@ -36,12 +36,6 @@ Meteor.publish("groupList", function() {
 
 Meteor.publish("chanPage", function(id) {
   check(id, String);
-  console.log(
-  Messages.find({
-    channelId: id,
-    objectionable: false,
-    type: { $ne: "message" }
-  }).fetch())
   if (this.userId) {
     const channel = Channels.findOne(id);
     if (channel) {
@@ -64,6 +58,7 @@ Meteor.publish("chanPage", function(id) {
         Messages.find({
           channelId: id,
           author: { $nin: user.blockedUsers },
+          type: { $ne: "message" },
           objectionable: false
         }),
         Feedbacks.find({
@@ -97,6 +92,23 @@ Meteor.publish("chanPage", function(id) {
   } else {
     this.ready();
   }
+});
+
+Meteor.publish("messages", function(chanId, limit) {
+  check(chanId, String);
+  check(limit, Number);
+  if (this.userId) {
+    const chan = Channels.findOne(chanId);
+    if (chan) {
+      const user = Meteor.users.findOne(this.userId);
+      return Messages.find({
+        type: "message",
+        channelId: chanId,
+        author: { $nin: user.blockedUsers }
+      }, { limit })
+    }
+  }
+  this.ready()
 });
 
 Meteor.publish("conversationPage", function(id) {
