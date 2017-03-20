@@ -97,7 +97,7 @@ export default class Chat extends React.Component {
     const elem = $(".chat-sub-container");
     const { scrollingUp } = this.state;
     if (!elem.scrollTop()) {
-      elem.scrollTop(elem.height()/4);
+      elem.scrollTop(elem.height()/2);
       this.props.setMessageLimit()
     }
     if(elem.scrollTop() >= elem.height() - 50 && scrollingUp) {

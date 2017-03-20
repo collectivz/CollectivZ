@@ -105,7 +105,7 @@ Meteor.publish("messages", function(chanId, limit) {
         type: "message",
         channelId: chanId,
         author: { $nin: user.blockedUsers }
-      }, { sort: { createdAt: 1 } ,limit })
+      }, { sort: { createdAt: -1 } ,limit })
     }
   }
   this.ready()
