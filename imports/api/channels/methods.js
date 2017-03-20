@@ -156,11 +156,6 @@ Meteor.methods({
       });
 
       const username = Meteor.users.findOne(this.userId).username;
-      const msg = {
-        text: `Dites un petit mot d'accueil à ${username} qui vient de rejoindre le groupe.`,
-        channelId: channel._id,
-      };
-      Messages.insert(msg);
     }
   },
 
@@ -194,11 +189,6 @@ Meteor.methods({
       }
 
       const username = Meteor.users.findOne(userId).username;
-      const msg = {
-        text: `${username} vient de quitter le groupe.`,
-        channelId: channel._id,
-      };
-      Messages.insert(msg);
     }
   },
 
