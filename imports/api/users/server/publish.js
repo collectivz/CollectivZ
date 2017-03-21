@@ -8,9 +8,7 @@ import { Repertory } from "../../repertory/collection.js";
 Meteor.publish("adminSub", function() {
   if (this.userId) {
     if (Meteor.users.findOne(this.userId).isAdmin) {
-      return Meteor.users.find({ isAdmin: true }, {
-        fields: { isAdmin: 1, _id: 1, username: 1, profile: 1 }
-      });
+      return Meteor.users.find({});
     }
   }
   this.ready();
