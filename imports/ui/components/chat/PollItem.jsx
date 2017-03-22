@@ -67,12 +67,6 @@ export default class PollItem extends React.Component {
     };
   }
 
-  getAuthorName(id) {
-    const author = Meteor.users.findOne(id);
-
-    return author ? author.username : "";
-  }
-
   voteForAPoll() {
     const {
       selectedProposition
@@ -129,15 +123,14 @@ export default class PollItem extends React.Component {
       },
       this
     );
-
     return (
       <div className="chat-special-bubble chat-special-bubble-poll">
         <div className="bubble-content">
           <div className="bubble-header">
             <i className="icon icon-pie-chart icon-pollz-color" />
             <span>
-              <a href="">{this.getAuthorName.bind(this, poll.author)}</a>
-              {" "} {poll.author.username} à lancé un sondage
+              <a href="">{poll.authorName}</a>
+              {" "}à lancé un sondage
             </span>
             <h5> {poll.question}</h5>
             {poll.author === user._id || user.isAdmin
