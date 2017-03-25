@@ -5,6 +5,7 @@ import { Accounts } from "meteor/accounts-base";
 
 import { Channels } from "../channels/collection.js";
 import { Messages } from "../messages/collection.js";
+import { Notify } from '../notify';
 
 Meteor.methods({
   "buddies.inviteToChannel": function(mailOrUsername, channelId) {
@@ -26,7 +27,8 @@ Meteor.methods({
         "Le mail renseigné ne correspond à aucun utilisateur."
       );
     }
-    if (Channels.findOne(channelId)) {
+    const channel = Channels.findOne(channelId)
+    if (channel) {
       Meteor.users.update(friend, { $push: { subscribedChannels: channelId } });
       Channels.update(channelId, {
         $push: { members: friend._id }
@@ -36,12 +38,16 @@ Meteor.methods({
         channelId
       };
       Messages.insert(msg);
-      const user = Meteor.users.findOne(friend._id);
-      Meteor.call(
-        "userNotification",
-        "Invitation au groupe " + Channels.findOne(channelId).name,
-        user.mobileId.userId
-      );
+      const text = `${friend.username} vous a ajouté au groupe "${channel.name}"`
+      Notify(text, [friend.mobileId.userId])
+      //
+      // const user = Meteor.users.findOne(friend._id);
+      // Meteor.call(
+      //   "userNotification",
+      //   "Invitation au groupe " + Channels.findOne(channelId).name,
+      //   user.mobileId.userId
+      // );
+
     } else {
       throw new Meteor.Error("channel-not-found", "Channel non trouvé.");
     }

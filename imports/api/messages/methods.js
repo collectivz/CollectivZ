@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { check } from 'meteor/check';
 
+import { Notify } from '../notify';
 import { Messages } from './collection.js';
 import { Channels } from '../channels/collection.js';
 
@@ -26,12 +27,12 @@ Meteor.methods({
       Messages.insert(message);
     }
     const msg = `${message.text.substr(0, 120)} ...`;
-
-    Meteor.call(
-        'usersNotificationFromChannel',
-        `nouveau message`,
-        message.channelId,
-     );
+    Notify.channel(msg, message.channelId)
+    // Meteor.call(
+    //     'usersNotificationFromChannel',
+    //     `nouveau message`,
+    //     message.channelId,
+    //  );
   },
   'messages.edit': function (newText, messageId) {
     if (!this.userId) {
@@ -164,14 +165,14 @@ Meteor.methods({
       },
       { multi: true },
     );
-
-    const nomGroupe = Channels.findOne(newChannelId).name;
-
-    Meteor.call(
-        'usersNotificationFromChannel',
-        `nouvelle action dans le groupe`,
-        newChannelId,
-     );
+    //
+    // const nomGroupe = Channels.findOne(newChannelId).name;
+    //
+    // Meteor.call(
+    //     'usersNotificationFromChannel',
+    //     `nouvelle action dans le groupe`,
+    //     newChannelId,
+    //  );
   },
 
   'messages.answerMessage': function (messageId, text) {
@@ -205,10 +206,12 @@ Meteor.methods({
 
     Messages.insert(newMessage);
 
-    Meteor.call(
-        'usersNotificationFromChannel',
-        `nouveau message dans le groupe`,
-        message.channelId
-    );
+    const msg = `${newMessage.text.substr(0, 120)} ...`;
+    Notify.channel(msg, message.channelId)
+    // Meteor.call(
+    //     'usersNotificationFromChannel',
+    //     `nouveau message dans le groupe`,
+    //     message.channelId
+    // );
   },
 });

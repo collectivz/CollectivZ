@@ -3,6 +3,7 @@ import { Mongo } from 'meteor/mongo';
 import { check } from 'meteor/check';
 import { _ } from 'meteor/underscore';
 
+import { Notify } from '../notify';
 import { Channels } from './collection.js';
 import { Messages } from '../messages/collection.js';
 import { Polls } from '../polls/collection.js';
@@ -60,7 +61,8 @@ Meteor.methods({
     });
 
     if (!group.private) {
-      Meteor.call('allUsersNotification', `Nouveau groupe ${group.name}`);
+      Notify(`Le groupe ${group.name} vient d'être créé`)
+      // Meteor.call('allUsersNotification', `Nouveau groupe ${group.name}`);
     }
   },
 
@@ -123,11 +125,8 @@ Meteor.methods({
       $set: { [lastReadField]: Date.now() },
     });
 
-    const text = channel.type === 'channel'
-      ? 'Nouvelle action '
-      : 'Nouveau groupe ';
-
-    Meteor.call('usersNotificationFromChannel', `${text}`, parentId);
+    Notify.channel(`L'action ${channel.name} a été créée dans le groupe ${parent.name}`, parentId)
+    // Meteor.call('usersNotificationFromChannel', `${text}`, parentId);
 
     return channelId;
   },

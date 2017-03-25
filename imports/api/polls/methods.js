@@ -2,6 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import { check } from 'meteor/check';
 import { _ } from 'meteor/underscore';
 
+import { Notify } from '../notify';
 import { Polls, Propositions } from './collection.js';
 import { Messages } from '../messages/collection.js';
 import { Channels } from '../channels/collection.js';
@@ -67,12 +68,12 @@ Meteor.methods({
     Channels.update(parentId, {
       $inc: { 'connections.pollCount': 1 },
     });
-
-    Meteor.call(
-      'usersNotificationFromChannel',
-      `nouveau sondage dans le groupe `,
-      message.channelId,
-    );
+    Notify.channel(`Nouveau sondage dans le groupe ${parent.name}`)
+    // Meteor.call(
+    //   'usersNotificationFromChannel',
+    //   `nouveau sondage dans le groupe `,
+    //   message.channelId,
+    // );
   },
 
   'polls.vote': function (pollId, propsId) {
