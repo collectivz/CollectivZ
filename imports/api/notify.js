@@ -20,11 +20,15 @@ Notify.ids = (text, ids = []) => {
 
 Notify.channel = (text, channelId) => {
   const userId = Meteor.userId();
+  const channel = Channels.findOne(channelId)
   const users = Meteor.users.find(
-    { $or: [
-      {subscribedConversations: { $in: [channelId] }},
-      {subscribedChannels: { $in: [channelId] }},
-    ] },
+    { $and : [
+      {$or: [
+        {subscribedConversations: { $in: [channelId] }},
+        {subscribedChannels: { $in: [channelId] }},
+      ]},
+      { _id: { $nin: [channel.activeUsers] } }
+    ]},
     {fields: { _id: 1, mobileId: 1 } }
   ).fetch()
   let idsToNotify = []
@@ -35,6 +39,7 @@ Notify.channel = (text, channelId) => {
   });
   client.sendNotification(text, { include_player_ids: idsToNotify });
 }
+
 Meteor.methods({
   registerUser(userId, mobileId) {
     console.log(`mobileId is: ${JSON.stringify(mobileId)}`);
