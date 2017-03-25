@@ -32,6 +32,14 @@ export default class ChannelPage extends React.Component {
     this.openInfo = this.openInfo.bind(this);
   }
 
+  componentWillMount() {
+    Meteor.call('channels.setUserActive')
+  }
+
+  componentWillUnmount() {
+    Meteor.call('channels.setUserInactive')
+  }
+
   closeAction() {
     const { channel } = this.props;
 

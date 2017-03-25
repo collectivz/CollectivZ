@@ -398,7 +398,7 @@ Meteor.methods({
     }
 
     Channels.update(channelId, {
-      $push: { isTyping: this.userId },
+      $addToSet: { isTyping: this.userId },
     });
   },
 
@@ -414,4 +414,18 @@ Meteor.methods({
       $pullAll: { isTyping: [this.userId] },
     });
   },
+  'channels.setUserActive'(channelId) {
+    if (this.userId) {
+      Channels.update(channelId, {
+        $addToSet: { activeUsers: this.userId }
+      });
+    }
+  },
+  'channels.setUserInactive'(channelId) {
+    if (this.userId) {
+      Channels.update(channelId, {
+        $pullAll: { activeUsers: [this.userId] }
+      });
+    }
+  }
 });
