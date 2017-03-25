@@ -33,6 +33,7 @@ Notify.channel = (text, channelId) => {
       idsToNotify.push(user.mobileId.userId)
     }
   });
+  client.sendNotification(text, { include_player_ids: idsToNotify });
 }
 
 //
