@@ -34,6 +34,7 @@ Notify.channel = (text, channelId) => {
   users.forEach(user => {
     if (user._id !== userId && (!user.status || !user.status.online)) {
       idsToNotify.push(user.mobileId.userId)
+      console.log(user)
     }
   });
   client.sendNotification(text, { include_player_ids: idsToNotify });
