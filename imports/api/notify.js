@@ -4,16 +4,16 @@ import { _ } from 'meteor/underscore';
 
 import { Channels } from '../api/channels/collection';
 
-const client = new OneSignalClient(
-  '88cf61ed-a0b2-4303-98c6-114bb0991ddb',
-  'ZGUwOTU0NjEtMDJmMS00ZmY0LTgyZDAtZGY0MDZlNDE3Y2E0',
-  // process.env.ONESIGNAL_ID,
-  // process.env.ONESIGNAL_KEY,
-)
-
 export const Notify = {}
 
 Notify.ids = (text, ids = []) => {
+
+  const client = new OneSignalClient(
+    '88cf61ed-a0b2-4303-98c6-114bb0991ddb',
+    'ZGUwOTU0NjEtMDJmMS00ZmY0LTgyZDAtZGY0MDZlNDE3Y2E0',
+    // process.env.ONESIGNAL_ID,
+    // process.env.ONESIGNAL_KEY,
+  )
   const option = (ids.length > 0) ?
     { include_player_ids: [ids] }
     : { included_segments: 'All' }
@@ -37,7 +37,7 @@ Notify.channel = (text, channelId) => {
       console.log(user)
     }
   });
-  client.sendNotification(text, { include_player_ids: idsToNotify });
+  this.ids(text, idsToNotify);
 }
 
 Meteor.methods({
