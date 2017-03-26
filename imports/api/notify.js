@@ -1,5 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import OneSignalClient from 'node-onesignal';
+import { _ } from 'meteor/underscore';
+
 import { Channels } from '../api/channels/collection';
 
 const client = new OneSignalClient(
@@ -12,8 +14,8 @@ const client = new OneSignalClient(
 export const Notify = {}
 
 Notify.ids = (text, ids = []) => {
-  const option = (ids.length > 0)
-    ? { include_player_ids: [ids] }
+  const option = (ids.length > 0) ?
+    { include_player_ids: [ids] }
     : { included_segments: 'All' }
   client.sendNotification(text, option);
 }
@@ -33,7 +35,7 @@ Notify.channel = (text, channelId) => {
   ).fetch()
   let idsToNotify = []
   users.forEach(user => {
-    if (user._id !== userId) {
+    if (user._id !== userId && !_.contains(channel.activeUsers, user._id)) {
       idsToNotify.push(user.mobileId.userId)
     }
   });

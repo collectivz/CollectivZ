@@ -32,12 +32,18 @@ export default class ChannelPage extends React.Component {
     this.openInfo = this.openInfo.bind(this);
   }
 
-  componentWillMount() {
-    Meteor.call('channels.setUserActive', this.props.channel._id)
+  componentDidMount() {
+    const { channel } = this.props;
+    if (channel) {
+      Meteor.call('channels.setUserActive', channel._id)
+    }
   }
 
-  componentWillUnmount() {
-    Meteor.call('channels.setUserInactive', this.props.channel._id)
+  componentDidUnmount() {
+    const { channel } = this.props;
+    if (channel) {
+      Meteor.call('channels.setUserInactive', channel._id)
+    }
   }
 
   closeAction() {
@@ -184,4 +190,12 @@ ChannelPage.propTypes = {
 
 ChannelPage.contextTypes = {
   router: PropTypes.object
+};
+
+window.onbeforeunload = () => {
+  const channels = Channels.find().fetch();
+
+  channels.forEach(channel => {
+    Meteor.call("channels.setUserInactive", channel._id);
+  });
 };
