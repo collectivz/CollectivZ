@@ -24,21 +24,17 @@ Notify.channel = (text, channelId) => {
   const userId = Meteor.userId();
   const channel = Channels.findOne(channelId)
   const users = Meteor.users.find(
-    { $and : [
-      {$or: [
-        {subscribedConversations: { $in: [channelId] }},
-        {subscribedChannels: { $in: [channelId] }},
-      ]},
-      { 'status.online': false },
-      { _id: { $ne: userId } }
+    {$or: [
+      {subscribedConversations: { $in: [channelId] }},
+      {subscribedChannels: { $in: [channelId] }},
     ]},
-    {fields: { mobileId: 1 } }
+    {fields: { status: 1, _id: 1, mobileId: 1 } }
   ).fetch()
   let idsToNotify = []
   users.forEach(user => {
-    // if (user._id !== userId) {
+    if (user._id !== userId && (!user.status || !user.status.online)) {
       idsToNotify.push(user.mobileId.userId)
-    // }
+    }
   });
   client.sendNotification(text, { include_player_ids: idsToNotify });
 }

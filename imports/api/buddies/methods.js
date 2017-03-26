@@ -39,7 +39,7 @@ Meteor.methods({
       };
       Messages.insert(msg);
       const text = `${friend.username} vous a ajouté au groupe "${channel.name}"`
-      Notify(text, [friend.mobileId.userId])
+      Notify.ids(text, [friend.mobileId.userId])
       //
       // const user = Meteor.users.findOne(friend._id);
       // Meteor.call(
