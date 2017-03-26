@@ -29,15 +29,16 @@ Notify.channel = (text, channelId) => {
         {subscribedConversations: { $in: [channelId] }},
         {subscribedChannels: { $in: [channelId] }},
       ]},
-      { _id: { $nin: [channel.activeUsers] } }
+      { 'status.online': false },
+      { _id: { $ne: userId } }
     ]},
-    {fields: { _id: 1, mobileId: 1 } }
+    {fields: { mobileId: 1 } }
   ).fetch()
   let idsToNotify = []
   users.forEach(user => {
-    if (user._id !== userId && !_.contains(channel.activeUsers, user._id)) {
+    // if (user._id !== userId) {
       idsToNotify.push(user.mobileId.userId)
-    }
+    // }
   });
   client.sendNotification(text, { include_player_ids: idsToNotify });
 }

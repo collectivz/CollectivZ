@@ -191,12 +191,3 @@ ChannelPage.propTypes = {
 ChannelPage.contextTypes = {
   router: PropTypes.object
 };
-
-window.onbeforeunload = () => {
-  const channels = Channels.find().fetch();
-
-  channels.forEach(channel => {
-    console.log(`calling setUserInactive for: ${channel.name}`)
-    Meteor.call("channels.setUserInactive", channel._id);
-  });
-};
