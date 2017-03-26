@@ -39,7 +39,7 @@ export default class ChannelPage extends React.Component {
     }
   }
 
-  componentDidUnmount() {
+  componentWillUnmount() {
     const { channel } = this.props;
     if (channel) {
       Meteor.call('channels.setUserInactive', channel._id)
@@ -196,6 +196,7 @@ window.onbeforeunload = () => {
   const channels = Channels.find().fetch();
 
   channels.forEach(channel => {
+    console.log(`calling setUserInactive for: ${channel.name}`)
     Meteor.call("channels.setUserInactive", channel._id);
   });
 };

@@ -26,8 +26,8 @@ class messageCollection extends Mongo.Collection {
       $set: { lastActivity: message.createdAt, lastMessage }
     });
     message.objectionable = false;
-    message.text = replaceSmileys(message.text);
     message.text = replaceUrls(message.text);
+    message.text = replaceSmileys(message.text);
     return super.insert(message);
   }
 

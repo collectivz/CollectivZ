@@ -5,9 +5,6 @@ const urlRegex = new RegExp(
 export function replaceUrls(string) {
   const target = string.replace(urlRegex, aMatch => {
     let match = aMatch;
-    if (match[0] !== "h") {
-      match = `http://${match}`;
-    }
     if (Meteor.isCordova)
       window.open = cordova.InAppBrowser.open;
 
