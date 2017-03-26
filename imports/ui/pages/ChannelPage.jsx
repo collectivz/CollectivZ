@@ -33,11 +33,11 @@ export default class ChannelPage extends React.Component {
   }
 
   componentWillMount() {
-    Meteor.call('channels.setUserActive')
+    Meteor.call('channels.setUserActive', this.props.channel._id)
   }
 
   componentWillUnmount() {
-    Meteor.call('channels.setUserInactive')
+    Meteor.call('channels.setUserInactive', this.props.channel._id)
   }
 
   closeAction() {
