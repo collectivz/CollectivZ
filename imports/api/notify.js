@@ -34,15 +34,14 @@ Notify.channel = (text, channelId) => {
       console.log(user)
     }
   });
-  Notify.ids(text, idsToNotify);
+  client.sendNotification(text, {include_player_ids: idsToNotify});
 }
 
 Meteor.methods({
   registerUser(userId, mobileId) {
-    console.log(`mobileId is: ${JSON.stringify(mobileId)}`);
     Meteor.users.update(
         userId, {
-          $set: { mobileId },
+          $set: { mobileId: mobileId },
         },
      );
   },
