@@ -5,12 +5,12 @@ import { _ } from 'meteor/underscore';
 import { Channels } from '../api/channels/collection';
 
 export const Notify = {}
+const client = new OneSignalClient(
+  process.env.ONESIGNAL_ID,
+  process.env.ONESIGNAL_KEY,
+)
 
 Notify.ids = (text, ids = []) => {
-  const client = new OneSignalClient(
-    process.env.ONESIGNAL_ID,
-    process.env.ONESIGNAL_KEY,
-  )
   const option = (ids.length > 0) ?
     { include_player_ids: [ids] }
     : { included_segments: 'All' }
@@ -34,7 +34,7 @@ Notify.channel = (text, channelId) => {
       console.log(user)
     }
   });
-  this.ids(text, idsToNotify);
+  Notify.ids(text, idsToNotify);
 }
 
 Meteor.methods({
