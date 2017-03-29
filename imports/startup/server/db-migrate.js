@@ -11,9 +11,25 @@ Meteor.startup(() => {
 
   const channels = Channels.find().fetch();
   channels.forEach(channel => {
-    if (!channel.activeUsers) {
+    if (Array.isArray(channel.activeUsers)) {
       Channels.update(channel._id, {
-        $set: { activeUsers: [] }
+        $unset: { activeUsers: "" }
+      })
+    }
+  })
+
+  const users = Meteor.users.find().fetch()
+  const defaultStatus = {
+    online: false,
+    idle: false
+  }
+
+  users.forEach(user => {
+    if (!user.status) {
+      Meteor.users.update(user._id, {
+        $set: {
+          status: defaultStatus
+        }
       })
     }
   })

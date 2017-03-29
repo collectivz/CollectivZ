@@ -28,25 +28,33 @@ Notify.ids = (text, ids = []) => {
 }
 
 Notify.channel = (text, channelId) => {
-  if (process.env.NODE_ENV === 'production') {
-    const userId = Meteor.userId();
-    const channel = Channels.findOne(channelId)
-    const users = Meteor.users.find(
-      {$or: [
-        {subscribedConversations: { $in: [channelId] }},
-        {subscribedChannels: { $in: [channelId] }},
+  const userId = Meteor.userId();
+  const channel = Channels.findOne(channelId)
+  const users = Meteor.users.find(
+    { $and: [
+      {
+        $or: [
+          {subscribedConversations: { $in: [channelId] }},
+          {subscribedChannels: { $in: [channelId] }},
+        ]
+      },
+      { $or: [
+        { 'status.online': false },
+        { 'status.idle': true }
       ]},
-      {fields: { username: 1, status: 1, _id: 1, mobileId: 1 } }
-    ).fetch()
-    let idsToNotify = []
-    users.forEach(user => {
-      if (user._id !== userId && (!user.status || !user.status.online || user.status.idle)) {
-        idsToNotify.push(user.mobileId.userId)
-        console.log(user)
-      }
-    });
-    Notify.ids(text, idsToNotify);
-  }
+      { _id: { $ne: userId } }
+    ]
+    },
+    {fields: { username: 1, status: 1, _id: 1, mobileId: 1 } }
+  ).fetch()
+  console.log(users)
+  let idsToNotify = []
+  users.forEach(user => {
+    if (user._id !== userId && (!user.status || !user.status.online || user.status.idle)) {
+      idsToNotify.push(user.mobileId.userId)
+    }
+  });
+  Notify.ids(text, idsToNotify);
 }
 
 Meteor.methods({
