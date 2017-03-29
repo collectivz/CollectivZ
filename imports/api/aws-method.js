@@ -20,7 +20,6 @@ Meteor.methods({
     const s3 = new aws.S3();
     const S3_BUCKET = "collectivz-bucketz";
 
-    console.log(process.env.AWS_ACCESS_KEY_ID);
     let returnData;
     const rand = Random.id(8)
     const s3Params = {
@@ -36,7 +35,6 @@ Meteor.methods({
         console.log(err);
         return err;
       }
-      console.log(data);
       returnData = {
         signedRequest: data,
         url: `https://${S3_BUCKET}.s3.eu-central-1.amazonaws.com/${Meteor.user().username}Avatar${rand}.jpg`
