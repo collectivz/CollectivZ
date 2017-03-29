@@ -11,6 +11,9 @@ document.addEventListener(
       document.addEventListener('pause', () => {
         Meteor.call('user-status-idle', Date.now())
       })
+      document.addEventListener('resume', () => {
+        Meteor.call('user-status-active', Date.now())
+      })
       window.plugins.OneSignal
         .startInit('88cf61ed-a0b2-4303-98c6-114bb0991ddb')
         .handleNotificationOpened(notificationOpenedCallback)
