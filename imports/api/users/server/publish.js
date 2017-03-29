@@ -32,7 +32,8 @@ Meteor.publish("user", function() {
           coinz: 1,
           imageUrl: 1,
           phone: 1,
-          hero: 1
+          hero: 1,
+          status: 1
         }
       }),
       History.find({ userId: this.userId })

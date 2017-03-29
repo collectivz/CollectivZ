@@ -3,12 +3,14 @@ document.addEventListener(
   () => {
     // Enable to debug issues.
     //window.plugins.OneSignal.setLogLevel({ logLevel: 4, visualLevel: 4 });
-
     const notificationOpenedCallback = function (jsonData) {
       console.log(`notificationOpenedCallback: ${JSON.stringify(jsonData)}`);
     };
 
     if (Meteor.isCordova) {
+      document.addEventListener('pause', () => {
+        Meteor.call('user-status-idle', Date.now())
+      })
       window.plugins.OneSignal
         .startInit('88cf61ed-a0b2-4303-98c6-114bb0991ddb')
         .handleNotificationOpened(notificationOpenedCallback)
