@@ -23,7 +23,7 @@ Notify.ids = (text, ids = []) => {
     const option = (ids.length > 0) ?
     { include_player_ids: [ids] }
     : { included_segments: 'All' }
-    publish(text, option);
+    // publish(text, option);
   }
 }
 
@@ -54,7 +54,8 @@ Notify.channel = (text, channelId) => {
       idsToNotify.push(user.mobileId.userId)
     }
   });
-  Notify.ids(text, idsToNotify);
+  console.log(idsToNotify)
+  // Notify.ids(text, idsToNotify);
 }
 
 Meteor.methods({
