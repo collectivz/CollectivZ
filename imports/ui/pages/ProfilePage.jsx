@@ -124,7 +124,7 @@ export default class ProfilePage extends Component {
               }
             </div>
           </div>
-          <AppNav user={user} />
+          <AppNav user={currentUser} />
         </div>
         : null
   );
