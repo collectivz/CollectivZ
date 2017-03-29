@@ -40,7 +40,7 @@ Notify.channel = (text, channelId) => {
     ).fetch()
     let idsToNotify = []
     users.forEach(user => {
-      if (user._id !== userId && (!user.status || !user.status.online)) {
+      if (user._id !== userId && (!user.status || !user.status.online || user.status.idle)) {
         idsToNotify.push(user.mobileId.userId)
         console.log(user)
       }
