@@ -23,7 +23,7 @@ Notify.ids = (text, ids = []) => {
     const option = (ids.length > 0) ?
     { include_player_ids: [ids] }
     : { included_segments: 'All' }
-    client.sendNotification(text, option);
+    publish(text, option);
   }
 }
 
