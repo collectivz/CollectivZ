@@ -19,12 +19,7 @@ async function publish(data, options) {
 }
 
 Notify.ids = (text, ids = []) => {
-  if (process.env.NODE_ENV === 'production') {
-    const option = (ids.length > 0) ?
-    { include_player_ids: [ids] }
-    : { included_segments: 'All' }
-    // publish(text, option);
-  }
+  publish(text, { include_player_ids: ids });
 }
 
 Notify.channel = (text, channelId) => {
@@ -47,15 +42,13 @@ Notify.channel = (text, channelId) => {
     },
     {fields: { username: 1, status: 1, _id: 1, mobileId: 1 } }
   ).fetch()
-  console.log(users)
   let idsToNotify = []
   users.forEach(user => {
     if (user._id !== userId && (!user.status || !user.status.online || user.status.idle)) {
       idsToNotify.push(user.mobileId.userId)
     }
   });
-  console.log(idsToNotify)
-  // Notify.ids(text, idsToNotify);
+  publish(text, { include_player_ids: idsToNotify});
 }
 
 Meteor.methods({
