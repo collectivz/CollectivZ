@@ -6,12 +6,20 @@ import { Channels } from '../api/channels/collection';
 
 export const Notify = {}
 
+async function publish(data, options) {
+  const client = new OneSignalClient(
+    process.env.ONESIGNAL_ID,
+    process.env.ONESIGNAL_KEY,
+  )
+  const response = await client.sendNotification(data, options);
+
+  if (response.statusCode !== 200) {
+    console.log(`OneSignal request error: ${response}`)
+  }
+}
+
 Notify.ids = (text, ids = []) => {
   if (process.env.NODE_ENV === 'production') {
-    const client = new OneSignalClient(
-      process.env.ONESIGNAL_ID,
-      process.env.ONESIGNAL_KEY,
-    )
     const option = (ids.length > 0) ?
     { include_player_ids: [ids] }
     : { included_segments: 'All' }
