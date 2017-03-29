@@ -6,7 +6,7 @@ import { Channels } from '../api/channels/collection';
 
 export const Notify = {}
 if (process.env.NODE_ENV === 'production') {
-  const client = new OneSignalClient(
+  var client = new OneSignalClient(
     process.env.ONESIGNAL_ID,
     process.env.ONESIGNAL_KEY,
   )
