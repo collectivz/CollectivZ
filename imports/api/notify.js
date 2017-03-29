@@ -5,15 +5,13 @@ import { _ } from 'meteor/underscore';
 import { Channels } from '../api/channels/collection';
 
 export const Notify = {}
-if (process.env.NODE_ENV === 'production') {
-  var client = new OneSignalClient(
-    process.env.ONESIGNAL_ID,
-    process.env.ONESIGNAL_KEY,
-  )
-}
 
 Notify.ids = (text, ids = []) => {
   if (process.env.NODE_ENV === 'production') {
+    const client = new OneSignalClient(
+      process.env.ONESIGNAL_ID,
+      process.env.ONESIGNAL_KEY,
+    )
     const option = (ids.length > 0) ?
     { include_player_ids: [ids] }
     : { included_segments: 'All' }
@@ -39,7 +37,7 @@ Notify.channel = (text, channelId) => {
         console.log(user)
       }
     });
-    client.sendNotification(text, {include_player_ids: idsToNotify});
+    Notify.ids(text, idsToNotify);
   }
 }
 
