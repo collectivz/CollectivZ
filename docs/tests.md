@@ -47,8 +47,7 @@ https://ghostinspector.com/
 avec
 
 login: nodev.collectivz@gmail.com
-password: QSDfgh_123
-
+password: 
 Ce compte Gost Inspector a pour role :
 
 * archiver les jeux de tests
