@@ -61,7 +61,7 @@ Meteor.methods({
     });
 
     if (!group.private) {
-      Notify(`Le groupe ${group.name} vient d'être créé`)
+      Notify.all(`Le groupe ${group.name} vient d'être créé`)
       // Meteor.call('allUsersNotification', `Nouveau groupe ${group.name}`);
     }
   },

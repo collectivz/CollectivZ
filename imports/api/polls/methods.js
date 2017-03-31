@@ -68,12 +68,7 @@ Meteor.methods({
     Channels.update(parentId, {
       $inc: { 'connections.pollCount': 1 },
     });
-    Notify.channel(`Nouveau sondage dans le groupe ${parent.name}`)
-    // Meteor.call(
-    //   'usersNotificationFromChannel',
-    //   `nouveau sondage dans le groupe `,
-    //   message.channelId,
-    // );
+    Notify.channel(`Nouveau sondage dans le groupe ${parent.name}`, message.channelId)
   },
 
   'polls.vote': function (pollId, propsId) {

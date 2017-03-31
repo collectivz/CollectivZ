@@ -18,8 +18,10 @@ async function publish(data, options) {
   }
 }
 
-Notify.ids = (text, ids = []) => {
-  publish(text, { include_player_ids: ids });
+Notify.all = (text) => {
+  if (process.env.NODE_ENV === 'production') {
+    publish(text, { included_segments: 'All' });
+  }
 }
 
 Notify.channel = (text, channelId) => {

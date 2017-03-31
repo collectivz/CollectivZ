@@ -60,6 +60,7 @@ export default class Chat extends React.Component {
       messageCount,
       scrollingUp
     } = this.state;
+
     if (inputMode !== "message" && inputMode !== "answer" && !ongoingAction) {
       const zorro = zorroForm(inputMode, channel._id);
       const newState = zorro.getState();
@@ -105,9 +106,9 @@ export default class Chat extends React.Component {
         scrollingUp: false
       });
     } else if (elem.scrollTop() <= elem.height()/2 && !scrollingUp) {
-      this.setState({
-        scrollingUp: true
-      });
+      // this.setState({
+      //   scrollingUp: true
+      // });
     }
   }
 
@@ -116,6 +117,7 @@ export default class Chat extends React.Component {
       inputMode: "answer",
       answeringTo: messageId
     });
+    this.scrollDown();
   }
 
   hasJoined() {

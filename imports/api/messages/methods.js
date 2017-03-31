@@ -26,7 +26,15 @@ Meteor.methods({
       message.authorImage = author.imageUrl;
       Messages.insert(message);
     }
-    const msg = `${message.text.substr(0, 120)} ...`;
+    const channel = Channels.findOne(message.channelId);
+    const string = `${channel.name}: ${message.text}`
+    let msg = ''
+
+    if (string.length > 120) {
+      msg = `${string.substr(0, 120)}...`
+    } else {
+      msg = string
+    }
     Notify.channel(msg, message.channelId)
     // Meteor.call(
     //     'usersNotificationFromChannel',
