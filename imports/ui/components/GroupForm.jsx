@@ -8,7 +8,7 @@ export default class GroupForm extends React.Component {
     super(props);
 
     this.state = {
-      isPublic: false
+      isPublic: true
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
