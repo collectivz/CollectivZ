@@ -62,7 +62,6 @@ Meteor.methods({
 
     if (!group.private) {
       Notify.all(`Le groupe ${group.name} vient d'être créé`)
-      // Meteor.call('allUsersNotification', `Nouveau groupe ${group.name}`);
     }
   },
 
@@ -155,6 +154,11 @@ Meteor.methods({
       });
 
       const username = Meteor.users.findOne(this.userId).username;
+      const msg = {
+        text: `${username} vient de rejoindre le groupe.`,
+        channelId: channel._id,
+      };
+      Messages.insert(msg);
     }
   },
 
@@ -188,6 +192,11 @@ Meteor.methods({
       }
 
       const username = Meteor.users.findOne(userId).username;
+      const msg = {
+        text: `${username} vient de rejoindre le groupe.`,
+        channelId: channel._id,
+      };
+      Messages.insert(msg);
     }
   },
 
