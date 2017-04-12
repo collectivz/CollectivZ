@@ -122,7 +122,7 @@ export default class Chat extends React.Component {
 
   hasJoined() {
     const { user, channel } = this.props;
-    if (!_.contains(user.subscribedChannels, channel._id)) {
+    if (_.indexOf(user.subscribedChannels, channel._id) === -1) {
       return false;
     }
     return true;
