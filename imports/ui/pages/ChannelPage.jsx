@@ -13,7 +13,7 @@ import ChannelInfo from "../components/ChannelInfo";
 import { Toast } from "../helpers/Toast";
 import { openModal } from "../helpers/Modal";
 
-const LIMIT = 20;
+const LIMIT = 30;
 
 export default class ChannelPage extends React.Component {
   constructor(props) {
@@ -30,20 +30,6 @@ export default class ChannelPage extends React.Component {
     this.openEditModal = this.openEditModal.bind(this);
     this.openPictureModal = this.openPictureModal.bind(this);
     this.openInfo = this.openInfo.bind(this);
-  }
-
-  componentDidMount() {
-    const { channel } = this.props;
-    if (channel) {
-      Meteor.call('channels.setUserActive', channel._id)
-    }
-  }
-
-  componentWillUnmount() {
-    const { channel } = this.props;
-    if (channel) {
-      Meteor.call('channels.setUserInactive', channel._id)
-    }
   }
 
   closeAction() {

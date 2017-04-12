@@ -47,7 +47,8 @@ Notify.channel = (text, channelId) => {
   let idsToNotify = []
   users.forEach(user => {
     if (user._id !== userId && (!user.status || !user.status.online || user.status.idle)) {
-      idsToNotify.push(user.mobileId.userId)
+      if (user.mobileId)
+        idsToNotify.push(user.mobileId.userId)
     }
   });
   publish(text, { include_player_ids: idsToNotify});
