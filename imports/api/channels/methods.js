@@ -190,13 +190,6 @@ Meteor.methods({
           $pullAll: { subscribedChannels: [channelId] },
         });
       }
-
-      const username = Meteor.users.findOne(userId).username;
-      const msg = {
-        text: `${username} vient de rejoindre le groupe.`,
-        channelId: channel._id,
-      };
-      Messages.insert(msg);
     }
   },
 
