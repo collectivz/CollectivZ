@@ -2,7 +2,6 @@ import { Email } from "meteor/email";
 import { Meteor } from "meteor/meteor";
 import { SyncedCron } from "meteor/percolate:synced-cron";
 import moment from "moment";
-import { SSR } from "meteor/meteorhacks:ssr";
 
 import { Channels } from "../channels/collection";
 import { Messages } from "../messages/collection";

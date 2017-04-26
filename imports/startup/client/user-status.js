@@ -7,6 +7,7 @@ Tracker.autorun(c => {
       interval: 1000,
       idleOnBlur: true
     })
+
     console.log('montoring started')
     c.stop()
   } catch(err) {

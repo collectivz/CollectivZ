@@ -1,5 +1,6 @@
 App.accessRule('http://*');
 App.accessRule('https://*');
+App.accessRule('blob:*');
 
 App.setPreference('android-targetSdkVersion', '21');
 

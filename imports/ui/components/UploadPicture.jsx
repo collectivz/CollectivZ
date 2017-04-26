@@ -1,7 +1,6 @@
 import React, { Component, PropTypes } from "react";
 import { Meteor } from "meteor/meteor";
 import { _ } from "meteor/underscore";
-// import smartcrop from 'smartcrop';
 import xhr from "xhr";
 
 import { Toast } from "../helpers/Toast.js";
@@ -13,9 +12,6 @@ export default class UploadPicture extends React.Component {
 
     this.state = {
       preview: props.data ? props.data.imageUrl : null,
-      file: null,
-      signedRequest: null,
-      url: ""
     };
 
     this.uploadPicture = this.uploadPicture.bind(this);
@@ -28,73 +24,40 @@ export default class UploadPicture extends React.Component {
       method
     } = this.props;
     const {
-      file,
-      signedRequest,
-      url
+      preview,
     } = this.state;
 
-    if (file && signedRequest) {
-      const xhr = new XMLHttpRequest();
-      xhr.open("PUT", signedRequest);
-      xhr.onreadystatechange = () => {
-        if (xhr.readyState === 4) {
-          if (xhr.status === 200) {
-            Meteor.call(method, data._id, url, (err, res) => {
-              if (err) {
-                Toast(err.reason, "danger");
-              } else {
-                Toast("Modification prise en compte", "success");
-                this.setState({
-                  file: null,
-                  signedRequest: null,
-                  url: ""
-                });
-                closeModal();
-              }
-            });
-          } else {
-            console.log("Could not upload file.");
-          }
-        }
-      };
-      xhr.send(file);
-    }
+    Meteor.call(method, data._id, preview, (err, res) => {
+      if (err) {
+        Toast(err.reason, "danger");
+      } else {
+        Toast("Modification prise en compte", "success");
+        this.setState({
+          file: null,
+          signedRequest: null,
+          url: ""
+        });
+        closeModal();
+      }
+    });
   }
 
   uploadPicture(e) {
     e.preventDefault();
+    const self = this
     let file = e.target.files[0];
+    const cloudName = process.env.CLOUDINARY_CLOUD_NAME
 
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (self => {
-        return function(e) {
-          const img = new Image();
-          img.src = e.target.result;
-          self.setState({
-            preview: e.target.result
-          });
-        };
-      })(this);
-
-      if (file.type.split("/")[0] !== "image") {
-        console.log("not an image");
+    Cloudinary.upload(file, (err, res) => {
+      if (err)
+        console.log(err)
+      else {
+        const url = `http://res.cloudinary.com/${cloudName}/image/upload/c_crop,g_auto:face,h_500,q_auto,r_max,w_500,x_0,y_0/a_0/v1493225078/${res.public_id}`
+        self.setState({
+          preview: url
+        })
       }
-
-      reader.readAsDataURL(file);
-
-      Meteor.call("requestAwsSignature", file.name, file.type, (err, res) => {
-        if (err) {
-          console.log(err);
-          return;
-        }
-        this.setState({
-          file: file,
-          signedRequest: res.signedRequest,
-          url: res.url
-        });
-      });
-    }
+    })
   }
 
   render() {
