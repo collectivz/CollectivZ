@@ -1,13 +1,14 @@
 App.accessRule('http://*');
 App.accessRule('https://*');
 App.accessRule('blob:*');
+App.accessRule('*');
 
 App.setPreference('android-targetSdkVersion', '21');
 
 App.info({
   id: 'com.union.collectivz',
   name: 'Digital Trait d\'Union',
-  version: '1.01',
+  version: '1.02',
 });
 
 App.icons({
